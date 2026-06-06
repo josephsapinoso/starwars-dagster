@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "starwars_dagster"
+version = "0.1.0"
+dependencies = [
+    "dagster>=1.7",
+    "dagster-webserver>=1.7",
+    "requests",
+    "duckdb>=0.10",
+    "pandas",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.dagster]
+module_name = "starwars_dagster"
