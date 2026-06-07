@@ -4,6 +4,25 @@ An end-to-end data engineering pipeline built with [Dagster OSS](https://dagster
 
 Built as a self-study workshop for learning Dagster fundamentals.
 
+## Screenshots
+
+### Asset Lineage Graph
+The full dependency graph — all 10 assets across 3 groups, rendered by Dagster's built-in lineage view:
+
+![Asset Lineage Graph](screenshots/dagster_asset_lineage.png)
+
+### Assets Catalog — All Materialized
+Every asset freshly materialized, showing status, description, and last-run timestamp:
+
+![Assets Catalog](screenshots/dagster_assets_materialized.png)
+
+### Run History
+A successful pipeline run completing in under a minute:
+
+![Run History](screenshots/dagster_runs.png)
+
+---
+
 ## Architecture
 
 ```
@@ -78,19 +97,4 @@ daily_refresh_schedule = ScheduleDefinition(
 ```
 starwars_dagster/
 ├── pyproject.toml
-├── WORKSHOP.md                   ← self-study guide (~3-4 hours)
-├── README.md
-└── starwars_dagster/
-    ├── __init__.py               ← Definitions (entry point)
-    ├── schedules.py
-    ├── assets/
-    │   ├── ingestion.py          ← Layer 1: SWAPI pulls
-    │   ├── transforms.py         ← Layers 2+3: DuckDB + SQL
-    │   └── analytics.py          ← Layer 4: report
-    └── resources/
-        └── swapi_resource.py     ← SWAPI HTTP client
-```
-
----
-
-*May the Force be with your data platform.*
+├── WORKSHOP.md                   ← self-study g
