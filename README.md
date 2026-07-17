@@ -80,6 +80,14 @@ After a successful run, `data/output/` contains:
 - `film_character_counts.csv` — cast size and starship count per episode
 - `starship_stats.csv` — cleaned starship performance data
 
+## Website — the Galaxy Report, visualized
+
+`site/index.html` is a self-contained scroll story built on the pipeline's data: **"A Galaxy of 82 People"** — a census told through one unit chart of 82 dots that rearranges as you scroll (height, mass, homeworlds, film appearances, pilots), then hands off to a chart dashboard with the Dagster lineage and the DuckDB SQL behind every figure.
+
+- Single file, no build step, no external dependencies — open it straight from disk
+- Published as a Claude artifact: https://claude.ai/code/artifact/e71e41b6-f606-492c-af77-d19a8b3443d7
+- Respects `prefers-reduced-motion`, works on mobile, and degrades to per-step figures in auto-height embeds
+
 ## Schedule
 
 The pipeline includes a daily schedule (6 AM) that re-pulls from SWAPI — the same pattern you'd use for any REST API data feed.

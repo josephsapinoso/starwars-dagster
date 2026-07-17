@@ -1,0 +1,1163 @@
+<meta charset="utf-8">
+<title>Star Wars Galaxy Report</title>
+<style>
+  /* ── tokens ─────────────────────────────────────────────────────────── */
+  :root {
+    --void: #05070d;          /* page plane — deep space */
+    --panel: #0d1220;         /* chart surface — console panel */
+    --panel-2: #101830;       /* hover lift */
+    --line: #1c2436;          /* hairline grid */
+    --edge: rgba(255,255,255,.08);
+    --ink: #eef1f7;
+    --ink-2: #a8b1c5;
+    --ink-3: #6b7690;
+    --gold: #ffe81f;          /* crawl yellow — display only, never a data series */
+    --crawl: #ffd84d;
+    --s1: #3987e5;            /* saber blue   */
+    --s2: #23a350;            /* saber green  */
+    --s3: #c07c11;            /* amber        */
+    --s4: #e05555;            /* sith red     */
+    --s5: #9085e9;            /* violet       */
+    --disp: "Franklin Gothic Medium", "ITC Franklin Gothic", "Arial Narrow", Arial, sans-serif;
+    --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  html { background: var(--void); scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); background: var(--void); line-height: 1.55; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+
+
+  /* ── hero ───────────────────────────────────────────────────────────────
+     structural heights are capped with min() so the page stays bounded even
+     inside an auto-height iframe where viewport units equal content height */
+  .hero { position: relative; min-height: min(94svh, 860px); display: grid; place-items: center; overflow: hidden; padding: 64px 24px 56px; box-sizing: border-box; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-inner { position: relative; text-align: center; max-width: 880px; }
+  .hero .opener { color: #4bd5ee; font-size: clamp(17px, 2.2vw, 24px); font-weight: 500; margin: 0 0 18px; }
+  .hero h1 { font-family: var(--disp); font-weight: 700; text-transform: uppercase; margin: 0; color: var(--gold); line-height: .88; letter-spacing: .01em; font-size: clamp(64px, 14vw, 176px); text-wrap: balance; }
+  .hero .dek { color: var(--ink-2); font-size: clamp(15px, 1.6vw, 17px); max-width: 56ch; margin: 26px auto 0; }
+  .hero-nav { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .hero-nav .cue { color: var(--ink); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 12px 22px; background: rgba(13,18,32,.6); }
+  .hero-nav .cue:hover { color: var(--gold); border-color: rgba(255,232,31,.4); }
+  .hero-nav .side { color: var(--ink-3); font-size: 12.5px; letter-spacing: .06em; text-decoration: none; }
+  .hero-nav .side:hover { color: var(--ink-2); }
+  .hero .down { color: var(--ink-3); font-size: 18px; margin-top: 18px; animation: bob 2s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(5px); } }
+  @media (prefers-reduced-motion: reduce) { .hero .down { animation: none; } }
+
+  /* ── epigraph — the crawl's one authentic line, at zero seconds ───────── */
+  .epigraph { text-align: center; padding: 34px 24px 8px; }
+  .epigraph blockquote { margin: 0 auto; max-width: 60ch; color: var(--crawl); font-family: var(--disp); text-transform: uppercase; letter-spacing: .04em; font-size: clamp(16px, 2vw, 21px); }
+  .epigraph cite { display: block; margin-top: 8px; color: var(--ink-3); font-size: 12px; font-family: var(--body); font-style: normal; letter-spacing: .08em; text-transform: none; }
+
+  /* ── scroll story ─────────────────────────────────────────────────────── */
+  .story { max-width: 1120px; margin: 0 auto; padding: 24px 24px 0; }
+  .scrolly { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 36px; align-items: start; }
+
+  .stage { position: sticky; top: max(12px, calc((100svh - min(86svh, 720px)) / 2)); height: min(86svh, 720px); display: flex; flex-direction: column; justify-content: center; gap: 10px; min-width: 0; }
+  .stage svg { display: block; width: 100%; height: auto; max-height: calc(100% - 34px); }
+  .stage-cap { margin: 0; text-align: center; color: var(--ink-3); font-size: 12.5px; letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+
+  .steps { min-width: 0; }
+  .step { min-height: min(102svh, 880px); display: flex; align-items: center; }
+  .step-inner { background: var(--panel); border: 1px solid var(--edge); border-radius: 12px; padding: 24px 26px; max-width: 44ch; opacity: .45; transition: opacity .4s ease; }
+  .step.active .step-inner { opacity: 1; }
+  .step .kicker { display: block; color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .28em; font-size: 12.5px; font-weight: 600; margin-bottom: 10px; }
+  .step p { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.65; }
+  .step p + p { margin-top: 12px; }
+  .step .aside { color: var(--ink-3); font-size: 13.5px; }
+  .step a { color: var(--gold); text-decoration: none; }
+  .step a:hover { text-decoration: underline; }
+  .step-fig { display: none; margin: 18px 0 0; }
+  .step-fig svg { display: block; width: 100%; height: auto; }
+  .step-fig figcaption { color: var(--ink-3); font-size: 12px; margin-top: 6px; letter-spacing: .04em; }
+
+  /* stage marks — blue is the sole data hue; gold is display emphasis only,
+     and every gold dot is also direct-labeled by name */
+  .unit circle { fill: var(--s1); opacity: .92; transition: fill .5s ease, opacity .5s ease; }
+  .unit.dim circle { fill: var(--ink-3); opacity: .45; }
+  .unit.faint circle { opacity: .18; }
+  .unit.hot circle { fill: var(--gold); opacity: 1; }
+  .unit { transition: transform .8s cubic-bezier(.4, 0, .2, 1); }
+  .stage-anno { animation: annoIn .55s ease both; }
+  @keyframes annoIn { from { opacity: 0; } }
+  .anno-line { stroke: var(--ink-3); stroke-width: 1; }
+  .anno-name { fill: var(--ink-2); font-size: 12px; }
+  .anno-name.hot { fill: var(--gold); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) {
+    .unit, .unit circle { transition: none; }
+    .stage-anno { animation: none; }
+    .step-inner { transition: none; }
+  }
+
+  /* flat mode: no internal scrolling context (auto-height embeds) — the
+     sticky stage can never stick, so each step carries its own figure */
+  .story.flat .scrolly { display: block; }
+  .story.flat .stage { display: none; }
+  .story.flat .step { min-height: 0; margin: 0 auto 48px; max-width: 720px; display: block; }
+  .story.flat .step-inner { max-width: none; opacity: 1; }
+  .story.flat .step-fig { display: block; }
+
+  /* mobile scroll mode: stage pinned on top, cards scroll beneath */
+  @media (max-width: 860px) {
+    .scrolly { display: flex; flex-direction: column; }
+    .stage { order: -1; position: sticky; top: 0; z-index: 2; width: 100%; align-items: center; height: min(52svh, 480px); background: var(--void); border-bottom: 1px solid var(--line); padding: 8px 0; box-sizing: border-box; }
+    .stage svg { max-width: 480px; }
+    .step { min-height: min(88svh, 760px); }
+    .step-inner { max-width: none; }
+  }
+
+  /* story → dashboard handoff */
+  .handoff-rule { max-width: 1120px; margin: 0 auto; padding: 0 24px 8px; color: var(--ink-3); text-align: center; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
+
+  /* the crawls, retired to content */
+  .crawls-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; padding: 16px 2px 8px; }
+  .crawl-film h4 { margin: 0 0 8px; font-family: var(--disp); text-transform: uppercase; letter-spacing: .06em; color: var(--gold); font-size: 14px; }
+  .crawl-film pre { margin: 0; white-space: pre-wrap; font-family: var(--disp); color: var(--crawl); font-size: 13px; line-height: 1.6; }
+
+  /* ── dashboard shell ────────────────────────────────────────────────── */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px 80px; }
+  .section-head { margin: 72px 0 20px; }
+  .section-head .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; }
+  .section-head h2 { font-family: var(--disp); text-transform: uppercase; font-size: clamp(24px, 3.4vw, 34px); letter-spacing: .02em; margin: 6px 0 0; line-height: 1.05; text-wrap: balance; }
+  .section-head .note { color: var(--ink-3); font-size: 14px; margin-top: 6px; max-width: 68ch; }
+
+  /* lineage strip */
+  .dag { display: flex; align-items: stretch; gap: 10px; overflow-x: auto; padding: 18px; background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; }
+  .dag-group { border: 1px dashed var(--line); border-radius: 8px; padding: 10px 12px; min-width: max-content; }
+  .dag-group .g-label { color: var(--ink-3); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; }
+  .dag-chips { display: flex; flex-direction: column; gap: 5px; }
+  .dag-chips.row { flex-direction: row; align-items: center; }
+  .chip { font-family: var(--mono); font-size: 12px; color: var(--ink-2); background: var(--void); border: 1px solid var(--line); border-radius: 5px; padding: 4px 9px; white-space: nowrap; }
+  .chip.hot { color: var(--gold); border-color: rgba(255,232,31,.35); }
+  .dag-arrow { align-self: center; color: var(--ink-3); font-size: 18px; flex: none; }
+
+  /* KPI row */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 24px; }
+  .kpi { background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; padding: 18px 18px 15px; }
+  .kpi .k-label { color: var(--ink-3); font-size: 12.5px; letter-spacing: .04em; }
+  .kpi .k-value { font-size: 42px; font-weight: 650; line-height: 1.1; margin: 2px 0 0; }
+  .kpi .k-sub { color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+
+  /* chart cards */
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 22px; }
+  .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; padding: 20px 20px 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .span7 { grid-column: span 7; } .span5 { grid-column: span 5; }
+  .span6 { grid-column: span 6; } .span12 { grid-column: span 12; }
+  @media (max-width: 860px) { .span7, .span5, .span6 { grid-column: span 12; } }
+
+  .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .card-head h3 { margin: 0; font-family: var(--disp); text-transform: uppercase; letter-spacing: .05em; font-size: 16.5px; font-weight: 600; }
+  .card-head .sub { color: var(--ink-3); font-size: 13px; margin-top: 3px; }
+  .toggle { display: flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; flex: none; }
+  .toggle button { background: none; border: none; color: var(--ink-3); font: 500 12px var(--body); padding: 5px 11px; cursor: pointer; }
+  .toggle button[aria-pressed="true"] { background: var(--panel-2); color: var(--ink); }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; }
+  .legend .li { display: flex; align-items: center; gap: 7px; color: var(--ink-2); font-size: 12.5px; }
+  .legend .sw { width: 11px; height: 11px; border-radius: 3px; }
+
+  .viz { min-height: 40px; }
+  .viz svg { display: block; width: 100%; height: auto; }
+  .viz text { font-family: var(--body); }
+  .axis-t { fill: var(--ink-3); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  .cat-t { fill: var(--ink-2); font-size: 12.5px; }
+  .val-t { fill: var(--ink-2); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  .anno-t { fill: var(--ink-2); font-size: 11.5px; }
+  .gridline { stroke: var(--line); stroke-width: 1; }
+  .baseline { stroke: #2a3550; stroke-width: 1; }
+  .bar { cursor: pointer; }
+  .bar:hover .bar-fill, .bar:focus .bar-fill { filter: brightness(1.25); }
+  .dot { cursor: pointer; }
+
+  /* table view */
+  .tbl-wrap { overflow-x: auto; }
+  table.dv { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.dv th { text-align: left; color: var(--ink-3); font-weight: 500; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  table.dv td { padding: 6px 12px 6px 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  table.dv td.num, table.dv th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.dv td:first-child { color: var(--ink); }
+
+  /* SQL reveal */
+  details.sql { border-top: 1px solid var(--line); margin-top: 2px; }
+  details.sql summary { cursor: pointer; color: var(--ink-3); font-size: 12px; letter-spacing: .06em; padding: 9px 0 7px; list-style: none; }
+  details.sql summary::before { content: "▸ "; color: var(--gold); }
+  details.sql[open] summary::before { content: "▾ "; }
+  details.sql summary:hover { color: var(--ink-2); }
+  details.sql pre { margin: 0 0 10px; padding: 12px 14px; background: var(--void); border: 1px solid var(--line); border-radius: 7px; overflow-x: auto; }
+  details.sql code { font-family: var(--mono); font-size: 12px; color: #9fd0ff; line-height: 1.6; }
+
+  /* tooltip */
+  #tip { position: fixed; z-index: 50; pointer-events: none; background: #0a0f1c; border: 1px solid var(--edge);
+         border-radius: 8px; padding: 9px 12px; font-size: 12.5px; box-shadow: 0 8px 28px rgba(0,0,0,.55);
+         opacity: 0; transition: opacity .12s; max-width: 280px; }
+  #tip.on { opacity: 1; }
+  #tip .t-title { color: var(--ink); font-weight: 600; margin-bottom: 3px; }
+  #tip .t-row { display: flex; align-items: center; gap: 7px; color: var(--ink-2); margin-top: 2px; }
+  #tip .t-key { width: 12px; height: 3px; border-radius: 2px; flex: none; }
+  #tip .t-val { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 84px; padding: 28px 24px 40px; text-align: center; color: var(--ink-3); font-size: 13px; }
+  footer .force { color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .2em; font-size: 12px; margin-bottom: 8px; }
+</style>
+
+<!-- ═══════════════ HERO — zero-second contract, nothing auto-plays ═══════════════ -->
+<header class="hero" id="top">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="opener">A long time ago in a galaxy far, far away, there lived&hellip;</p>
+    <h1>82 people</h1>
+    <p class="dek">That's the entire on-file population of the Star Wars saga — every character its own database tracks, pulled from SWAPI, warehoused in DuckDB, and told here as a census of 82 dots.</p>
+    <nav class="hero-nav" aria-label="Page navigation">
+      <a class="cue" href="#story">Take the census</a>
+      <a class="side" href="#dash">or skip straight to the dashboard →</a>
+    </nav>
+    <div class="down" aria-hidden="true">▾</div>
+  </div>
+</header>
+
+<div class="epigraph">
+  <blockquote>&ldquo;It is a period of civil war.&rdquo;</blockquote>
+  <cite>Episode IV's opening crawl — quoted, not inflicted. Scroll at your own pace.</cite>
+</div>
+
+<!-- ═══════════════ THE CENSUS — scroll story ═══════════════ -->
+<section class="story" id="story" aria-label="The census: a scroll story in eight steps">
+  <div class="scrolly">
+    <div class="steps" id="steps">
+
+      <div class="step" data-step="0">
+        <div class="step-inner">
+          <span class="kicker">The census</span>
+          <p>Here they are: all <strong>82</strong> — every character the saga's own database keeps a record on, from Luke Skywalker to Ratts Tyerel. A galaxy of billions, on file: 82 rows.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="1">
+        <div class="step-inner">
+          <span class="kicker">The measuring</span>
+          <p>Line them up by height and the census spans a four-fold range — from <strong>Yoda at 66&nbsp;cm</strong> to <strong>Yarael Poof</strong>, 264&nbsp;cm of mostly Quermian neck.</p>
+          <p class="aside">One X-wing pilot, Arvel Crynyd, was never measured at all.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="2">
+        <div class="step-inner">
+          <span class="kicker">The weighing</span>
+          <p>Mass is rude — and broken. <strong>Jabba Desilijic Tiure weighs 1,358&nbsp;kg</strong>, eight and a half times the runner-up, General Grievous. He single-handedly bends this chart onto a log scale.</p>
+          <p class="aside">And 23 of the 82 never stepped on a scale: only the 59 weighed characters ride the axis.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="3">
+        <div class="step-inner">
+          <span class="kicker">The hometowns</span>
+          <p>Where is everybody from? Two zip codes. <strong>Naboo claims 11</strong> characters and <strong>Tatooine 10</strong> — together 21 of 82, a quarter of the census from one swamp kingdom and one desert.</p>
+          <p class="aside">Five more list their homeworld as &ldquo;unknown.&rdquo; The galaxy has paperwork problems.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="4">
+        <div class="step-inner">
+          <span class="kicker">The cameos</span>
+          <p>Stack the census by screen persistence and the truth comes out: <strong>42 of 82 — more than half — appear in exactly one film.</strong> The galaxy far, far away is mostly one-scene wonders.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="5">
+        <div class="step-inner">
+          <span class="kicker">The witnesses</span>
+          <p>Climb the stack and only <strong>three characters remain in all six films</strong>: C-3PO, R2-D2 — and Obi-Wan Kenobi, who had to become a ghost to keep his attendance.</p>
+          <p class="aside">The famous claim that &ldquo;only the droids saw it all&rdquo; fails the data check. Ben counts.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="6">
+        <div class="step-inner">
+          <span class="kicker">The pilots</span>
+          <p>So who actually flew this galaxy? Only 19 of 82 are ever listed at a starship's controls. Sized by ships flown, the census crowns <strong>Obi-Wan Kenobi — five starships</strong> — the man who insisted that flying is for droids.</p>
+        </div>
+      </div>
+
+      <div class="step" data-step="7">
+        <div class="step-inner">
+          <span class="kicker">The handoff</span>
+          <p>That's the census: measured, weighed, located, counted. The machinery that counted it — five raw SWAPI pulls, one DuckDB warehouse, three transforms, one report — is waiting below.</p>
+          <p><a href="#dash">Enter the dashboard ↓</a></p>
+        </div>
+      </div>
+
+    </div>
+    <div class="stage" id="stage">
+      <svg id="stageSvg" viewBox="0 0 700 620" role="img" aria-label="82 dots, one per tracked character"></svg>
+      <p class="stage-cap" id="stageCap" aria-live="polite">82 dots · one per tracked character</p>
+    </div>
+  </div>
+</section>
+
+<div class="handoff-rule" aria-hidden="true">· · ·</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<main class="wrap" id="dash">
+
+  <div class="section-head">
+    <span class="eyebrow">Lineage</span>
+    <h2>The pipeline that made this page</h2>
+    <p class="note">The actual Dagster asset graph, left to right. Everything downstream re-materializes when an upstream asset changes.</p>
+  </div>
+  <div class="dag" role="img" aria-label="Dagster asset lineage: five raw ingestion assets flow into the star_wars_db DuckDB warehouse, which feeds three transform assets, which feed the galaxy_report.">
+    <div class="dag-group">
+      <div class="g-label">01 · Ingestion</div>
+      <div class="dag-chips">
+        <span class="chip">raw_films</span><span class="chip">raw_people</span><span class="chip">raw_planets</span><span class="chip">raw_starships</span><span class="chip">raw_species</span>
+      </div>
+    </div>
+    <div class="dag-arrow">→</div>
+    <div class="dag-group">
+      <div class="g-label">02 · Warehouse</div>
+      <div class="dag-chips row"><span class="chip">star_wars_db&nbsp;·&nbsp;DuckDB</span></div>
+    </div>
+    <div class="dag-arrow">→</div>
+    <div class="dag-group">
+      <div class="g-label">02 · Transforms</div>
+      <div class="dag-chips">
+        <span class="chip">characters_enriched</span><span class="chip">film_character_counts</span><span class="chip">starship_stats</span>
+      </div>
+    </div>
+    <div class="dag-arrow">→</div>
+    <div class="dag-group">
+      <div class="g-label">03 · Analytics</div>
+      <div class="dag-chips row"><span class="chip hot">galaxy_report</span></div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="section-head">
+    <span class="eyebrow">The Saga</span>
+    <h2>Six films, by the numbers</h2>
+  </div>
+  <div class="grid">
+    <div class="card span7" id="card-films"></div>
+    <div class="card span5" id="card-gender"></div>
+    <details class="sql span12">
+      <summary>The opening crawls, retired here — all six, at your own pace</summary>
+      <div class="crawls-body" id="crawlTexts"></div>
+    </details>
+  </div>
+
+  <div class="section-head">
+    <span class="eyebrow">The Census</span>
+    <h2>Every body in the galaxy</h2>
+    <p class="note">82 tracked characters. One of them weighs 1.3 metric tons. The chart knows which.</p>
+  </div>
+  <div class="grid">
+    <div class="card span12" id="card-scatter"></div>
+    <div class="card span6" id="card-homeworlds"></div>
+    <div class="card span6" id="card-hyper"></div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="force">May the Force be with your data pipeline</div>
+  <div>Source: SWAPI · Orchestration: Dagster · Warehouse: DuckDB · Report generated by <span style="font-family:var(--mono)">galaxy_report</span></div>
+</footer>
+
+<div id="tip" role="status"></div>
+
+<script>
+const DATA = {"films":[{"title":"The Phantom Menace","episode":1,"director":"George Lucas","released":"1999-05-19","crawl":"Turmoil has engulfed the\r\nGalactic Republic. The taxation\r\nof trade routes to outlying star\r\nsystems is in dispute.\r\n\r\nHoping to resolve the matter\r\nwith a blockade of deadly\r\nbattleships, the greedy Trade\r\nFederation has stopped all\r\nshipping to the small planet\r\nof Naboo.\r\n\r\nWhile the Congress of the\r\nRepublic endlessly debates\r\nthis alarming chain of events,\r\nthe Supreme Chancellor has\r\nsecretly dispatched two Jedi\r\nKnights, the guardians of\r\npeace and justice in the\r\ngalaxy, to settle the conflict....","characters":34,"planets":3,"starships":5,"species":20},{"title":"Attack of the Clones","episode":2,"director":"George Lucas","released":"2002-05-16","crawl":"There is unrest in the Galactic\r\nSenate. Several thousand solar\r\nsystems have declared their\r\nintentions to leave the Republic.\r\n\r\nThis separatist movement,\r\nunder the leadership of the\r\nmysterious Count Dooku, has\r\nmade it difficult for the limited\r\nnumber of Jedi Knights to maintain \r\npeace and order in the galaxy.\r\n\r\nSenator Amidala, the former\r\nQueen of Naboo, is returning\r\nto the Galactic Senate to vote\r\non the critical issue of creating\r\nan ARMY OF THE REPUBLIC\r\nto assist the overwhelmed\r\nJedi....","characters":40,"planets":5,"starships":9,"species":14},{"title":"Revenge of the Sith","episode":3,"director":"George Lucas","released":"2005-05-19","crawl":"War! The Republic is crumbling\r\nunder attacks by the ruthless\r\nSith Lord, Count Dooku.\r\nThere are heroes on both sides.\r\nEvil is everywhere.\r\n\r\nIn a stunning move, the\r\nfiendish droid leader, General\r\nGrievous, has swept into the\r\nRepublic capital and kidnapped\r\nChancellor Palpatine, leader of\r\nthe Galactic Senate.\r\n\r\nAs the Separatist Droid Army\r\nattempts to flee the besieged\r\ncapital with their valuable\r\nhostage, two Jedi Knights lead a\r\ndesperate mission to rescue the\r\ncaptive Chancellor....","characters":34,"planets":13,"starships":12,"species":20},{"title":"A New Hope","episode":4,"director":"George Lucas","released":"1977-05-25","crawl":"It is a period of civil war.\r\nRebel spaceships, striking\r\nfrom a hidden base, have won\r\ntheir first victory against\r\nthe evil Galactic Empire.\r\n\r\nDuring the battle, Rebel\r\nspies managed to steal secret\r\nplans to the Empire's\r\nultimate weapon, the DEATH\r\nSTAR, an armored space\r\nstation with enough power\r\nto destroy an entire planet.\r\n\r\nPursued by the Empire's\r\nsinister agents, Princess\r\nLeia races home aboard her\r\nstarship, custodian of the\r\nstolen plans that can save her\r\npeople and restore\r\nfreedom to the galaxy....","characters":18,"planets":3,"starships":8,"species":5},{"title":"The Empire Strikes Back","episode":5,"director":"Irvin Kershner","released":"1980-05-17","crawl":"It is a dark time for the\r\nRebellion. Although the Death\r\nStar has been destroyed,\r\nImperial troops have driven the\r\nRebel forces from their hidden\r\nbase and pursued them across\r\nthe galaxy.\r\n\r\nEvading the dreaded Imperial\r\nStarfleet, a group of freedom\r\nfighters led by Luke Skywalker\r\nhas established a new secret\r\nbase on the remote ice world\r\nof Hoth.\r\n\r\nThe evil lord Darth Vader,\r\nobsessed with finding young\r\nSkywalker, has dispatched\r\nthousands of remote probes into\r\nthe far reaches of space....","characters":16,"planets":4,"starships":9,"species":5},{"title":"Return of the Jedi","episode":6,"director":"Richard Marquand","released":"1983-05-25","crawl":"Luke Skywalker has returned to\r\nhis home planet of Tatooine in\r\nan attempt to rescue his\r\nfriend Han Solo from the\r\nclutches of the vile gangster\r\nJabba the Hutt.\r\n\r\nLittle does Luke know that the\r\nGALACTIC EMPIRE has secretly\r\nbegun construction on a new\r\narmored space station even\r\nmore powerful than the first\r\ndreaded Death Star.\r\n\r\nWhen completed, this ultimate\r\nweapon will spell certain doom\r\nfor the small band of rebels\r\nstruggling to restore freedom\r\nto the galaxy...","characters":20,"planets":5,"starships":12,"species":9}],"people":[{"name":"Luke Skywalker","height":172,"mass":77,"gender":"male","birthYear":"19BBY","homeworld":"Tatooine","species":"Human","films":4,"starshipsFlown":2},{"name":"C-3PO","height":167,"mass":75,"gender":"droid","birthYear":"112BBY","homeworld":"Tatooine","species":"Droid","films":6,"starshipsFlown":0},{"name":"R2-D2","height":96,"mass":32,"gender":"droid","birthYear":"33BBY","homeworld":"Naboo","species":"Droid","films":6,"starshipsFlown":0},{"name":"Darth Vader","height":202,"mass":136,"gender":"male","birthYear":"41.9BBY","homeworld":"Tatooine","species":"Human","films":4,"starshipsFlown":1},{"name":"Leia Organa","height":150,"mass":49,"gender":"female","birthYear":"19BBY","homeworld":"Alderaan","species":"Human","films":4,"starshipsFlown":0},{"name":"Owen Lars","height":178,"mass":120,"gender":"male","birthYear":"52BBY","homeworld":"Tatooine","species":"Human","films":3,"starshipsFlown":0},{"name":"Beru Whitesun lars","height":165,"mass":75,"gender":"female","birthYear":"47BBY","homeworld":"Tatooine","species":"Human","films":3,"starshipsFlown":0},{"name":"R5-D4","height":97,"mass":32,"gender":"droid","birthYear":null,"homeworld":"Tatooine","species":"Droid","films":1,"starshipsFlown":0},{"name":"Biggs Darklighter","height":183,"mass":84,"gender":"male","birthYear":"24BBY","homeworld":"Tatooine","species":"Human","films":1,"starshipsFlown":1},{"name":"Obi-Wan Kenobi","height":182,"mass":77,"gender":"male","birthYear":"57BBY","homeworld":"Stewjon","species":"Human","films":6,"starshipsFlown":5},{"name":"Anakin Skywalker","height":188,"mass":84,"gender":"male","birthYear":"41.9BBY","homeworld":"Tatooine","species":"Human","films":3,"starshipsFlown":3},{"name":"Wilhuff Tarkin","height":180,"mass":null,"gender":"male","birthYear":"64BBY","homeworld":"Eriadu","species":"Human","films":2,"starshipsFlown":0},{"name":"Chewbacca","height":228,"mass":112,"gender":"male","birthYear":"200BBY","homeworld":"Kashyyyk","species":"Wookie","films":4,"starshipsFlown":2},{"name":"Han Solo","height":180,"mass":80,"gender":"male","birthYear":"29BBY","homeworld":"Corellia","species":"Human","films":3,"starshipsFlown":2},{"name":"Greedo","height":173,"mass":74,"gender":"male","birthYear":"44BBY","homeworld":"Rodia","species":"Rodian","films":1,"starshipsFlown":0},{"name":"Jabba Desilijic Tiure","height":175,"mass":1358,"gender":"hermaphrodite","birthYear":"600BBY","homeworld":"Nal Hutta","species":"Hutt","films":3,"starshipsFlown":0},{"name":"Wedge Antilles","height":170,"mass":77,"gender":"male","birthYear":"21BBY","homeworld":"Corellia","species":"Human","films":3,"starshipsFlown":1},{"name":"Jek Tono Porkins","height":180,"mass":110,"gender":"male","birthYear":null,"homeworld":"Bestine IV","species":"Human","films":1,"starshipsFlown":1},{"name":"Yoda","height":66,"mass":17,"gender":"male","birthYear":"896BBY","homeworld":"unknown","species":"Yoda's species","films":5,"starshipsFlown":0},{"name":"Palpatine","height":170,"mass":75,"gender":"male","birthYear":"82BBY","homeworld":"Naboo","species":"Human","films":5,"starshipsFlown":0},{"name":"Boba Fett","height":183,"mass":78.2,"gender":"male","birthYear":"31.5BBY","homeworld":"Kamino","species":"Human","films":3,"starshipsFlown":1},{"name":"IG-88","height":200,"mass":140,"gender":"none","birthYear":"15BBY","homeworld":"unknown","species":"Droid","films":1,"starshipsFlown":0},{"name":"Bossk","height":190,"mass":113,"gender":"male","birthYear":"53BBY","homeworld":"Trandosha","species":"Trandoshan","films":1,"starshipsFlown":0},{"name":"Lando Calrissian","height":177,"mass":79,"gender":"male","birthYear":"31BBY","homeworld":"Socorro","species":"Human","films":2,"starshipsFlown":1},{"name":"Lobot","height":175,"mass":79,"gender":"male","birthYear":"37BBY","homeworld":"Bespin","species":"Human","films":1,"starshipsFlown":0},{"name":"Ackbar","height":180,"mass":83,"gender":"male","birthYear":"41BBY","homeworld":"Mon Cala","species":"Mon Calamari","films":1,"starshipsFlown":0},{"name":"Mon Mothma","height":150,"mass":null,"gender":"female","birthYear":"48BBY","homeworld":"Chandrila","species":"Human","films":1,"starshipsFlown":0},{"name":"Arvel Crynyd","height":null,"mass":null,"gender":"male","birthYear":null,"homeworld":"unknown","species":"Human","films":1,"starshipsFlown":1},{"name":"Wicket Systri Warrick","height":88,"mass":20,"gender":"male","birthYear":"8BBY","homeworld":"Endor","species":"Ewok","films":1,"starshipsFlown":0},{"name":"Nien Nunb","height":160,"mass":68,"gender":"male","birthYear":null,"homeworld":"Sullust","species":"Sullustan","films":1,"starshipsFlown":1},{"name":"Qui-Gon Jinn","height":193,"mass":89,"gender":"male","birthYear":"92BBY","homeworld":"unknown","species":"Human","films":1,"starshipsFlown":0},{"name":"Nute Gunray","height":191,"mass":90,"gender":"male","birthYear":null,"homeworld":"Cato Neimoidia","species":"Neimodian","films":3,"starshipsFlown":0},{"name":"Finis Valorum","height":170,"mass":null,"gender":"male","birthYear":"91BBY","homeworld":"Coruscant","species":"Human","films":1,"starshipsFlown":0},{"name":"Padm\u00e9 Amidala","height":185,"mass":45,"gender":"female","birthYear":"46BBY","homeworld":"Naboo","species":"Human","films":3,"starshipsFlown":3},{"name":"Jar Jar Binks","height":196,"mass":66,"gender":"male","birthYear":"52BBY","homeworld":"Naboo","species":"Gungan","films":2,"starshipsFlown":0},{"name":"Roos Tarpals","height":224,"mass":82,"gender":"male","birthYear":null,"homeworld":"Naboo","species":"Gungan","films":1,"starshipsFlown":0},{"name":"Rugor Nass","height":206,"mass":null,"gender":"male","birthYear":null,"homeworld":"Naboo","species":"Gungan","films":1,"starshipsFlown":0},{"name":"Ric Oli\u00e9","height":183,"mass":null,"gender":"male","birthYear":null,"homeworld":"Naboo","species":"Human","films":1,"starshipsFlown":1},{"name":"Watto","height":137,"mass":null,"gender":"male","birthYear":null,"homeworld":"Toydaria","species":"Toydarian","films":2,"starshipsFlown":0},{"name":"Sebulba","height":112,"mass":40,"gender":"male","birthYear":null,"homeworld":"Malastare","species":"Dug","films":1,"starshipsFlown":0},{"name":"Quarsh Panaka","height":183,"mass":null,"gender":"male","birthYear":"62BBY","homeworld":"Naboo","species":"Human","films":1,"starshipsFlown":0},{"name":"Shmi Skywalker","height":163,"mass":null,"gender":"female","birthYear":"72BBY","homeworld":"Tatooine","species":"Human","films":2,"starshipsFlown":0},{"name":"Darth Maul","height":175,"mass":80,"gender":"male","birthYear":"54BBY","homeworld":"Dathomir","species":"Zabrak","films":1,"starshipsFlown":1},{"name":"Bib Fortuna","height":180,"mass":null,"gender":"male","birthYear":null,"homeworld":"Ryloth","species":"Twi'lek","films":1,"starshipsFlown":0},{"name":"Ayla Secura","height":178,"mass":55,"gender":"female","birthYear":"48BBY","homeworld":"Ryloth","species":"Twi'lek","films":3,"starshipsFlown":0},{"name":"Ratts Tyerel","height":79,"mass":15,"gender":"male","birthYear":null,"homeworld":"Aleen Minor","species":"Aleena","films":1,"starshipsFlown":0},{"name":"Dud Bolt","height":94,"mass":45,"gender":"male","birthYear":null,"homeworld":"Vulpter","species":"Vulptereen","films":1,"starshipsFlown":0},{"name":"Gasgano","height":122,"mass":null,"gender":"male","birthYear":null,"homeworld":"Troiken","species":"Xexto","films":1,"starshipsFlown":0},{"name":"Ben Quadinaros","height":163,"mass":65,"gender":"male","birthYear":null,"homeworld":"Tund","species":"Toong","films":1,"starshipsFlown":0},{"name":"Mace Windu","height":188,"mass":84,"gender":"male","birthYear":"72BBY","homeworld":"Haruun Kal","species":"Human","films":3,"starshipsFlown":0},{"name":"Ki-Adi-Mundi","height":198,"mass":82,"gender":"male","birthYear":"92BBY","homeworld":"Cerea","species":"Cerean","films":3,"starshipsFlown":0},{"name":"Kit Fisto","height":196,"mass":87,"gender":"male","birthYear":null,"homeworld":"Glee Anselm","species":"Nautolan","films":3,"starshipsFlown":0},{"name":"Eeth Koth","height":171,"mass":null,"gender":"male","birthYear":null,"homeworld":"Iridonia","species":"Zabrak","films":2,"starshipsFlown":0},{"name":"Adi Gallia","height":184,"mass":50,"gender":"female","birthYear":null,"homeworld":"Coruscant","species":"Tholothian","films":2,"starshipsFlown":0},{"name":"Saesee Tiin","height":188,"mass":null,"gender":"male","birthYear":null,"homeworld":"Iktotch","species":"Iktotchi","films":2,"starshipsFlown":0},{"name":"Yarael Poof","height":264,"mass":null,"gender":"male","birthYear":null,"homeworld":"Quermia","species":"Quermian","films":1,"starshipsFlown":0},{"name":"Plo Koon","height":188,"mass":80,"gender":"male","birthYear":"22BBY","homeworld":"Dorin","species":"Kel Dor","films":3,"starshipsFlown":1},{"name":"Mas Amedda","height":196,"mass":null,"gender":"male","birthYear":null,"homeworld":"Champala","species":"Chagrian","films":2,"starshipsFlown":0},{"name":"Gregar Typho","height":185,"mass":85,"gender":"male","birthYear":null,"homeworld":"Naboo","species":"Human","films":1,"starshipsFlown":1},{"name":"Cord\u00e9","height":157,"mass":null,"gender":"female","birthYear":null,"homeworld":"Naboo","species":"Human","films":1,"starshipsFlown":0},{"name":"Cliegg Lars","height":183,"mass":null,"gender":"male","birthYear":"82BBY","homeworld":"Tatooine","species":"Human","films":1,"starshipsFlown":0},{"name":"Poggle the Lesser","height":183,"mass":80,"gender":"male","birthYear":null,"homeworld":"Geonosis","species":"Geonosian","films":2,"starshipsFlown":0},{"name":"Luminara Unduli","height":170,"mass":56.2,"gender":"female","birthYear":"58BBY","homeworld":"Mirial","species":"Mirialan","films":2,"starshipsFlown":0},{"name":"Barriss Offee","height":166,"mass":50,"gender":"female","birthYear":"40BBY","homeworld":"Mirial","species":"Mirialan","films":1,"starshipsFlown":0},{"name":"Dorm\u00e9","height":165,"mass":null,"gender":"female","birthYear":null,"homeworld":"Naboo","species":"Human","films":1,"starshipsFlown":0},{"name":"Dooku","height":193,"mass":80,"gender":"male","birthYear":"102BBY","homeworld":"Serenno","species":"Human","films":2,"starshipsFlown":0},{"name":"Bail Prestor Organa","height":191,"mass":null,"gender":"male","birthYear":"67BBY","homeworld":"Alderaan","species":"Human","films":2,"starshipsFlown":0},{"name":"Jango Fett","height":183,"mass":79,"gender":"male","birthYear":"66BBY","homeworld":"Concord Dawn","species":"Human","films":1,"starshipsFlown":0},{"name":"Zam Wesell","height":168,"mass":55,"gender":"female","birthYear":null,"homeworld":"Zolan","species":"Clawdite","films":1,"starshipsFlown":0},{"name":"Dexter Jettster","height":198,"mass":102,"gender":"male","birthYear":null,"homeworld":"Ojom","species":"Besalisk","films":1,"starshipsFlown":0},{"name":"Lama Su","height":229,"mass":88,"gender":"male","birthYear":null,"homeworld":"Kamino","species":"Kaminoan","films":1,"starshipsFlown":0},{"name":"Taun We","height":213,"mass":null,"gender":"female","birthYear":null,"homeworld":"Kamino","species":"Kaminoan","films":1,"starshipsFlown":0},{"name":"Jocasta Nu","height":167,"mass":null,"gender":"female","birthYear":null,"homeworld":"Coruscant","species":"Human","films":1,"starshipsFlown":0},{"name":"R4-P17","height":96,"mass":null,"gender":"female","birthYear":null,"homeworld":"unknown","species":"Human","films":2,"starshipsFlown":0},{"name":"Wat Tambor","height":193,"mass":48,"gender":"male","birthYear":null,"homeworld":"Skako","species":"Skakoan","films":1,"starshipsFlown":0},{"name":"San Hill","height":191,"mass":null,"gender":"male","birthYear":null,"homeworld":"Muunilinst","species":"Muun","films":1,"starshipsFlown":0},{"name":"Shaak Ti","height":178,"mass":57,"gender":"female","birthYear":null,"homeworld":"Shili","species":"Togruta","films":2,"starshipsFlown":0},{"name":"Grievous","height":216,"mass":159,"gender":"male","birthYear":null,"homeworld":"Kalee","species":"Kaleesh","films":1,"starshipsFlown":1},{"name":"Tarfful","height":234,"mass":136,"gender":"male","birthYear":null,"homeworld":"Kashyyyk","species":"Wookie","films":1,"starshipsFlown":0},{"name":"Raymus Antilles","height":188,"mass":79,"gender":"male","birthYear":null,"homeworld":"Alderaan","species":"Human","films":2,"starshipsFlown":0},{"name":"Sly Moore","height":178,"mass":48,"gender":"female","birthYear":null,"homeworld":"Umbara","species":"Human","films":2,"starshipsFlown":0},{"name":"Tion Medon","height":206,"mass":80,"gender":"male","birthYear":null,"homeworld":"Utapau","species":"Pau'an","films":1,"starshipsFlown":0}],"planets":[{"name":"Tatooine","climate":"arid","terrain":"desert","population":200000,"diameter":10465,"residents":10,"films":5},{"name":"Alderaan","climate":"temperate","terrain":"grasslands, mountains","population":2000000000,"diameter":12500,"residents":3,"films":2},{"name":"Yavin IV","climate":"temperate, tropical","terrain":"jungle, rainforests","population":1000,"diameter":10200,"residents":0,"films":1},{"name":"Hoth","climate":"frozen","terrain":"tundra, ice caves, mountain ranges","population":null,"diameter":7200,"residents":0,"films":1},{"name":"Dagobah","climate":"murky","terrain":"swamp, jungles","population":null,"diameter":8900,"residents":0,"films":3},{"name":"Bespin","climate":"temperate","terrain":"gas giant","population":6000000,"diameter":118000,"residents":1,"films":1},{"name":"Endor","climate":"temperate","terrain":"forests, mountains, lakes","population":30000000,"diameter":4900,"residents":1,"films":1},{"name":"Naboo","climate":"temperate","terrain":"grassy hills, swamps, forests, mountains","population":4500000000,"diameter":12120,"residents":11,"films":4},{"name":"Coruscant","climate":"temperate","terrain":"cityscape, mountains","population":1000000000000,"diameter":12240,"residents":3,"films":4},{"name":"Kamino","climate":"temperate","terrain":"ocean","population":1000000000,"diameter":19720,"residents":3,"films":1},{"name":"Geonosis","climate":"temperate, arid","terrain":"rock, desert, mountain, barren","population":100000000000,"diameter":11370,"residents":1,"films":1},{"name":"Utapau","climate":"temperate, arid, windy","terrain":"scrublands, savanna, canyons, sinkholes","population":95000000,"diameter":12900,"residents":1,"films":1},{"name":"Mustafar","climate":"hot","terrain":"volcanoes, lava rivers, mountains, caves","population":20000,"diameter":4200,"residents":0,"films":1},{"name":"Kashyyyk","climate":"tropical","terrain":"jungle, forests, lakes, rivers","population":45000000,"diameter":12765,"residents":2,"films":1},{"name":"Polis Massa","climate":"artificial temperate ","terrain":"airless asteroid","population":1000000,"diameter":0,"residents":0,"films":1},{"name":"Mygeeto","climate":"frigid","terrain":"glaciers, mountains, ice canyons","population":19000000,"diameter":10088,"residents":0,"films":1},{"name":"Felucia","climate":"hot, humid","terrain":"fungus forests","population":8500000,"diameter":9100,"residents":0,"films":1},{"name":"Cato Neimoidia","climate":"temperate, moist","terrain":"mountains, fields, forests, rock arches","population":10000000,"diameter":0,"residents":1,"films":1},{"name":"Saleucami","climate":"hot","terrain":"caves, desert, mountains, volcanoes","population":1400000000,"diameter":14920,"residents":0,"films":1},{"name":"Stewjon","climate":"temperate","terrain":"grass","population":null,"diameter":0,"residents":1,"films":0},{"name":"Eriadu","climate":"polluted","terrain":"cityscape","population":22000000000,"diameter":13490,"residents":1,"films":0},{"name":"Corellia","climate":"temperate","terrain":"plains, urban, hills, forests","population":3000000000,"diameter":11000,"residents":2,"films":0},{"name":"Rodia","climate":"hot","terrain":"jungles, oceans, urban, swamps","population":1300000000,"diameter":7549,"residents":1,"films":0},{"name":"Nal Hutta","climate":"temperate","terrain":"urban, oceans, swamps, bogs","population":7000000000,"diameter":12150,"residents":1,"films":0},{"name":"Dantooine","climate":"temperate","terrain":"oceans, savannas, mountains, grasslands","population":1000,"diameter":9830,"residents":0,"films":0},{"name":"Bestine IV","climate":"temperate","terrain":"rocky islands, oceans","population":62000000,"diameter":6400,"residents":1,"films":0},{"name":"Ord Mantell","climate":"temperate","terrain":"plains, seas, mesas","population":4000000000,"diameter":14050,"residents":0,"films":1},{"name":"unknown","climate":"unknown","terrain":"unknown","population":null,"diameter":0,"residents":5,"films":0},{"name":"Trandosha","climate":"arid","terrain":"mountains, seas, grasslands, deserts","population":42000000,"diameter":0,"residents":1,"films":0},{"name":"Socorro","climate":"arid","terrain":"deserts, mountains","population":300000000,"diameter":0,"residents":1,"films":0},{"name":"Mon Cala","climate":"temperate","terrain":"oceans, reefs, islands","population":27000000000,"diameter":11030,"residents":1,"films":0},{"name":"Chandrila","climate":"temperate","terrain":"plains, forests","population":1200000000,"diameter":13500,"residents":1,"films":0},{"name":"Sullust","climate":"superheated","terrain":"mountains, volcanoes, rocky deserts","population":18500000000,"diameter":12780,"residents":1,"films":0},{"name":"Toydaria","climate":"temperate","terrain":"swamps, lakes","population":11000000,"diameter":7900,"residents":1,"films":0},{"name":"Malastare","climate":"arid, temperate, tropical","terrain":"swamps, deserts, jungles, mountains","population":2000000000,"diameter":18880,"residents":1,"films":0},{"name":"Dathomir","climate":"temperate","terrain":"forests, deserts, savannas","population":5200,"diameter":10480,"residents":1,"films":0},{"name":"Ryloth","climate":"temperate, arid, subartic","terrain":"mountains, valleys, deserts, tundra","population":1500000000,"diameter":10600,"residents":2,"films":0},{"name":"Aleen Minor","climate":"unknown","terrain":"unknown","population":null,"diameter":null,"residents":1,"films":0},{"name":"Vulpter","climate":"temperate, artic","terrain":"urban, barren","population":421000000,"diameter":14900,"residents":1,"films":0},{"name":"Troiken","climate":"unknown","terrain":"desert, tundra, rainforests, mountains","population":null,"diameter":null,"residents":1,"films":0},{"name":"Tund","climate":"unknown","terrain":"barren, ash","population":0,"diameter":12190,"residents":1,"films":0},{"name":"Haruun Kal","climate":"temperate","terrain":"toxic cloudsea, plateaus, volcanoes","population":705300,"diameter":10120,"residents":1,"films":0},{"name":"Cerea","climate":"temperate","terrain":"verdant","population":450000000,"diameter":null,"residents":1,"films":0},{"name":"Glee Anselm","climate":"tropical, temperate","terrain":"lakes, islands, swamps, seas","population":500000000,"diameter":15600,"residents":1,"films":0},{"name":"Iridonia","climate":"unknown","terrain":"rocky canyons, acid pools","population":null,"diameter":null,"residents":1,"films":0},{"name":"Tholoth","climate":"unknown","terrain":"unknown","population":null,"diameter":null,"residents":0,"films":0},{"name":"Iktotch","climate":"arid, rocky, windy","terrain":"rocky","population":null,"diameter":null,"residents":1,"films":0},{"name":"Quermia","climate":"unknown","terrain":"unknown","population":null,"diameter":null,"residents":1,"films":0},{"name":"Dorin","climate":"temperate","terrain":"unknown","population":null,"diameter":13400,"residents":1,"films":0},{"name":"Champala","climate":"temperate","terrain":"oceans, rainforests, plateaus","population":3500000000,"diameter":null,"residents":1,"films":0},{"name":"Mirial","climate":"unknown","terrain":"deserts","population":null,"diameter":null,"residents":2,"films":0},{"name":"Serenno","climate":"unknown","terrain":"rainforests, rivers, mountains","population":null,"diameter":null,"residents":1,"films":0},{"name":"Concord Dawn","climate":"unknown","terrain":"jungles, forests, deserts","population":null,"diameter":null,"residents":1,"films":0},{"name":"Zolan","climate":"unknown","terrain":"unknown","population":null,"diameter":null,"residents":1,"films":0},{"name":"Ojom","climate":"frigid","terrain":"oceans, glaciers","population":500000000,"diameter":null,"residents":1,"films":0},{"name":"Skako","climate":"temperate","terrain":"urban, vines","population":500000000000,"diameter":null,"residents":1,"films":0},{"name":"Muunilinst","climate":"temperate","terrain":"plains, forests, hills, mountains","population":5000000000,"diameter":13800,"residents":1,"films":0},{"name":"Shili","climate":"temperate","terrain":"cities, savannahs, seas, plains","population":null,"diameter":null,"residents":1,"films":0},{"name":"Kalee","climate":"arid, temperate, tropical","terrain":"rainforests, cliffs, canyons, seas","population":4000000000,"diameter":13850,"residents":1,"films":0},{"name":"Umbara","climate":"unknown","terrain":"unknown","population":null,"diameter":null,"residents":1,"films":0}],"species":[{"name":"Human","classification":"mammal","language":"Galactic Basic","lifespan":120,"members":4},{"name":"Droid","classification":"artificial","language":"n/a","lifespan":null,"members":4},{"name":"Wookie","classification":"mammal","language":"Shyriiwook","lifespan":400,"members":2},{"name":"Rodian","classification":"sentient","language":"Galatic Basic","lifespan":null,"members":1},{"name":"Hutt","classification":"gastropod","language":"Huttese","lifespan":1000,"members":1},{"name":"Yoda's species","classification":"mammal","language":"Galactic basic","lifespan":900,"members":1},{"name":"Trandoshan","classification":"reptile","language":"Dosh","lifespan":null,"members":1},{"name":"Mon Calamari","classification":"amphibian","language":"Mon Calamarian","lifespan":null,"members":1},{"name":"Ewok","classification":"mammal","language":"Ewokese","lifespan":null,"members":1},{"name":"Sullustan","classification":"mammal","language":"Sullutese","lifespan":null,"members":1},{"name":"Neimodian","classification":"unknown","language":"Neimoidia","lifespan":null,"members":1},{"name":"Gungan","classification":"amphibian","language":"Gungan basic","lifespan":null,"members":3},{"name":"Toydarian","classification":"mammal","language":"Toydarian","lifespan":91,"members":1},{"name":"Dug","classification":"mammal","language":"Dugese","lifespan":null,"members":1},{"name":"Twi'lek","classification":"mammals","language":"Twi'leki","lifespan":null,"members":2},{"name":"Aleena","classification":"reptile","language":"Aleena","lifespan":79,"members":1},{"name":"Vulptereen","classification":"unknown","language":"vulpterish","lifespan":null,"members":1},{"name":"Xexto","classification":"unknown","language":"Xextese","lifespan":null,"members":1},{"name":"Toong","classification":"unknown","language":"Tundan","lifespan":null,"members":1},{"name":"Cerean","classification":"mammal","language":"Cerean","lifespan":null,"members":1},{"name":"Nautolan","classification":"amphibian","language":"Nautila","lifespan":70,"members":1},{"name":"Zabrak","classification":"mammal","language":"Zabraki","lifespan":null,"members":2},{"name":"Tholothian","classification":"mammal","language":"unknown","lifespan":null,"members":1},{"name":"Iktotchi","classification":"unknown","language":"Iktotchese","lifespan":null,"members":1},{"name":"Quermian","classification":"mammal","language":"Quermian","lifespan":86,"members":1},{"name":"Kel Dor","classification":"unknown","language":"Kel Dor","lifespan":70,"members":1},{"name":"Chagrian","classification":"amphibian","language":"Chagria","lifespan":null,"members":1},{"name":"Geonosian","classification":"insectoid","language":"Geonosian","lifespan":null,"members":1},{"name":"Mirialan","classification":"mammal","language":"Mirialan","lifespan":null,"members":2},{"name":"Clawdite","classification":"reptilian","language":"Clawdite","lifespan":70,"members":1},{"name":"Besalisk","classification":"amphibian","language":"besalisk","lifespan":75,"members":1},{"name":"Kaminoan","classification":"amphibian","language":"Kaminoan","lifespan":80,"members":2},{"name":"Skakoan","classification":"mammal","language":"Skakoan","lifespan":null,"members":1},{"name":"Muun","classification":"mammal","language":"Muun","lifespan":100,"members":1},{"name":"Togruta","classification":"mammal","language":"Togruti","lifespan":94,"members":1},{"name":"Kaleesh","classification":"reptile","language":"Kaleesh","lifespan":80,"members":1},{"name":"Pau'an","classification":"mammal","language":"Utapese","lifespan":700,"members":1}],"starships":[{"name":"CR90 corvette","model":"CR90 corvette","cls":"Corvette","manufacturer":"Corellian Engineering Corporation","cost":3500000,"length":150,"speed":950,"crew":null,"hyperdrive":2,"mglt":60,"films":3,"pilots":0},{"name":"Star Destroyer","model":"Imperial I-class Star Destroyer","cls":"Star Destroyer","manufacturer":"Kuat Drive Yards","cost":150000000,"length":1600,"speed":975,"crew":47060,"hyperdrive":2,"mglt":60,"films":3,"pilots":0},{"name":"Sentinel-class landing craft","model":"Sentinel-class landing craft","cls":"Landing Craft","manufacturer":"Sienar Fleet Systems, Cygnus Spaceworks","cost":240000,"length":38,"speed":1000,"crew":5,"hyperdrive":1,"mglt":70,"films":1,"pilots":0},{"name":"Death Star","model":"DS-1 Orbital Battle Station","cls":"Deep Space Mobile Battlestation","manufacturer":"Imperial Department of Military Research, Sienar Fleet Systems","cost":1000000000000,"length":120000,"speed":null,"crew":342953,"hyperdrive":4,"mglt":10,"films":1,"pilots":0},{"name":"Millennium Falcon","model":"YT-1300 light freighter","cls":"Light Freighter","manufacturer":"Corellian Engineering Corporation","cost":100000,"length":34.37,"speed":1050,"crew":4,"hyperdrive":0.5,"mglt":75,"films":3,"pilots":4},{"name":"Y-wing","model":"BTL Y-wing","cls":"Assault Starfighter","manufacturer":"Koensayr Manufacturing","cost":134999,"length":14,"speed":null,"crew":2,"hyperdrive":1,"mglt":80,"films":3,"pilots":0},{"name":"X-wing","model":"T-65 X-wing","cls":"Starfighter","manufacturer":"Incom Corporation","cost":149999,"length":12.5,"speed":1050,"crew":1,"hyperdrive":1,"mglt":100,"films":3,"pilots":4},{"name":"TIE Advanced x1","model":"Twin Ion Engine Advanced x1","cls":"Starfighter","manufacturer":"Sienar Fleet Systems","cost":null,"length":9.2,"speed":1200,"crew":1,"hyperdrive":1,"mglt":105,"films":1,"pilots":1},{"name":"Executor","model":"Executor-class star dreadnought","cls":"Star Dreadnought","manufacturer":"Kuat Drive Yards, Fondor Shipyards","cost":1143350000,"length":19000,"speed":null,"crew":279144,"hyperdrive":2,"mglt":40,"films":2,"pilots":0},{"name":"Rebel transport","model":"GR-75 medium transport","cls":"Medium Transport","manufacturer":"Gallofree Yards, Inc.","cost":null,"length":90,"speed":650,"crew":6,"hyperdrive":4,"mglt":20,"films":2,"pilots":0},{"name":"Slave 1","model":"Firespray-31-class patrol and attack","cls":"Patrol Craft","manufacturer":"Kuat Systems Engineering","cost":null,"length":21.5,"speed":1000,"crew":1,"hyperdrive":3,"mglt":70,"films":2,"pilots":1},{"name":"Imperial shuttle","model":"Lambda-class T-4a shuttle","cls":"Armed Government Transport","manufacturer":"Sienar Fleet Systems","cost":240000,"length":20,"speed":850,"crew":6,"hyperdrive":1,"mglt":50,"films":2,"pilots":3},{"name":"EF76 Nebulon-B escort frigate","model":"EF76 Nebulon-B escort frigate","cls":"Escort Ship","manufacturer":"Kuat Drive Yards","cost":8500000,"length":300,"speed":800,"crew":854,"hyperdrive":2,"mglt":40,"films":2,"pilots":0},{"name":"Calamari Cruiser","model":"MC80 Liberty type Star Cruiser","cls":"Star Cruiser","manufacturer":"Mon Calamari shipyards","cost":104000000,"length":1200,"speed":null,"crew":5400,"hyperdrive":1,"mglt":60,"films":1,"pilots":0},{"name":"A-wing","model":"RZ-1 A-wing Interceptor","cls":"Starfighter","manufacturer":"Alliance Underground Engineering, Incom Corporation","cost":175000,"length":9.6,"speed":1300,"crew":1,"hyperdrive":1,"mglt":120,"films":1,"pilots":1},{"name":"B-wing","model":"A/SF-01 B-wing starfighter","cls":"Assault Starfighter","manufacturer":"Slayn & Korpil","cost":220000,"length":16.9,"speed":950,"crew":1,"hyperdrive":2,"mglt":91,"films":1,"pilots":0},{"name":"Republic Cruiser","model":"Consular-class cruiser","cls":"Space Cruiser","manufacturer":"Corellian Engineering Corporation","cost":null,"length":115,"speed":900,"crew":9,"hyperdrive":2,"mglt":null,"films":1,"pilots":0},{"name":"Droid control ship","model":"Lucrehulk-class Droid Control Ship","cls":"Droid Control Ship","manufacturer":"Hoersch-Kessel Drive, Inc.","cost":null,"length":3170,"speed":null,"crew":175,"hyperdrive":2,"mglt":null,"films":3,"pilots":0},{"name":"Naboo fighter","model":"N-1 starfighter","cls":"Starfighter","manufacturer":"Theed Palace Space Vessel Engineering Corps","cost":200000,"length":11,"speed":1100,"crew":1,"hyperdrive":1,"mglt":null,"films":2,"pilots":3},{"name":"Naboo Royal Starship","model":"J-type 327 Nubian royal starship","cls":"Yacht","manufacturer":"Theed Palace Space Vessel Engineering Corps, Nubia Star Drives","cost":null,"length":76,"speed":920,"crew":8,"hyperdrive":1.8,"mglt":null,"films":1,"pilots":1},{"name":"Scimitar","model":"Star Courier","cls":"Space Transport","manufacturer":"Republic Sienar Systems","cost":55000000,"length":26.5,"speed":1180,"crew":1,"hyperdrive":1.5,"mglt":null,"films":1,"pilots":1},{"name":"J-type diplomatic barge","model":"J-type diplomatic barge","cls":"Diplomatic Barge","manufacturer":"Theed Palace Space Vessel Engineering Corps, Nubia Star Drives","cost":2000000,"length":39,"speed":2000,"crew":5,"hyperdrive":0.7,"mglt":null,"films":1,"pilots":0},{"name":"AA-9 Coruscant freighter","model":"Botajef AA-9 Freighter-Liner","cls":"Freighter","manufacturer":"Botajef Shipyards","cost":null,"length":390,"speed":null,"crew":null,"hyperdrive":null,"mglt":null,"films":1,"pilots":0},{"name":"Jedi starfighter","model":"Delta-7 Aethersprite-class interceptor","cls":"Starfighter","manufacturer":"Kuat Systems Engineering","cost":180000,"length":8,"speed":1150,"crew":1,"hyperdrive":1,"mglt":null,"films":2,"pilots":2},{"name":"H-type Nubian yacht","model":"H-type Nubian yacht","cls":"Yacht","manufacturer":"Theed Palace Space Vessel Engineering Corps","cost":null,"length":47.9,"speed":8000,"crew":4,"hyperdrive":0.9,"mglt":null,"films":1,"pilots":1},{"name":"Republic Assault ship","model":"Acclamator I-class assault ship","cls":"Assault Ship","manufacturer":"Rothana Heavy Engineering","cost":null,"length":752,"speed":null,"crew":700,"hyperdrive":0.6,"mglt":null,"films":1,"pilots":0},{"name":"Solar Sailer","model":"Punworcca 116-class interstellar sloop","cls":"Yacht","manufacturer":"Huppla Pasa Tisc Shipwrights Collective","cost":35700,"length":15.2,"speed":1600,"crew":3,"hyperdrive":1.5,"mglt":null,"films":1,"pilots":0},{"name":"Trade Federation cruiser","model":"Providence-class carrier/destroyer","cls":"Capital Ship","manufacturer":"Rendili StarDrive, Free Dac Volunteers Engineering corps.","cost":125000000,"length":1088,"speed":1050,"crew":600,"hyperdrive":1.5,"mglt":null,"films":1,"pilots":2},{"name":"Theta-class T-2c shuttle","model":"Theta-class T-2c shuttle","cls":"Transport","manufacturer":"Cygnus Spaceworks","cost":1000000,"length":18.5,"speed":2000,"crew":5,"hyperdrive":1,"mglt":null,"films":1,"pilots":0},{"name":"Republic attack cruiser","model":"Senator-class Star Destroyer","cls":"Star Destroyer","manufacturer":"Kuat Drive Yards, Allanteen Six shipyards","cost":59000000,"length":1137,"speed":975,"crew":7400,"hyperdrive":1,"mglt":null,"films":1,"pilots":0},{"name":"Naboo star skiff","model":"J-type star skiff","cls":"Yacht","manufacturer":"Theed Palace Space Vessel Engineering Corps/Nubia Star Drives, Incorporated","cost":null,"length":29.2,"speed":1050,"crew":3,"hyperdrive":0.5,"mglt":null,"films":1,"pilots":2},{"name":"Jedi Interceptor","model":"Eta-2 Actis-class light interceptor","cls":"Starfighter","manufacturer":"Kuat Systems Engineering","cost":320000,"length":5.47,"speed":1500,"crew":1,"hyperdrive":1,"mglt":null,"films":1,"pilots":2},{"name":"arc-170","model":"Aggressive Reconnaissance-170 starfighte","cls":"Starfighter","manufacturer":"Incom Corporation, Subpro Corporation","cost":155000,"length":14.5,"speed":1000,"crew":3,"hyperdrive":1,"mglt":100,"films":1,"pilots":0},{"name":"Banking clan frigte","model":"Munificent-class star frigate","cls":"Cruiser","manufacturer":"Hoersch-Kessel Drive, Inc, Gwori Revolutionary Industries","cost":57000000,"length":825,"speed":null,"crew":200,"hyperdrive":1,"mglt":null,"films":1,"pilots":0},{"name":"Belbullab-22 starfighter","model":"Belbullab-22 starfighter","cls":"Starfighter","manufacturer":"Feethan Ottraw Scalable Assemblies","cost":168000,"length":6.71,"speed":1100,"crew":1,"hyperdrive":6,"mglt":null,"films":1,"pilots":2},{"name":"V-wing","model":"Alpha-3 Nimbus-class V-wing starfighter","cls":"Starfighter","manufacturer":"Kuat Systems Engineering","cost":102500,"length":7.9,"speed":1050,"crew":1,"hyperdrive":1,"mglt":null,"films":1,"pilots":0}]};
+
+/* ── tiny helpers ─────────────────────────────────────────────────────── */
+const NS = "http://www.w3.org/2000/svg";
+const $ = (s, r=document) => r.querySelector(s);
+function el(tag, attrs={}, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const [k,v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function div(cls, parent, text) {
+  const n = document.createElement("div");
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  if (parent) parent.appendChild(n);
+  return n;
+}
+const fmt = n => n == null ? "—" : n.toLocaleString("en-US");
+
+/* rounded-end bar path: square at baseline, 4px radius at the data end */
+function barPathH(x, y, w, h, r) {           // grows right
+  r = Math.min(r, w, h/2);
+  return `M${x},${y} h${w-r} a${r},${r} 0 0 1 ${r},${r} v${h-2*r} a${r},${r} 0 0 1 -${r},${r} h${-(w-r)} Z`;
+}
+function barPathV(x, y, w, h, r) {           // grows up from baseline (y = top)
+  r = Math.min(r, h, w/2);
+  return `M${x},${y+h} v${-(h-r)} a${r},${r} 0 0 1 ${r},${-r} h${w-2*r} a${r},${r} 0 0 1 ${r},${r} v${h-r} Z`;
+}
+
+/* ── tooltip ──────────────────────────────────────────────────────────── */
+const tip = $("#tip");
+function tipShow(evt, title, rows) {
+  tip.textContent = "";
+  div("t-title", tip, title);
+  for (const r of rows) {
+    const row = div("t-row", tip);
+    if (r.color) { const k = div("t-key", row); k.style.background = r.color; }
+    const v = document.createElement("span"); v.className = "t-val"; v.textContent = r.value;
+    row.appendChild(v);
+    row.appendChild(document.createTextNode(" " + r.label));
+  }
+  tip.classList.add("on");
+  tipMove(evt);
+}
+function tipMove(evt) {
+  const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  if (x + w > innerWidth - 8) x = evt.clientX - w - pad;
+  if (y + h > innerHeight - 8) y = evt.clientY - h - pad;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function tipHide() { tip.classList.remove("on"); }
+
+/* ── hero canvas: ambient starfield (nothing auto-plays, nothing gates) ── */
+(function starfield() {
+  const cv = $("#stars"), cx = cv.getContext("2d");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const dpr = devicePixelRatio || 1;
+  let stars = [], W, H, raf = null, visible = true;
+
+  function seed() {
+    W = cv.offsetWidth; H = cv.offsetHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    stars = Array.from({length: Math.min(360, W*H/5200)}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*1.3 + .3, p: Math.random()*Math.PI*2,
+      s: .00025 + Math.random()*.0006
+    }));
+  }
+  function draw() {
+    raf = null;
+    const t = performance.now();
+    cx.clearRect(0, 0, W, H);
+    for (const s of stars) {
+      const tw = reduced ? .8 : .55 + .45*Math.sin(t*s.s*8 + s.p);
+      cx.globalAlpha = tw * .9;
+      cx.fillStyle = "#cdd8ef";
+      cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 7); cx.fill();
+      if (!reduced) { s.x -= s.s*W*.04; if (s.x < 0) s.x = W; }
+    }
+    cx.globalAlpha = 1;
+    if (!reduced && visible) raf = requestAnimationFrame(draw);
+  }
+  seed(); draw();
+  new IntersectionObserver(([e]) => {                // pause when the hero scrolls away
+    visible = e.isIntersecting;
+    if (visible && raf == null && !reduced) raf = requestAnimationFrame(draw);
+  }).observe(cv);
+  addEventListener("resize", () => { if (raf) cancelAnimationFrame(raf); seed(); draw(); });
+})();
+
+/* ── the census: 82-dot scroll story ─────────────────────────────────────
+   One persistent unit chart; each step only rearranges it. Step states are
+   idempotent — fast-scrolling to step N renders N's final layout directly. */
+(function census() {
+  const PEO = DATA.people;
+  const storyEl = $("#story"), svg = $("#stageSvg"), capEl = $("#stageCap");
+  const VW = 700, VH = 620, M = {t: 26, r: 18, b: 44, l: 46};
+  const iw = VW - M.l - M.r, ih = VH - M.t - M.b;
+  const ROMAN = ["I","II","III","IV","V","VI"];
+
+  /* drift detector: the hardcoded step copy must match the data */
+  const stats = {
+    total: PEO.length,
+    noMass: PEO.filter(p => p.mass == null).length,
+    noHeight: PEO.filter(p => p.height == null).length,
+    oneFilm: PEO.filter(p => p.films === 1).length,
+    naboo: PEO.filter(p => p.homeworld === "Naboo").length,
+    tatooine: PEO.filter(p => p.homeworld === "Tatooine").length,
+    pilots: PEO.filter(p => p.starshipsFlown > 0).length,
+    maxFlown: Math.max(...PEO.map(p => p.starshipsFlown)),
+  };
+  const expect = {total: 82, noMass: 23, noHeight: 1, oneFilm: 42, naboo: 11, tatooine: 10, pilots: 19, maxFlown: 5};
+  for (const [k, v] of Object.entries(expect))
+    if (stats[k] !== v) console.warn(`census copy drift: ${k} is ${stats[k]}, page copy says ${v}`);
+  const allSix = PEO.filter(p => p.films === 6).map(p => p.name).sort();
+  if (allSix.join("|") !== "C-3PO|Obi-Wan Kenobi|R2-D2")
+    console.warn("census copy drift: all-six-films list is", allSix);
+
+  /* ── step layouts — each returns positions in PEO order ── */
+  function grid(list, {cols = 13, x0 = M.l, w = iw, y0, dy}) {
+    const dx = w / (cols - 1);
+    const rows = Math.ceil(list.length / cols);
+    dy = dy ?? Math.min(66, (ih - 20) / Math.max(1, rows - 1));
+    y0 = y0 ?? M.t + (ih - dy * (rows - 1)) / 2;
+    const pos = new Map();
+    list.forEach((p, i) => pos.set(p.name, {x: x0 + (i % cols) * dx, y: y0 + Math.floor(i / cols) * dy}));
+    return pos;
+  }
+
+  function stCensus() {
+    const pos = grid(PEO, {});
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name), s: 1, k: "base"})),
+      axis: [], annos: [],
+      cap: "82 dots · one per tracked character",
+      tip: p => [{color: "var(--s1)", value: p.films, label: p.films === 1 ? "film on file" : "films on file"}],
+    };
+  }
+
+  function stHeight() {
+    const meas = PEO.filter(p => p.height != null).sort((a, b) => a.height - b.height || a.name.localeCompare(b.name));
+    const rank = new Map(meas.map((p, i) => [p.name, i]));
+    const y = h => M.t + ih - h / 280 * ih;
+    const pos = p => p.height == null
+      ? {x: M.l + 10, y: VH - 16, s: .7, k: "dim"}
+      : {x: M.l + rank.get(p.name) / (meas.length - 1) * iw, y: y(p.height), s: .8, k: "base"};
+    const yoda = PEO.find(p => p.name === "Yoda"), poof = PEO.find(p => p.name === "Yarael Poof");
+    return {
+      dots: PEO.map(pos),
+      axis: [100, 200].flatMap(h => [
+        {t: "line", x1: M.l, x2: VW - M.r, y1: y(h), y2: y(h)},
+        {t: "text", x: 6, y: y(h) - 5, anchor: "start", text: h + " cm"},
+      ]).concat([{t: "line", x1: M.l, x2: VW - M.r, y1: y(0), y2: y(0), base: true}]),
+      annos: [
+        {x: pos(yoda).x + 10, y: pos(yoda).y - 12, anchor: "start", text: "Yoda · 66 cm"},
+        {x: pos(poof).x - 10, y: pos(poof).y - 12, anchor: "end", text: "Yarael Poof · 2.64 m"},
+        {x: M.l + 24, y: VH - 12, anchor: "start", text: "unmeasured · 1", small: true},
+      ],
+      cap: "Sorted by height · 66–264 cm · 1 unmeasured",
+      tip: p => [{color: "var(--s1)", value: p.height == null ? "—" : p.height + " cm", label: p.height == null ? "never measured" : "tall"}],
+    };
+  }
+
+  function stMass() {
+    const weighed = PEO.filter(p => p.mass != null).sort((a, b) => a.mass - b.mass);
+    const lo = Math.log10(10), hi = Math.log10(2000);
+    const x = m => M.l + (Math.log10(m) - lo) / (hi - lo) * iw;
+    const cy = M.t + ih * .42, step = 14.5;
+    const placed = [], pos = new Map();
+    for (const p of weighed) {                       // deterministic beeswarm
+      const px = x(p.mass);
+      for (let k = 0; ; k++) {
+        const cand = cy + (k % 2 ? -1 : 1) * Math.ceil(k / 2) * step;
+        if (!placed.some(q => (q.x - px) ** 2 + (q.y - cand) ** 2 < step ** 2)) {
+          placed.push({x: px, y: cand}); pos.set(p.name, {x: px, y: cand}); break;
+        }
+      }
+    }
+    const parked = grid(PEO.filter(p => p.mass == null), {cols: 12, x0: M.l + 30, w: iw * .55, y0: VH - 40, dy: 15});
+    const jab = pos.get("Jabba Desilijic Tiure");
+    return {
+      dots: PEO.map(p => p.mass == null
+        ? {...parked.get(p.name), s: .7, k: "dim"}
+        : {...pos.get(p.name), s: .8, k: p.mass > 1000 ? "hot" : "base"}),
+      axis: [20, 100, 1000].flatMap(m => [
+        {t: "line", x1: x(m), x2: x(m), y1: M.t, y2: M.t + ih * .78},
+        {t: "text", x: x(m), y: M.t + ih * .78 + 16, anchor: "middle", text: fmt(m) + (m === 20 ? " kg" : "")},
+      ]),
+      annos: [
+        {x: jab.x - 12, y: jab.y - 14, anchor: "end", text: "Jabba · 1,358 kg", hot: true},
+        {x: M.l + 30, y: VH - 54, anchor: "start", text: "not weighed · 23", small: true},
+      ],
+      cap: "Mass, log scale · 59 weighed, 23 not",
+      tip: p => [{color: "var(--s1)", value: p.mass == null ? "—" : fmt(p.mass) + " kg", label: p.mass == null ? "no mass on file" : "mass"}],
+    };
+  }
+
+  function stHomeworlds() {
+    const spiral = (cx0, cy0) => k => ({x: cx0 + 11 * Math.sqrt(k) * Math.cos(k * 2.399), y: cy0 + 11 * Math.sqrt(k) * Math.sin(k * 2.399)});
+    const nb = PEO.filter(p => p.homeworld === "Naboo"), tt = PEO.filter(p => p.homeworld === "Tatooine");
+    const rest = PEO.filter(p => p.homeworld !== "Naboo" && p.homeworld !== "Tatooine");
+    const pos = new Map();
+    const nbC = {x: M.l + iw * .28, y: M.t + ih * .3}, ttC = {x: M.l + iw * .72, y: M.t + ih * .3};
+    nb.forEach((p, k) => pos.set(p.name, spiral(nbC.x, nbC.y)(k)));
+    tt.forEach((p, k) => pos.set(p.name, spiral(ttC.x, ttC.y)(k)));
+    const restPos = grid(rest, {cols: 16, y0: M.t + ih * .66, dy: 26});
+    rest.forEach(p => pos.set(p.name, restPos.get(p.name)));
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name), s: .85, k: (p.homeworld === "Naboo" || p.homeworld === "Tatooine") ? "base" : "faint"})),
+      axis: [],
+      annos: [
+        {x: nbC.x, y: nbC.y - 62, anchor: "middle", text: "Naboo · 11"},
+        {x: ttC.x, y: ttC.y - 62, anchor: "middle", text: "Tatooine · 10"},
+        {x: M.l + iw / 2, y: M.t + ih * .66 - 28, anchor: "middle", text: "everywhere else · 61", small: true},
+      ],
+      cap: "Grouped by homeworld · Naboo 11 · Tatooine 10",
+      tip: p => [{color: "var(--s1)", value: p.homeworld || "—", label: "homeworld"}],
+    };
+  }
+
+  function histLayout() {
+    const base = M.t + ih, gap = Math.min(11.5, (ih - 34) / stats.oneFilm);
+    const cols = new Map();
+    const pos = new Map();
+    for (const p of [...PEO].sort((a, b) => a.name.localeCompare(b.name))) {
+      const c = (cols.get(p.films) || 0); cols.set(p.films, c + 1);
+      pos.set(p.name, {x: M.l + (p.films - .5) / 6 * iw, y: base - (c + .6) * gap});
+    }
+    const axis = [{t: "line", x1: M.l, x2: VW - M.r, y1: base, y2: base, base: true}];
+    for (let n = 1; n <= 6; n++) {
+      const cnt = PEO.filter(p => p.films === n).length;
+      axis.push({t: "text", x: M.l + (n - .5) / 6 * iw, y: base + 20, anchor: "middle", text: n === 1 ? "1 film" : n + " films"});
+      axis.push({t: "text", x: M.l + (n - .5) / 6 * iw, y: base - cnt * gap - 12, anchor: "middle", text: String(cnt), val: true});
+    }
+    return {pos, axis};
+  }
+
+  function stCameos() {
+    const {pos, axis} = histLayout();
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name), s: .78, k: "base"})),
+      axis, annos: [],
+      cap: "Stacked by film appearances · 1–6",
+      tip: p => [{color: "var(--s1)", value: p.films, label: p.films === 1 ? "film" : "films"}],
+    };
+  }
+
+  function stWitnesses() {
+    const {pos, axis} = histLayout();
+    const six = PEO.filter(p => p.films === 6).sort((a, b) => pos.get(a.name).y - pos.get(b.name).y);
+    const midY = pos.get(six[1].name).y;             // fan the three labels out vertically
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name), s: p.films === 6 ? 1 : .78, k: p.films === 6 ? "hot" : "faint"})),
+      axis,
+      annos: six.map((p, i) => ({x: pos.get(p.name).x - 16, y: midY + (i - 1) * 20 + 4, anchor: "end", text: p.name, hot: true})),
+      cap: "Highlighted: the three characters in all six films",
+      tip: p => [{color: p.films === 6 ? "var(--gold)" : "var(--s1)", value: p.films, label: p.films === 1 ? "film" : "films"}],
+    };
+  }
+
+  function stPilots() {
+    const sorted = [...PEO].sort((a, b) => b.starshipsFlown - a.starshipsFlown || b.films - a.films || a.name.localeCompare(b.name));
+    const pos = grid(sorted, {});
+    const obi = pos.get("Obi-Wan Kenobi");
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name),
+        s: p.starshipsFlown ? .7 + p.starshipsFlown * .26 : .5,
+        k: p.name === "Obi-Wan Kenobi" ? "hot" : p.starshipsFlown ? "base" : "faint"})),
+      axis: [],
+      annos: [{x: obi.x + 18, y: obi.y - 14, anchor: "start", text: "Obi-Wan · 5 starships", hot: true}],
+      cap: "Sized by starships flown · 19 of 82 ever flew",
+      tip: p => [{color: "var(--s1)", value: p.starshipsFlown, label: p.starshipsFlown === 1 ? "starship flown" : "starships flown"}],
+    };
+  }
+
+  function stFiled() {
+    const pos = grid(PEO, {cols: 13, x0: M.l + iw * .32, w: iw * .36, y0: M.t + ih * .3, dy: 26});
+    return {
+      dots: PEO.map(p => ({...pos.get(p.name), s: .72, k: "base"})),
+      axis: [],
+      annos: [{x: M.l + iw / 2, y: M.t + ih * .3 + 6 * 26 + 34, anchor: "middle", text: "82 rows · materialized ↓", small: true}],
+      cap: "The census, filed — dashboard below",
+      tip: p => [{color: "var(--s1)", value: p.films, label: p.films === 1 ? "film on file" : "films on file"}],
+    };
+  }
+
+  const BUILDERS = [stCensus, stHeight, stMass, stHomeworlds, stCameos, stWitnesses, stPilots, stFiled];
+  const cache = [];
+  const getState = i => cache[i] ??= BUILDERS[i]();
+
+  /* ── stage scaffolding ── */
+  const axisLayer = el("g", {}, svg);
+  const dotLayer = el("g", {}, svg);
+  const annoLayer = el("g", {}, svg);
+  const units = PEO.map(() => {
+    const g = el("g", {class: "unit base"}, dotLayer);
+    el("circle", {r: 7}, g);
+    return g;
+  });
+
+  function drawAxis(layer, axis) {
+    for (const a of axis) {
+      if (a.t === "line") el("line", {x1: a.x1, x2: a.x2, y1: a.y1, y2: a.y2, class: a.base ? "baseline" : "gridline"}, layer);
+      else el("text", {x: a.x, y: a.y, "text-anchor": a.anchor || "start", class: a.val ? "val-t" : "axis-t"}, layer).textContent = a.text;
+    }
+  }
+  function drawAnnos(layer, annos) {
+    const g = el("g", {class: "stage-anno"}, layer);
+    for (const a of annos) {
+      const attrs = {x: a.x, y: a.y, "text-anchor": a.anchor, class: "anno-name" + (a.hot ? " hot" : "")};
+      if (a.small) attrs["font-size"] = 11;
+      el("text", attrs, g).textContent = a.text;
+    }
+  }
+
+  let current = -1;
+  function applyState(i) {
+    if (i === current) return;
+    current = i;
+    const st = getState(i);
+    st.dots.forEach((d, idx) => {
+      units[idx].setAttribute("transform", `translate(${d.x.toFixed(1)},${d.y.toFixed(1)}) scale(${d.s})`);
+      units[idx].setAttribute("class", "unit " + d.k);
+    });
+    axisLayer.textContent = ""; drawAxis(axisLayer, st.axis);
+    annoLayer.textContent = ""; drawAnnos(annoLayer, st.annos);
+    capEl.textContent = st.cap;
+    svg.setAttribute("aria-label", st.cap);
+  }
+  applyState(0);
+
+  /* hover: nearest dot, reusing the shared tooltip */
+  svg.addEventListener("pointermove", e => {
+    const r = svg.getBoundingClientRect();
+    const mx = (e.clientX - r.left) * (VW / r.width), my = (e.clientY - r.top) * (VH / r.height);
+    const st = getState(Math.max(0, current));
+    let best = -1, bd = 26 ** 2;
+    st.dots.forEach((d, idx) => {
+      const dd = (d.x - mx) ** 2 + (d.y - my) ** 2;
+      if (dd < bd) { bd = dd; best = idx; }
+    });
+    if (best >= 0) tipShow(e, PEO[best].name, st.tip(PEO[best]));
+    else tipHide();
+  });
+  svg.addEventListener("pointerleave", tipHide);
+
+  /* ── stepper: IntersectionObserver on the card crossing viewport center ── */
+  const steps = [...document.querySelectorAll(".step")];
+  const io = new IntersectionObserver(entries => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      const i = +en.target.dataset.step;
+      steps.forEach((s, j) => s.classList.toggle("active", j === i));
+      applyState(i);
+    }
+  }, {rootMargin: "-45% 0px -45% 0px", threshold: 0});
+  steps.forEach(s => io.observe(s));
+  steps[0].classList.add("active");
+
+  /* ── flat mode: an auto-height embed has no internal scrollport, so
+     position:sticky can never engage — give every step its own figure ── */
+  let flat = false;
+  function shouldFlatten() {
+    if (location.search.includes("flat")) return true;
+    if (location.search.includes("scroll")) return false;
+    return Math.abs(document.documentElement.scrollHeight - innerHeight) < 64;
+  }
+  function enterFlat() {
+    if (flat) return;
+    flat = true;
+    storyEl.classList.add("flat");
+    io.disconnect();
+    steps.forEach((sEl, i) => {
+      const st = getState(i);
+      const fig = document.createElement("figure"); fig.className = "step-fig";
+      const fsvg = el("svg", {viewBox: `0 0 ${VW} ${VH}`, role: "img", "aria-label": st.cap}, undefined);
+      drawAxis(fsvg, st.axis);
+      st.dots.forEach((d, idx) => {
+        const g = el("g", {class: "unit " + d.k, transform: `translate(${d.x.toFixed(1)},${d.y.toFixed(1)}) scale(${d.s})`}, fsvg);
+        el("circle", {r: 7}, g);
+      });
+      drawAnnos(fsvg, st.annos);
+      fig.appendChild(fsvg);
+      const fc = document.createElement("figcaption"); fc.textContent = st.cap;
+      fig.appendChild(fc);
+      sEl.querySelector(".step-inner").appendChild(fig);
+    });
+  }
+  const flatCheck = () => { if (shouldFlatten()) enterFlat(); };
+  requestAnimationFrame(flatCheck);
+  addEventListener("load", flatCheck);
+  let flT; addEventListener("resize", () => { clearTimeout(flT); flT = setTimeout(flatCheck, 200); });
+})();
+
+/* ── the crawls, retired to content — all six originals, tap to read ───── */
+(function crawls() {
+  const wrap = $("#crawlTexts");
+  if (!wrap) return;
+  for (const f of DATA.films) {
+    const d = div("crawl-film", wrap);
+    const h = document.createElement("h4");
+    h.textContent = `Episode ${["I","II","III","IV","V","VI"][f.episode - 1]} · ${f.title}`;
+    d.appendChild(h);
+    const pre = document.createElement("pre");
+    pre.textContent = f.crawl.replace(/\r\n/g, "\n");
+    d.appendChild(pre);
+  }
+})();
+
+/* ── derived datasets ─────────────────────────────────────────────────── */
+const charts = [];   // re-render registry (resize)
+const P = DATA.people, F = DATA.films, S = DATA.starships, PL = DATA.planets, SP = DATA.species;
+
+const homeworldTop = Object.entries(
+  P.reduce((m,p) => { if (p.homeworld) m[p.homeworld] = (m[p.homeworld]||0)+1; return m; }, {})
+).map(([name, n]) => ({name, n})).sort((a,b) => b.n - a.n).slice(0, 10);
+
+const genderCounts = Object.entries(
+  P.reduce((m,p) => { m[p.gender] = (m[p.gender]||0)+1; return m; }, {})
+).map(([g,n]) => ({g, n})).sort((a,b) => b.n - a.n);
+
+const scatterPts = P.filter(p => p.height && p.mass);
+const hyperTop = S.filter(s => s.hyperdrive != null)
+  .sort((a,b) => a.hyperdrive - b.hyperdrive || (b.mglt||0) - (a.mglt||0)).slice(0, 10);
+
+/* ── KPI row ──────────────────────────────────────────────────────────── */
+(function kpis() {
+  const wrap = $("#kpis");
+  const tiles = [
+    {label: "Characters", value: P.length, sub: "tracked in characters_enriched"},
+    {label: "Planets", value: PL.length, sub: `${new Set(P.map(p=>p.homeworld).filter(Boolean)).size} are someone's homeworld`},
+    {label: "Starships", value: S.length, sub: `${S.filter(s=>s.hyperdrive!=null).length} with hyperdrive data`},
+    {label: "Species", value: SP.length, sub: "from Hutt to Wookiee"},
+    {label: "Films", value: F.length, sub: `${F[0].released.slice(0,4)}–${F.map(f=>f.released.slice(0,4)).sort().at(-1)}`},
+  ];
+  for (const t of tiles) {
+    const k = div("kpi", wrap);
+    div("k-label", k, t.label);
+    div("k-value", k, fmt(t.value));
+    div("k-sub", k, t.sub);
+  }
+})();
+
+/* ── card scaffolding ─────────────────────────────────────────────────── */
+function makeCard(id, title, sub, opts={}) {
+  const card = $(id);
+  const head = div("card-head", card);
+  const tl = div("", head);
+  const h = document.createElement("h3"); h.textContent = title; tl.appendChild(h);
+  if (sub) div("sub", tl, sub);
+  const tog = div("toggle", head);
+  const bC = document.createElement("button"); bC.textContent = "Chart"; bC.setAttribute("aria-pressed","true");
+  const bT = document.createElement("button"); bT.textContent = "Table"; bT.setAttribute("aria-pressed","false");
+  tog.append(bC, bT);
+  let legend = null;
+  if (opts.legend) {
+    legend = div("legend", card);
+    for (const li of opts.legend) {
+      const item = div("li", legend);
+      const sw = div("sw", item); sw.style.background = li.color;
+      item.appendChild(document.createTextNode(li.label));
+    }
+  }
+  const viz = div("viz", card);
+  const tblWrap = div("tbl-wrap", card); tblWrap.hidden = true;
+  bC.onclick = () => { bC.setAttribute("aria-pressed","true"); bT.setAttribute("aria-pressed","false"); viz.hidden = false; if (legend) legend.hidden = false; tblWrap.hidden = true; };
+  bT.onclick = () => { bT.setAttribute("aria-pressed","true"); bC.setAttribute("aria-pressed","false"); viz.hidden = true; if (legend) legend.hidden = true; tblWrap.hidden = false; };
+  if (opts.sql) {
+    const det = document.createElement("details"); det.className = "sql";
+    const sum = document.createElement("summary"); sum.textContent = "Show the DuckDB SQL"; det.appendChild(sum);
+    const pre = document.createElement("pre"); const code = document.createElement("code");
+    code.textContent = opts.sql; pre.appendChild(code); det.appendChild(pre);
+    card.appendChild(det);
+  }
+  return {viz, tblWrap};
+}
+function buildTable(wrap, cols, rows) {
+  const t = document.createElement("table"); t.className = "dv";
+  const thr = t.createTHead().insertRow();
+  for (const c of cols) { const th = document.createElement("th"); th.textContent = c.h; if (c.num) th.className = "num"; thr.appendChild(th); }
+  const tb = t.createTBody();
+  for (const r of rows) {
+    const tr = tb.insertRow();
+    for (const c of cols) { const td = tr.insertCell(); td.textContent = c.f(r); if (c.num) td.className = "num"; }
+  }
+  wrap.appendChild(t);
+}
+
+/* clean ticks */
+function ticks(max, n=4) {
+  const raw = max/n, mag = 10**Math.floor(Math.log10(raw));
+  const step = [1,2,2.5,5,10].map(m=>m*mag).find(s => max/s <= n) || mag*10;
+  const out = []; for (let v=0; v <= max + 1e-9; v += step) out.push(Math.round(v*100)/100);
+  return out;
+}
+
+/* ── chart 1: films grouped columns (characters vs starships) ─────────── */
+(function filmsChart() {
+  const sql = `SELECT f.title, f.episode_id,
+       len(f.characters) AS character_count,
+       len(f.starships)  AS starship_count
+FROM films f
+ORDER BY f.episode_id;`;
+  const {viz, tblWrap} = makeCard("#card-films", "Cast & fleet per episode",
+    "Characters and starships appearing in each film", {
+    legend: [{label: "Characters", color: "var(--s1)"}, {label: "Starships", color: "var(--s2)"}],
+    sql
+  });
+  buildTable(tblWrap, [
+    {h: "Film", f: r => `${r.title} (Ep. ${["I","II","III","IV","V","VI"][r.episode-1]})`},
+    {h: "Released", f: r => r.released, num: false},
+    {h: "Characters", f: r => fmt(r.characters), num: true},
+    {h: "Starships", f: r => fmt(r.starships), num: true},
+  ], F);
+
+  function render() {
+    viz.textContent = "";
+    const W = viz.clientWidth || 600, H = 290;
+    const m = {t: 14, r: 8, b: 40, l: 34};
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": "Grouped column chart of character and starship counts for episodes one through six."}, viz);
+    const maxV = Math.max(...F.map(f => Math.max(f.characters, f.starships)));
+    const tks = ticks(maxV);
+    const yMax = tks.at(-1);
+    const y = v => m.t + ih - (v/yMax)*ih;
+    for (const t of tks) {
+      el("line", {x1: m.l, x2: W-m.r, y1: y(t), y2: y(t), class: t===0 ? "baseline" : "gridline"}, svg);
+      el("text", {x: m.l-7, y: y(t)+4, "text-anchor": "end", class: "axis-t"}, svg).textContent = t;
+    }
+    const band = iw / F.length;
+    const barW = Math.min(24, (band*0.6 - 2) / 2);
+    F.forEach((f, i) => {
+      const cx = m.l + band*i + band/2;
+      const gx = cx - barW - 1;                       // 2px surface gap between the pair
+      const series = [
+        {key: "Characters", v: f.characters, color: "var(--s1)", x: gx},
+        {key: "Starships",  v: f.starships,  color: "var(--s2)", x: gx + barW + 2},
+      ];
+      for (const s of series) {
+        const g = el("g", {class: "bar", tabindex: "0", role: "img",
+          "aria-label": `${f.title}: ${s.v} ${s.key.toLowerCase()}`}, svg);
+        el("path", {d: barPathV(s.x, y(s.v), barW, y(0)-y(s.v), 4), fill: s.color, class: "bar-fill"}, g);
+        el("rect", {x: s.x-3, y: m.t, width: barW+6, height: ih, fill: "transparent"}, g);
+        const show = e => tipShow(e, `${f.title} · ${f.released.slice(0,4)}`,
+          series.map(t => ({color: t.color, value: fmt(t.v), label: t.key.toLowerCase()})));
+        g.addEventListener("pointermove", show);
+        g.addEventListener("focus", e => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, `${f.title}`, [{color: s.color, value: fmt(s.v), label: s.key.toLowerCase()}]));
+        g.addEventListener("pointerleave", tipHide);
+        g.addEventListener("blur", tipHide);
+      }
+      el("text", {x: cx, y: H-22, "text-anchor": "middle", class: "cat-t"}, svg).textContent = "Ep. " + ["I","II","III","IV","V","VI"][f.episode-1];
+      el("text", {x: cx, y: H-7, "text-anchor": "middle", class: "axis-t"}, svg).textContent = f.released.slice(0,4);
+    });
+  }
+  render(); charts.push(render);
+})();
+
+/* ── chart 2: gender part-to-whole stacked bar ────────────────────────── */
+(function genderChart() {
+  const sql = `SELECT gender, COUNT(*) AS n
+FROM characters_enriched
+GROUP BY gender
+ORDER BY n DESC;`;
+  const palette = ["var(--s1)", "var(--s4)", "var(--s3)", "var(--s5)", "var(--s2)"];
+  const cats = genderCounts.slice(0, 5);
+  const {viz, tblWrap} = makeCard("#card-gender", "Who counts as who",
+    "Gender field across all 82 characters (droids report n/a)", {
+    legend: cats.map((c, i) => ({label: `${c.g} · ${c.n}`, color: palette[i]})),
+    sql
+  });
+  buildTable(tblWrap, [
+    {h: "Gender", f: r => r.g},
+    {h: "Characters", f: r => fmt(r.n), num: true},
+    {h: "Share", f: r => (100*r.n/P.length).toFixed(1) + "%", num: true},
+  ], genderCounts);
+
+  function render() {
+    viz.textContent = "";
+    const W = viz.clientWidth || 400, H = 74, bh = 22, y0 = 18;
+    const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": "Single stacked bar of character counts by gender."}, viz);
+    const total = cats.reduce((a,c) => a+c.n, 0);
+    const gaps = (cats.length-1) * 2;
+    let x = 0;
+    cats.forEach((c, i) => {
+      const w = (W - gaps) * c.n / total;
+      const g = el("g", {class: "bar", tabindex: "0", "aria-label": `${c.g}: ${c.n} characters`}, svg);
+      const isFirst = i === 0, isLast = i === cats.length-1;
+      const r = 5;
+      let d;
+      if (isFirst) d = `M${x+r},${y0} h${w-r} v${bh} h${-(w-r)} a${r},${r} 0 0 1 -${r},-${r} v${-(bh-2*r)} a${r},${r} 0 0 1 ${r},-${r} Z`;
+      else if (isLast) d = `M${x},${y0} h${w-r} a${r},${r} 0 0 1 ${r},${r} v${bh-2*r} a${r},${r} 0 0 1 -${r},${r} h${-(w-r)} Z`;
+      else d = `M${x},${y0} h${w} v${bh} h${-w} Z`;
+      el("path", {d, fill: palette[i], class: "bar-fill"}, g);
+      el("rect", {x, y: 0, width: w, height: H, fill: "transparent"}, g);
+      const show = e => tipShow(e, c.g, [{color: palette[i], value: fmt(c.n), label: `characters · ${(100*c.n/total).toFixed(1)}%`}]);
+      g.addEventListener("pointermove", show);
+      g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, c.g, [{color: palette[i], value: fmt(c.n), label: "characters"}]));
+      g.addEventListener("pointerleave", tipHide); g.addEventListener("blur", tipHide);
+      // in-segment % label only when it fits
+      if (w > 46) {
+        el("text", {x: x + w/2, y: y0 + bh/2 + 4, "text-anchor": "middle", fill: "#fff",
+          "font-size": "11.5", "font-weight": "600"}, svg).textContent = Math.round(100*c.n/total) + "%";
+      }
+      x += w + 2;
+    });
+    el("text", {x: 0, y: 62, class: "axis-t"}, svg).textContent = "0";
+    el("text", {x: W, y: 62, "text-anchor": "end", class: "axis-t"}, svg).textContent = fmt(total) + " characters";
+  }
+  render(); charts.push(render);
+})();
+
+/* ── chart 3: height × mass scatter ───────────────────────────────────── */
+(function scatterChart() {
+  const sql = `SELECT name, TRY_CAST(height AS INT) AS height_cm,
+       TRY_CAST(REPLACE(mass, ',', '') AS DOUBLE) AS mass_kg
+FROM people
+WHERE height_cm IS NOT NULL AND mass_kg IS NOT NULL;  -- 59 of 82 rows`;
+  const {viz, tblWrap} = makeCard("#card-scatter", "Every body, measured",
+    `Height vs. mass, ${scatterPts.length} of 82 with both on file · log scale, because Jabba · Padmé's 45 kg reads as a data-entry error, not an insight`, {sql});
+  buildTable(tblWrap, [
+    {h: "Character", f: r => r.name},
+    {h: "Species", f: r => r.species || "—"},
+    {h: "Height (cm)", f: r => fmt(r.height), num: true},
+    {h: "Mass (kg)", f: r => fmt(r.mass), num: true},
+    {h: "Films", f: r => fmt(r.films), num: true},
+  ], [...scatterPts].sort((a,b) => b.mass - a.mass));
+
+  const heaviest = scatterPts.reduce((a,b) => b.mass > a.mass ? b : a);
+  const tallest  = scatterPts.reduce((a,b) => b.height > a.height ? b : a);
+  const shortest = scatterPts.reduce((a,b) => b.height < a.height ? b : a);
+  const labeled = new Set([heaviest.name, tallest.name, shortest.name, "Darth Vader"]);
+
+  function render() {
+    viz.textContent = "";
+    const W = viz.clientWidth || 900, H = 380;
+    const m = {t: 16, r: 24, b: 46, l: 52};
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": "Scatter plot of character height in centimeters against mass in kilograms on a logarithmic scale. Jabba Desilijic Tiure is an extreme outlier at 1,358 kilograms."}, viz);
+    const xMin = 60, xMax = 280;
+    const lo = Math.log10(10), hi = Math.log10(2000);
+    const x = v => m.l + (v - xMin)/(xMax - xMin)*iw;
+    const y = v => m.t + ih - (Math.log10(v) - lo)/(hi - lo)*ih;
+    for (const t of [10, 30, 100, 300, 1000]) {
+      el("line", {x1: m.l, x2: W-m.r, y1: y(t), y2: y(t), class: "gridline"}, svg);
+      el("text", {x: m.l-8, y: y(t)+4, "text-anchor": "end", class: "axis-t"}, svg).textContent = fmt(t);
+    }
+    el("line", {x1: m.l, x2: W-m.r, y1: m.t+ih, y2: m.t+ih, class: "baseline"}, svg);
+    for (const t of [100, 150, 200, 250]) {
+      el("text", {x: x(t), y: H-24, "text-anchor": "middle", class: "axis-t"}, svg).textContent = t;
+    }
+    el("text", {x: m.l + iw/2, y: H-6, "text-anchor": "middle", class: "axis-t"}, svg).textContent = "height, cm";
+    el("text", {x: 14, y: m.t + 4, class: "axis-t"}, svg).textContent = "mass, kg (log)";
+
+    for (const p of scatterPts) {
+      const px = x(p.height), py = y(p.mass);
+      const g = el("g", {class: "dot"}, svg);
+      el("circle", {cx: px, cy: py, r: 6.5, fill: "var(--panel)"}, g);      // 2px surface ring
+      el("circle", {cx: px, cy: py, r: 4.5, fill: "var(--s1)"}, g);
+      if (labeled.has(p.name)) {
+        el("circle", {cx: px, cy: py, r: 4.5, fill: "var(--s3)"}, g);
+        const anchor = px > W - 130 ? "end" : "start";
+        const dx = anchor === "end" ? -10 : 10;
+        el("text", {x: px + dx, y: py + 4, "text-anchor": anchor, class: "anno-t"}, svg)
+          .textContent = `${p.name} · ${fmt(p.mass)} kg`;
+      }
+    }
+    // nearest-point hover across the whole plot (no pinpoint targets)
+    const hit = el("rect", {x: m.l, y: m.t, width: iw, height: ih, fill: "transparent"}, svg);
+    let ring = null;
+    hit.addEventListener("pointermove", e => {
+      const r = svg.getBoundingClientRect();
+      const mx = (e.clientX - r.left) * (W / r.width), my = (e.clientY - r.top) * (H / r.height);
+      let best = null, bd = 1e9;
+      for (const p of scatterPts) {
+        const d = (x(p.height)-mx)**2 + (y(p.mass)-my)**2;
+        if (d < bd) { bd = d; best = p; }
+      }
+      if (best && bd < 40**2) {
+        if (ring) ring.remove();
+        ring = el("circle", {cx: x(best.height), cy: y(best.mass), r: 8.5, fill: "none",
+          stroke: "var(--gold)", "stroke-width": 1.5}, svg);
+        tipShow(e, best.name, [
+          {color: "var(--s1)", value: fmt(best.mass) + " kg", label: `· ${best.height} cm`},
+          {value: best.species || "—", label: `· ${best.homeworld || "homeworld unknown"}`},
+        ]);
+      } else { if (ring) { ring.remove(); ring = null; } tipHide(); }
+    });
+    hit.addEventListener("pointerleave", () => { if (ring) { ring.remove(); ring = null; } tipHide(); });
+  }
+  render(); charts.push(render);
+})();
+
+/* ── chart 4: homeworlds horizontal bars ──────────────────────────────── */
+(function homeworldChart() {
+  const sql = `SELECT homeworld, COUNT(*) AS characters
+FROM characters_enriched
+GROUP BY homeworld
+ORDER BY characters DESC
+LIMIT 10;`;
+  const {viz, tblWrap} = makeCard("#card-homeworlds", "Top homeworlds",
+    "Characters per homeworld — Naboo out-produces Tatooine", {sql});
+  buildTable(tblWrap, [
+    {h: "Homeworld", f: r => r.name},
+    {h: "Characters", f: r => fmt(r.n), num: true},
+  ], homeworldTop);
+
+  function render() {
+    viz.textContent = "";
+    const W = viz.clientWidth || 500;
+    const row = 33, m = {t: 6, r: 40, b: 8, l: 96};
+    const H = m.t + homeworldTop.length*row + m.b;
+    const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": "Horizontal bar chart of the ten homeworlds with the most characters."}, viz);
+    const maxV = homeworldTop[0].n;
+    const x = v => m.l + v/maxV*(W - m.l - m.r);
+    el("line", {x1: m.l, x2: m.l, y1: m.t, y2: H-m.b, class: "baseline"}, svg);
+    homeworldTop.forEach((d, i) => {
+      const yc = m.t + row*i + row/2, bh = Math.min(24, row-11);
+      const g = el("g", {class: "bar", tabindex: "0", "aria-label": `${d.name}: ${d.n} characters`}, svg);
+      el("path", {d: barPathH(m.l, yc-bh/2, x(d.n)-m.l, bh, 4), fill: "var(--s1)", class: "bar-fill"}, g);
+      el("rect", {x: 0, y: yc-row/2, width: W, height: row, fill: "transparent"}, g);
+      el("text", {x: m.l-8, y: yc+4, "text-anchor": "end", class: "cat-t"}, svg).textContent = d.name;
+      el("text", {x: x(d.n)+7, y: yc+4, class: "val-t"}, svg).textContent = d.n;
+      const show = e => tipShow(e, d.name, [{color: "var(--s1)", value: fmt(d.n), label: "characters born here"}]);
+      g.addEventListener("pointermove", show);
+      g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, d.name, [{color: "var(--s1)", value: fmt(d.n), label: "characters"}]));
+      g.addEventListener("pointerleave", tipHide); g.addEventListener("blur", tipHide);
+    });
+  }
+  render(); charts.push(render);
+})();
+
+/* ── chart 5: hyperdrive leaderboard ──────────────────────────────────── */
+(function hyperChart() {
+  const sql = `SELECT name, model, starship_class,
+       TRY_CAST(hyperdrive_rating AS DOUBLE) AS rating
+FROM starships
+WHERE rating IS NOT NULL
+ORDER BY rating ASC, TRY_CAST(MGLT AS INT) DESC
+LIMIT 10;`;
+  const {viz, tblWrap} = makeCard("#card-hyper", "Fastest hyperdrives",
+    "Hyperdrive class — lower is faster; 0.5 is Corellian bragging rights", {sql});
+  buildTable(tblWrap, [
+    {h: "Starship", f: r => r.name},
+    {h: "Class", f: r => r.cls},
+    {h: "Hyperdrive", f: r => r.hyperdrive.toFixed(1), num: true},
+    {h: "MGLT", f: r => fmt(r.mglt), num: true},
+  ], hyperTop);
+
+  function render() {
+    viz.textContent = "";
+    const W = viz.clientWidth || 500;
+    const row = 33, m = {t: 6, r: 44, b: 8, l: 150};
+    const H = m.t + hyperTop.length*row + m.b;
+    const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img",
+      "aria-label": "Horizontal bar chart of the ten starships with the fastest hyperdrive ratings, where lower ratings are faster."}, viz);
+    const maxV = Math.max(...hyperTop.map(d => d.hyperdrive));
+    // speed = inverse of rating: bar length encodes 1/rating so longer = faster
+    const speed = d => 1/d.hyperdrive;
+    const maxS = Math.max(...hyperTop.map(speed));
+    const x = v => m.l + v/maxS*(W - m.l - m.r);
+    el("line", {x1: m.l, x2: m.l, y1: m.t, y2: H-m.b, class: "baseline"}, svg);
+    hyperTop.forEach((d, i) => {
+      const yc = m.t + row*i + row/2, bh = Math.min(24, row-11);
+      const g = el("g", {class: "bar", tabindex: "0", "aria-label": `${d.name}: hyperdrive class ${d.hyperdrive}`}, svg);
+      el("path", {d: barPathH(m.l, yc-bh/2, x(speed(d))-m.l, bh, 4), fill: "var(--s2)", class: "bar-fill"}, g);
+      el("rect", {x: 0, y: yc-row/2, width: W, height: row, fill: "transparent"}, g);
+      const nm = d.name.length > 18 ? d.name.slice(0, 17) + "…" : d.name;
+      el("text", {x: m.l-8, y: yc+4, "text-anchor": "end", class: "cat-t"}, svg).textContent = nm;
+      el("text", {x: x(speed(d))+7, y: yc+4, class: "val-t"}, svg).textContent = d.hyperdrive.toFixed(1);
+      const show = e => tipShow(e, d.name, [
+        {color: "var(--s2)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive (lower = faster)"},
+        {value: d.mglt != null ? d.mglt + " MGLT" : "MGLT unknown", label: `· ${d.cls || "unknown class"}`},
+      ]);
+      g.addEventListener("pointermove", show);
+      g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, d.name, [{color: "var(--s2)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive"}]));
+      g.addEventListener("pointerleave", tipHide); g.addEventListener("blur", tipHide);
+    });
+  }
+  render(); charts.push(render);
+})();
+
+/* re-render on resize */
+let rzT;
+addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(() => charts.forEach(f => f()), 160); });
+</script>
