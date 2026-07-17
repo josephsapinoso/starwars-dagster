@@ -91,13 +91,6 @@ def test_structural_asset_checks_pass_on_well_formed_data(full_run):
     assert not failed, f"blocking checks failed: {failed}"
 
 
-def test_left_join_keeps_characters_whose_homeworld_is_unmatched(full_run):
-    result, _ = full_run
-    df = result.output_for_node("characters_enriched")
-    obi_wan = df[df["character_name"] == "Obi-Wan Kenobi"].iloc[0]
-    assert obi_wan.isna()["homeworld"], "orphan homeworld URL should yield NULL, not drop the row"
-
-
 def test_gender_table_keeps_its_labels_on_modern_pandas(full_run):
     _, cwd = full_run
     report = (cwd / "data" / "output" / "galaxy_report.md").read_text()

@@ -35,6 +35,20 @@ class FakeSWAPIResource(SWAPIResource):
         return json.loads(path.read_text())
 
 
+class InlineSWAPIResource(SWAPIResource):
+    """Serves records passed directly by a test.
+
+    Behavior tests (edge cases like unparseable strings or orphan foreign keys)
+    craft their own minimal records with this, so they never depend on what the
+    refreshable fixture snapshot happens to contain.
+    """
+
+    data: dict = {}
+
+    def fetch(self, endpoint: str) -> list[dict]:
+        return self.data.get(endpoint, [])
+
+
 @pytest.fixture
 def fake_swapi() -> FakeSWAPIResource:
     return FakeSWAPIResource()
