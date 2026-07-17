@@ -1,0 +1,11 @@
+{
+  "source": "https://swapi.info/api",
+  "fetched_at": "2026-07-17T15:33:11.174025+00:00",
+  "record_counts": {
+    "films": 6,
+    "people": 82,
+    "planets": 60,
+    "starships": 36,
+    "species": 37
+  }
+}

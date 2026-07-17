@@ -49,20 +49,26 @@ def galaxy_report(
     )
 
     # ── Gender breakdown ─────────────────────────────────────────────────────
+    # rename_axis + reset_index(name=...) works on pandas 1.x and 2.x+ alike;
+    # the old reset_index().rename(columns={"index": ...}) idiom silently
+    # produces two "count" columns on pandas >= 2.0
     gender_counts = (
         characters_enriched["gender"]
         .value_counts()
-        .reset_index()
-        .rename(columns={"index": "gender", "gender": "count"})
+        .rename_axis("gender")
+        .reset_index(name="count")
     )
 
-    # ── Climate breakdown of homeworlds ──────────────────────────────────────
+    # ── Climate of characters' homeworlds ────────────────────────────────────
+    # Counts CHARACTERS (one row each), not distinct planets — label accordingly
     climate_counts = (
         characters_enriched["homeworld_climate"]
         .dropna()
         .value_counts()
         .head(8)
     )
+    climate_known = int(characters_enriched["homeworld_climate"].notna().sum())
+    homeworld_known = int(characters_enriched["homeworld"].notna().sum())
 
     # ── Best hyperdrive ships ─────────────────────────────────────────────────
     best_ships = (
@@ -105,11 +111,15 @@ def galaxy_report(
         "",
         "### Top 10 Homeworlds by Character Count",
         "",
+        f"*{homeworld_known} of {len(characters_enriched)} characters have a known homeworld.*",
+        "",
         df_to_md(homeworld_counts),
         "",
         "### Homeworld Climate Distribution",
         "",
-        "\n".join(f"- **{climate}**: {count} homeworlds" for climate, count in climate_counts.items()),
+        f"*Among the {climate_known} of {len(characters_enriched)} characters whose homeworld climate is known.*",
+        "",
+        "\n".join(f"- **{climate}**: {count} characters" for climate, count in climate_counts.items()),
         "",
         "---",
         "",
@@ -126,8 +136,8 @@ def galaxy_report(
         df_to_md(
             starship_stats["starship_class"]
             .value_counts()
-            .reset_index()
-            .rename(columns={"index": "class", "starship_class": "count"})
+            .rename_axis("class")
+            .reset_index(name="count")
         ),
         "",
         "---",

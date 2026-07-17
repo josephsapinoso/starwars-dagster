@@ -20,9 +20,10 @@
 9. [Module 5 — Analytics Asset (Layer 4)](#9-module-5--analytics-asset-layer-4)
 10. [Module 6 — Running the Pipeline in the Dagster UI](#10-module-6--running-the-pipeline-in-the-dagster-ui)
 11. [Module 7 — Schedules (Simulated Streaming)](#11-module-7--schedules-simulated-streaming)
-12. [Module 8 — Maintenance Playbook](#12-module-8--maintenance-playbook)
-13. [Module 9 — Going Further](#13-module-9--going-further)
-14. [Cheat Sheet](#14-cheat-sheet)
+12. [Module 8 — Testing & Asset Checks](#12-module-8--testing--asset-checks)
+13. [Module 9 — Maintenance Playbook](#13-module-9--maintenance-playbook)
+14. [Module 10 — Going Further](#14-module-10--going-further)
+15. [Cheat Sheet](#15-cheat-sheet)
 
 ---
 
@@ -166,11 +167,10 @@ source .venv/bin/activate
 
 ```bash
 pip install -e ".[dev]"
-# or if pyproject.toml doesn't have dev extras:
-pip install -e .
 ```
 
-This installs: `dagster`, `dagster-webserver`, `duckdb`, `pandas`, `requests`.
+This installs: `dagster`, `dagster-webserver`, `duckdb`, `pandas`, `requests`,
+plus `pytest` for the test suite (Module 8).
 
 ### Step 4 — Verify installation
 
@@ -491,7 +491,87 @@ Swap `SWAPIResource` for any other HTTP resource and the orchestration layer sta
 
 ---
 
-## 12. Module 8 — Maintenance Playbook
+## 12. Module 8 — Testing & Asset Checks
+
+A pipeline you can't rerun deterministically isn't tested — it's rehearsed. This
+module adds two complementary layers of verification, and the distinction between
+them is the single most useful idea to take away:
+
+> **Tests guard the code at dev time. Asset checks guard the data at run time.**
+> You need both, because SWAPI can change under you without a single line of your
+> code changing.
+
+### Pattern 1 — Unit test with a fake resource
+
+Because `SWAPIResource` is injected by Dagster rather than imported directly,
+tests can substitute a fake that reads committed fixture JSON instead of calling
+the network (`tests/conftest.py`):
+
+```python
+class FakeSWAPIResource(SWAPIResource):
+    def fetch(self, endpoint: str) -> list[dict]:
+        return json.loads((FIXTURE_DIR / f"{endpoint}.json").read_text())
+```
+
+*Why injection beats `requests-mock`:* you're testing your pipeline, not the
+`requests` library. Swapping the resource swaps the whole network layer in one
+line, and the same fake works for every asset that uses the resource.
+
+### Pattern 2 — Full-graph integration test with `materialize()`
+
+`dagster.materialize()` runs an asset graph in-process — no UI, no daemon
+(`tests/test_pipeline.py`):
+
+```python
+result = materialize(ALL_ASSETS + ALL_CHECKS, resources={"swapi": fake_swapi})
+assert result.success
+```
+
+One such test proves resource injection, DuckDB loading, every SQL transform,
+and the report render, end to end, offline, in seconds. It runs in a temporary
+directory so it can never touch your real `data/`.
+
+### Pattern 3 — Asset checks for runtime data quality
+
+`@asset_check` attaches a data assertion to an asset; its pass/fail state shows
+up on the lineage graph in the UI (`starwars_dagster/assets/checks.py`):
+
+```python
+@asset_check(asset=raw_people, blocking=True,
+             description="Records must carry the keys downstream joins depend on.")
+def raw_people_has_required_shape(raw_people: list[dict]) -> AssetCheckResult:
+    ...
+```
+
+*The severity tradeoff:* structural breakage (empty tables, missing keys) is
+`blocking=True` — stop before corrupting downstream assets. Value drift (SWAPI
+gains person #83) is a **WARN** — upstream data isn't ours to freeze, so the
+verified baselines live in `starwars_dagster/known_facts.py` and drift warns
+instead of breaking. Getting this severity split wrong in either direction is
+the classic data-quality failure mode: block on drift and every upstream edit
+bricks your pipeline; warn on breakage and you ship corrupt data.
+
+### Running it
+
+```bash
+pip install -e ".[dev]"
+pytest -v          # offline; test names read as a table of verified facts
+```
+
+Tests run against small **synthetic** fixtures by design (see
+`tests/fixtures/swapi/README.md`). To freeze a real dated snapshot of the API —
+which also activates the exact-value tests (82 people, 3 six-film characters…) —
+run `python scripts/snapshot_fixtures.py` once and commit the result.
+
+### ✅ Exercise 8
+
+Add an asset check to `galaxy_report` that fails if the report file is under
+1 KB (a truncated render). Then break it on purpose — comment out a section of
+the report — and watch where the failure surfaces in the UI.
+
+---
+
+## 13. Module 9 — Maintenance Playbook
 
 ### Daily operations
 
@@ -556,7 +636,7 @@ When you're ready to move beyond `dagster dev`:
 
 ---
 
-## 13. Module 9 — Going Further
+## 14. Module 10 — Going Further
 
 ### Add a Sensor (event-driven runs)
 
@@ -631,7 +711,7 @@ The Dagster plumbing doesn't change — only the resource implementation.
 
 ---
 
-## 14. Cheat Sheet
+## 15. Cheat Sheet
 
 ```bash
 # Start the UI

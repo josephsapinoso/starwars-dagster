@@ -7,8 +7,9 @@ same URL — never mint a new one).
 
 ## Design panel workflow (user's preferred process for design/creative decisions)
 
-For any significant design, UX, or storytelling decision on this project, run the
-owner's **role-panel debate** before implementing:
+For any significant design, UX, storytelling, or portfolio/engineering-craft decision
+on this project (e.g. adding tests or asset checks, restructuring the README, CI), run
+the owner's **role-panel debate** before implementing:
 
 1. Spawn parallel subagents, one per role, each given the same factual brief
    (current state, constraints, available data) and asked for: a verdict, ONE concrete
@@ -21,6 +22,17 @@ owner's **role-panel debate** before implementing:
    - Graphic Designer — typography, color budget, one coherent mark system
    - UX Designer — user control, accessibility, mobile, embeds; never gate content
    - Professional Visual Storyteller — narrative spine, hook, beat sheet, pacing
+   - Data Engineering Hiring Manager — the 90-second portfolio scan; what signal each
+     choice sends (README first impression, commit history, visible tradeoffs); what
+     questions it would raise in an interview
+   - QA / Data Quality Engineer — tests, Dagster asset checks, schema/null validation,
+     failure modes when SWAPI changes; nothing ships unverified
+   - Technical Writer — README/WORKSHOP.md as the landing page; docs must explain the
+     *why* and the tradeoffs, not just the how; jargon earns its place
+
+   Scoping: for pure visual/site decisions the original six roles carry the debate;
+   for pipeline, repo, or portfolio-presentation decisions the last three must be
+   included. Don't run all nine unless the decision genuinely spans both.
 3. Claude acts as **final decision maker**: adjudicate conflicts explicitly (say who
    won each argument and why), then present one synthesized plan — not a menu.
 

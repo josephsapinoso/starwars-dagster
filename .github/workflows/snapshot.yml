@@ -1,0 +1,42 @@
+name: Refresh SWAPI fixture snapshot
+
+# Fetches a dated snapshot of swapi.info into tests/fixtures/swapi/ and
+# commits it back to the branch it ran on. Exists because some dev
+# environments can't reach swapi.info directly.
+# workflow_dispatch only registers once this file is on the default branch,
+# so it also fires on pushes that touch the workflow itself.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/snapshot.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install
+        run: pip install -e .
+      - name: Fetch snapshot
+        run: python scripts/snapshot_fixtures.py
+      - name: Verify banked facts against the fresh snapshot
+        run: |
+          pip install pytest
+          pytest tests/test_pipeline.py -v -k "people_count or six_films or unknown_mass or naboo"
+      - name: Commit fixtures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/fixtures/swapi
+          git diff --cached --quiet && echo "No changes" || {
+            git commit -m "Freeze dated SWAPI fixture snapshot (via snapshot workflow)"
+            git push
+          }
