@@ -46,3 +46,29 @@ Lessons already banked from the first panel (do not relitigate):
 - Site constraints: single HTML file, no CDNs/webfonts/build step; gold #ffe81f is
   display accent only, never a data series; must handle reduced-motion, mobile, and
   the flat/auto-height-embed fallback (sticky can't engage there).
+
+Lessons banked from the testing panel (merged in PR #3 — do not relitigate):
+- pytest guards the CODE offline against committed fixtures; Dagster `@asset_check`s
+  guard the DATA at materialization (structural breakage = ERROR/blocking; upstream
+  drift = WARN — SWAPI is not ours to freeze). Verified baselines live once in
+  `starwars_dagster/known_facts.py`, imported by both tests and checks.
+- Behavior tests craft their own records via `InlineSWAPIResource` (tests/conftest.py)
+  and must NEVER depend on shared fixture content; only the banked-facts tests read
+  the frozen snapshot. `scripts/snapshot_fixtures.py` refreshes it (also runnable via
+  the `snapshot.yml` Actions workflow — needed because remote dev containers may not
+  reach swapi.info; GitHub runners can). CI (`ci.yml`) is offline-only.
+- No second data-quality framework (no Great Expectations/Pandera), no coverage
+  gates, no CI matrix. Dagster-native checks + one green workflow carry the signal.
+
+Lessons banked from the mobile beat-spacing panel (merged in PR #4 — do not relitigate):
+- The viewport meta tag must stay — it was missing and phones silently fell back to
+  the ~980px desktop layout; none of the mobile CSS applied on real devices.
+- Mobile story geometry: stage pinned at min(52svh, 480px) — never shrink it
+  (denominator captions and annotations are at the legibility floor); cards dock
+  top-anchored in min(64svh, 560px) steps at a constant station; exactly ONE authored
+  pause (`.step--held`, 90svh) before the witnesses reveal; beat counter ("n / 8",
+  NBSP-glued) rides the sticky stage caption. Rejected for cause: scroll-snap
+  (scroll-jack), decorative fill in the gaps, stage shrinkage.
+
+Open item: re-materialize locally and retake the three README screenshots so the
+Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
