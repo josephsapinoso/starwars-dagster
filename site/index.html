@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Star Wars Galaxy Report</title>
 <style>
   /* ── tokens ─────────────────────────────────────────────────────────── */
@@ -105,7 +106,12 @@
     .scrolly { display: flex; flex-direction: column; }
     .stage { order: -1; position: sticky; top: 0; z-index: 2; width: 100%; align-items: center; height: min(52svh, 480px); background: var(--void); border-bottom: 1px solid var(--line); padding: 8px 0; box-sizing: border-box; }
     .stage svg { max-width: 480px; }
-    .step { min-height: min(88svh, 760px); }
+    /* beat spacing: card docks at a constant station just under the pinned
+       stage; 64svh keeps one thumb-flick per beat and guarantees the next
+       card enters before the zone below the stage can go fully empty */
+    .step { min-height: min(64svh, 560px); align-items: flex-start; padding-top: 6svh; box-sizing: border-box; }
+    /* the one authored pause: a held breath before the witnesses reveal */
+    .step--held { min-height: min(90svh, 760px); }
     .step-inner { max-width: none; }
   }
 
@@ -259,7 +265,7 @@
         </div>
       </div>
 
-      <div class="step" data-step="4">
+      <div class="step step--held" data-step="4">
         <div class="step-inner">
           <span class="kicker">The cameos</span>
           <p>Stack the census by screen persistence and the truth comes out: <strong>42 of 82 — more than half — appear in exactly one film.</strong> The galaxy far, far away is mostly one-scene wonders.</p>
@@ -698,7 +704,7 @@ function tipHide() { tip.classList.remove("on"); }
     });
     axisLayer.textContent = ""; drawAxis(axisLayer, st.axis);
     annoLayer.textContent = ""; drawAnnos(annoLayer, st.annos);
-    capEl.textContent = st.cap;
+    capEl.textContent = `${st.cap} · ${i + 1} / ${BUILDERS.length}`;
     svg.setAttribute("aria-label", st.cap);
   }
   applyState(0);
