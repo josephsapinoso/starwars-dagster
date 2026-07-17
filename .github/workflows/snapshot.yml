@@ -1,10 +1,15 @@
 name: Refresh SWAPI fixture snapshot
 
-# Manually triggered: fetches a dated snapshot of swapi.info into
-# tests/fixtures/swapi/ and commits it back to the branch it ran on.
-# Exists because some dev environments can't reach swapi.info directly.
+# Fetches a dated snapshot of swapi.info into tests/fixtures/swapi/ and
+# commits it back to the branch it ran on. Exists because some dev
+# environments can't reach swapi.info directly.
+# workflow_dispatch only registers once this file is on the default branch,
+# so it also fires on pushes that touch the workflow itself.
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/snapshot.yml"
 
 permissions:
   contents: write
