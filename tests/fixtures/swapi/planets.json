@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Tatooine",
+    "climate": "arid",
+    "terrain": "desert",
+    "population": "200000",
+    "url": "https://swapi.info/api/planets/1"
+  },
+  {
+    "name": "Alderaan",
+    "climate": "temperate",
+    "terrain": "grasslands, mountains",
+    "population": "2000000000",
+    "url": "https://swapi.info/api/planets/2"
+  },
+  {
+    "name": "Naboo",
+    "climate": "temperate",
+    "terrain": "grassy hills, swamps, forests, mountains",
+    "population": "4500000000",
+    "url": "https://swapi.info/api/planets/8"
+  }
+]

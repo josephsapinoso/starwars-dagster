@@ -29,14 +29,13 @@ from dagster import asset, AssetExecutionContext
 
 _GROUP = "02_transformed"
 DB_PATH = pathlib.Path("data/star_wars.duckdb")
+OUTPUT_DIR = pathlib.Path("data/output")
 
 
-def _extract_id_from_url(url: str) -> int | None:
-    """SWAPI URLs end with /id/ — extract the integer ID."""
-    try:
-        return int(url.rstrip("/").rsplit("/", 1)[-1])
-    except (ValueError, AttributeError):
-        return None
+def _write_csv(df: pd.DataFrame, name: str) -> None:
+    """Write a transform output CSV, creating data/output/ if needed."""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    df.to_csv(OUTPUT_DIR / name, index=False)
 
 
 # ── Load raw JSON into DuckDB ────────────────────────────────────────────────
@@ -127,7 +126,7 @@ def characters_enriched(context: AssetExecutionContext, star_wars_db: str) -> pd
 
     con.close()
 
-    df.to_csv("data/output/characters_enriched.csv", index=False)
+    _write_csv(df, "characters_enriched.csv")
     context.add_output_metadata({"row_count": len(df), "columns": list(df.columns)})
     return df
 
@@ -162,7 +161,7 @@ def film_character_counts(context: AssetExecutionContext, star_wars_db: str) -> 
 
     con.close()
 
-    df.to_csv("data/output/film_character_counts.csv", index=False)
+    _write_csv(df, "film_character_counts.csv")
     context.add_output_metadata({"films": df[["title", "character_count"]].to_dict("records")})
     return df
 
@@ -200,7 +199,7 @@ def starship_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Data
 
     con.close()
 
-    df.to_csv("data/output/starship_stats.csv", index=False)
+    _write_csv(df, "starship_stats.csv")
     context.add_output_metadata(
         {
             "total_starships": len(df),

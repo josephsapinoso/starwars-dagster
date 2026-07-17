@@ -24,11 +24,13 @@ from starwars_dagster.resources.swapi_resource import SWAPIResource
 
 # Where to store raw JSON dumps
 RAW_DIR = pathlib.Path("data/raw")
-RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _save_json(name: str, data: list[dict]) -> pathlib.Path:
     """Save a list of records to data/raw/<name>.json and return the path."""
+    # mkdir at write time, not import time — the path is cwd-relative, so an
+    # import-time mkdir would pin the directory to whatever cwd loaded the module
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
     path = RAW_DIR / f"{name}.json"
     path.write_text(json.dumps(data, indent=2))
     return path

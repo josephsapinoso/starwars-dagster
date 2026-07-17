@@ -1,0 +1,104 @@
+[
+  {
+    "name": "CR90 corvette",
+    "model": "CR90 corvette",
+    "manufacturer": "Corellian Engineering Corporation",
+    "starship_class": "corvette",
+    "hyperdrive_rating": "2.0",
+    "max_atmosphering_speed": "950",
+    "crew": "30-165",
+    "passengers": "600",
+    "length": "150",
+    "pilots": [],
+    "url": "https://swapi.info/api/starships/2"
+  },
+  {
+    "name": "Death Star",
+    "model": "DS-1 Orbital Battle Station",
+    "manufacturer": "Imperial Department of Military Research, Sienar Fleet Systems",
+    "starship_class": "Deep Space Mobile Battlestation",
+    "hyperdrive_rating": "4.0",
+    "max_atmosphering_speed": "n/a",
+    "crew": "342,953",
+    "passengers": "843,342",
+    "length": "120000",
+    "pilots": [],
+    "url": "https://swapi.info/api/starships/9"
+  },
+  {
+    "name": "Millennium Falcon",
+    "model": "YT-1300 light freighter",
+    "manufacturer": "Corellian Engineering Corporation",
+    "starship_class": "Light freighter",
+    "hyperdrive_rating": "0.5",
+    "max_atmosphering_speed": "1050",
+    "crew": "4",
+    "passengers": "6",
+    "length": "34.37",
+    "pilots": [
+      "https://swapi.info/api/people/16"
+    ],
+    "url": "https://swapi.info/api/starships/10"
+  },
+  {
+    "name": "X-wing",
+    "model": "T-65 X-wing",
+    "manufacturer": "Incom Corporation",
+    "starship_class": "Starfighter",
+    "hyperdrive_rating": "1.0",
+    "max_atmosphering_speed": "1050",
+    "crew": "1",
+    "passengers": "0",
+    "length": "12.5",
+    "pilots": [
+      "https://swapi.info/api/people/1",
+      "https://swapi.info/api/people/29"
+    ],
+    "url": "https://swapi.info/api/starships/12"
+  },
+  {
+    "name": "A-wing",
+    "model": "RZ-1 A-wing Interceptor",
+    "manufacturer": "Alliance Underground Engineering, Incom Corporation",
+    "starship_class": "Starfighter",
+    "hyperdrive_rating": "1.0",
+    "max_atmosphering_speed": "1300",
+    "crew": "1",
+    "passengers": "0",
+    "length": "9.6",
+    "pilots": [
+      "https://swapi.info/api/people/29"
+    ],
+    "url": "https://swapi.info/api/starships/23"
+  },
+  {
+    "name": "Naboo fighter",
+    "model": "N-1 starfighter",
+    "manufacturer": "Theed Palace Space Vessel Engineering Corps",
+    "starship_class": "Starfighter",
+    "hyperdrive_rating": "1.0",
+    "max_atmosphering_speed": "1100",
+    "crew": "1",
+    "passengers": "0",
+    "length": "11",
+    "pilots": [
+      "https://swapi.info/api/people/40"
+    ],
+    "url": "https://swapi.info/api/starships/40"
+  },
+  {
+    "name": "Jedi starfighter",
+    "model": "Delta-7 Aethersprite-class interceptor",
+    "manufacturer": "Kuat Systems Engineering",
+    "starship_class": "Starfighter",
+    "hyperdrive_rating": "unknown",
+    "max_atmosphering_speed": "1150",
+    "crew": "1",
+    "passengers": "0",
+    "length": "8",
+    "pilots": [
+      "https://swapi.info/api/people/10"
+    ],
+    "url": "https://swapi.info/api/starships/21"
+  }
+]

@@ -1,5 +1,7 @@
 # Star Wars Dagster Pipeline
 
+[![CI](https://github.com/josephsapinoso/starwars-dagster/actions/workflows/ci.yml/badge.svg)](https://github.com/josephsapinoso/starwars-dagster/actions/workflows/ci.yml)
+
 An end-to-end data engineering pipeline built with [Dagster OSS](https://dagster.io) that pulls live Star Wars data from the [SWAPI](https://swapi.info) REST API, transforms it with DuckDB, and generates an analytics report.
 
 Built as a self-study workshop for learning Dagster fundamentals.
@@ -59,6 +61,25 @@ python -m dagster dev
 - **Pandas** — DataFrame transforms
 - **Python 3.11+**
 
+## Testing & data quality
+
+Tests run **offline** against committed fixtures; Dagster **asset checks** validate
+the **live** pull at materialization time — code and data are guarded separately.
+
+```bash
+pip install -e ".[dev]" && pytest -v
+```
+
+- `tests/test_pipeline.py` materializes all 10 assets (plus every check) in-process
+  with a fake `SWAPIResource` — no network, runs in seconds
+- `starwars_dagster/assets/checks.py` — structural breakage **blocks** the run;
+  upstream drift (SWAPI is someone else's dataset) only **warns**, with baselines
+  in `known_facts.py`
+- Deliberately *not* here: a second data-quality framework, coverage gates, or a
+  CI matrix — Dagster-native checks and one green offline workflow carry the weight
+- `scripts/snapshot_fixtures.py` freezes a dated real-API snapshot and unlocks the
+  exact-value tests (82 people, 3 six-film characters, 23 unknown masses)
+
 ## What you'll learn
 
 Working through the `WORKSHOP.md` file covers:
@@ -68,6 +89,7 @@ Working through the `WORKSHOP.md` file covers:
 - Layered pipeline architecture (raw → staging → transform → analytics)
 - SQL transforms with DuckDB's JSON functions
 - Schedules for recurring runs
+- Testing assets offline and validating live data with asset checks
 - Re-executing from failure (not from scratch)
 - Maintenance and observability patterns
 
