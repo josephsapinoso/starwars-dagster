@@ -21,6 +21,26 @@ Verdicts per row:
 - **ILLUSTRATIVE** — cannot run against any real table (hypothetical schema).
   Either rewrite against the real schema or label it as pseudocode on-page.
 
+## Banked law in this repo (2026-07-18 post-landing cleanup, commit c0b97e0)
+
+**Displayed SQL is executed SQL.** Any SQL text shown on the site lives in DATA
+(single source; the page renders only from DATA) and is executed against the
+fixture-built warehouse by the offline suite — an ungated EXECUTE layer plus a
+snapshot-gated COMPARE layer asserting each query's result set equals the rows
+the chart derives from DATA (tests/test_site_sql.py). No hand-verified SQL copy
+anywhere. Corollaries, each pytest-pinned:
+- Authoring-time recodes and leaderboard tiebreaks move INTO the SQL (mirrored
+  in the JS sorts) so executed output equals rendered rows.
+- Numeric comments inside displayed SQL are a banned class
+  (`test_displayed_sql_carries_no_unverified_count_comments`).
+- If displayed SQL names a table that doesn't exist, first ask whether the
+  table SHOULD exist: a warehouse write-back (same df the asset returns, with a
+  parity assertion and frozen expected-table count) can be the stronger honest
+  fix — but frame it as closing a warehouse gap, never as "making the site's
+  SQL true."
+- ILLUSTRATIVE is no longer an acceptable end state here: rewrite against the
+  real schema or remove the string.
+
 Traps learned in this repo:
 - Storage lies about types: list fields json.dumps'd into VARCHAR make `len()`
   return string length; the honest query is `json_array_length()` — check the

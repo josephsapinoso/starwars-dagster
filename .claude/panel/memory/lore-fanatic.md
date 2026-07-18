@@ -30,6 +30,28 @@
   unguarded claims say so in plain words; no fabricated or implied live status.
   Severity badges are engineering facts — monochrome ◆ blocks / ◇ warns — never
   faction iconography, never lightsaber colors. (Pipeline-reveal.)
+- **Description style rule (post-landing cleanup, 2026-07-18):** check descriptions
+  state the invariant and its stakes; run metadata carries the particulars;
+  `known_facts.py` is the ONLY home for canon rosters and payoff numbers. "Matches
+  known_facts.SIX_FILM_CHARACTERS" is MORE precise than a hand-listed roster, not
+  vaguer — a prose roster is a second home and a drift bug that can make the Dagster
+  UI lie. No check string quotes another beat's caption or payoff.
+- **Spoiler pin law (post-landing cleanup):** a standing offline test derives payoff
+  term sets — names AND numbers — from known_facts and asserts no check string
+  renders on a beat earlier than its claim's reveal beat. Term sets are derived,
+  never hand-listed; every new check passes the spoiler audit; the pin was
+  seen-to-fail before merge.
+- **Displayed SQL is executed SQL (post-landing cleanup):** any SQL text shown on
+  the site lives in DATA and is executed against the fixture-built warehouse by the
+  offline suite. A displayed query that isn't the executed one is a misattributed
+  quote — same sin as a number credited to the wrong asset.
+- **Provenance carries no narrative fields (post-landing cleanup):** everything in
+  DATA.provenance stays derivable from / verifiable against the real Dagster
+  definitions plus known_facts. No hand-authored story attribution (e.g. a `beat`
+  index on checks) on the one object whose credibility is "machine-checked".
+- **The rail is uniform (post-landing cleanup):** every beat renders the same rule —
+  all checks of its chain assets. Spoiler safety lives in the strings, not the
+  renderer. My cumulative beat-indexed rail is dead; do not re-propose it.
 
 ## Working knowledge
 
@@ -44,11 +66,18 @@
   (`DATA.films[].crawl`) — the right home for them: primary-source text, opt-in.
 - Beat-6 quote verified: "flying is for droids" is a fair paraphrase of Obi-Wan in
   Revenge of the Sith ("Flying is for droids."); attribution correct as rendered.
-- Beat→asset truth (from data-analyst's prep, adjudicated): beats 1–3 read from
-  `characters_enriched`; the 42-one-film and six-film-trio numbers are per-CHARACTER
-  and are computed by NO asset (hand-derived from `raw_people[].films` at authoring
-  time, guarded offline by pytest vs `known_facts.py`). Reveals must render this as
-  `relation: derived` honestly — my trio fact is guarded by pytest, not a live check.
+- Beat→asset truth (current, post-082d9c9 + cleanup): beats 4–6 are DIRECT, guarded
+  by live `character_stats_*` checks (one-film 42, six-film trio, pilot count,
+  max-flown); beat 1's "1 unmeasured" is guarded by the WARN check
+  `characters_enriched_unknown_height_baseline`. Thirteen checks total (4 blocking,
+  9 warn). Trio names surface at runtime in check metadata (`expected: sorted(
+  SIX_FILM_CHARACTERS)`) — the roster's single home is known_facts.py.
+- `characters_enriched` is now a real DuckDB table (write-back on the same df the
+  asset returns), so `FROM characters_enriched` in the displayed SQL is true.
+- Beat-1 verified facts (bankable copy material): height range Yoda 66 cm → Yarael
+  Poof 264 cm; the single unmeasured character is **Arvel Crynyd** — the A-wing
+  pilot who took out the Executor's bridge in RotJ. A fitting person for the census
+  to have failed to measure; earned if ever named on the page.
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
 
@@ -86,41 +115,36 @@ DIRECT — if it lands, the trio and 42-count get real checks; reveal wording fo
 beats must be updated from "derived" the same commit, or the honesty line becomes the
 new lie. → LANDED 2026-07-18 (commit 082d9c9); beats 4–6 now direct + check-guarded.
 
-## Prep notes: post-landing cleanup (2026-07-18)
+## Banked: post-landing cleanup (2026-07-18)
 
-**Q1 — the leak is wider than the brief says.** `chainEl` (site/index.html:823-843)
-renders ALL checks of every chain asset. Beats 4–6 share raw_people → star_wars_db →
-character_stats, so beat 4's rail shows all four character_stats labels: "42 one-film
-cameos" (its own), plus **"six-film trio" (beat 5's payoff), "19 pilots" AND
-"max flown = 5" (beat 6's payoffs)**. Beat 5's rail likewise pre-leaks beat 6. Hover
-`why` strings name Obi-Wan verbatim in BOTH `character_stats_six_film_trio` and
-`character_stats_max_flown_baseline` (checks.py:214-256). The brief's Q1 framing
-(trio only) understates it — any fix must handle all three forward leaks or it's
-half a fix.
+**Won:**
+- Q2 outright and unanimously, in my framing: displayed SQL that isn't executed SQL
+  is a misattributed quote. Now law. Register held in implementation (c0b97e0): the
+  five DATA SQL strings are pure machine-shop voice, the stale "-- 59 of 82" comment
+  is dead, no Star Wars aliases or quote-jokes entered during the move.
+- Q3(a): the height-null WARN check landed (2aa845e); beat 1's guard flipped
+  pytest→check honestly, per my "mirrors beat 2, earned not decorative" read. Q3(b)
+  galaxy_report stays disclosed-not-checked — my defer-to-engineers call held.
+- Q1 substance despite losing the mechanism: nothing kitsch or bowdlerized entered
+  checks.py — the trio check still asserts the exact three-name set, and the names
+  still surface at runtime in metadata; my "sequence the quotation" instinct became
+  the standing spoiler pin; and my must-have #2 (derived, never hand-listed) is
+  literally how the pin builds its term sets from known_facts.
+- My prep widened the leak audit from "the trio" to all three forward leaks
+  (trio + 19 pilots + max-flown), and the fix covered all of them.
 
-**My Q1 position, grounded:** option (a) — rewriting label/description spoiler-free —
-is self-defeating in my lane. The trio description naming C-3PO, R2-D2, AND Obi-Wan is
-the canon correction this project exists to make; scrubbing names from the Dagster-UI
-source to protect a webpage beat bowdlerizes the primary source, and any *accurate*
-label for a set-of-three baseline still leaks the count ("trio" IS the spoiler). Fix
-belongs in rendering (option b): sequence the quotation, don't rewrite the source —
-e.g. each beat's rail shows blocking checks + checks guarding claims at ≤ the current
-beat; beat 6 shows the full rail. That preserves verbatim-projection law untouched.
+**Lost:**
+- Q1 mechanism, 5–3–1: cumulative beat-indexed rail lost to re-authoring. Decisive:
+  the technical-writer's one-home law (the prose roster was a THIRD home for the
+  trio — a drift bug that could make the Dagster UI lie, independent of spoilers)
+  plus QA's point that a `beat` index is hand-authored attribution pytest cannot
+  verify. I framed re-authoring as bowdlerizing; it wasn't. "Matches
+  known_facts.SIX_FILM_CHARACTERS" is more precise than prose, and fidelity can
+  live in a derived reference, not only in a verbatim quotation. My skill's
+  "sequence the quotation" corollary is rewritten to match.
 
-**Q2 verification story:** a displayed SQL string that isn't the executed, verified
-string is a misattributed quote — same class of sin as a number credited to the wrong
-asset. The candidate (SQL into DATA; offline pytest EXECUTES each string against the
-fixture DB and matches inline numbers) makes display = execution = truth. Support.
-Register note: SQL stays machine-shop voice — no Star Wars aliases/comments creeping
-in during the move.
-
-**Q3 facts verified from DATA:** beat 1's range is Yoda 66 cm → Yarael Poof 264 cm;
-the single unmeasured character is **Arvel Crynyd** (the A-wing pilot who hit the
-Executor's bridge, RotJ — a fitting person for the census to have failed to measure).
-"The measuring" beat flipping pytest → WARN check mirrors beat 2's mass baseline
-exactly; earned, not decorative. Q3(b) galaxy_report structural check: no lore stake;
-defer to engineers under the coverage-theater law.
-
-**Also noted:** rail-render-everything was never itself banked law — the
-pipeline-reveal decision specified "check rail per chip" but not which checks; a
-per-beat filter rule contradicts nothing settled.
+**Prep differently next time:** before defending any prose that carries a canon
+fact, ask "how many homes does this fact have?" — single-sourcing a roster is as
+much an authenticity question as getting the roster right. And check the pytest
+verifiability of any field I'd add to provenance before proposing it; unverifiable
+attribution on the machine-checked object is its own kind of misattribution.
