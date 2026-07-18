@@ -145,51 +145,54 @@ criteria, which is itself the win.
 Newly settled (promoting nothing new — all covered by existing Settled entries; the
 no-diagram-fuel and guard-honesty laws did the work here).
 
-Open items now: (1) README screenshot retake — needs 12 green checks in the lineage
-view, desktop UI required; (2) five dashboard SQL strings still unverified — no badge
-or verified-home yet; watch that nobody adds an implied guard to them meanwhile.
+(Open items listed here superseded — see Banked: post-landing cleanup.)
 
-Open items I track: screenshot retake (now 12 green checks — see next section);
-dashboard SQL strings into a verified home (still unverified, blocked on a
-verification story). Per-character transform: LANDED, see next section.
+## Prep notes: post-landing cleanup (2026-07-18, compacted after banking)
 
-## Prep notes: post-landing cleanup — trio leak, SQL honesty, coverage gaps (2026-07-18)
+Kept for reuse (verdict resolved the rest — see Settled and Banked):
+- The audit method that found the SQL lie is the reusable part: read the transform's
+  actual `CREATE TABLE` list, then grep every displayed `FROM` clause against it. Three
+  of five site SQL strings were false (charts 2/4 queried a never-created table; chart 1
+  measured stringified-JSON length). An interviewer catches that class of defect in ~3
+  minutes — always execute displayed code claims during prep, never trust them.
+- Q3 fulcrum held as stated: a check earns its place iff it guards a number/artifact
+  someone consumes. Height-null WARN qualified (guards beat 1's "1 unmeasured");
+  galaxy_report did not (no site claim cites it; would also pre-solve WORKSHOP
+  Exercise 8 — qa/tech-writer supplied that second reason).
 
-**Q2 is the hire-signal event; I verified the audit myself, it is not hearsay.**
-`transforms.py:81-87` creates only `films/people/planets/starships/species` tables;
-`characters_enriched` exists solely as DataFrame + CSV (`transforms.py:130`). Yet chart 2
-(index.html:1047) and chart 4 (:1184) display `FROM characters_enriched`, and chart 1
-(:985) displays `len(f.characters)` — string length of stringified JSON (lists are
-`json.dumps`'d at load, :74; the real transform uses `json_array_length`). Three of five
-displayed SQL strings are false against the warehouse they claim to describe. README says
-"Provenance you can't fake" (line 29) and "the DuckDB SQL behind every chart" (line 92) —
-a false explicit README claim. An interviewer who opens one SQL disclosure and greps
-transforms.py catches this in ~3 minutes. The brief's candidate story (SQL into DATA,
-offline pytest EXECUTES each string against the fixture DB, asserts results == inline
-numbers) is the right shape: it forces the three lies to be rewritten to real tables and
-converts the liability into the repo's best interview answer ("our displayed SQL was
-wrong; now CI executes it"). Watch for a "persist characters_enriched into DuckDB so the
-SQL becomes true" counter — that's pipeline change for presentation; my no-diagram-fuel
-law applies unless it has analytics merit.
+Cannot verify (still): artifact-side render of the grown DATA literal.
 
-**Q1**: leak is three-wide (trio label + "19 pilots" + "max flown 5" — beats 5/6 payoffs
-all render in beat 4's rail because `chainEl` (index.html:823-843) dumps every check of
-every shared-chain asset). A half-fix already exists: beat 4's summary is special-cased to
-omit claim text (:859). Rail is informational, not a guard badge, so filtering it per-beat
-does NOT touch guard-honesty law. Hiring lens: minor scan-signal item; a per-beat
-rendering rule (guard check + blocking only on non-final shared-chain beats) reads as
-craft; re-authoring checks.py strings alone can't fix the "19 pilots" label without making
-the Dagster-UI description worse.
+## Banked: post-landing cleanup (2026-07-18)
 
-**Q3 fulcrum** (my law): a check earns its place iff it guards a number/artifact someone
-consumes. (a) height-null WARN on `characters_enriched` guards beat 1's displayed
-"1 unmeasured" and flips it pytest→check, matching beat 2's pattern — legitimate, not
-theater; also gives the falsely-cited asset its first check. (b) galaxy_report structural
-check is weaker — the site cites nothing from the report; only defensible as a blocking
-"file written, sections present" smoke test on the artifact the README quick-start tells
-people to read. Lean: (a) yes, (b) only if framed as consumer-facing smoke, else
-disclose-only.
+Verdict: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`. Implemented in
+two commits: `c0b97e0` (SQL truth) then `2aa845e` (spoiler re-author + pin + height
+check). Won on every axis this round.
 
-Cannot verify: whether the fixture-DB pytest path can execute all five rewritten strings
-cheaply (chart 3/5 use TRY_CAST — likely fine, untested); artifact-side render of a
-grown DATA literal.
+- **Q1 (won, 5-3-1):** re-authoring + uniform rail. My argument — rail density is
+  coverage signal; narrative metadata pollutes the one object whose credibility is
+  "machine-checked" — aligned with the decisive one-home/unverifiability case from
+  tech-writer and QA. The designer's guard-only rail lost to the coverage-
+  understatement objection I share: thinning the rail hides real check density.
+- **Q2 (won, unanimous, my shape):** the interview-kill → best-answer conversion is
+  now REAL and verifiable — tests/test_site_sql.py executes every displayed SQL string
+  against the fixture-built warehouse and compares results to the chart rows. The
+  repo's strongest interview answer is now "our displayed SQL was wrong twice-audited;
+  CI executes it so it cannot rot." My framing veto is banked as law in the decision
+  log: write-back = closing a warehouse gap, never "making the site's SQL true."
+- **Truth-then-tell sequencing happened exactly as I argued** and is now a reusable
+  principle: when a public claim is false, commit 1 makes the claim TRUE (and the
+  commit message names the defect — c0b97e0 does); commit 2 does the storytelling/
+  polish. Never interleave: a mixed commit reads as burying the fix; the honesty arc
+  only earns credit when the fix is separable and self-describing. README gained the
+  second-false-claim sentence in the truth commit, where it belongs.
+- **Q3(b) disclose-only held** — third consecutive win for the coverage-theater law
+  under pressure; galaxy_report stays check-free by design, gap disclosed.
+
+Counts now: 13 checks (4 blocking, 9 warn). What I'd prep differently: nothing
+structural this time — executing the displayed SQL myself during prep (rather than
+arguing from the brief) is what made my position unassailable; keep doing primary
+verification in prep, it converts opinion into evidence the panel can't discount.
+
+Open items I track: (1) README screenshot retake — one retake, lineage view showing
+13 green asset checks, needs desktop UI; (2) watch that future copy never frames the
+write-back as site-serving (framing law above).

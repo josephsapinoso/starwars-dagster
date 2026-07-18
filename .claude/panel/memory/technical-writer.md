@@ -31,6 +31,24 @@
   which numbers are guarded offline only") → architecture + quick start → `.claude/`
   panel as one short process section (human as adjudicator) → WORKSHOP.md as linked
   teaching appendix → personal-site link slot. (Pipeline-reveal, 2026-07-18.)
+- **Description style rule (MINE, banked law):** a check description states the
+  INVARIANT and its STAKES; run metadata carries the particulars; rosters and numbers
+  live only in known_facts.py. No check string quotes another beat's caption or
+  payoff. Written into checks.py's module docstring (lines 19–23) — the rule now
+  lives where authors of new checks will read it. (Post-landing cleanup, 2026-07-18.)
+- Displayed SQL is executed SQL: any SQL text shown on the site lives in DATA and is
+  executed against the fixture-built warehouse by the offline suite; no hand-verified
+  SQL copy anywhere. README's claim is worded to match ("every displayed string is
+  executed... so the SQL a reader opens is SQL that provably runs").
+  (Post-landing cleanup, 2026-07-18.)
+- DATA.provenance carries no narrative fields — everything in it stays derivable
+  from the real Dagster definitions plus known_facts; the rail renders uniformly,
+  spoiler safety lives in the strings. Spoiler pin law (qa/storyteller): payoff term
+  sets derive from known_facts; no check string renders earlier than its claim's
+  reveal beat. (Post-landing cleanup, 2026-07-18.)
+- galaxy_report stays check-free BY DESIGN: a check there would pre-solve WORKSHOP
+  Exercise 8 and duplicate pytest coverage. The gap is deliberately disclosed, not an
+  oversight — docs must keep saying so. (Post-landing cleanup, 2026-07-18.)
 
 ## Working knowledge
 
@@ -52,12 +70,13 @@
 - Reveal implementation is HTML `.chip` elements (not SVG), so text is natively
   accessible; `aria-label` is generated from the same provenance data — no separate
   hand-written accessible-name strings to drift.
-- Ground truth (updated 2026-07-18, commit 082d9c9): beats 4–6 are now DIRECT —
-  `character_stats` (02_transformed) computes films-per-character and
-  starships-flown; four WARN drift checks assert 42, the trio, 19, maxFlown 5.
-  Totals: 11 assets / 4 transforms / 12 checks (4 blocking, 8 warn). The old
-  "hand-derived at authoring time" story survives only as past tense in README's
-  "How this was built" paragraph — a deliberate narrative beat, not stale copy.
+- Ground truth (updated 2026-07-18, commits c0b97e0 + 2aa845e): 11 assets /
+  4 transforms / 13 checks (4 blocking, 9 warn) — the 13th is the WARN height-null
+  baseline guarding beat 1's "1 unmeasured". `characters_enriched` now writes back
+  to the warehouse (`CREATE OR REPLACE TABLE`; EXPECTED_DB_TABLES stays five). The
+  five dashboard SQL strings live in DATA and are executed + compared offline.
+  README's "How this was built" now carries TWO past-tense honesty beats: the
+  hand-derived numbers, then the three-of-five false SQL strings.
 
 ## Banked: pipeline-reveal (2026-07-18)
 
@@ -105,52 +124,53 @@
   describes without counting, so the old image doesn't overclaim. Captions that
   name, not enumerate, survive data changes.
 
-## Prep notes: post-landing cleanup — trio leak / SQL verification / coverage (2026-07-18)
+## Banked: post-landing cleanup (2026-07-18, commits c0b97e0 + 2aa845e)
 
-- **Watch item CLOSED (commit f172fac):** README's testing bullet (lines 20–28) now
-  links WORKSHOP Module 8 + the checks.py docstring with the explicit sentence "this
-  paragraph is the summary, not a second copy" — one-home law made self-documenting.
-  My memory had said "module 9"; the testing module is 8 (fixed above).
-- **Q1 (trio leak):** the leaking strings are docs with TWO readers — the Dagster
-  operator (UI check list + description) and the site hover reader (verbatim `why`
-  projection). The description (checks.py:216–218) names C-3PO/R2-D2/Obi-Wan and the
-  'Ben counts' beat; the rail label "six-film trio" is site provenance data. Both are
-  ours to re-author; the verbatim law binds only the projection, so a checks.py rewrite
-  propagates to the site automatically and pytest forces the sync. Operator clarity
-  survives spoiler-stripping because the invariant ("the set of characters in all six
-  films matches the verified snapshot") is what triage needs; the NAMES already surface
-  per-run in `metadata` (six_film_characters/expected) — exactly where an operator
-  looks. The check's function NAME (`..._six_film_trio`) renders only in beat 5's note
-  (the payoff beat), so no rename churn is required. Doc rule to argue: write the
-  description for the operator; let metadata carry the specifics.
-- **Q2 (SQL strings):** README:92 claims the dashboard carries "the DuckDB SQL behind
-  every chart" — per the data-engineer's audit (3 of 5 strings wrong today: chart 1
-  `len()` on VARCHAR returns wrong numbers; charts 2/4 query a `characters_enriched`
-  table that doesn't exist in the DB), that sentence currently overclaims. It is the
-  ONLY doc home for the claim (WORKSHOP never mentions the dashboard SQL; site summary
-  "Show the DuckDB SQL" is verb+payoff, still accurate as a label). If migration +
-  execute-and-compare pytest lands: README:92 can strengthen honestly ("...the DuckDB
-  SQL behind every chart, executed against the fixture DB by the offline suite") — one
-  clause, same home. If charts 2/4 are fixed via `CREATE OR REPLACE TABLE
-  characters_enriched` write-back, skim WORKSHOP Modules 3–4 framing of Layer 3 for a
-  one-line architecture-description update; tutorial integrity check needed.
-- **Q3 doc landmine — WORKSHOP Exercise 8 (line 567–571) IS the proposed galaxy_report
-  check:** "Add an asset check to galaxy_report that fails if the report file is under
-  1 KB." If the repo ships that check, the exercise becomes pre-solved answer-key
-  copying. If Q3(b) is adopted, the exercise must be re-pointed (different assertion,
-  or reframed as "then compare with the shipped check") IN THE SAME COMMIT — teaching
-  integrity is a guard too. Also: any added check moves the 12-check count in README
-  line 48 + tree comment, site `P.totals.checks`, and the beat-7 number-word list
-  (WORDS overflow detector warns, good — but copy still needs the new word).
-- Reusable technique: before endorsing a new repo feature, grep WORKSHOP exercises for
-  collisions — shipped code can silently invalidate a tutorial exercise.
+- **WON Q1, and the one-home law was the DECISIVE argument (5–3–1):** the trio
+  description hand-listing C-3PO/R2-D2/Obi-Wan wasn't primarily a spoiler — it was a
+  THIRD home for a roster whose single source is known_facts.py, a drift bug that
+  would make the Dagster UI lie if the snapshot changed. The decision log cites this
+  as what settled re-authoring over the cumulative rail. Reach lesson: the one-home
+  law is not a docs-hygiene rule; it adjudicates ARCHITECTURE questions (which
+  renderer, which data fields exist). Argue it as an engineering invariant, not a
+  style preference.
+- **My description style rule is now banked law and lives in code:** checks.py's
+  module docstring carries it verbatim ("descriptions state the INVARIANT and its
+  STAKES; run metadata carries the particulars; rosters and numbers live only in
+  known_facts.py"). This is my authorship rule for every future check string — and
+  proof that the best home for a writing rule can be a docstring the writers of new
+  checks cannot avoid reading. My trio description shipped near-verbatim (checks.py
+  ~240: "matches the verified snapshot in known_facts.py... the story's late payoff
+  leans on this exact set — if it shifts, that beat is wrong, not just stale").
+- **Same-commit doc must-haves all landed:** README:92–94 strengthened honestly
+  ("every displayed string is executed against the fixture-built warehouse... SQL
+  that provably runs"); honesty arc gained the second-false-claim sentence (108–111)
+  — the past-tense-confession pattern now has two instances and is officially a
+  genre, not a one-off; WORKSHOP Module 4 gained exactly ONE write-back sentence
+  (line 367, "One deliberate exception to the pattern...") — Layer-3 framing and
+  diagram untouched, tutorial integrity held.
+- **Exercise-8 collision is a reusable precedent: docs are a guard surface.** My
+  prep grep found that the proposed galaxy_report check IS WORKSHOP Exercise 8;
+  QA retracted their weak-yes on that basis and Q3(b) went disclose-only
+  unanimously. Technique to keep: before endorsing any new repo feature, grep
+  WORKSHOP exercises for collisions — shipped code can silently pre-solve a
+  tutorial. Teaching integrity vetoes features, not just phrasings.
+- **Count-ripple discipline held:** 12→13 landed atomically (README 48 + tree
+  comment 134, provenance totals, WORDS through "thirteen") BEFORE any screenshot
+  retake — truth-then-tell sequencing worked as designed.
+- Prep differently next time: my Q2 prep pre-drafted both the strengthened README
+  clause and the WORKSHOP one-liner conditional on the fix landing — both shipped
+  near-verbatim. Drafting copy for the branch you expect to win, gated on the fix,
+  is cheap and makes "same commit" frictionless. Do it again.
 
 ## Open watch items (mine)
-- Screenshot retake still open — target is now 12 green checks (was 8). Current
-  caption ("Asset Lineage Graph") does not overclaim; keep it count-free until
-  the retake lands.
-- SQL-string migration (five dashboard SQL strings) still open from
-  pipeline-reveal; when it moves, the verification story is the doc angle — and
-  README:92 ("the DuckDB SQL behind every chart") must be corrected or strengthened
-  in the same commit; it overclaims today.
-- If Q3(b) galaxy_report check lands: WORKSHOP Exercise 8 rewrite in the same commit.
+- Screenshot retake still open — target is now 13 green checks. Caption ("Asset
+  Lineage Graph") names without counting, so it doesn't overclaim; keep it
+  count-free until the retake lands.
+- Two-reader test for check strings (kept from prep): every description serves the
+  Dagster operator AND the site hover reader; names/numbers surface per-run in
+  metadata (e.g. six_film_characters/expected) — exactly where an operator looks.
+  Function names render only on their payoff beat, so no rename churn.
+- Watch the honesty arc's length: two confession beats read as process; a third
+  should prompt asking whether the paragraph needs restructuring into a pattern
+  statement rather than a growing list.
