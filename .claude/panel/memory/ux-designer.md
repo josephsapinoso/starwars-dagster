@@ -105,3 +105,51 @@ I only had it second-hand from the analyst.
 (desktop centered flex); flat-mode render of the chain; `aria-label` generated from
 the same provenance data, not hand-written; the shared selector doesn't accidentally
 restyle `details.sql` open-state behavior.
+
+## Prep notes: trio-leak / SQL verification / coverage gaps (2026-07-18)
+
+Verified in `site/index.html` (provenance IIFE ~795–879) and `DATA.provenance`:
+
+- **The "hover-only names" mitigation is a `title` attribute** (`s.title = k.why`,
+  line 834). Titles are unreachable on touch AND keyboard; only some AT expose them
+  as accessible description. The legend (line 866) literally instructs "hover a
+  check for its why" — a hover-only affordance promise the site can't keep on touch.
+  So: touch users see ONLY `label` + "◆ blocks/◇ warns". Consequences: (1) the touch
+  leak is label-only — fix the label, fix the whole touch surface; (2) the names leak
+  is desktop-hover + Dagster UI only; (3) whatever fix lands must NOT make `why` more
+  load-bearing while it's title-only, and the legend wording should stop promising
+  hover as if it were universal.
+- **The leak is a class, not an instance.** Beat 4's character_stats rail renders all
+  four labels: "42 one-film cameos", "six-film trio", "19 pilots", "max flown = 5".
+  So beat 4 also pre-announces beat 6's claim number (19) and punchline (5); beat 5
+  leaks beat 6 the same way. Any trio-only fix leaves the pattern.
+- **Per-beat filter costs measured.** character_stats has ZERO blocking checks, so a
+  "guard + blocking only on non-final beats" rule leaves beat 4's hot chip with
+  exactly one badge while beat 5/6 show four — same gesture, same chain, different
+  density. A reader comparing reveals can reasonably infer the pipeline changed
+  between beats, and the rail silently understates real coverage unless a "+N more
+  baselines" count line is added. Filtering is a build-time rule, so flat parity is
+  free — but it's a new rendering rule with a predictability tax.
+- **Spoilers are scroll-mode-only.** In flat mode every beat's full text is on screen
+  at once (beat 5's payoff included), so no fix needs a flat-mode variant; both
+  string re-authoring and any filter run at init inside `.step-inner` (enterFlat
+  inserts the figure BEFORE `details.prov`, lines 778–781, preserving copy → figure
+  → paper-trail order — a precedent to protect).
+- **Severity ladder for re-authoring:** verbatim names (description/`why`, desktop
+  hover + Dagster) > count words ("trio", "= 5") in ≤20-char labels (all devices)
+  > topic existence ("pilots"). Label is the touch-facing string; description is the
+  desktop/Dagster string. Both are ours to author; the verbatim law binds only the
+  projection.
+- **Q2 (SQL → DATA):** the five strings are JS template literals per chart IIFE
+  passed to `makeCard` as opts (`site/index.html:985` etc.); moving them into DATA is
+  render-identical — zero UX delta, and it makes the "Show the DuckDB SQL" disclosure
+  honest by execution. Support adopt.
+- **Q3:** beat 1 pytest→check flip renders through the existing NOTE templates and
+  badge machinery — pure DATA change, improves cross-beat consistency (beat 1 gains
+  the same guard badge style as beat 2). galaxy_report has no site surface; defer to
+  pipeline roles.
+- `.prov-check` is an 11.5px inline span — if anyone proposes tap-to-expand `why`,
+  it needs ≥24px targets and would be a disclosure-inside-a-disclosure; resist unless
+  the panel decides `why` must be touch-reachable (it duplicates the Dagster
+  description, so "supplemental on hover, canonical in Dagster" is defensible if the
+  legend stops overpromising).
