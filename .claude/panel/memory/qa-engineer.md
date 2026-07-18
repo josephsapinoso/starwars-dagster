@@ -20,6 +20,27 @@
   (Testing panel, PR #3.)
 - Every number on the site is guarded by the runtime drift detector; data-vs-copy
   divergence must warn, not silently ship. (First design panel.)
+- `DATA.provenance` is the single source for every provenance/severity string on the
+  site; badge severity derives from `spec.blocking` (never hand-typed — WARN is
+  runtime-only in Dagster); check rationales are verbatim projections of checks.py
+  `description=`. Verified by `tests/test_site_provenance.py` against
+  `defs.resolve_asset_graph()` + `check_specs`, same commit as the feature.
+  (Pipeline-reveal panel, 2026-07-18.)
+- Guard honesty: a check badge may only appear where the check asserts the displayed
+  number (or its denominator/structure, labeled as such); derived/unguarded claims
+  say so in plain words (`relation: direct|derived`, `guard.kind: check|pytest|none`;
+  `guard.kind=pytest` refs must name real tests). No fabricated or implied live
+  status, ever. (Pipeline-reveal panel, 2026-07-18.)
+- Reveals exist on beats 1–6 only; beat 0 clean; beat 7 = provenance-computed callback
+  whose counts must match the object. Coverage set asserted exactly by pytest AND the
+  runtime detector's internal-consistency pass. (Pipeline-reveal panel, 2026-07-18.)
+- The one-line strict-JSON format of `const DATA` in site/index.html is load-bearing:
+  tests parse it and must fail LOUDLY if the format changes. (Pipeline-reveal panel,
+  2026-07-18.)
+- Duty split: pytest proves provenance TRUTH offline (real assets/edges/checks,
+  blocking flags, verbatim descriptions); the runtime detector proves only INTERNAL
+  consistency (beats ↔ claims ↔ badge enum ↔ callback counts). Neither does the
+  other's job. (Pipeline-reveal panel, 2026-07-18.)
 
 ## Working knowledge
 
@@ -36,41 +57,55 @@
 - A feature and its guard land in the same commit; "verified" means an automated
   detector exists and has been seen to fail when the guarded thing breaks.
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Prep notes: pipeline-reveal (2026-07-17, compacted after banking)
 
-Verified myself, in-repo (Dagster 1.13.14):
+Durable residue not yet promoted to Settled (most of the original notes are now law
+above; introspection recipes + DATA extraction snippet live in the skill
+`.claude/skills/panel-qa-engineer-provenance-verification/SKILL.md`):
 
-- Offline graph introspection WORKS: `from starwars_dagster import defs` is
-  network-free (SWAPIResource is constructed, never called).
-  `defs.resolve_asset_graph()` → `graph.get(key).parent_keys` yields the true
-  edge list; `defs.asset_checks[*].check_specs` yields `(asset_key, name,
-  blocking)`. Confirmed output matches the brief's DAG and the 4/4
-  blocking/non-blocking split. This is the ground truth the provenance
-  cross-check test must compare against — never a hand-copied edge list.
-- CRITICAL nuance: WARN severity is a *runtime* `AssetCheckResult(severity=...)`
-  argument and is NOT statically introspectable. `spec.blocking` IS. In this repo
-  blocking ⇔ ERROR and non-blocking ⇔ WARN by discipline, so provenance badges
-  must be derived from `spec.blocking`, and the pytest cross-check asserts
-  badge-severity == f(blocking). Hand-typed severity labels are banned.
-- `const DATA = {...};` at site/index.html:378 is one-line strict JSON —
-  extractable with a regex + `json.loads`. NO test currently reads
-  site/index.html (grepped tests/: zero matches), so the promised cross-check
-  test is precedent-free new surface; it must fail with a clear message if the
-  literal stops being one-line strict JSON (that formatting is now load-bearing).
-- Bad precedent to not repeat: the five dashboard SQL reveals are hand-written
-  strings in `makeCard` (~848–854) — unverified copy. Provenance must be data
-  rendered from `DATA.provenance`, one schema for beats AND any dashboard
-  parity; no second hand-drawn diagram path.
-- Runtime drift detector (481–497) checks 8 stats + the trio; it can only check
-  *internal* consistency (beats ↔ provenance entries ↔ badge enum), not truth
-  vs. Dagster — truth is pytest's job offline. Split the duty exactly there.
-- What I cannot verify mechanically: the *semantic* beat→asset attribution
-  (beat 2 ← characters_enriched etc.) is a human claim — analyst/owner review;
-  pytest can only prove cited assets/edges/checks are real and correctly typed.
-- New failure modes needing named detectors: (a) refactor changes real DAG,
-  provenance stale → pytest cross-check; (b) DATA extraction regex rots →
-  same test, loud message; (c) blocking flag flipped in checks.py without site
-  update → same test; (d) beat added without provenance → runtime detector warn
-  + pytest coverage-set assertion.
-- Skill written: `.claude/skills/panel-qa-engineer-provenance-verification/SKILL.md`
-  (introspection recipes + DATA extraction snippet).
+- `from starwars_dagster import defs` is network-free (SWAPIResource constructed,
+  never called) — safe ground truth for offline tests. Never hand-copy an edge list.
+- Limit of mechanical verification: the *semantic* beat→asset attribution is a human
+  claim (analyst/owner review); pytest can only prove cited assets/edges/checks are
+  real and correctly typed. This limit surfaced the false beat map in prep — worth
+  stating explicitly in any future provenance-style brief.
+- Bad precedent still live: the five dashboard SQL reveals in `makeCard` (~848–854)
+  are hand-written unverified strings. Migration into a verified home is an OPEN item
+  (decision log) — resist any new hand-written pipeline copy meanwhile.
+
+## Banked: pipeline-reveal (2026-07-18)
+
+What won (essentially my whole debate slate):
+
+- `tests/test_site_provenance.py` adopted as specced: one test file asserting
+  topology vs `resolve_asset_graph()`, check ownership, blocking-derived badges,
+  verbatim `description=` projection, exact 1–6 coverage set, honest guard typing
+  (derived/none never render an asserting check badge), real pytest refs. Same
+  commit as the feature — the standing law held without a fight.
+- My WARN-is-runtime-only finding drove adjudication item 2's phrasing and killed
+  hand-typed severity labels; badges derive from `spec.blocking` (now Settled).
+- One-line strict-JSON DATA format declared load-bearing with loud-failure
+  requirement — exactly my prep framing.
+- The pytest-truth / runtime-internal-consistency duty split adopted verbatim.
+- No second diagram path: HTML `.chip` reuse rendered from `DATA.provenance`
+  (item 4) also serves my "data, not hand-drawn copy" objection.
+
+What lost / was overruled, and why I accept it:
+
+- I did not get dashboard-SQL migration into scope: deferred (item 6) as surface
+  growth "without a verification story for SQL text" — fair; it stays an open item
+  and I should bring a concrete verification story next time, not just the smell.
+- Hiring-manager's beat-0 reveal lost to structure I can verify: `raw_people` heads
+  every chain, so the census guards appear in all six reveals. Testable claim; fine.
+- Analyst's per-character transform deferred on merits, not laziness — the honest
+  `derived` labeling is the correct QA outcome; a transform added as diagram fuel
+  would have been coverage theater. If the open item lands, its checks must assert
+  42-of-82, the trio, 19-of-82, maxFlown 5 — and beats 4–6 flip to DIRECT with test
+  updates in the same commit.
+
+Prep-differently next time: my prep verified mechanics but took the brief's
+beat→asset map on faith until the analyst falsified parts of it. For any brief that
+asserts a data→claim mapping, spot-check the mapping itself against the raw data
+during PREP, not just the machinery. Also: when I want scope (SQL migration), arrive
+with the verification design in hand — objections without a detector design get
+deferred.

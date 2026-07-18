@@ -11,6 +11,28 @@
   ERROR-vs-WARN severity discipline, `known_facts.py` single source) was chosen
   specifically because it *reads* as senior judgment — do not dilute it with framework
   sprawl or coverage theater. (Testing panel, PR #3.)
+- Guard honesty IS the hire signal: a check badge may only appear where the check
+  actually asserts the displayed number (or its denominator/structure, labeled as
+  such); derived/unguarded claims say so in plain words; no fabricated or implied live
+  status. (Pipeline-reveal panel, 2026-07-18.)
+- Every provenance/severity string on the site derives from `DATA.provenance`,
+  pytest-verified against the real Dagster definitions; badge severity derives from
+  `spec.blocking`; check rationales are verbatim projections of checks.py
+  descriptions. The one-line strict-JSON `const DATA` format is load-bearing.
+  (Pipeline-reveal panel, 2026-07-18.)
+- Reveals exist on beats 1–6 only; beat 0 stays a clean hook; beat 7 carries the
+  provenance-computed callback ("One pipeline, three transforms, eight checks…").
+  The 82-count guard story is covered structurally: `raw_people` opens every chain.
+  Do not re-argue a beat-0 reveal. (Pipeline-reveal panel, 2026-07-18.)
+- README order is settled: identity sentence (no "self-study workshop" framing) →
+  live-site link above the fold → screenshot → testing-philosophy paragraph incl. the
+  provenance sentence → architecture + quick start → `.claude/` panel as one short
+  process section (human as adjudicator) → WORKSHOP.md as linked teaching appendix →
+  personal-site link slot. Tail rewrite includes fixing the truncated/unclosed fence.
+  (Pipeline-reveal panel, 2026-07-18.)
+- No assets added primarily as diagram fuel — presentation-driven pipeline design is
+  vetoed; a per-character-grain transform may land only on its analytics merits.
+  (Pipeline-reveal panel, 2026-07-18.)
 
 ## Working knowledge
 
@@ -26,43 +48,60 @@
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Prep notes: pipeline-reveal (2026-07-17, compacted after banking)
 
-Verified in-repo:
-- **README defect**: the file is truncated mid-word at its final line — the "Project
-  structure" tree ends at `├── WORKSHOP.md   ← self-study g` with NO closing code
-  fence (README.md:126-129, 4960 bytes, no trailing newline). GitHub renders an
-  unclosed fence to end-of-page. This alone fails a 90-second scan; the reframe must
-  fix it, and it argues for rewriting the tail, not just the hero.
-- Current hero order: title → CI badge → "self-study workshop" framing (line 7,
-  undersells) → three screenshots → architecture → quick start. The site — the single
-  most differentiating asset — is buried at line ~105. Live-site link must move above
-  the fold.
-- Commit history reads well: coherent boundaries, panel-workflow commits
-  (`9e9db1c`, `3a82146`) make the agent infrastructure discoverable; PR merges #1-#5
-  show iteration. This is already a signal; README need only point at it, not restate it.
-- Beat→asset map (brief): 0-3 `characters_enriched`, 4-5 `film_character_counts`,
-  6 `starship_stats`, 7 `galaxy_report`. Six insight beats share only three upstream
-  assets — so "six mini-DAGs" risks reading repetitive unless check badges differ
-  per beat; the differentiator is WHICH check guards WHICH number.
-- `.claude/` now holds 9 persistent panel agents + charter + memories. Double-edged
-  signal in 2026: visible AI-agent infra can read "AI built this" (discount) or
-  "candidate engineers their AI collaboration" (premium). It must be framed as a
-  deliberate process artifact with the human as adjudicator, one short README section,
-  not the hero.
-
-External (2026 hiring-loop context): trust in raw AI output is falling (29%, down
-from 40% in 2024); loops now screen for *judgment over AI output* — spotting what's
-wrong, explaining tradeoffs. Recruiters engage far more with runnable/live demos than
-prose. Per-beat provenance + severity-differentiated checks is exactly "judgment made
-visible" — that's the pitch I'll make. (Sources: dataexpert.io portfolio guide,
-dataengineeracademy.com 2026 portfolio checklist, herohunt.ai AI-era recruiting.)
-
-Positions forming (for debate): per-beat specific labels beat generic ("Where
-23-of-82 comes from" IS the interview answer); check badges must carry the one-line
-rationale or the DAG is decoration; beat 7 callback ("six numbers, six pipelines,
-eight checks") is the portfolio close; README hero = one-line value prop + live site
-link + lineage-with-green-checks screenshot (blocked on the open screenshot item).
+Kept for reuse (verdict resolved the rest — see Settled and Banked):
+- Commit history reads well: coherent boundaries, panel-workflow commits (`9e9db1c`,
+  `3a82146`) make the agent infra discoverable; PR merges #1–#5 show iteration. README
+  need only point at it, not restate it.
+- The brief's beat→asset map was partly false (per data-analyst): the films-per-
+  character numbers (beats 4–5 flavor) are hand-derived at site-authoring time from
+  `raw_people[].films`; `galaxy_report` has zero checks. Lesson: verify a brief's
+  claimed lineage before building the pitch on it.
+- `.claude/` 9-agent panel is a double-edged 2026 signal: reads "AI built this"
+  (discount) or "engineers their AI collaboration" (premium) depending on framing;
+  human-as-adjudicator framing chosen, now settled in README order.
+- External context (2026 loops): trust in raw AI output falling (29%, from 40% in
+  2024); loops screen for judgment over AI output — spotting what's wrong, explaining
+  tradeoffs; live demos out-engage prose. "Judgment made visible" is the durable pitch
+  frame for this repo. (dataexpert.io, dataengineeracademy.com, herohunt.ai.)
 
 Cannot verify: how the artifact URL renders as a link preview off-platform; whether
 screenshots can be retaken (needs desktop UI — still open).
+
+## Banked: pipeline-reveal (2026-07-18)
+
+Verdict: `.claude/panel/decisions/2026-07-18-pipeline-reveal.md`. Reveals on beats
+1–6 as bottom-of-card `details.prov` disclosures (vertical `.chip` chains + check
+rail), all strings generated from a pytest-verified `DATA.provenance` object; README
+fully rewritten portfolio-first.
+
+Won:
+- **README hero spec** adopted nearly verbatim: identity sentence replaces "self-study
+  workshop", live-site link above the fold, testing-philosophy paragraph with the
+  provenance sentence, tail rewrite fixing the unclosed-fence defect I found in prep.
+  Finding the truncated README was the prep pass's highest-leverage catch — first
+  impressions defects beat feature arguments.
+- **Honesty-as-signal framing** carried adjudication #2: my "coverage theater" veto of
+  a hasty per-character transform beat the analyst's push for all-DIRECT beats. The
+  transform survives only as an open candidate on analytics merits.
+- Beat-7 callback survives (reworded, provenance-computed) — the portfolio close I
+  wanted, made drift-detectable.
+
+Lost:
+- **Beat-0 reveal.** Story roles won: the hook stays clean. My underlying concern
+  (82-count is our best-guarded number and must be scannable) was satisfied
+  structurally — `raw_people`, carrying the shape-blocking and 82-count-warn checks,
+  is the first node of EVERY chain, so the census guard story appears in all six
+  reveals. Lesson: when my signal concern can be met structurally, arguing placement
+  is spending capital on the wrong axis; next time, state the signal requirement and
+  let the story roles find the placement.
+
+Would prep differently: pre-check whether a proposed reveal's underlying guard is
+reachable from other surfaces before demanding prime real estate for it; and bring a
+concrete badge-wording proposal (the `blocking`-derived ◆/◇ scheme won without me —
+qa/designer owned that ground I could have shared).
+
+Open items I track: per-character-grain transform (would upgrade beats 4–6 to
+DIRECT — support only with real checks: 42-of-82, trio, 19-of-82, maxFlown 5);
+screenshot retake with 8 green checks; dashboard SQL strings into a verified home.

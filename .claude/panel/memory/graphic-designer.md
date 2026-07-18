@@ -12,56 +12,89 @@
   beat-spacing panel, PR #4.)
 - Decorative fill in the gaps between story beats was rejected for cause — whitespace
   is pacing, not emptiness to decorate. (Mobile beat-spacing panel, PR #4.)
+- One disclosure style, ever: `details.sql summary` treatment (mono 12px, .06em
+  tracking, ink-3, gold ▸/▾ `::before`) is shared via extended selector
+  (`details.sql, details.prov`) for all opt-in reveals. A second disclosure style is a
+  fork. Hit area for both raised to ≥44px. (Pipeline-reveal panel, 2026-07-18.)
+- Check-status badges are monochrome ink-2: ◆ = blocking/ERROR, ◇ = WARN, always paired
+  with wording ("blocks"/"warns"). No green/amber/red seats on the site; a static
+  artifact cannot claim live status, so color-coded "passing" would be a fabricated
+  mark. Severity derives from `spec.blocking` in provenance data, never hand-typed.
+  (Pipeline-reveal panel, 2026-07-18.)
+- Lineage-chain chips are real HTML `.chip` elements (mono 12px, 1px `--line` border,
+  5px radius), not SVG imitations — reuse the CSS verbatim. Exactly one `.hot` gold
+  seat per chain: the single beat-relevant asset. Gold-as-"the one to look at" is the
+  established emphasis mark. (Pipeline-reveal panel, 2026-07-18.)
+- Per-beat reveal chains stack VERTICALLY (chips + ↓ connectors) inside `.step-inner`;
+  no horizontal overflow escape in reveals — every node visible without scrolling at
+  the ~260px mobile budget. Reveals exist on beats 1–6 only; beat 0 stays clean; beat 7
+  carries a provenance-computed callback line. (Pipeline-reveal panel, 2026-07-18.)
+- Guard honesty is a visual law too: a check badge may only sit where the check asserts
+  the displayed number (or its labeled denominator/structure); derived/unguarded claims
+  say so in plain words next to the chain. (Pipeline-reveal panel, 2026-07-18.)
+- Dashboard cards get NO per-card mini-DAGs — the full-width lineage strip is the
+  establishing shot; duplicating it per card is mark multiplication. (Pipeline-reveal
+  panel, 2026-07-18.)
 
 ## Working knowledge
 
 - Design tokens live in one `:root` block at the top of `site/index.html` (~lines
-  6–25): colors, font stacks; everything downstream consumes the variables.
-- The existing mark vocabulary: dot units (`.unit` with dim/faint/hot states), rounded
-  bars (`barPathH/V`), annotation lines + labels, chip-style asset boxes in the
-  dashboard lineage strip, gold ▸/▾ markers on `details` reveals. New components must
-  reuse this vocabulary before inventing marks.
-- The reveal pattern precedent: `details.sql` ("Show the DuckDB SQL"), styled at
-  ~189–196 — mono type, gold marker, indented body. Any future disclosure should share
-  these selectors rather than fork the style.
+  6–25): colors, font stacks; everything downstream consumes the variables. Tokens
+  define `--s2` green / `--s3` amber / `--s4` red but story/lineage sections use only
+  blue + gold + inks — keep it that way (see badge law above).
+- The existing mark vocabulary: dot units (`.unit` dim/faint/hot), rounded bars
+  (`barPathH/V`), annotation lines + labels, `.chip` asset boxes in the dashboard
+  lineage strip (`.chip.hot` gold, used once for galaxy_report), gold ▸/▾ markers on
+  `details` reveals, now ◆/◇ monochrome check badges. New components must reuse this
+  vocabulary before inventing marks.
+- Dashed border means *grouping* (`.dag-group`) — never overload dashed to also mean
+  WARN in the same diagram family.
+- Check names run up to ~40 chars mono; badges use short display labels from the
+  provenance object, never raw check names, or chains explode horizontally.
+- Mobile: `.step` min-height min(64svh,560px) — an open reveal may legitimately grow
+  the card taller than the station; geometry survives as long as the stage is
+  untouched. Flat mode appends per-step figures inside `.step-inner`; anything living
+  there ships to flat embeds for free — reveals are built statically at init for this
+  reason.
+- Provenance strings (labels, badge wording, rationales) all project from
+  `DATA.provenance`, which is pytest-verified against real Dagster definitions; the
+  one-line strict-JSON `const DATA` format is load-bearing. Visually this means: no
+  hand-lettered status text anywhere — the type on screen is generated.
+- Label template settled by lore/ux: "The paper trail — where {claim} comes from";
+  beat 4 (held pause) gets the quietest variant "The paper trail." — identical
+  placement/size everywhere.
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Banked: pipeline-reveal (2026-07-18)
 
-Verified in `site/index.html` for this debate:
+**Won:**
+- Chip reuse spec adopted wholesale — mono 12px, rounded rect, `--line` stroke, single
+  `.hot` gold seat per chain. Adjudication went further than my SVG-imitation plan:
+  chains render as real HTML `.chip` elements, which is a *stronger* version of my own
+  must-have (CSS reused verbatim, accessibility free, no SVG text-measurement hazards
+  at small widths). Lesson: when arguing "match the existing CSS," propose *using* the
+  existing CSS — imitation in another medium was the weaker form of my own principle.
+- Monochrome ◆/◇ badge system won unanimously; severity derives from `spec.blocking`
+  so the mark can never lie. My "static artifact can't claim live status" argument
+  aligned with data-engineer/qa and became banked law.
+- Shared disclosure selector (`details.sql, details.prov`) won; the 28px hit-area
+  precedent gets fixed once for both (≥44px).
+- No dashboard per-card mini-DAGs — my mark-multiplication objection held (unanimous
+  minus a conditional).
 
-- Disclosure vocabulary (lines 190–196): `details.sql summary` is 12px body type,
-  `.06em` tracking, ink-3, with gold `▸/▾` `::before`. Any per-beat reveal MUST reuse
-  this exact summary treatment (share the selector or extend it, e.g.
-  `details.sql, details.reveal`) — a second disclosure style would fork the system.
-- Chip vocabulary (lines 139–141): `.chip` = mono 12px, ink-2 on `--void`, 1px
-  `--line` border, 5px radius; `.chip.hot` = gold text + 35%-alpha gold border, used
-  ONCE (galaxy_report, line 338). Gold-as-"the one to look at" is established display
-  emphasis. The mini-SVG DAG should render chips that visually match this CSS chip
-  (mono 12px, rounded rect, `--line` stroke), with `.hot` gold reserved for the single
-  beat-relevant asset. `.dag` scrolls horizontally (`overflow-x: auto`, line 134) —
-  the mini-DAG needs the same escape hatch, not type shrinkage.
-- Dashed border currently means *grouping* (`.dag-group`, line 135) — don't overload
-  dashed to also mean WARN inside the same diagram family without care; if used for
-  WARN it must be on the chip stroke, not a container, and paired with a text glyph.
-- Palette reality: tokens define `--s2` green / `--s3` amber / `--s4` red (lines
-  18–20) but the story/lineage sections use only blue + gold + inks. Check badges are
-  STATUS marks, not data series — but the site is a static artifact that cannot know
-  live check results, so a green "passing" badge would be a fabricated claim (data
-  engineer/analyst will say the same). Position: encode checks monochrome (ink-2),
-  ERROR/blocking vs WARN distinguished by weight + glyph + wording ("blocks" vs
-  "warns"), not by new hues. No new color seats.
-- Checks inventory (checks.py): 4 blocking — raw_people_has_required_shape,
-  star_wars_db_tables_populated, films_are_exactly_the_six_episodes,
-  characters_enriched_has_no_null_names; 4 WARN drift —
-  raw_people_count_matches_verified_snapshot, characters_enriched_join_coverage,
-  characters_enriched_unknown_mass_baseline, starship_stats_cast_sanity. Names are
-  long (up to ~40 chars mono) — badges must truncate or use short display labels, or
-  the mini-DAG explodes horizontally on mobile.
-- Mobile (lines 105–116): `.step` uses min-height min(64svh,560px), so an open
-  reveal can legitimately grow the card taller than the station — geometry survives
-  as long as the stage (min(52svh,480px)) is untouched and the diagram scrolls in-x.
-- Flat mode (lines 740–772) appends per-step figures inside `.step-inner`; the
-  reveal must live inside `.step-inner` too so flat embeds get it for free.
-- Dashboard parity instinct: the full-width lineage strip (316–340) already covers
-  the 5 cards; per-card mini-DAGs there would be mark multiplication. Cheaper: badge
-  the existing strip's chips once.
+**Lost:**
+- Horizontal chain with `overflow-x` escape lost to ux-designer's vertical stack. Right
+  call: at ~260px a horizontal chain hides the terminal node behind a scroll, and the
+  terminal node is the payoff. I imported the `.dag` strip's overflow pattern without
+  re-checking whether the escape hatch itself was acceptable in a *narrative* reveal —
+  the dashboard strip tolerates it because it's reference material, not a story beat.
+  Bank the distinction: overflow-x is a dashboard affordance, not a story affordance.
+
+**Prep differently next time:** measure the actual content budget (chip count × min
+label width vs container) before proposing an axis; and when the spec says "SVG
+diagram," treat the technology as a guess to challenge, not a constraint to design
+within — HTML reuse beat SVG on every axis I care about.
+
+**Open items I track visually:** if the per-character-grain transform lands (upgrading
+beats 4–6 to DIRECT), the derived-claim honesty line disappears from those reveals and
+their chains gain a node — recheck vertical budget then. README screenshot retake
+unchanged.

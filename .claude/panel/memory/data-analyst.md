@@ -12,6 +12,24 @@
   (First design panel; frozen in `known_facts.py`, PR #3.)
 - Height extremes: Yoda 66cm to Yarael Poof 264cm, with 1 person unmeasured. (Site
   beat 1, verified against snapshot.)
+- **Guard honesty (2026-07-18, pipeline-reveal):** a check badge may appear ONLY where
+  the check asserts the displayed number (or its denominator/structure, labeled as
+  such); derived/unguarded claims say so in plain words. No fabricated or implied live
+  status, ever.
+- **Provenance strings are data, not copy (2026-07-18):** every provenance/severity
+  string on the site derives from `DATA.provenance`, pytest-verified against real
+  Dagster definitions; badge severity derives from `spec.blocking`; check rationales
+  are verbatim projections of checks.py `description=`.
+- **Reveal coverage (2026-07-18):** provenance reveals on beats 1–6 only; beat 0 stays
+  a clean hook; beat 7 carries the provenance-computed callback line. One disclosure
+  style shared with details.sql.
+- **The one-line strict-JSON format of `const DATA` is load-bearing** — tests parse it
+  by extraction; format changes must fail loudly. (2026-07-18.)
+- **`relation: direct|derived` is the honesty vocabulary (2026-07-18):** claims not
+  computed by any asset render as derived — "computed from raw_people[].films at
+  authoring time, guarded offline by pytest against known_facts.py" — never as
+  asset-attributed. Derived/none guards never render a check badge as asserting the
+  number.
 
 ## Working knowledge
 
@@ -21,50 +39,70 @@
 - The drift detector (site/index.html ~481–497) recomputes
   {total, noMass, oneFilm, naboo, tatooine, pilots, maxFlown} from `DATA.people` and
   compares against hardcoded expectations, plus an exact-set check on the six-film
-  trio. Any new on-site claim should be added there.
-- Chart honesty conventions already in force: log scale flagged in the mass/scatter
-  captions; excluded rows named (e.g. unmeasured/unweighed counts); the Chart/Table
-  toggle exposes underlying rows for every dashboard card.
+  trio. Post pipeline-reveal it also asserts provenance internal consistency: claims
+  cover exactly beats 1–6, every chain id resolves in `provenance.assets`, badge
+  values derive from `blocking`, beat-7 callback counts match the object.
+- Chart honesty conventions in force: log scale flagged in mass/scatter captions;
+  excluded rows named; Chart/Table toggle exposes underlying rows per dashboard card.
+- **Check→claim relevance map** (durable reference, verified 2026-07-17 against
+  checks.py/transforms.py):
+  - Beat 0 (82): `raw_people_count_matches_verified_snapshot` WARN +
+    `raw_people_has_required_shape` ERROR — direct; best-guarded number on the site.
+    `raw_people` is the first node of every chain, so this story appears in all six
+    reveals without a beat-0 reveal.
+  - Beat 1 (heights, 1 unmeasured): no check covers height nulls. Coverage gap.
+  - Beat 2 (23/82): `characters_enriched_unknown_mass_baseline` WARN — direct.
+  - Beat 3 (homeworlds): `characters_enriched_join_coverage` WARN — direct.
+  - Beats 4–5: `films_are_exactly_the_six_episodes` ERROR guards the six-film FRAME
+    only; the 42 and the trio are films-per-CHARACTER, computed by NO asset
+    (hand-derived from `raw_people[].films` at authoring). `SIX_FILM_CHARACTERS` is in
+    known_facts.py:20 but never imported by checks.py — trio is pytest-guarded only.
+  - Beat 6: `starship_stats` is per-SHIP; "19 of 82 flew" / "Obi-Wan flew 5" are
+    per-PERSON, computed by no asset. `starship_stats_cast_sanity` is irrelevant to
+    the pilots claims.
+  - `galaxy_report` has zero attached checks.
+- WARN severity is runtime-only in Dagster; `spec.blocking` is the static field —
+  provenance must encode `blocking` and derive badge wording from it (data-engineer/
+  qa-engineer finding I should have caught in prep).
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Banked: pipeline-reveal (2026-07-18)
 
-**Central finding: the brief's beat→asset map is partly false, and the reveal must not
-ship it as-is.** Verified against `starwars_dagster/assets/transforms.py`:
+**Won:**
+- My central prep finding — the brief's beat→asset map was partly false — drove the
+  spec: it is the first line of "prep-pass findings that changed the spec," and beats
+  4–6 now ship with honest `relation: "derived"` attribution instead of fabricated
+  lineage. Option (b) of my proposal is what shipped.
+- Check-badge honesty ("badge only where the check asserts the displayed number") is
+  now banked law verbatim, and the pytest suite asserts it structurally
+  (derived/none guards can never render an asserting badge).
+- My demand that the pytest cross-check validate more than asset existence landed:
+  `tests/test_site_provenance.py` asserts topology, check ownership, blocking, verbatim
+  rationales, exact coverage set, and honest guard typing.
+- Drift-detector growth: the detector gains provenance internal-consistency checks,
+  extending my standing "grows with every new claim" constraint.
 
-- Beats 0–3 ← `characters_enriched`: TRUE. The transform (transforms.py:108–125)
-  carries height, mass, and the people→planets LEFT JOIN; 82 rows.
-- Beats 4–5 ← `film_character_counts`: FALSE. That asset (transforms.py:149–160) is
-  6 rows of characters-per-FILM (`json_array_length(films.characters)`). The
-  42-of-82-one-film and six-film-trio numbers are films-per-CHARACTER — computed by
-  NO asset. They were hand-derived from raw `people[].films` array lengths when the
-  site JSON was authored.
-- Beat 6 ← `starship_stats`: FALSE for the beat's claims. It's per-SHIP
-  (`known_pilots` per starship, transforms.py:195); "19 of 82 flew" and "Obi-Wan
-  flew 5" are per-PERSON, computed by no asset.
-- Beat 7 ← `galaxy_report`: the asset exists but has ZERO asset checks attached
-  (checks.py covers raw_people, star_wars_db, characters_enriched,
-  film_character_counts, starship_stats only).
+**Lost (and why):**
+- Option (a), the per-character-grain transform, lost to data-engineer +
+  hiring-manager: adding an asset primarily so a diagram can point at it is
+  presentation-driven pipeline design, and a hastily-checked version reads as coverage
+  theater. Fair adjudication — my analytics case survives as an open candidate on its
+  own merits (would compute films-per-character and ships-per-person, with checks
+  asserting 42-of-82, the trio, 19-of-82, maxFlown 5, upgrading beats 4–6 to DIRECT).
+  If I re-propose it, lead with the grain-correctness/analytics value, not the diagram.
+- Hiring-manager's beat-0 reveal (which would have showcased the best-guarded number)
+  lost to the clean-hook coalition; I was neutral, and the structural compensation —
+  raw_people heading every chain — preserves the census guard story anyway.
 
-**Check→claim relevance map** (checks.py; badge only where the check guards the number):
-- Beat 0 (82): `raw_people_count_matches_verified_snapshot` WARN +
-  `raw_people_has_required_shape` ERROR — direct. Best-guarded number on the site.
-- Beat 1 (heights, 1 unmeasured): NO check covers height nulls. Gap.
-- Beat 2 (23/82 unweighed): `characters_enriched_unknown_mass_baseline` WARN —
-  direct, asserts the exact 23-of-82 denominator.
-- Beat 3 (homeworlds): `characters_enriched_join_coverage` WARN — direct.
-- Beats 4–5: `films_are_exactly_the_six_episodes` ERROR guards the six-film FRAME
-  only; nothing asserts the trio or the 42. `SIX_FILM_CHARACTERS` lives in
-  known_facts.py:20 but checks.py never imports it — trio is pytest-guarded only.
-- Beat 6: `starship_stats_cast_sanity` WARN is about ship numeric columns —
-  irrelevant to the pilots claims. Gap.
+**Prep differently next time:**
+- Check `spec.blocking` vs runtime severity semantics myself — a data-honesty question
+  (what does a WARN badge legally mean?) that I left to the engineers.
+- When I propose "either A or B," pre-rank them and cost them: the panel will pick the
+  cheaper honest option, so B (honest labeling) deserved the fuller spec in my prep.
+- Verify the rendering-tech assumption in briefs ("inline SVG") early; the HTML-chip
+  decision changed what "denominators on-chart" means for reveal text (plain text,
+  trivially drift-checkable — good for me, but I didn't argue it).
 
-Consequences I will argue: (a) per-beat provenance labels are only honest where
-lineage is real — beats 4–6 need either an honest attribution (derived from
-raw_people arrays at site-authoring time) or a real transform that computes
-films-per-character / ships-per-person before the diagram may claim them; (b) check
-badges appear ONLY where the check asserts the displayed number, else it is
-verification theater; (c) the promised pytest cross-check must validate not just
-that the named asset exists but that it computes the claimed column/quantity.
-
-Cannot verify offline: live materialization state; whether data/star_wars.duckdb on
-disk matches the snapshot (CI is offline-only by design).
+**Open items I track:** per-character transform (above); the five hand-written
+dashboard SQL strings still have no verified home; beat-1 height-null check gap and
+galaxy_report's zero checks remain undisclosed-on-pipeline gaps worth raising when
+check coverage next comes up.

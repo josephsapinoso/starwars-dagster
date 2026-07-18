@@ -19,6 +19,23 @@
   PR #3.)
 - No second data-quality framework (no Great Expectations/Pandera). Dagster-native
   checks + one green workflow carry the signal. (Testing panel, PR #3.)
+- ONE `DATA.provenance` object is the sole source of every provenance/severity string
+  on the site: `assets` keyed by id (`deps`, `checks[{name,label,blocking,why}]`, `why`
+  verbatim from checks.py `description=`) + `claims[]` for beats 1–6 (`chain`, `hot`,
+  `relation: direct|derived`, `guard: {kind: check|pytest|none, ref}`). Badge severity
+  derives from `blocking` — never a hand-typed severity string. (Pipeline-reveal panel.)
+- Guard honesty: a check badge may only appear where the check asserts the displayed
+  number (or its denominator/structure, labeled as such); derived/unguarded claims say
+  so in plain words. No fabricated or implied live status. (Pipeline-reveal panel.)
+- `tests/test_site_provenance.py` cross-checks the site provenance blob against
+  `defs.resolve_asset_graph()` + `check_specs` offline: real assets/edges, check
+  ownership, blocking flags, verbatim rationales, exact 1–6 coverage, honest guard
+  typing. Feature and guard land in the same commit. (Pipeline-reveal panel.)
+- The one-line strict-JSON format of `const DATA` is load-bearing — tests parse it by
+  extraction; changing the format must fail loudly. (Pipeline-reveal panel.)
+- No assets added primarily to make a diagram truthful — presentation-driven pipeline
+  design is out; label the derivation honestly instead. A per-character-grain transform
+  remains an open candidate on its own analytical merits only. (Pipeline-reveal panel.)
 
 ## Working knowledge
 
@@ -35,32 +52,47 @@
   populated, exactly six episodes, no null names) and four WARN drift (82-count, join
   coverage, 23-unknown-mass baseline, TRY_CAST sanity).
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Prep notes: pipeline-reveal (2026-07-17, compacted post-decision)
 
-- Verified against installed Dagster 1.13.14: `AssetCheckSpec` exposes `blocking`,
-  `name`, `asset_key`, `description` — so an offline pytest CAN enumerate
-  `starwars_dagster.defs` (built in `starwars_dagster/__init__.py` via
-  `load_assets_from_modules` / `load_asset_checks_from_modules`) and cross-check a
-  site `provenance` blob for: asset names, dependency edges, check names per asset,
-  and blocking flags. **Severity (WARN) is NOT on the spec** — it is chosen at
-  runtime on `AssetCheckResult`. In this repo blocking↔ERROR maps 1:1, so the
-  provenance schema must encode `blocking: true/false` (statically verifiable), and
-  the site derives its ERROR/WARN badge from that — never a hand-typed "severity"
-  string that nothing can verify.
-- The site already carries THREE hand-authored representations of the pipeline:
-  the static lineage strip (index.html:311-340, HTML chips), five hand-written SQL
-  strings passed to `makeCard` (opts.sql, rendered at 848-854), and the footer line.
-  Adding per-beat mini-DAGs naively would make it four+. My line: ONE `provenance`
-  object inside `DATA`, keyed by asset id (nodes, deps, checks w/ blocking + one-line
-  rationale), with beats AND dashboard cards referencing asset ids; the mini-SVG
-  renderer draws from that single object via the existing `el()` factory (~383).
-- Beat→asset mapping from the brief (0-3 characters_enriched, 4-5
-  film_character_counts, 6 starship_stats, 7 galaxy_report) means only 4 distinct
-  sub-DAGs exist; per-beat data should be a reference (asset id + highlighted checks),
-  not 8 duplicated diagrams.
-- Runtime drift detector (index.html:481-497) is copy-vs-data; extending it to
-  provenance means internal-consistency checks only (every referenced asset id
-  resolves, check counts sum to 8, badge derivation matches blocking flags). Truth
-  against the actual Dagster graph is the pytest's job — browser can't see Python.
-- Cannot verify offline: swapi.info reachability (irrelevant here) and how the
-  Dagster UI renders check badges (README screenshots are a separate open item).
+- Dagster 1.13.14: `AssetCheckSpec` exposes `blocking`/`name`/`asset_key`/`description`;
+  WARN severity is runtime-only on `AssetCheckResult`. Hence provenance encodes
+  `blocking` and badges derive from it (now Settled). `defs` builds via
+  `load_assets_from_modules` / `load_asset_checks_from_modules` in
+  `starwars_dagster/__init__.py`; `defs.resolve_asset_graph()` + `check_specs` give
+  offline pytest everything it needs.
+- Pre-decision the site carried three hand-authored pipeline representations (lineage
+  strip ~index.html:311-340, five makeCard SQL strings ~848-854, footer line); the
+  single-provenance-object rule prevents a fourth. SQL-string migration deferred (open).
+- Drift detector (index.html:481-497) does copy-vs-data; provenance extension is
+  internal-consistency only (ids resolve, coverage exactly 1–6, badge derivation,
+  callback counts) — truth vs the Dagster graph is pytest's job; browser can't see
+  Python.
+- Still unverified offline: how the Dagster UI renders check badges (screenshot retake
+  remains a separate open item).
+
+## Banked: pipeline-reveal (2026-07-18)
+
+- **Won:** the single asset-keyed provenance object inside `DATA` (adjudication
+  adopted my schema nearly verbatim, incl. `relation: direct|derived` and
+  `guard: {kind: check|pytest|none}`); badges derived from `blocking` because severity
+  is runtime-only; honest "derived at authoring time" labeling over the analyst's
+  presentation-driven transform (hiring-manager co-signed: hasty checks are coverage
+  theater); ship-only-if-honest framing; drift-detector split (internal consistency in
+  browser, graph truth in pytest); same-commit test file.
+- **Lost/adjusted:** my "mini-SVG renderer via `el()`" technology guess — HTML `.chip`
+  elements won (better CSS reuse, native text accessibility, no SVG text-measurement
+  hazards at ≤260px). Lesson: propose the data contract firmly, hold the rendering
+  technology loosely. My stretch goal (migrating the five SQL strings into provenance)
+  was deferred for lack of a verification story for SQL text — a fair standard; next
+  time bring the verification story or don't bring the stretch.
+- **Learned from other roles' prep I'd missed:** the brief's beat→asset map was partly
+  false (beats 4–5 are per-character numbers no asset computes; beat 6's pilot counts
+  aren't in `starship_stats`; `galaxy_report` has zero checks) — the analyst caught
+  this, not me. Next prep: trace each displayed number to its producing query, not
+  just each beat to a plausible asset. Also: desktop steps are center-anchored flex,
+  so disclosure growth placement is a real layout constraint (ux).
+- **Prep differently:** verify the brief's factual claims against the actual data
+  before designing the contract that encodes them; check README integrity (it was
+  truncated mid-word — hiring-manager found it).
+- Open candidates I co-own: per-character-grain transform (real analytics merits only;
+  would upgrade beats 4–6 to DIRECT), SQL-string migration into a verified home.

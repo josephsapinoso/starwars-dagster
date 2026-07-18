@@ -10,6 +10,24 @@
   cheapen the first. (Mobile beat-spacing panel, PR #4.)
 - The beat counter ("n / 8") is orientation and rides the stage caption; decorative
   fill between beats was rejected for cause. (Mobile beat-spacing panel, PR #4.)
+- Provenance reveals exist on beats 1–6 ONLY. Beat 0 stays a clean hook — no aside, no
+  competing affordance; beat 7 carries a provenance-computed callback line instead of a
+  reveal. One disclosure style, shared with details.sql. (Pipeline-reveal panel,
+  2026-07-18.)
+- Beat-7 callback wording is computed from provenance counts so it is drift-detectable
+  and arithmetically true: "One pipeline, three transforms, eight checks — the full
+  record is below." Never hand-write pipeline arithmetic into copy. (2026-07-18.)
+- Reveal label template is generated, not per-beat bespoke: "The paper trail — where
+  {claim} comes from"; beat 4 (the held pause) renders the quietest variant, "The paper
+  trail." — identical placement/size everywhere. "Paper trail" is lore's one sanctioned
+  bridge word into the archive conceit. (2026-07-18.)
+- Guard honesty is voice law, not just data law: a check badge appears only where the
+  check asserts the displayed number; derived/unguarded claims say so in plain words.
+  The honest third act (some numbers are guarded offline only) is part of the story,
+  not a footnote to hide. (2026-07-18.)
+- Every provenance/severity string derives from `DATA.provenance`, pytest-verified
+  against real Dagster definitions; check rationales are verbatim checks.py
+  descriptions. Copy in the reveals is projection, never authorship. (2026-07-18.)
 
 ## Working knowledge
 
@@ -22,35 +40,54 @@
   handoff to the "records office" (dashboard). Additions must serve this spine or a
   deliberate second read-through, never interrupt the build to beat 5.
 - The witnesses payoff must not leak early — no earlier beat, caption, or affordance
-  may reveal the trio before beat 5.
+  may reveal the trio before beat 5. Leak audit of checks.py passed (2026-07-17): no
+  check name/description names the trio; `films_are_exactly_the_six_episodes` speaks
+  of six films, not three witnesses. Re-audit whenever provenance strings change.
+- The held pause is beat 4 (the cameos). Any affordance living inside the pause must be
+  the quietest voice on the page — the pause's job is to set up beat 5.
+- Reveal micro-story structure: claim → machinery (vertical chip chain, one gold `.hot`
+  seat on the beat-relevant asset) → guard (◆ blocks / ◇ warns + one-line rationale) →
+  honesty line. A bare chain is a diagram, not a beat.
+- `raw_people` opens every chain, so the census's best-guarded numbers (shape blocking,
+  82-count warn) recur in all six reveals — the structural reason beat 0 could stay
+  clean without losing the hiring-manager's scannability concern.
+- Beats 4–6 numbers are `relation: "derived"` (authoring-time, pytest-guarded via
+  known_facts.py) until/unless the per-character-grain transform ships (open item);
+  if it ships, those beats upgrade to DIRECT and their honesty lines change.
+- Dashboard: the lineage strip is the epilogue's establishing shot; per-card mini-DAGs
+  were rejected unanimously — telling the gag eight ways.
 
-## Prep notes: pipeline-reveal (2026-07-17)
+## Banked: pipeline-reveal (2026-07-18)
 
-Verified by reading site/index.html 212–340, checks.py, README.md 1–40:
+Won:
+- Beats 1–6 only; beat 0 untouched; beat 7 callback kept (over lore's cut) — my three
+  core spine defenses all carried into law.
+- Claim → machinery → guard micro-story shape adopted; rationale rides each badge.
+- Beat 4 gets the quietest label; the held pause stays undisturbed.
+- Honest third act embraced — hiring-manager independently argued honesty IS the hire
+  signal, which made the honesty line a feature, not a concession.
 
-- **Leak audit passes.** No check name or description in checks.py mentions the trio.
-  `films_are_exactly_the_six_episodes` (beat 4's asset, film_character_counts) says
-  "episodes 1–6, exactly once each" — six *films*, not three *witnesses*; safe. Beat 5's
-  own reveal sits below its copy in reading order, so it can name the trio freely.
-- **Beat 7 already pre-seeds the callback.** Its copy: "five raw SWAPI pulls, one DuckDB
-  warehouse, three transforms, one report — is waiting below." A "you've now opened six
-  pipelines" callback is an earned rhyme, not a new idea bolted on.
-- **The held pause is beat 4** (`.step--held`, the cameos) — the reveal affordance on
-  beat 4 lives inside the pause that sets up the payoff. Opt-in keeps it reader-paced,
-  but its label must be the quietest of the six; nothing on beat 4 may raise its voice.
-- **Beat 0 is the hook** — one sentence, no aside, no competing affordance today. Same
-  cleanliness argument as the hero. A reveal here dilutes the opening chord.
-- **Reveal voice precedent** is flat utility: "Show the DuckDB SQL" (gold ▸, 12px
-  letterspaced summary). The census-archive conceit offers a better register for the new
-  reveals: the pipeline is "the paperwork" / "the records office." Per-beat labels can be
-  specific AND in-voice: e.g. "Check the paperwork — where 23 of 82 comes from."
-- **Checks are half the story.** Each beat's number has a guard (beat 2's 23-unweighed ↔
-  `characters_enriched_unknown_mass_baseline`; beat 3's join ↔ join_coverage). The reveal
-  reads as a micro-story — claim → machinery → guard — only if the check badge carries a
-  one-line rationale; a bare chain is a diagram, not a beat.
-- **Dashboard**: the lineage strip ("The pipeline that made this page") is the epilogue's
-  establishing shot. Repeating the mini-DAG on all 5 cards would tell the gag eight ways.
+Lost / adjusted:
+- My prep leaned toward per-beat bespoke in-voice labels ("Check the paperwork — where
+  23 of 82 comes from"). The panel chose ONE generated template with a single bridge
+  word ("paper trail"), all other strings projected from provenance. Right call: my
+  "six pipelines" callback instinct was arithmetically false (lore caught it) — proof
+  that hand-authored pipeline copy drifts. Voice now lives in the template and the
+  conceit, not in per-instance wording.
+- "Inline SVG diagram" became HTML `.chip` elements, vertical — implementation was
+  never mine, and vertical chains read top-down like a manifest, which suits the
+  archive voice better anyway.
 
-Debate lean: per-beat in-voice labels; chain+badges+one-line rationale; beats 1–6 only,
-beat 7 gets the callback; no dashboard parity. Cannot verify: rendered SVG legibility at
-mobile widths, and how an open reveal interacts with the 64svh station — UX's call.
+Prep differently next time:
+- When proposing callbacks that cite counts, verify the arithmetic against the actual
+  defs before debate — or propose them as computed-from-data from the start.
+- My open question (open-reveal vs 64svh station interaction) resolved via ux's
+  bottom-anchored placement; when I flag a pacing hazard I can't verify, name the role
+  whose lever fixes it in the same breath — it landed better as a joint concern.
+
+Watch items for future panels:
+- If the per-character transform ships, beats 4–6 honesty lines change — the reveal
+  copy must be re-projected, and the trio leak audit re-run on any new check names.
+- README rewrite reorders the project's front door; the site's story arc is unchanged,
+  but any future README storytelling should mirror the census conceit, not invent a
+  second voice.
