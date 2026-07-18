@@ -22,6 +22,18 @@ SIX_FILM_CHARACTERS = {"C-3PO", "R2-D2", "Obi-Wan Kenobi"}
 # People whose mass is the literal string "unknown" in the raw data
 EXPECTED_UNKNOWN_MASS_COUNT = 23
 
+# People whose height is the literal string "unknown" (Arvel Crynyd)
+EXPECTED_UNKNOWN_HEIGHT_COUNT = 1
+
+# People appearing in exactly one film — most of the census are one-scene wonders
+EXPECTED_ONE_FILM_COUNT = 42
+
+# People listed at the controls of at least one starship
+EXPECTED_PILOT_COUNT = 19
+
+# Most starships flown by a single character (Obi-Wan Kenobi)
+EXPECTED_MAX_STARSHIPS_FLOWN = 5
+
 # Top homeworlds by character count
 EXPECTED_NABOO_CHARACTERS = 11
 EXPECTED_TATOOINE_CHARACTERS = 10

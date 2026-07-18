@@ -25,9 +25,13 @@ from starwars_dagster.assets import (
 )
 from starwars_dagster.assets import checks as checks_module
 from starwars_dagster.known_facts import (
+    EXPECTED_MAX_STARSHIPS_FLOWN,
     EXPECTED_NABOO_CHARACTERS,
+    EXPECTED_ONE_FILM_COUNT,
     EXPECTED_PEOPLE_COUNT,
+    EXPECTED_PILOT_COUNT,
     EXPECTED_TATOOINE_CHARACTERS,
+    EXPECTED_UNKNOWN_HEIGHT_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
     SIX_FILM_CHARACTERS,
 )
@@ -140,3 +144,28 @@ def test_naboo_has_11_characters_and_tatooine_10():
     homeworlds = [planet_names.get(p["homeworld"]) for p in load_fixture("people")]
     assert homeworlds.count("Naboo") == EXPECTED_NABOO_CHARACTERS
     assert homeworlds.count("Tatooine") == EXPECTED_TATOOINE_CHARACTERS
+
+
+# The three facts below back the site's per-beat provenance reveals: the
+# reveal copy names these tests as the offline guard for figures no asset
+# computes (site/index.html DATA.provenance, tests/test_site_provenance.py).
+
+
+@requires_real_snapshot
+def test_exactly_one_character_has_unknown_height():
+    unmeasured = [p["name"] for p in load_fixture("people") if p["height"] == "unknown"]
+    assert len(unmeasured) == EXPECTED_UNKNOWN_HEIGHT_COUNT
+
+
+@requires_real_snapshot
+def test_42_of_82_appear_in_exactly_one_film():
+    one_film = [p for p in load_fixture("people") if len(p["films"]) == 1]
+    assert len(one_film) == EXPECTED_ONE_FILM_COUNT
+
+
+@requires_real_snapshot
+def test_19_pilots_and_obi_wan_leads_with_five():
+    flown = {p["name"]: len(p["starships"]) for p in load_fixture("people")}
+    assert sum(1 for c in flown.values() if c > 0) == EXPECTED_PILOT_COUNT
+    assert max(flown.values()) == EXPECTED_MAX_STARSHIPS_FLOWN
+    assert flown["Obi-Wan Kenobi"] == EXPECTED_MAX_STARSHIPS_FLOWN
