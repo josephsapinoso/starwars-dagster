@@ -45,7 +45,7 @@ SWAPI (live API) → Raw JSON → DuckDB tables → SQL transforms → Markdown 
   Resource        01_raw         star_wars_db    02_transformed   03_analytics
 ```
 
-**11 assets across 3 groups, 12 asset checks (4 blocking, 8 warn):**
+**11 assets across 3 groups, 13 asset checks (4 blocking, 9 warn):**
 
 | Group | Assets | Description |
 |---|---|---|
@@ -131,7 +131,7 @@ starwars-dagster/
 │   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls
 │   │   ├── transforms.py         ← 02_transformed: DuckDB + SQL
 │   │   ├── analytics.py          ← 03_analytics: galaxy_report
-│   │   └── checks.py             ← 12 asset checks (4 blocking, 8 warn)
+│   │   └── checks.py             ← 13 asset checks (4 blocking, 9 warn)
 │   └── resources/
 │       └── swapi_resource.py
 ├── site/

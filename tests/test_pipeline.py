@@ -60,6 +60,7 @@ ALL_CHECKS = [
     checks_module.raw_people_count_matches_verified_snapshot,
     checks_module.characters_enriched_join_coverage,
     checks_module.characters_enriched_unknown_mass_baseline,
+    checks_module.characters_enriched_unknown_height_baseline,
     checks_module.starship_stats_cast_sanity,
     checks_module.character_stats_one_film_baseline,
     checks_module.character_stats_six_film_trio,
@@ -204,7 +205,7 @@ def test_19_pilots_and_obi_wan_leads_with_five():
 
 @requires_real_snapshot
 def test_character_stats_drift_checks_pass_on_the_real_snapshot(full_run):
-    # WARN checks can fail without failing materialize, so the beats-4-6 badge
+    # WARN checks can fail without failing materialize, so the story-beat badge
     # checks must be asserted green explicitly. Snapshot-gated: synthetic
     # fixtures would legitimately miss these exact values.
     result, _ = full_run
@@ -213,6 +214,7 @@ def test_character_stats_drift_checks_pass_on_the_real_snapshot(full_run):
         "character_stats_six_film_trio",
         "character_stats_pilot_count_baseline",
         "character_stats_max_flown_baseline",
+        "characters_enriched_unknown_height_baseline",
     }
     outcomes = {
         e.check_name: e.passed for e in result.get_asset_check_evaluations()

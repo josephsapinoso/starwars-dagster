@@ -18,6 +18,13 @@ from pathlib import Path
 import pytest
 
 from starwars_dagster import defs
+from starwars_dagster.known_facts import (
+    EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_PEOPLE_COUNT,
+    EXPECTED_PILOT_COUNT,
+    EXPECTED_UNKNOWN_MASS_COUNT,
+    SIX_FILM_CHARACTERS,
+)
 
 REPO = Path(__file__).resolve().parent.parent
 SITE = REPO / "site" / "index.html"
@@ -148,6 +155,44 @@ def test_beats_four_through_six_are_direct_and_check_guarded(prov):
         assert c["guard"] == {"kind": "check", "ref": guard_ref}
         assert c["hot"] == "character_stats"
         assert "character_stats" in c["assets"]
+
+
+def test_no_payoff_leaks_before_reveal_beat(prov):
+    # The spoiler pin (panel decision 2026-07-18-post-landing-cleanup): every
+    # beat's rail renders ALL checks of its chain assets, so a check string
+    # naming a later beat's payoff pre-tells the story. Term sets are DERIVED
+    # from known_facts — never hand-listed — so they survive cast changes.
+    payoff_terms = {
+        # beat 2's payoff: the unweighed count
+        2: {
+            f"{EXPECTED_UNKNOWN_MASS_COUNT} unweighed",
+            f"{EXPECTED_UNKNOWN_MASS_COUNT} of {EXPECTED_PEOPLE_COUNT}",
+        },
+        # beat 5's payoff: who (and how many) appear in all six films
+        5: {name.lower() for name in SIX_FILM_CHARACTERS} | {"trio", "ben counts"},
+        # beat 6's payoff: the pilot count and the max-flown record holder
+        6: {
+            f"{EXPECTED_PILOT_COUNT} pilot",
+            f"max flown = {EXPECTED_MAX_STARSHIPS_FLOWN}",
+            f"flown {EXPECTED_MAX_STARSHIPS_FLOWN}",
+            "obi-wan",
+        },
+    }
+    for claim in prov["claims"]:
+        beat = claim["beat"]
+        visible = " • ".join(
+            f'{c["label"]} {c["why"]}'
+            for aid in claim["assets"]
+            for c in prov["assets"][aid]["checks"]
+        ).lower()
+        for reveal_beat, terms in payoff_terms.items():
+            if reveal_beat <= beat:
+                continue
+            for term in terms:
+                assert term.lower() not in visible, (
+                    f"beat {beat} rail pre-tells beat {reveal_beat}'s payoff: "
+                    f"{term!r} appears in a check label/why rendered there"
+                )
 
 
 def test_totals_match_the_real_definitions(prov, real):
