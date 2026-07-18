@@ -137,3 +137,52 @@ prose/aria labels are a drift surface I should audit whenever totals change.
 **Prep differently:** when an option loses on cost grounds, keep its acceptance
 criteria specified to landing precision anyway — that is what let this ship later
 with zero new debate.
+
+## Prep notes: trio leak / SQL verification / coverage gaps (2026-07-18)
+
+**Q1 (trio leak) — verified mechanics.** `chainEl` (site/index.html:823-843) renders
+every check of every chain asset; the leaking strings are the site-authored label
+(`"six-film trio"` in DATA.provenance) and the hover `why` (verbatim from
+checks.py:216-218 description, which names all three). Fixing the label alone
+(e.g. "all-six set", 11 chars) kills the visible leak; the hover needs a
+description rewrite dropping names AND the count "three" — rewritten description
+stays operationally true (metadata still lists names on failure). My stance:
+option (a); oppose (b) rail filtering — the rail IS our coverage disclosure, and
+hiding checks per-beat makes disclosed coverage beat-dependent. Guard candidate:
+pytest asserting no beat-4 rail string contains a SIX_FILM_CHARACTERS name or
+"trio" (built from known_facts, so it survives cast changes).
+
+**Q2 — SQL-vs-display audit (verified against source).**
+1. films (985): `len(f.characters)` is WRONG against the real star_wars_db —
+   load_table json.dumps list fields to VARCHAR (transforms.py:74), so len() =
+   string length; the pipeline itself uses `json_array_length` (transforms.py:156).
+   Also omits release_date shown in the table. Execute-test fails today.
+2. gender (1047): SQL returns raw `n/a` (3 records verified in fixture
+   people.json); chart/DATA show "droid" — an authoring-time recode absent from
+   the SQL. Execute-test fails today. Two of five strings provably don't produce
+   what the charts display — the strongest possible case for execution-testing.
+3. scatter (1102): logic consistent (59 = 82−23; Arvel Crynyd is in both null
+   sets); but the hardcoded `-- 59 of 82 rows` comment is a drift surface the
+   caption already covers dynamically.
+4. homeworld (1184): no NULL filter, but DATA has zero null homeworlds
+   (join_coverage baseline = 0 misses), so results match today; rank-10 tie under
+   LIMIT 10 is nondeterministic without a name tiebreak.
+5. hyperdrive (1224): alias-in-WHERE is valid DuckDB; default NULLS LAST matches
+   the site's `(mglt||0)` DESC; same tie/cutoff caveat. Gap under my standing law:
+   this card's subtitle discloses no denominator ("top 10 of N rated, of 36").
+Feasibility: SNAPSHOT.json is a real dated snapshot (2026-07-17, 82/6/36/60/37),
+so the execute-and-compare pytest can ride the existing snapshot gate; the two
+wrong strings must be corrected in the same commit the test lands.
+
+**Q3.** (a) height-null WARN on characters_enriched: asserts a displayed number
+(beat 1 "1 unmeasured"), constant already at known_facts.py:26, exact mirror of
+the mass baseline — passes coverage-theater review. Ripple: checks 12→13
+(provenance totals, beat-7 word list — overflow guard exists), and the README
+screenshot open item says "12 green checks": land checks BEFORE retaking
+screenshots. (b) galaxy_report: nothing on the site derives from it; my skill's
+rule is "design for the zero-check terminal asset rather than invent coverage."
+If added it must assert something real (file written + the report's own "X of Y"
+lines match its character_stats input), else disclose-only.
+
+**Cannot verify offline:** whether rank-10 cutoffs in charts 4/5 actually tie
+(needs a DuckDB run); exact male/female split (not needed for any claim).
