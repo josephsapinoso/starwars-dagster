@@ -59,3 +59,13 @@ users get LESS text, not gated text). Corollary: legend/help copy must not instr
 "hover ..." unless the same information has a non-hover path; and any editorial
 review of disclosure text must review labels and tooltips as two different surfaces
 with two different audiences.
+
+Adopted fix pattern (banked 2026-07-18, provenance rail): keep the tooltip as a
+desktop-plus courtesy, but have the legend name the canonical non-hover home instead
+of the gesture — "◆ blocking check · ◇ drift warning · full check descriptions live
+in the Dagster UI". And because the label is the entire touch/keyboard surface,
+author every visible label to be safe and self-sufficient on its own; never park
+sensitive or load-bearing content in the tooltip and call it mitigated. When a
+content leak has both a string fix and a renderer fix (filters, per-context rules),
+cost the string fix first — it preserves uniform, predictable rendering across
+surfaces and modes.
