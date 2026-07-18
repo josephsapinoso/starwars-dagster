@@ -146,3 +146,56 @@ Still OPEN (unchanged): the five hand-written dashboard SQL strings in `makeCard
 remain unverified copy — keep resisting any new hand-written pipeline copy, and next
 time I raise migration I bring a concrete verification design. README screenshot
 retake also still open (needs 12 green checks, desktop UI).
+
+## Prep notes: post-landing cleanup — trio leak / SQL verification / coverage gaps (2026-07-18)
+
+Verified in-repo (not taken on faith this time):
+
+- **Data-engineer's SQL audit is TRUE.** transforms.py `star_wars_db` creates ONLY
+  `films/people/planets/starships/species`; list fields are `json.dumps`-stringified.
+  So chart 2 (index.html:1047) and chart 4 (:1184) `FROM characters_enriched` fail —
+  no such table. Chart 1 (:985) `len(f.characters)` = string length of stringified
+  JSON, not array length (transform correctly uses `json_array_length`). Charts 3
+  (:1102) and 5 (:1224) hit real tables and use DuckDB lateral-alias-in-WHERE
+  (supported); plausibly correct — only execution proves it. 3 of 5 displayed SQL
+  strings are wrong TODAY. This is the exact failure my open item predicted.
+- **Q2 spec (mine, full design in skill panel-qa-engineer-sql-verification):** SQL
+  strings move into `DATA.sql` (map chart-id → string; `\n` fine in strict JSON);
+  site renders only from DATA. New pytest reuses the existing `full_run` fixture
+  (materialize all assets via FakeSWAPIResource in isolated_cwd), then connects
+  read_only to the `data/star_wars.duckdb` the pipeline itself wrote — never a
+  bespoke DB or test-created views (that would verify SQL against a warehouse that
+  doesn't exist). Two layers: ungated EXECUTE (catches charts 2/4 class), and
+  snapshot-gated compare of results vs DATA-derived expectations (catches chart 1
+  class). SNAPSHOT.json IS present, so gated tests run locally. Inline SQL comments
+  citing counts (`-- 59 of 82 rows`, :1105) must equal the executed row count.
+  Runtime detector grows one internal-consistency claim only: rendered sql
+  disclosures ↔ DATA.sql keys, 1:1, non-empty. It cannot execute SQL (no DuckDB-wasm
+  under one-file/no-CDN law) — don't pretend otherwise.
+- **Charts 2/4 fix is data-engineer's choice, my test is fix-agnostic:** either
+  re-author SQL against real tables, or persist transform outputs back into DuckDB
+  and keep `FROM characters_enriched`. Both pass the same execute-and-compare test.
+- **Q1:** verbatim-projection law binds site strings to checks.py `description=`,
+  not the wording — both label and description are ours to re-author (option a).
+  Names appear in check runtime metadata regardless (Dagster UI, ops-facing, fine).
+  Rendering-rule filter (option b) forks rail truth from Dagster truth — veto lens.
+  Pin for (a): existing test_site_provenance forces same-commit site sync; add a
+  spoiler pin — for every claim with beat < 5, union of its assets' check
+  labels+whys in DATA.provenance contains no member of `SIX_FILM_CHARACTERS` (import
+  from known_facts — single source) and no "trio"/count-of-three phrasing. Purely
+  offline, mechanical. Note: description :218 also names the "'Ben counts' beat" —
+  re-author that too.
+- **Q3(a)** height baseline WARN on characters_enriched guards a DISPLAYED number
+  (beat 1 "1 unmeasured"), mirrors the mass baseline exactly, baseline already at
+  known_facts.py:26 → earns its place. Same-commit costs: beat-1 guard flips
+  pytest→check in DATA.provenance, totals.checks 12→13, and WORDS (:798) ends at
+  "twelve" — 13 overflows; extend WORDS or beat 7 warns. **Q3(b)** galaxy_report has
+  a REAL unnamed failure mode: live data yielding an empty section writes a
+  half-empty report while everything shows green (pytest report tests are
+  fixture-only). A thin BLOCKING structural check (file written, expected section
+  headers present, tables non-empty) is a guard, not decoration — but it guards the
+  report artifact, not a site number; no site claim cites galaxy_report, so no
+  provenance change. Weak-yes; won't spend a veto on it.
+- Cannot verify offline: whether charts 3/5 results match DATA exactly (needs the
+  execute-and-compare test to exist) and actual rendered spoiler surface on a real
+  phone hover (title-attr hover is desktop-only; label is the mobile leak).
