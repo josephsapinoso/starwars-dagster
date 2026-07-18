@@ -132,6 +132,24 @@ def test_claims_are_honest(prov, real):
             )
 
 
+def test_beats_four_through_six_are_direct_and_check_guarded(prov):
+    # Banked acceptance criteria for the per-character transform (decision log
+    # 2026-07-18): once character_stats lands, beats 4-6 stop being derived
+    # page-authoring math. Pin the upgrade so it can't silently regress.
+    expected_guards = {
+        4: "character_stats_one_film_baseline",
+        5: "character_stats_six_film_trio",
+        6: "character_stats_pilot_count_baseline",
+    }
+    claims = {c["beat"]: c for c in prov["claims"]}
+    for beat, guard_ref in expected_guards.items():
+        c = claims[beat]
+        assert c["relation"] == "direct", f"beat {beat} regressed to derived"
+        assert c["guard"] == {"kind": "check", "ref": guard_ref}
+        assert c["hot"] == "character_stats"
+        assert "character_stats" in c["assets"]
+
+
 def test_totals_match_the_real_definitions(prov, real):
     totals = prov["totals"]
     assert totals["assets"] == len(real["keys"])

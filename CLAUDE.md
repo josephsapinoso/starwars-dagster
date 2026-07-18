@@ -39,4 +39,4 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
   displayed number; the one-line strict-JSON `const DATA` literal is load-bearing.
 
 Open item: re-materialize locally and retake the three README screenshots so the
-Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
+Dagster lineage view shows the 12 green asset checks (needs the desktop UI).

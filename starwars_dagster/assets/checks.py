@@ -27,6 +27,7 @@ from dagster import (
 
 from starwars_dagster.assets.ingestion import raw_people
 from starwars_dagster.assets.transforms import (
+    character_stats,
     characters_enriched,
     film_character_counts,
     star_wars_db,
@@ -36,9 +37,13 @@ from starwars_dagster.known_facts import (
     EXPECTED_DB_TABLES,
     EXPECTED_EPISODE_IDS,
     EXPECTED_FILM_COUNT,
+    EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_ONE_FILM_COUNT,
     EXPECTED_PEOPLE_COUNT,
+    EXPECTED_PILOT_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
     REQUIRED_PEOPLE_KEYS,
+    SIX_FILM_CHARACTERS,
 )
 
 
@@ -188,4 +193,64 @@ def starship_stats_cast_sanity(starship_stats: pd.DataFrame) -> AssetCheckResult
         passed=not negatives,
         severity=AssetCheckSeverity.WARN,
         metadata={"null_rates_after_cast": null_rates, "negative_values": negatives},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description=f"{EXPECTED_ONE_FILM_COUNT} of {EXPECTED_PEOPLE_COUNT} characters "
+    "appear in exactly one film in the verified snapshot. The story's one-scene-"
+    "wonders beat displays this number, so drift here changes the page.",
+)
+def character_stats_one_film_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    one_film = int((character_stats["film_count"] == 1).sum())
+    return AssetCheckResult(
+        passed=one_film == EXPECTED_ONE_FILM_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"one_film_characters": one_film, "expected": EXPECTED_ONE_FILM_COUNT},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description="Exactly three characters appear in all six films in the verified "
+    "snapshot: C-3PO, R2-D2, and Obi-Wan Kenobi. The story leans on this set — "
+    "if it shifts, the 'Ben counts' beat is wrong, not just stale.",
+)
+def character_stats_six_film_trio(character_stats: pd.DataFrame) -> AssetCheckResult:
+    six_film = set(character_stats.loc[character_stats["film_count"] == 6, "character_name"])
+    return AssetCheckResult(
+        passed=six_film == SIX_FILM_CHARACTERS,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"six_film_characters": sorted(six_film), "expected": sorted(SIX_FILM_CHARACTERS)},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description=f"{EXPECTED_PILOT_COUNT} of {EXPECTED_PEOPLE_COUNT} characters are "
+    "listed at the controls of at least one starship in the verified snapshot — "
+    "the denominator behind the story's pilots beat.",
+)
+def character_stats_pilot_count_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    pilots = int((character_stats["starships_flown"] > 0).sum())
+    return AssetCheckResult(
+        passed=pilots == EXPECTED_PILOT_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"pilots": pilots, "expected": EXPECTED_PILOT_COUNT},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description=f"No character has flown more than {EXPECTED_MAX_STARSHIPS_FLOWN} "
+    "starships in the verified snapshot — Obi-Wan Kenobi leads with exactly "
+    f"{EXPECTED_MAX_STARSHIPS_FLOWN}, the punchline of the pilots beat.",
+)
+def character_stats_max_flown_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    max_flown = int(character_stats["starships_flown"].max()) if len(character_stats) else 0
+    return AssetCheckResult(
+        passed=max_flown == EXPECTED_MAX_STARSHIPS_FLOWN,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"max_starships_flown": max_flown, "expected": EXPECTED_MAX_STARSHIPS_FLOWN},
     )

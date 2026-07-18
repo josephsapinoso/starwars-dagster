@@ -41,12 +41,12 @@ SWAPI (live API) → Raw JSON → DuckDB tables → SQL transforms → Markdown 
   Resource        01_raw         star_wars_db    02_transformed   03_analytics
 ```
 
-**10 assets across 3 groups, 8 asset checks (4 blocking, 4 warn):**
+**11 assets across 3 groups, 12 asset checks (4 blocking, 8 warn):**
 
 | Group | Assets | Description |
 |---|---|---|
 | `01_raw` | `raw_films`, `raw_people`, `raw_planets`, `raw_starships`, `raw_species` | HTTP pulls from SWAPI |
-| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats` | DuckDB storage + SQL |
+| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats`, `character_stats` | DuckDB storage + SQL |
 | `03_analytics` | `galaxy_report` | Markdown summary report |
 
 ## Quick start
@@ -95,9 +95,11 @@ analyst, UX, storyteller, QA, hiring-manager lens, and more) defined in
 skills. Before every debate the panelists research the codebase and update their own knowledge;
 afterwards they bank what won and lost. The human adjudicates every verdict, and each decision
 is logged in [`.claude/panel/decisions/`](.claude/panel/decisions/) — the pipeline-reveal
-feature on the site was specified this way, including the panel catching that two of the site's
-headline numbers were computed by no pipeline asset at all (they're honestly labeled as
-authoring-time tallies, pinned by pytest).
+feature on the site was specified this way, including the panel catching that three of the
+site's headline numbers were computed by no pipeline asset at all. Those beats shipped honestly
+labeled as authoring-time tallies pinned by pytest; later the `character_stats` transform landed
+on its own merits, computed them in the pipeline, and flipped those beats to direct lineage
+with asset-check badges.
 
 ## Learn Dagster with this repo
 
@@ -120,7 +122,7 @@ starwars-dagster/
 │   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls
 │   │   ├── transforms.py         ← 02_transformed: DuckDB + SQL
 │   │   ├── analytics.py          ← 03_analytics: galaxy_report
-│   │   └── checks.py             ← 8 asset checks (4 blocking, 4 warn)
+│   │   └── checks.py             ← 12 asset checks (4 blocking, 8 warn)
 │   └── resources/
 │       └── swapi_resource.py
 ├── site/

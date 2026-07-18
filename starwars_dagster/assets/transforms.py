@@ -18,7 +18,8 @@ Asset lineage here:
   raw_people ─┤
   raw_planets ┼──► star_wars_db ──► characters_enriched
   raw_ships ──┤                 ──► film_character_counts
-  raw_species ┘                 ──► starship_pilot_stats
+  raw_species ┘                 ──► starship_stats
+                                ──► character_stats
 """
 
 import json
@@ -206,6 +207,46 @@ def starship_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Data
             "best_hyperdrive": df.dropna(subset=["hyperdrive_rating"])
             .nsmallest(1, "hyperdrive_rating")[["name", "hyperdrive_rating"]]
             .to_dict("records"),
+        }
+    )
+    return df
+
+
+# ── Transform: Per-character screen persistence ──────────────────────────────
+
+@asset(
+    group_name=_GROUP,
+    description="Per-character grain — films appeared in and starships flown, one row per person",
+)
+def character_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.DataFrame:
+    """
+    Count each character's film appearances and starships flown.
+
+    SWAPI stores both as JSON arrays of URLs on the person record, so
+    json_array_length() gives the counts without unnesting. This is the asset
+    that computes the story's screen-persistence figures (one-film cameos,
+    the six-film trio, the pilots) instead of leaving them page-authoring math.
+    """
+    con = duckdb.connect(star_wars_db)
+
+    df = con.execute("""
+        SELECT
+            p.name                          AS character_name,
+            json_array_length(p.films)      AS film_count,
+            json_array_length(p.starships)  AS starships_flown
+        FROM people p
+        ORDER BY p.name
+    """).df()
+
+    con.close()
+
+    _write_csv(df, "character_stats.csv")
+    context.add_output_metadata(
+        {
+            "row_count": len(df),
+            "one_film_characters": int((df["film_count"] == 1).sum()),
+            "pilots": int((df["starships_flown"] > 0).sum()),
+            "max_starships_flown": int(df["starships_flown"].max()) if len(df) else 0,
         }
     )
     return df

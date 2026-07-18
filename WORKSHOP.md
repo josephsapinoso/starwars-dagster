@@ -112,6 +112,7 @@ Dagster is increasingly the standard for new data engineering projects because i
 │  │  characters_enriched  (people + planets)     │           │
 │  │  film_character_counts (films aggregated)    │           │
 │  │  starship_stats       (cleaned + typed)      │           │
+│  │  character_stats      (per-person counts)    │           │
 │  │  → saves Parquet to data/output/             │           │
 │  └─────────────────┬───────────────────────────┘           │
 │                    │ DataFrames                             │
