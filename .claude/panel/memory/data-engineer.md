@@ -136,3 +136,49 @@
 - Prep differently: my Working-knowledge asset count went stale (said ten after eleven
   shipped) — after any pipeline-shape commit, refresh the lineage bullet in the same
   banking pass.
+
+## Prep notes: post-landing cleanup — trio leak / SQL verification / coverage gaps (2026-07-18)
+
+**Q2 — audited all five dashboard SQL strings against the actual fixture DB. Three of
+five are dishonest TODAY:**
+- The DuckDB (`star_wars_db`) contains ONLY `films/people/planets/starships/species`;
+  list fields are JSON-stringified VARCHAR. `characters_enriched`/`character_stats` are
+  DataFrames + CSVs — never written back as tables.
+- Chart 1 (index.html:985): `len(f.characters)` on a VARCHAR returns STRING length, not
+  array length — executes, returns wrong numbers. Pipeline itself uses
+  `json_array_length()` (transforms.py:156).
+- Charts 2 & 4 (:1047, :1184): `FROM characters_enriched` — table does not exist in the
+  DB; these strings fail outright.
+- Charts 3 & 5 (:1102, :1224): real tables, DuckDB alias-in-WHERE (supported friendly
+  SQL) — should execute and match; chart 5 has a tie-ordering caveat (compare as sets).
+- So the verification story is not polish — it would catch three live lies on day one.
+- Honest shape: five strings move into `DATA` (one `sql` per card), site renders the
+  disclosure from DATA only; snapshot-gated pytest (SNAPSHOT.json IS present) reuses the
+  `full_run` materialize path (test_pipeline.py:71), connects to
+  `<tmp>/data/star_wars.duckdb`, EXECUTES each string, compares to the same rows the
+  charts derive in-browser from DATA.people/films/starships (index.html:898-909 —
+  replicate those derivations in Python). Structural "executes at all" can be ungated.
+- Fix for charts 2/4: prefer `characters_enriched` asset also doing
+  `CREATE OR REPLACE TABLE characters_enriched` in the DB it already connects to — no
+  new asset, warehouse-legit write-back, keeps the displayed table name aligned with
+  the provenance chip. Fallback: rewrite as the raw people⋈planets join.
+- Drift detector grows internal-consistency only (every card id resolves a nonempty
+  DATA sql entry); execution truth is pytest's job — browser has no DuckDB.
+
+**Q1 — trio leak:** the check's `label`/`description` are ours to author; the verbatim
+law binds only the projection. checks.py:214-227 names the three and "trio". Re-author
+both spoiler-free but operationally exact (e.g. "the set of characters appearing in all
+six films matches the verified snapshot"); runtime `metadata` still lists names in the
+Dagster UI per run, so operators lose nothing. I oppose per-beat rail filtering: the
+rail's honesty IS its completeness — hiding checks on early beats is a rendering lie
+and a second special-case rule. Guard: pytest spoiler-token assertion on beat-4-visible
+label/why strings, same commit.
+
+**Q3:** settled law "pytest guards CODE, checks guard DATA" decides both. (a) height
+nulls are DATA drift on a displayed number (beat 1), mirrors the unknown-mass WARN
+baseline, constant already in known_facts.py:26 → add it, flip beat 1's guard
+pytest→check. (b) galaxy_report sections-present is CODE behavior already pytest-covered
+(test_gender_table…, test_climate_lines…) → a Dagster check there duplicates pytest =
+coverage theater; disclose-only. Caveat for (a): 13th check overflows WORDS (caps at
+"twelve", index.html:798) — extend the word list same commit; beat-7 sentence
+auto-derives from totals; grep prose numerals per the banked lesson.
