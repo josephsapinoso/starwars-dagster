@@ -38,3 +38,14 @@ narrative arc the reader opts into. Judge it as story.
 
 7. **Opt-in preserves reader pacing by definition** — but only if opening a reveal never
    moves the stage, advances a beat, or changes what unopened readers see.
+
+8. **Blast-radius rule for shared machinery.** When reveals render metadata from a
+   shared source (a lineage chain, a check registry, a glossary), a string's blast
+   radius is every beat that cites its container — not the beat it was written for.
+   Audit procedure: for each beat, list every string its reveal can surface (labels,
+   hovers, tooltips), then mark any that state a LATER beat's number, name, or
+   punchline. Two consequences: (i) re-authoring the string cannot fix a leak when the
+   string's honest meaning IS the payoff — filter placement instead (render a payoff's
+   guard only on its own beat and later); (ii) a one-off audit decays — encode the
+   placement rule as a standing automated guard (e.g. "no future beat's guard string
+   renders early") so new strings are screened at birth.

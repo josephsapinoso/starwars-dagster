@@ -128,3 +128,60 @@ shared-chain rendering means a check's blast radius is every beat that cites its
 asset, not just its own.
 
 Still open upstream: dashboard SQL strings; README screenshot retake (12 green checks).
+
+## Prep notes: trio-leak blast radius + SQL/coverage story stakes (2026-07-18)
+
+Full cross-beat audit of chainEl (index.html:823-843) against the DATA.provenance
+literal (line 390) and checks.py descriptions. A check renders on EVERY beat whose
+chain contains its asset; hover `why` = verbatim description.
+
+Leak table (severity order):
+1. **Beat 4 rail → "six-film trio"** (label states three-saw-all-six; hover names
+   C-3PO/R2-D2/Obi-Wan AND quotes "the 'Ben counts' beat" — the beat-5 caption
+   itself). Inside the held pause, one beat before THE payoff. Critical.
+2. **Beat 4 rail → "19 pilots" + "max flown = 5"** — beat 6's number and punchline
+   two beats early; max-flown hover names Obi-Wan ("punchline of the pilots beat"),
+   a double leak (he's also a witness). High.
+3. **Beat 5 rail → same two labels** one beat before beat 6. Moderate (post-payoff
+   slope, but still front-runs the Obi-Wan punchline).
+4. **Beat 1 rail → "23 unweighed"** — beat 2's absence-beat number one beat early
+   (characters_enriched carries it; beats 1-3 share that chain). Mild: beat 2's
+   power is framing more than surprise, and the label lacks the denominator. The
+   brief missed this one — it proves the problem is structural, not one bad string.
+Clean: "homeworld joins" before beat 3 (no numbers); all backward-looking renders;
+beat 6 rail; structural check labels everywhere.
+
+Fix ranking by cost to the spine:
+- **(b) per-beat rail filtering — my pick, near-zero spine cost, positive side
+  effect.** Hide on beat N any check that is the guard.ref of a claim with
+  beat > N (derivable from DATA alone: kills leaks 1, 3, 4 and the trio hover).
+  max_flown guards no claim, so the rule needs one small data hook — e.g. an
+  optional per-check `spoilerBeat`/earliest-beat field in DATA.provenance.assets —
+  to catch leak 2. Bonus: beat 4's rail drops from four WARN chips to one, making
+  the held pause's affordance genuinely the quietest on the page (currently it's
+  the noisiest rail). Guard: drift detector + pytest assert no future-beat guard
+  check ever renders early — my one-off audit becomes a standing spoiler guard.
+- **(a) re-author label/description — cannot fix the core leak.** The check's
+  operational meaning IS "exactly three saw all six"; any accurate label/description
+  states it. Re-authoring only mutes hover meta-leaks (naming beats/punchlines),
+  and those phrases are good ops copy in the Dagster UI. (a) alone = lobotomize the
+  check or keep the spoiler. Acceptable as a light companion (drop the literal
+  "Ben counts"/"punchline" phrasings) but not as the fix.
+- **(c) accept — reject.** Opt-in + hover mitigation doesn't cover the label, and
+  the worst seat in the house (held pause) hosts the worst spoiler. Three of six
+  reveals leak forward; "mitigated" is not a pacing strategy.
+
+Q2 (SQL-in-DATA + executed-fixture pytest): no beat copy touched; disclosure text
+becomes provably true — supports it as an extension of guard-honesty voice law.
+Watch only that the drift-detector claim, if added, stays console-silent for readers.
+Q3a (height WARN check): flips beat 1's honesty line pytest→check via the NOTE
+template automatically — zero hand edits, restores beat 1/beat 2 symmetry; the new
+label ("1 unmeasured" or similar) is beat 1's own claim, so it renders forward-clean
+on beats 2-3. No spoiler risk; I'm for it. Q3b (galaxy_report structural check):
+epilogue-side, no rail renders it; pure hiring-manager/qa territory — neutral,
+defer, but insist any new check's label/description pass the spoiler audit before
+landing (feature + guard same commit should include the spoiler guard).
+
+Cannot verify: how a filtered rail reads at 390px with the drop (headless geometry
+was checked pre-fix); whether Dagster-UI copy edits under (a) matter to
+hiring-manager's lineage-view story — his call, not mine.
