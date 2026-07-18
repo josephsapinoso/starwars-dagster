@@ -33,16 +33,31 @@
 - No assets added primarily as diagram fuel — presentation-driven pipeline design is
   vetoed; a per-character-grain transform may land only on its analytics merits.
   (Pipeline-reveal panel, 2026-07-18.)
+- Displayed SQL is executed SQL: any SQL text shown on the site lives in DATA and is
+  executed against the fixture-built warehouse by the offline suite; no hand-verified
+  SQL copy anywhere. (Post-landing cleanup, 2026-07-18.)
+- Framing law (mine, banked in the decision log): the `characters_enriched` write-back
+  is "closing a warehouse gap" — the enriched grain becoming queryable — never "making
+  the site's SQL true." Pipeline changes are justified on pipeline merits; the site
+  merely benefits. Any doc/commit phrasing that inverts this gets vetoed.
+  (Post-landing cleanup, 2026-07-18.)
+- DATA.provenance carries no narrative fields: everything in it stays derivable from /
+  verifiable against the real Dagster definitions plus known_facts. Spoiler safety
+  lives in the check strings (spoiler-pin test, description style rule), not in the
+  renderer or in hand-authored beat metadata. The rail renders uniformly.
+  (Post-landing cleanup, 2026-07-18.)
 
 ## Working knowledge
 
 - Interview questions this repo currently answers well: "why two test layers?", "what
   happens when the upstream API changes?", "why no Great Expectations?", "why a
-  single-file site?". Every new feature should either answer a new question or
+  single-file site?", "what do you do when a claimed lineage turns out to be false?",
+  and now "how do you keep displayed SQL from rotting?" (executed in CI —
+  tests/test_site_sql.py). Every new feature should either answer a new question or
   sharpen an existing answer.
-- Signals still weak: screenshots don't yet show the 12 green asset checks (open
-  item; needs desktop UI). The README-opening and site/repo-invisibility weaknesses
-  from PR #5 were resolved by the pipeline-reveal rewrite and the reveal disclosures.
+- Signals still weak: screenshots don't yet show the 13 green asset checks (open
+  item; needs desktop UI; one retake). The README-opening and site/repo-invisibility
+  weaknesses from PR #5 were resolved by the pipeline-reveal rewrite and disclosures.
 - The 90-second scan path to design for: recruiter opens README on a phone → headline
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
