@@ -98,8 +98,33 @@ Prep differently next time:
   whose lever fixes it in the same breath — it landed better as a joint concern.
 
 Watch items for future panels:
-- If the per-character transform ships, beats 4–6 honesty lines change — the reveal
-  copy must be re-projected, and the trio leak audit re-run on any new check names.
 - README rewrite reorders the project's front door; the site's story arc is unchanged,
   but any future README storytelling should mirror the census conceit, not invent a
   second voice.
+
+## Banked: per-character transform landed (2026-07-18, commit 082d9c9)
+
+Execution note, no debate — the pipeline-reveal open item shipped as banked. What
+changed in my domain:
+
+- Beats 4–6 upgraded derived → direct exactly as my watch item predicted; honesty
+  lines re-projected via the NOTE.check template automatically — the template law
+  (voice in the template, strings from provenance) paid off: zero copy hand-edits
+  were needed for the flip. Bank this as evidence for generated-over-bespoke.
+- The beat-7 callback now truthfully computes "One pipeline, four transforms, twelve
+  checks", and two latent hazards I care about were fixed en route: the number-word
+  list stopped at "nine" (would have rendered "undefined checks") and hardcoded
+  "three transforms" prose. Lesson re-confirmed: every count in copy must be computed
+  AND its rendering path drift-guarded, including the word list itself.
+- My mandated re-audit found the one thing execution missed: the new
+  `character_stats_six_film_trio` check leaks the trio into beat 4's paper trail
+  (details in Working knowledge). The audit-on-string-change rule earned its keep;
+  raise this at the next panel touchstone rather than relitigating the reveal design.
+- Beat count, "n / 8", beat sheet, held pause: all untouched — spine intact.
+
+Prep differently next time: when a shipped check exists to guard a *reveal* beat, ask
+in prep whether its name/label/description can appear on any *earlier* beat's chain —
+shared-chain rendering means a check's blast radius is every beat that cites its
+asset, not just its own.
+
+Still open upstream: dashboard SQL strings; README screenshot retake (12 green checks).
