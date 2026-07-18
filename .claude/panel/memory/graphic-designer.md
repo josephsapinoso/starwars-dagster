@@ -115,10 +115,52 @@ Execution close-out of the pipeline-reveal open item (commit `082d9c9`, decision
   taller — 3 chips + 2 connectors + a 4-check rail replaces the old 1–2-chip derived
   chain plus honesty line. Nobody has eyeballed this on a real mobile viewport yet. The
   settled station geometry (min(64svh,560px)) tolerates an open reveal growing the card
-  taller than the station, so I expect it holds; but if it doesn't, the fix is layout
-  (rail wrapping is already `flex-wrap`; badge labels stay short display labels), never
-  shrinking type below the legibility floor and never touching the stage. Flag for a
-  mobile pass before the next visual change ships.
+  taller than the station, so I expect it holds. **RESOLVED 2026-07-18:** headless
+  re-check at 390x844 and 360x740 PASSED — reveals grow downward, no horizontal
+  overflow, stage cap holds. The watch item is closed; the floor rules (never shrink
+  type, never touch the stage) remain the fix path if a future change regresses it.
+## Prep notes: trio leak / SQL verification / coverage gaps (2026-07-18)
+
+Read the brief, `chainEl` (site/index.html:823–843), rail CSS (:201–208), disclosure
+CSS (:191–197), checks.py:199–256, and the DATA literal's character_stats block.
+
+- **Q1 scope is wider than "one label."** `chainEl` renders the FULL check inventory
+  of every chain asset in every beat. Beats 4–6 share character_stats, so beat 4's
+  rail shows all four WARN badges: "42 one-film cameos" (its own claim), plus
+  "six-film trio" (beat 5's payoff), "19 pilots" and "max flown = 5" (beat 6's).
+  Three forward leaks, not one — lore-fanatic's memory agrees. Re-authoring one
+  label (option a) is whack-a-mole; "trio" leaks the count by definition, and
+  spoiler-proofing all four strings degrades them in the beats where they ARE the
+  payoff and in the Dagster UI.
+- **My design read: filter, but with ONE rule for all beats, never per-beat
+  conditionals.** Rule: a story rail shows blocking (structural) checks + the beat's
+  own guard check — on every beat, 0–7. That is not a fork; it is one rule
+  everywhere (same mark, same placement, shorter rails). The brief's variant
+  ("…only on non-final beats") IS a fork — same asset wearing different rails
+  depending on beat position is exactly the inconsistency I exist to veto.
+- This extends a banked distinction: overflow-x was ruled a dashboard affordance,
+  not a story affordance. Likewise **full check inventory is a dashboard/Dagster-UI
+  affordance; the story rail is narrative** and shows what the beat asserts. Bonus:
+  it strengthens guard-honesty (badges sit where they assert the displayed number)
+  and cuts beat 4–6 rail mass from 4 badges to 1 — pure win for the vertical budget.
+  The trio check's rich verbatim description then renders only on beat 5, post-
+  payoff, so checks.py strings stay operationally meaningful untouched.
+- Guard for the fix: rendering-rule invariant (per-beat rail ⊆ {guard, blocking}) —
+  wire-up belongs to qa/data-engineer; I hold the visual rule.
+- **Q2 (SQL into DATA):** zero visual delta if — and only if — rendering stays the
+  existing `details.sql pre/code` treatment (mono 12px, #9fd0ff, `--void` inset).
+  Support adoption; veto any new "verified SQL" badge/mark — the ◇/◆ vocabulary and
+  prov-note sentence pattern already cover "this is asserted offline."
+- **Q3:** minimal visual footprint. A height-null WARN check adds one ◇ badge where
+  characters_enriched appears (fine under the guard-only rule); galaxy_report has no
+  story rail (beat 7 is a callback line), so its check touches only the Dagster UI.
+  Neutral on merits — defer to qa/hiring-manager; no mark-system stakes.
+- Mobile watch item resolved by headless pass (see above) — I can argue Q1 without a
+  pending geometry caveat.
+- Still cannot verify: how the rail reads on a REAL device/desktop hover (title-attr
+  `why` tooltips are hover-only — untestable headless, and no touch affordance
+  exists for them; worth flagging, not mine to fix this round).
+
 - **Also good:** the derived-claim honesty lines on beats 4–6 are gone because the
   claims are now DIRECT and check-guarded — the guard-honesty law worked in both
   directions (the caveat text appeared when unguarded, disappears when guarded, no
