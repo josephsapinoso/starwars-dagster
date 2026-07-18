@@ -125,6 +125,11 @@ def characters_enriched(context: AssetExecutionContext, star_wars_db: str) -> pd
         ORDER BY p.name
     """).df()
 
+    # Persist the enriched grain back into the warehouse so downstream SQL can
+    # query it — including the dashboard's displayed strings, which pytest
+    # executes against this table (tests/test_site_sql.py).
+    con.execute("CREATE OR REPLACE TABLE characters_enriched AS SELECT * FROM df")
+
     con.close()
 
     _write_csv(df, "characters_enriched.csv")

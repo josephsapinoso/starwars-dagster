@@ -87,6 +87,28 @@ def test_all_eleven_assets_materialize_from_a_clean_directory(full_run):
     assert (cwd / "data" / "star_wars.duckdb").exists()
 
 
+def test_characters_enriched_table_matches_the_returned_frame(full_run):
+    # the write-back must be the SAME data the asset returns — one code path,
+    # so the asset's three checks extend to the warehouse table by construction
+    import duckdb
+    import pandas as pd
+
+    result, cwd = full_run
+    df = result.output_for_node("characters_enriched").reset_index(drop=True)
+    con = duckdb.connect(str(cwd / "data" / "star_wars.duckdb"), read_only=True)
+    try:
+        table = con.execute(
+            "SELECT * FROM characters_enriched ORDER BY character_name"
+        ).df()
+    finally:
+        con.close()
+    pd.testing.assert_frame_equal(
+        table.reset_index(drop=True),
+        df.sort_values("character_name").reset_index(drop=True),
+        check_dtype=False,
+    )
+
+
 def test_structural_asset_checks_pass_on_well_formed_data(full_run):
     result, _ = full_run
     blocking = {

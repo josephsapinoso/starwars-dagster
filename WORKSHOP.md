@@ -364,6 +364,8 @@ Each transform asset:
 
 The SQL uses DuckDB-specific functions like `json_array_length()` to handle the JSON arrays that SWAPI stores inline (e.g., a film's list of character URLs).
 
+One deliberate exception to the pattern: `characters_enriched` additionally writes its result back into the warehouse (`CREATE OR REPLACE TABLE`) so the enriched grain is queryable with plain SQL — which is also what lets the dashboard's displayed SQL strings be executed against the real database by the offline test suite.
+
 ### Querying DuckDB yourself
 
 ```python

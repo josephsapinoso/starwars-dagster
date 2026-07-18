@@ -89,7 +89,9 @@ A daily 6 AM schedule re-pulls from SWAPI — the same pattern you'd use for any
 webfonts — open it straight from disk. It respects `prefers-reduced-motion`, works on mobile,
 and degrades to per-step figures inside auto-height embeds. The scroll story rearranges one
 unit chart of 82 dots (height, mass, homeworlds, film appearances, pilots), then hands off to
-a dashboard carrying the Dagster lineage strip and the DuckDB SQL behind every chart.
+a dashboard carrying the Dagster lineage strip and the DuckDB SQL behind every chart — every
+displayed string is executed against the fixture-built warehouse by the offline test suite,
+so the SQL a reader opens is SQL that provably runs.
 
 ## How this was built
 
@@ -103,7 +105,10 @@ feature on the site was specified this way, including the panel catching that th
 site's headline numbers were computed by no pipeline asset at all. Those beats shipped honestly
 labeled as authoring-time tallies pinned by pytest; later the `character_stats` transform landed
 on its own merits, computed them in the pipeline, and flipped those beats to direct lineage
-with asset-check badges.
+with asset-check badges. The same process then caught a second false claim: three of the five
+SQL strings displayed on the dashboard didn't actually run against the warehouse. Now every
+displayed string lives in the page's data payload and is executed and compared by the offline
+suite — the fix and the guard landed together.
 
 ## Learn Dagster with this repo
 
