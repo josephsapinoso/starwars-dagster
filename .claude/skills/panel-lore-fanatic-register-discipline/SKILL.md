@@ -38,6 +38,17 @@ For any proposed copy, ask which register the element belongs to:
 - Quote-jokes in machinery copy ("these aren't the rows you're looking for").
 - Yoda-speak, misattributed lines, "just the droids".
 
+## Corollary: sequence the quotation, don't rewrite the source
+
+Check names/descriptions are primary sources — they render in the Dagster UI and are
+projected verbatim to the site. When a verbatim projection spoils a story beat (e.g. a
+shared asset chain surfaces a later beat's payoff early), the fix is a RENDERING rule
+(which checks appear on which beat), never a bowdlerized description. Scrubbing canon
+facts (like the trio's names) from the operational source to protect page pacing
+destroys the very precision the source exists to hold. Audit tip: on shared chains,
+every upstream beat inherits every downstream claim's baseline label — check all
+forward leaks, not just the loudest one.
+
 ## Why it works
 
 Mixing registers reads as a theme park; separating them reads as an archivist who

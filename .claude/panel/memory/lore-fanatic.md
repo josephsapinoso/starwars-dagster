@@ -84,4 +84,43 @@ number to its computing code before opining on framing.
 **Watch item:** the open per-character-grain transform would upgrade beats 4–6 to
 DIRECT — if it lands, the trio and 42-count get real checks; reveal wording for those
 beats must be updated from "derived" the same commit, or the honesty line becomes the
-new lie.
+new lie. → LANDED 2026-07-18 (commit 082d9c9); beats 4–6 now direct + check-guarded.
+
+## Prep notes: post-landing cleanup (2026-07-18)
+
+**Q1 — the leak is wider than the brief says.** `chainEl` (site/index.html:823-843)
+renders ALL checks of every chain asset. Beats 4–6 share raw_people → star_wars_db →
+character_stats, so beat 4's rail shows all four character_stats labels: "42 one-film
+cameos" (its own), plus **"six-film trio" (beat 5's payoff), "19 pilots" AND
+"max flown = 5" (beat 6's payoffs)**. Beat 5's rail likewise pre-leaks beat 6. Hover
+`why` strings name Obi-Wan verbatim in BOTH `character_stats_six_film_trio` and
+`character_stats_max_flown_baseline` (checks.py:214-256). The brief's Q1 framing
+(trio only) understates it — any fix must handle all three forward leaks or it's
+half a fix.
+
+**My Q1 position, grounded:** option (a) — rewriting label/description spoiler-free —
+is self-defeating in my lane. The trio description naming C-3PO, R2-D2, AND Obi-Wan is
+the canon correction this project exists to make; scrubbing names from the Dagster-UI
+source to protect a webpage beat bowdlerizes the primary source, and any *accurate*
+label for a set-of-three baseline still leaks the count ("trio" IS the spoiler). Fix
+belongs in rendering (option b): sequence the quotation, don't rewrite the source —
+e.g. each beat's rail shows blocking checks + checks guarding claims at ≤ the current
+beat; beat 6 shows the full rail. That preserves verbatim-projection law untouched.
+
+**Q2 verification story:** a displayed SQL string that isn't the executed, verified
+string is a misattributed quote — same class of sin as a number credited to the wrong
+asset. The candidate (SQL into DATA; offline pytest EXECUTES each string against the
+fixture DB and matches inline numbers) makes display = execution = truth. Support.
+Register note: SQL stays machine-shop voice — no Star Wars aliases/comments creeping
+in during the move.
+
+**Q3 facts verified from DATA:** beat 1's range is Yoda 66 cm → Yarael Poof 264 cm;
+the single unmeasured character is **Arvel Crynyd** (the A-wing pilot who hit the
+Executor's bridge, RotJ — a fitting person for the census to have failed to measure).
+"The measuring" beat flipping pytest → WARN check mirrors beat 2's mass baseline
+exactly; earned, not decorative. Q3(b) galaxy_report structural check: no lore stake;
+defer to engineers under the coverage-theater law.
+
+**Also noted:** rail-render-everything was never itself banked law — the
+pipeline-reveal decision specified "check rail per chip" but not which checks; a
+per-beat filter rule contradicts nothing settled.
