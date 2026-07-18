@@ -15,8 +15,10 @@
   reveal. One disclosure style, shared with details.sql. (Pipeline-reveal panel,
   2026-07-18.)
 - Beat-7 callback wording is computed from provenance counts so it is drift-detectable
-  and arithmetically true: "One pipeline, three transforms, eight checks — the full
-  record is below." Never hand-write pipeline arithmetic into copy. (2026-07-18.)
+  and arithmetically true — since commit 082d9c9 it renders "One pipeline, four
+  transforms, twelve checks". Never hand-write pipeline arithmetic into copy; the
+  number-word list is drift-guarded against overflow (the "undefined checks" near-miss
+  proved why). (2026-07-18.)
 - Reveal label template is generated, not per-beat bespoke: "The paper trail — where
   {claim} comes from"; beat 4 (the held pause) renders the quietest variant, "The paper
   trail." — identical placement/size everywhere. "Paper trail" is lore's one sanctioned
@@ -40,9 +42,14 @@
   handoff to the "records office" (dashboard). Additions must serve this spine or a
   deliberate second read-through, never interrupt the build to beat 5.
 - The witnesses payoff must not leak early — no earlier beat, caption, or affordance
-  may reveal the trio before beat 5. Leak audit of checks.py passed (2026-07-17): no
-  check name/description names the trio; `films_are_exactly_the_six_episodes` speaks
-  of six films, not three witnesses. Re-audit whenever provenance strings change.
+  may reveal the trio before beat 5. Re-audit whenever provenance strings change.
+  Audit history: 2026-07-17 PASS (no check named the trio). 2026-07-18 re-run after
+  commit 082d9c9: **FAIL on beat 4** — `character_stats_six_film_trio` (label
+  "six-film trio"; hover why names C-3PO, R2-D2, Obi-Wan Kenobi verbatim) renders in
+  beat 4's paper trail, because beats 4–6 share the character_stats chain and chainEl
+  shows every check on every asset in the chain. Mitigated (opt-in details, hover for
+  the names) but the label alone gives away "three saw all six" inside the held pause,
+  one beat before the payoff. Flagged to the panel; fix is not mine to write.
 - The held pause is beat 4 (the cameos). Any affordance living inside the pause must be
   the quietest voice on the page — the pause's job is to set up beat 5.
 - Reveal micro-story structure: claim → machinery (vertical chip chain, one gold `.hot`
@@ -51,9 +58,14 @@
 - `raw_people` opens every chain, so the census's best-guarded numbers (shape blocking,
   82-count warn) recur in all six reveals — the structural reason beat 0 could stay
   clean without losing the hiring-manager's scannability concern.
-- Beats 4–6 numbers are `relation: "derived"` (authoring-time, pytest-guarded via
-  known_facts.py) until/unless the per-character-grain transform ships (open item);
-  if it ships, those beats upgrade to DIRECT and their honesty lines change.
+- Beats 4–6 are `relation:"direct"` since commit 082d9c9: they ride the
+  raw_people → star_wars_db → character_stats chain with `guard.kind:"check"` (four
+  WARN drift checks: 42-of-82, the trio, 19-of-82, maxFlown 5). Their honesty lines
+  now render from the NOTE.check template — "The figure is asserted in the pipeline
+  itself by the {ref} check." The old derived-tally wording survives only as the
+  unused NOTE.pytest derived branch; the honest-third-act line softened accordingly
+  (guarded-offline-only now applies to fewer numbers, and beat 7's prose says "four
+  transforms" truthfully).
 - Dashboard: the lineage strip is the epilogue's establishing shot; per-card mini-DAGs
   were rejected unanimously — telling the gag eight ways.
 

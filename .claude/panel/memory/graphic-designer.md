@@ -94,7 +94,33 @@ label width vs container) before proposing an axis; and when the spec says "SVG
 diagram," treat the technology as a guess to challenge, not a constraint to design
 within — HTML reuse beat SVG on every axis I care about.
 
-**Open items I track visually:** if the per-character-grain transform lands (upgrading
-beats 4–6 to DIRECT), the derived-claim honesty line disappears from those reveals and
-their chains gain a node — recheck vertical budget then. README screenshot retake
-unchanged.
+**Open items I track visually:** *(vertical-budget watch resolved into the concrete
+observation below, 2026-07-18.)* README screenshot retake unchanged (now needs 12 green
+checks; desktop UI required).
+
+## Banked: per-character transform landed (2026-07-18)
+
+Execution close-out of the pipeline-reveal open item (commit `082d9c9`, decision note
+`2026-07-18-per-character-transform-landed.md`) — no new debate; system held.
+
+- **Mark system survived intact.** Zero new mark types: beats 4–6 now render a
+  three-chip vertical chain (`raw_people → star_wars_db → character_stats`) using the
+  existing `.chip` + ↓ connector vocabulary, and `character_stats` carries a four-badge
+  `.prov-check` rail (all ◇ WARN — exact-value baselines are drift, per known_facts
+  law). The only addition anywhere is one more `.chip` in the static DAG strip
+  (`character_stats` under "02 · Transforms"); `.hot` gold seat unchanged
+  (`galaxy_report` only). Verified in site source. This is the reuse-first outcome the
+  chip law was written for.
+- **Concrete open observation (was the vertical-budget watch item):** beats 4–6 grew
+  taller — 3 chips + 2 connectors + a 4-check rail replaces the old 1–2-chip derived
+  chain plus honesty line. Nobody has eyeballed this on a real mobile viewport yet. The
+  settled station geometry (min(64svh,560px)) tolerates an open reveal growing the card
+  taller than the station, so I expect it holds; but if it doesn't, the fix is layout
+  (rail wrapping is already `flex-wrap`; badge labels stay short display labels), never
+  shrinking type below the legibility floor and never touching the stage. Flag for a
+  mobile pass before the next visual change ships.
+- **Also good:** the derived-claim honesty lines on beats 4–6 are gone because the
+  claims are now DIRECT and check-guarded — the guard-honesty law worked in both
+  directions (the caveat text appeared when unguarded, disappears when guarded, no
+  hand-edited copy either way). Beat-7 word-list overflow ("undefined checks" at 12)
+  caught and drift-guarded — generated type failing loudly beats silent fabrication.

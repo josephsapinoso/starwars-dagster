@@ -51,11 +51,12 @@
 - Reveal implementation is HTML `.chip` elements (not SVG), so text is natively
   accessible; `aria-label` is generated from the same provenance data — no separate
   hand-written accessible-name strings to drift.
-- Ground truth that shapes honest copy (data-analyst's finding): beats 4–6 numbers
-  are hand-derived at authoring time from `raw_people[].films` (no asset computes
-  them); `galaxy_report` has zero checks; only beats 0, 2, 3 have checks asserting
-  the displayed number. `relation: "derived"` + `guard: {kind: pytest|none}` render
-  this truth; honesty line per guard type.
+- Ground truth (updated 2026-07-18, commit 082d9c9): beats 4–6 are now DIRECT —
+  `character_stats` (02_transformed) computes films-per-character and
+  starships-flown; four WARN drift checks assert 42, the trio, 19, maxFlown 5.
+  Totals: 11 assets / 4 transforms / 12 checks (4 blocking, 8 warn). The old
+  "hand-derived at authoring time" story survives only as past tense in README's
+  "How this was built" paragraph — a deliberate narrative beat, not stale copy.
 
 ## Banked: pipeline-reveal (2026-07-18)
 
@@ -81,9 +82,35 @@
   everything, including the copy I'd have to write. Before drafting explanation
   systems, check whether the thing being explained is true.
 
+## Banked: per-character transform landed (2026-07-18, commit 082d9c9)
+
+- Execution note, not a debate (decision file:
+  `2026-07-18-per-character-transform-landed.md`). The transform open item from
+  pipeline-reveal is CLOSED; the SQL-string migration stays open (blocked on a
+  verification story).
+- My "regenerate, don't patch" prediction held: the projection architecture flipped
+  beats 4–6 to direct/check-guarded by changing provenance data, and README counts
+  updated everywhere they appear (headline line 44, asset table, tree comment).
+- Narrative win worth reusing: the "How this was built" paragraph retold the
+  derived-first story in PAST tense — the honest-labeling episode became proof of
+  process instead of stale copy. Count also corrected "two" → "three" hand-derived
+  numbers. Pattern: when facts change, superseded claims either update or become
+  explicit history; they never linger as present tense.
+- Docs caught two latent copy bugs the pipeline change exposed: beat-7 number-word
+  list overflow ("undefined checks" at 12) and hardcoded "three transforms" in
+  prose + DAG-strip aria label. Lesson: any copy that encodes a count is a drift
+  surface — prefer generation from provenance, or a detector that warns on overflow.
+- Screenshot caption discipline held without edits: caption "Asset Lineage Graph"
+  describes without counting, so the old image doesn't overclaim. Captions that
+  name, not enumerate, survive data changes.
+
 ## Open watch items (mine)
 
-- When the README rewrite lands, confirm the testing-philosophy paragraph links to
-  (not duplicates) WORKSHOP module 9 and the checks.py docstring.
-- Screenshot retake (8 green checks) is still open; README ships with the current
-  screenshot — caption must not overclaim what the image shows.
+- Confirm the README testing-philosophy paragraph links to (not duplicates)
+  WORKSHOP module 9 and the checks.py docstring — NOT addressed by 082d9c9;
+  still open.
+- Screenshot retake still open — target is now 12 green checks (was 8). Current
+  caption ("Asset Lineage Graph") does not overclaim; keep it count-free until
+  the retake lands.
+- SQL-string migration (five dashboard SQL strings) still open from
+  pipeline-reveal; when it moves, the verification story is the doc angle.

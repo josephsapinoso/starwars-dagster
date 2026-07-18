@@ -40,10 +40,9 @@
   happens when the upstream API changes?", "why no Great Expectations?", "why a
   single-file site?". Every new feature should either answer a new question or
   sharpen an existing answer.
-- Signals still weak as of PR #5: README opens as a self-study workshop (reads
-  tutorial-follower, undersells); screenshots don't yet show the 8 green asset checks
-  (open item); the site's engineering craft is invisible to someone who only skims the
-  repo — and the repo's pipeline is invisible to someone who only sees the site.
+- Signals still weak: screenshots don't yet show the 12 green asset checks (open
+  item; needs desktop UI). The README-opening and site/repo-invisibility weaknesses
+  from PR #5 were resolved by the pipeline-reveal rewrite and the reveal disclosures.
 - The 90-second scan path to design for: recruiter opens README on a phone → headline
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
@@ -102,6 +101,39 @@ reachable from other surfaces before demanding prime real estate for it; and bri
 concrete badge-wording proposal (the `blocking`-derived ◆/◇ scheme won without me —
 qa/designer owned that ground I could have shared).
 
-Open items I track: per-character-grain transform (would upgrade beats 4–6 to
-DIRECT — support only with real checks: 42-of-82, trio, 19-of-82, maxFlown 5);
-screenshot retake with 8 green checks; dashboard SQL strings into a verified home.
+## Banked: per-character transform landed (2026-07-18, execution note)
+
+Note: `.claude/panel/decisions/2026-07-18-per-character-transform-landed.md`, commit
+`082d9c9`. No new debate — the transform landed exactly on the banked acceptance
+criteria, which is itself the win.
+
+- **My coverage-theater veto held under execution pressure**: `character_stats`
+  shipped with exactly the four banked WARN checks (42-of-82, six-film trio,
+  19-of-82, maxFlown 5) and zero extra blocking checks; exact-value baselines stayed
+  drift-severity per the known_facts law (`known_facts.py` unchanged). The "land only
+  on analytics merits" constraint produced a clean asset that feeds `galaxy_report`,
+  keeping the DAG-strip copy true.
+- **The honesty arc is now a README narrative**, which is the best interview answer
+  this repo has: "How this was built" tells panel-caught-false-map → shipped
+  honestly-labeled derived beats → transform landed later and flipped them to direct.
+  That sequencing (label honestly first, upgrade later) reads as senior judgment; had
+  we rushed the transform in the original PR it would have read as backfilling a
+  story. New interview question the repo now answers: "what do you do when a claimed
+  lineage turns out to be false?"
+- Totals updated everywhere: 11 assets / 4 transforms / 12 checks (4 blocking, 8
+  warn); beats 4–6 now DIRECT with check badges; `raw_starships` dropped from the
+  provenance map since no claim cites it — good hygiene, no dangling implied lineage.
+- Bonus signal: the flip surfaced two latent honest-rendering bugs (number-word array
+  overflow, hardcoded "three transforms" copy) caught and fixed in the same commit,
+  with the drift detector extended. Feature+guard same-commit law held.
+
+Newly settled (promoting nothing new — all covered by existing Settled entries; the
+no-diagram-fuel and guard-honesty laws did the work here).
+
+Open items now: (1) README screenshot retake — needs 12 green checks in the lineage
+view, desktop UI required; (2) five dashboard SQL strings still unverified — no badge
+or verified-home yet; watch that nobody adds an implied guard to them meanwhile.
+
+Open items I track: screenshot retake (now 12 green checks — see next section);
+dashboard SQL strings into a verified home (still unverified, blocked on a
+verification story). Per-character transform: LANDED, see next section.
