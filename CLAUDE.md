@@ -38,5 +38,18 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
   from the static `blocking` flag); a check badge appears only where the check asserts the
   displayed number; the one-line strict-JSON `const DATA` literal is load-bearing.
 
-Open item: re-materialize locally and retake the three README screenshots so the
-Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
+## Open items (carried forward — full context in `.claude/panel/decisions/2026-07-18-pipeline-reveal.md`)
+
+- Screenshot retake: re-materialize locally and retake the three README screenshots so
+  the Dagster lineage view shows the 8 green asset checks (needs the desktop UI). Until
+  then, README captions must not overclaim what the current images show.
+- Per-character-grain transform (films-per-character, starships-flown-per-person): land
+  only on analytics merits, never as diagram fuel. If it lands: add asset checks
+  asserting 42-of-82 one-film, the six-film trio, 19-of-82 pilots, maxFlown 5; flip
+  beats 4–6 provenance `relation` to `direct`; update `tests/test_site_provenance.py`
+  in the same commit (honesty lines regenerate from the projection).
+- Migrate the five hand-written dashboard SQL strings (`makeCard` opts.sql in
+  site/index.html) into a verified home — bring a concrete verification story first
+  (QA's condition for scope).
+- Swap the README "my portfolio" placeholder anchor (personal-site link slot) for the
+  live URL once the owner's professional site ships.
