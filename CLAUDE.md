@@ -43,6 +43,3 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
 - Check strings state invariants — rosters/numbers live only in known_facts.py — and must
   never pre-tell a later story beat's payoff (spoiler pin in test_site_provenance.py);
   DATA.provenance carries no narrative fields; the rail rule is uniform across beats.
-
-Open item: re-materialize locally and retake the three README screenshots so the
-Dagster lineage view shows the 13 green asset checks (needs the desktop UI).
