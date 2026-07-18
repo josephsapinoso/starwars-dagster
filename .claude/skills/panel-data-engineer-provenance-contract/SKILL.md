@@ -36,24 +36,45 @@ the provenance schema must store `blocking` (statically verifiable) and derive a
 ERROR/WARN presentation from it. A hand-typed `"severity"` field is unverifiable and
 must be rejected in debate.
 
-## Execute-and-compare for displayed SQL (no build step)
+## Displayed SQL is executed SQL (settled repo law, landed c0b97e0)
 
-When the site shows "here is the SQL" disclosures, the string is a claim and must be
-tested like one:
+Any SQL text shown on the site is a claim and gets tested like one. No hand-verified
+SQL copy anywhere.
 
 1. Store each string once, inside `DATA` (per-card `sql`); the site renders the
-   disclosure from DATA only — never a second inline literal.
-2. Snapshot-gated pytest: materialize the whole graph from committed fixtures
-   (`dagster.materialize` in an isolated cwd, same fixture as the integration test),
-   `duckdb.connect` to the produced DB file, execute each string, and compare results
-   to the rows the charts derive from DATA (replicate the small JS derivations in
-   Python). Compare as sets where ORDER BY has ties.
-3. Audit executability first: strings referencing DataFrame-only "tables" (transform
-   outputs never written back to the DB) or using `len()` on JSON-stringified VARCHAR
-   columns will run never/wrong. Either persist the transform back
-   (`CREATE OR REPLACE TABLE` on the connection the asset already holds — no new
-   asset) or rewrite the string to the tables that exist. Untested displayed SQL rots
-   silently; this repo had 3 of 5 strings wrong.
+   disclosure from DATA only — never a second inline literal. Drift detector asserts
+   every SQL disclosure resolves a nonempty DATA entry (internal consistency only).
+2. Two pytest layers (`tests/test_site_sql.py`): an UNGATED execute layer (every
+   string runs at all against the fixture-built warehouse) and a SNAPSHOT-GATED
+   compare layer (executed rows == the rows the charts derive from DATA — replicate
+   the small JS derivations in Python; compare as sets where ORDER BY has ties). Ride
+   the existing full_run materialization read-only; don't build a second DB path.
+3. Executed output must equal RENDERED rows: any presentation logic the page applies
+   (droid recode, tiebreaks, denominators) moves INTO the SQL string, or the compare
+   is comparing different things. Ban stale count comments (`-- 59 of 82`) inside the
+   strings — unexecuted assertions rot.
+4. Audit executability first, by executing: strings referencing DataFrame-only
+   "tables" or using `len()` on JSON-stringified VARCHAR run never/wrong (this repo
+   had 3 of 5 wrong, silently, incl. 1222 "characters" for one film). Never eyeball.
+5. If a string needs a table that doesn't exist, a write-back must pass the merit
+   test on WAREHOUSE grounds (the grain belongs in the DB), never "to make the site's
+   SQL true". Conditions from the landing: `CREATE OR REPLACE TABLE ... AS SELECT *
+   FROM df` on the same df the asset returns (one code path, parity-asserted in the
+   integration test), and no existing check grows to cover it if that check guards an
+   UPSTREAM asset — the table doesn't exist yet at that check's runtime (ordering lie).
+
+## Check strings are site copy (settled, landed 2aa845e)
+
+When provenance projects check labels/descriptions onto the site, those strings
+become page copy with page rules: state the invariant and its stakes; particulars
+(rosters, payoff numbers) live in run metadata and `known_facts.py` only — a name
+list inside a `description=` is a second (or third) home for one roster and will
+drift. A standing spoiler pin derives payoff term sets from known_facts and asserts
+no check string renders on a beat earlier than its claim's reveal. Provenance itself
+carries no narrative fields (no hand-authored `beat` index) — everything in it must
+stay verifiable against the real Dagster defs plus known_facts; and the rail renders
+one uniform rule per beat, because spoiler safety belongs in the strings, not the
+renderer.
 
 ## Duplication audit before adding a representation
 
