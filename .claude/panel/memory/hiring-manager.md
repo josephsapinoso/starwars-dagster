@@ -137,3 +137,44 @@ or verified-home yet; watch that nobody adds an implied guard to them meanwhile.
 Open items I track: screenshot retake (now 12 green checks — see next section);
 dashboard SQL strings into a verified home (still unverified, blocked on a
 verification story). Per-character transform: LANDED, see next section.
+
+## Prep notes: post-landing cleanup — trio leak, SQL honesty, coverage gaps (2026-07-18)
+
+**Q2 is the hire-signal event; I verified the audit myself, it is not hearsay.**
+`transforms.py:81-87` creates only `films/people/planets/starships/species` tables;
+`characters_enriched` exists solely as DataFrame + CSV (`transforms.py:130`). Yet chart 2
+(index.html:1047) and chart 4 (:1184) display `FROM characters_enriched`, and chart 1
+(:985) displays `len(f.characters)` — string length of stringified JSON (lists are
+`json.dumps`'d at load, :74; the real transform uses `json_array_length`). Three of five
+displayed SQL strings are false against the warehouse they claim to describe. README says
+"Provenance you can't fake" (line 29) and "the DuckDB SQL behind every chart" (line 92) —
+a false explicit README claim. An interviewer who opens one SQL disclosure and greps
+transforms.py catches this in ~3 minutes. The brief's candidate story (SQL into DATA,
+offline pytest EXECUTES each string against the fixture DB, asserts results == inline
+numbers) is the right shape: it forces the three lies to be rewritten to real tables and
+converts the liability into the repo's best interview answer ("our displayed SQL was
+wrong; now CI executes it"). Watch for a "persist characters_enriched into DuckDB so the
+SQL becomes true" counter — that's pipeline change for presentation; my no-diagram-fuel
+law applies unless it has analytics merit.
+
+**Q1**: leak is three-wide (trio label + "19 pilots" + "max flown 5" — beats 5/6 payoffs
+all render in beat 4's rail because `chainEl` (index.html:823-843) dumps every check of
+every shared-chain asset). A half-fix already exists: beat 4's summary is special-cased to
+omit claim text (:859). Rail is informational, not a guard badge, so filtering it per-beat
+does NOT touch guard-honesty law. Hiring lens: minor scan-signal item; a per-beat
+rendering rule (guard check + blocking only on non-final shared-chain beats) reads as
+craft; re-authoring checks.py strings alone can't fix the "19 pilots" label without making
+the Dagster-UI description worse.
+
+**Q3 fulcrum** (my law): a check earns its place iff it guards a number/artifact someone
+consumes. (a) height-null WARN on `characters_enriched` guards beat 1's displayed
+"1 unmeasured" and flips it pytest→check, matching beat 2's pattern — legitimate, not
+theater; also gives the falsely-cited asset its first check. (b) galaxy_report structural
+check is weaker — the site cites nothing from the report; only defensible as a blocking
+"file written, sections present" smoke test on the artifact the README quick-start tells
+people to read. Lean: (a) yes, (b) only if framed as consumer-facing smoke, else
+disclose-only.
+
+Cannot verify: whether the fixture-DB pytest path can execute all five rewritten strings
+cheaply (chart 3/5 use TRY_CAST — likely fine, untested); artifact-side render of a
+grown DATA literal.
