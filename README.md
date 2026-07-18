@@ -21,7 +21,11 @@ Part of [my portfolio](#) <!-- personal-site link slot: swap in the live URL whe
   fixtures; Dagster asset checks judge the *data* at materialization. Structural breakage
   **blocks** the run; upstream drift only **warns** — SWAPI is someone else's dataset, and
   freezing it would be pretending otherwise. Baselines live once, in
-  [`known_facts.py`](starwars_dagster/known_facts.py), imported by both layers.
+  [`known_facts.py`](starwars_dagster/known_facts.py), imported by both layers. The
+  long-form version of this philosophy lives in
+  [WORKSHOP.md Module 8](WORKSHOP.md#12-module-8--testing--asset-checks) and the
+  [`checks.py`](starwars_dagster/assets/checks.py) docstring — this paragraph is the
+  summary, not a second copy.
 - **Provenance you can't fake.** The site's per-beat pipeline reveals are rendered from one
   `provenance` object embedded in the page, and
   [`tests/test_site_provenance.py`](tests/test_site_provenance.py) cross-checks every asset,
