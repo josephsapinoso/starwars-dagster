@@ -28,8 +28,12 @@ true_checks = {
 }
 ```
 
-Expected today: 10 assets (raw_* ×5 → star_wars_db → 3 transforms →
-galaxy_report); 8 checks, blocking split 4/4.
+Expected today (post commit 2aa845e, 2026-07-18): 11 assets (raw_* ×5 →
+star_wars_db → 4 transforms → galaxy_report); 13 checks, split 4 blocking /
+9 warn (the ninth WARN is `characters_enriched_unknown_height_baseline`,
+guarding beat 1's displayed "1 unmeasured"). If these counts drift,
+re-introspect — never patch them by hand. Count ripples touch the WORDS
+number-word list, beat-7 callback totals, README, and CLAUDE.md — same commit.
 
 ## 2. Severity rule: derive from `spec.blocking`, never hand-type
 
@@ -59,7 +63,11 @@ say so.
 
 - pytest (offline, CI): provenance assets exist, edges ⊆ true graph, cited
   checks belong to the cited asset, badge == f(blocking), beat coverage set is
-  exactly the agreed one.
+  exactly the agreed one. Also the spoiler pin
+  (`test_site_provenance.py::test_no_payoff_leaks_before_reveal_beat`): payoff
+  term sets derived from known_facts (names AND numbers, e.g.
+  SIX_FILM_CHARACTERS, "trio"), asserted absent from any check string rendered
+  on a beat earlier than its claim's reveal.
 - runtime drift detector: internal consistency only — every rendered beat has a
   provenance entry, badge values are in the two-value enum, counts cited in
   reveal copy match `DATA`. It cannot see Dagster; don't pretend it can.
@@ -69,7 +77,11 @@ say so.
 ## 5. Anti-patterns to veto
 
 - Hand-copied edge lists or check names anywhere (site JS, tests, README).
-- A second diagram path for dashboard cards not fed by `DATA.provenance`
-  (the existing hand-written SQL strings are already unverified copy — don't
-  add more of that pattern).
+- A second diagram path for dashboard cards not fed by `DATA.provenance`.
+  (The formerly hand-written SQL strings are now `DATA.sql`, executed by
+  tests/test_site_sql.py — see the sql-verification skill; never let
+  unverified pipeline copy reappear.)
 - Severity labels typed as literals in provenance data.
+- Narrative fields in `DATA.provenance` (e.g. a hand-authored `beat` index):
+  everything in the object must be derivable from the real Dagster
+  definitions plus known_facts — settled 2026-07-18.

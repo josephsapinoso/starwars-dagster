@@ -33,17 +33,31 @@
 - No assets added primarily as diagram fuel — presentation-driven pipeline design is
   vetoed; a per-character-grain transform may land only on its analytics merits.
   (Pipeline-reveal panel, 2026-07-18.)
+- Displayed SQL is executed SQL: any SQL text shown on the site lives in DATA and is
+  executed against the fixture-built warehouse by the offline suite; no hand-verified
+  SQL copy anywhere. (Post-landing cleanup, 2026-07-18.)
+- Framing law (mine, banked in the decision log): the `characters_enriched` write-back
+  is "closing a warehouse gap" — the enriched grain becoming queryable — never "making
+  the site's SQL true." Pipeline changes are justified on pipeline merits; the site
+  merely benefits. Any doc/commit phrasing that inverts this gets vetoed.
+  (Post-landing cleanup, 2026-07-18.)
+- DATA.provenance carries no narrative fields: everything in it stays derivable from /
+  verifiable against the real Dagster definitions plus known_facts. Spoiler safety
+  lives in the check strings (spoiler-pin test, description style rule), not in the
+  renderer or in hand-authored beat metadata. The rail renders uniformly.
+  (Post-landing cleanup, 2026-07-18.)
 
 ## Working knowledge
 
 - Interview questions this repo currently answers well: "why two test layers?", "what
   happens when the upstream API changes?", "why no Great Expectations?", "why a
-  single-file site?". Every new feature should either answer a new question or
+  single-file site?", "what do you do when a claimed lineage turns out to be false?",
+  and now "how do you keep displayed SQL from rotting?" (executed in CI —
+  tests/test_site_sql.py). Every new feature should either answer a new question or
   sharpen an existing answer.
-- Signals still weak as of PR #5: README opens as a self-study workshop (reads
-  tutorial-follower, undersells); screenshots don't yet show the 8 green asset checks
-  (open item); the site's engineering craft is invisible to someone who only skims the
-  repo — and the repo's pipeline is invisible to someone who only sees the site.
+- Signals still weak: screenshots don't yet show the 13 green asset checks (open
+  item; needs desktop UI; one retake). The README-opening and site/repo-invisibility
+  weaknesses from PR #5 were resolved by the pipeline-reveal rewrite and disclosures.
 - The 90-second scan path to design for: recruiter opens README on a phone → headline
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
@@ -102,6 +116,83 @@ reachable from other surfaces before demanding prime real estate for it; and bri
 concrete badge-wording proposal (the `blocking`-derived ◆/◇ scheme won without me —
 qa/designer owned that ground I could have shared).
 
-Open items I track: per-character-grain transform (would upgrade beats 4–6 to
-DIRECT — support only with real checks: 42-of-82, trio, 19-of-82, maxFlown 5);
-screenshot retake with 8 green checks; dashboard SQL strings into a verified home.
+## Banked: per-character transform landed (2026-07-18, execution note)
+
+Note: `.claude/panel/decisions/2026-07-18-per-character-transform-landed.md`, commit
+`082d9c9`. No new debate — the transform landed exactly on the banked acceptance
+criteria, which is itself the win.
+
+- **My coverage-theater veto held under execution pressure**: `character_stats`
+  shipped with exactly the four banked WARN checks (42-of-82, six-film trio,
+  19-of-82, maxFlown 5) and zero extra blocking checks; exact-value baselines stayed
+  drift-severity per the known_facts law (`known_facts.py` unchanged). The "land only
+  on analytics merits" constraint produced a clean asset that feeds `galaxy_report`,
+  keeping the DAG-strip copy true.
+- **The honesty arc is now a README narrative**, which is the best interview answer
+  this repo has: "How this was built" tells panel-caught-false-map → shipped
+  honestly-labeled derived beats → transform landed later and flipped them to direct.
+  That sequencing (label honestly first, upgrade later) reads as senior judgment; had
+  we rushed the transform in the original PR it would have read as backfilling a
+  story. New interview question the repo now answers: "what do you do when a claimed
+  lineage turns out to be false?"
+- Totals updated everywhere: 11 assets / 4 transforms / 12 checks (4 blocking, 8
+  warn); beats 4–6 now DIRECT with check badges; `raw_starships` dropped from the
+  provenance map since no claim cites it — good hygiene, no dangling implied lineage.
+- Bonus signal: the flip surfaced two latent honest-rendering bugs (number-word array
+  overflow, hardcoded "three transforms" copy) caught and fixed in the same commit,
+  with the drift detector extended. Feature+guard same-commit law held.
+
+Newly settled (promoting nothing new — all covered by existing Settled entries; the
+no-diagram-fuel and guard-honesty laws did the work here).
+
+(Open items listed here superseded — see Banked: post-landing cleanup.)
+
+## Prep notes: post-landing cleanup (2026-07-18, compacted after banking)
+
+Kept for reuse (verdict resolved the rest — see Settled and Banked):
+- The audit method that found the SQL lie is the reusable part: read the transform's
+  actual `CREATE TABLE` list, then grep every displayed `FROM` clause against it. Three
+  of five site SQL strings were false (charts 2/4 queried a never-created table; chart 1
+  measured stringified-JSON length). An interviewer catches that class of defect in ~3
+  minutes — always execute displayed code claims during prep, never trust them.
+- Q3 fulcrum held as stated: a check earns its place iff it guards a number/artifact
+  someone consumes. Height-null WARN qualified (guards beat 1's "1 unmeasured");
+  galaxy_report did not (no site claim cites it; would also pre-solve WORKSHOP
+  Exercise 8 — qa/tech-writer supplied that second reason).
+
+Cannot verify (still): artifact-side render of the grown DATA literal.
+
+## Banked: post-landing cleanup (2026-07-18)
+
+Verdict: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`. Implemented in
+two commits: `c0b97e0` (SQL truth) then `2aa845e` (spoiler re-author + pin + height
+check). Won on every axis this round.
+
+- **Q1 (won, 5-3-1):** re-authoring + uniform rail. My argument — rail density is
+  coverage signal; narrative metadata pollutes the one object whose credibility is
+  "machine-checked" — aligned with the decisive one-home/unverifiability case from
+  tech-writer and QA. The designer's guard-only rail lost to the coverage-
+  understatement objection I share: thinning the rail hides real check density.
+- **Q2 (won, unanimous, my shape):** the interview-kill → best-answer conversion is
+  now REAL and verifiable — tests/test_site_sql.py executes every displayed SQL string
+  against the fixture-built warehouse and compares results to the chart rows. The
+  repo's strongest interview answer is now "our displayed SQL was wrong twice-audited;
+  CI executes it so it cannot rot." My framing veto is banked as law in the decision
+  log: write-back = closing a warehouse gap, never "making the site's SQL true."
+- **Truth-then-tell sequencing happened exactly as I argued** and is now a reusable
+  principle: when a public claim is false, commit 1 makes the claim TRUE (and the
+  commit message names the defect — c0b97e0 does); commit 2 does the storytelling/
+  polish. Never interleave: a mixed commit reads as burying the fix; the honesty arc
+  only earns credit when the fix is separable and self-describing. README gained the
+  second-false-claim sentence in the truth commit, where it belongs.
+- **Q3(b) disclose-only held** — third consecutive win for the coverage-theater law
+  under pressure; galaxy_report stays check-free by design, gap disclosed.
+
+Counts now: 13 checks (4 blocking, 9 warn). What I'd prep differently: nothing
+structural this time — executing the displayed SQL myself during prep (rather than
+arguing from the brief) is what made my position unassailable; keep doing primary
+verification in prep, it converts opinion into evidence the panel can't discount.
+
+Open items I track: (1) README screenshot retake — one retake, lineage view showing
+13 green asset checks, needs desktop UI; (2) watch that future copy never frames the
+write-back as site-serving (framing law above).

@@ -10,6 +10,7 @@ from starwars_dagster.assets.transforms import (
     characters_enriched,
     film_character_counts,
     starship_stats,
+    character_stats,
 )
 from starwars_dagster.assets.analytics import galaxy_report
 
@@ -23,5 +24,6 @@ __all__ = [
     "characters_enriched",
     "film_character_counts",
     "starship_stats",
+    "character_stats",
     "galaxy_report",
 ]

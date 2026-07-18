@@ -38,6 +38,31 @@ For any proposed copy, ask which register the element belongs to:
 - Quote-jokes in machinery copy ("these aren't the rows you're looking for").
 - Yoda-speak, misattributed lines, "just the droids".
 
+## Corollary: one home per fact — precision lives in the reference
+
+(Rewritten after the post-landing-cleanup decision, 2026-07-18, which overruled the
+earlier "sequence the quotation" version of this corollary.)
+
+The primary source for a canon roster or payoff number is `known_facts.py`, NOT any
+prose that mentions it. A check description that hand-lists a roster (e.g. naming the
+six-film trio) is a SECOND home — a drift bug that can make the Dagster UI lie if the
+snapshot changes. "Matches known_facts.SIX_FILM_CHARACTERS" is more precise than the
+prose list, not vaguer: fidelity can live in a derived reference; verbatimness is not
+the only form of fidelity. The particulars still surface truthfully at runtime via
+check metadata computed from known_facts.
+
+Settled shape: descriptions state the invariant and its stakes; metadata carries the
+particulars; the rail renders uniformly (all checks of the chain assets) and spoiler
+safety lives in the strings, enforced by the spoiler pin test whose term sets are
+DERIVED from known_facts — never hand-listed. This is not bowdlerizing: nothing canon
+was scrubbed from the system, only de-duplicated into its single verifiable home.
+
+Audit tips that survive from the old corollary: on shared chains, every upstream beat
+inherits every downstream claim's check strings — audit ALL forward leaks, not just
+the loudest one. And never add hand-authored narrative fields (beat indexes, story
+attribution) to provenance; if pytest can't verify it against the real definitions,
+it doesn't belong on the machine-checked object.
+
 ## Why it works
 
 Mixing registers reads as a theme park; separating them reads as an archivist who

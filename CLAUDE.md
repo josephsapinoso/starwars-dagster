@@ -37,6 +37,12 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
   `DATA.provenance` (pytest-checked against the real Dagster defs; badge severity derives
   from the static `blocking` flag); a check badge appears only where the check asserts the
   displayed number; the one-line strict-JSON `const DATA` literal is load-bearing.
+- Displayed SQL is executed SQL: dashboard SQL strings live only in `DATA.sql` and pytest
+  executes every one against the fixture-built warehouse (results compared to the charts'
+  DATA-derived rows); no hand-verified SQL copy anywhere.
+- Check strings state invariants — rosters/numbers live only in known_facts.py — and must
+  never pre-tell a later story beat's payoff (spoiler pin in test_site_provenance.py);
+  DATA.provenance carries no narrative fields; the rail rule is uniform across beats.
 
 Open item: re-materialize locally and retake the three README screenshots so the
-Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
+Dagster lineage view shows the 13 green asset checks (needs the desktop UI).

@@ -112,6 +112,7 @@ Dagster is increasingly the standard for new data engineering projects because i
 │  │  characters_enriched  (people + planets)     │           │
 │  │  film_character_counts (films aggregated)    │           │
 │  │  starship_stats       (cleaned + typed)      │           │
+│  │  character_stats      (per-person counts)    │           │
 │  │  → saves Parquet to data/output/             │           │
 │  └─────────────────┬───────────────────────────┘           │
 │                    │ DataFrames                             │
@@ -362,6 +363,8 @@ Each transform asset:
 4. Saves a Parquet file as a side effect
 
 The SQL uses DuckDB-specific functions like `json_array_length()` to handle the JSON arrays that SWAPI stores inline (e.g., a film's list of character URLs).
+
+One deliberate exception to the pattern: `characters_enriched` additionally writes its result back into the warehouse (`CREATE OR REPLACE TABLE`) so the enriched grain is queryable with plain SQL — which is also what lets the dashboard's displayed SQL strings be executed against the real database by the offline test suite.
 
 ### Querying DuckDB yourself
 

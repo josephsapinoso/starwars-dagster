@@ -21,7 +21,11 @@ Part of [my portfolio](#) <!-- personal-site link slot: swap in the live URL whe
   fixtures; Dagster asset checks judge the *data* at materialization. Structural breakage
   **blocks** the run; upstream drift only **warns** — SWAPI is someone else's dataset, and
   freezing it would be pretending otherwise. Baselines live once, in
-  [`known_facts.py`](starwars_dagster/known_facts.py), imported by both layers.
+  [`known_facts.py`](starwars_dagster/known_facts.py), imported by both layers. The
+  long-form version of this philosophy lives in
+  [WORKSHOP.md Module 8](WORKSHOP.md#12-module-8--testing--asset-checks) and the
+  [`checks.py`](starwars_dagster/assets/checks.py) docstring — this paragraph is the
+  summary, not a second copy.
 - **Provenance you can't fake.** The site's per-beat pipeline reveals are rendered from one
   `provenance` object embedded in the page, and
   [`tests/test_site_provenance.py`](tests/test_site_provenance.py) cross-checks every asset,
@@ -41,12 +45,12 @@ SWAPI (live API) → Raw JSON → DuckDB tables → SQL transforms → Markdown 
   Resource        01_raw         star_wars_db    02_transformed   03_analytics
 ```
 
-**10 assets across 3 groups, 8 asset checks (4 blocking, 4 warn):**
+**11 assets across 3 groups, 13 asset checks (4 blocking, 9 warn):**
 
 | Group | Assets | Description |
 |---|---|---|
 | `01_raw` | `raw_films`, `raw_people`, `raw_planets`, `raw_starships`, `raw_species` | HTTP pulls from SWAPI |
-| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats` | DuckDB storage + SQL |
+| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats`, `character_stats` | DuckDB storage + SQL |
 | `03_analytics` | `galaxy_report` | Markdown summary report |
 
 ## Quick start
@@ -85,7 +89,9 @@ A daily 6 AM schedule re-pulls from SWAPI — the same pattern you'd use for any
 webfonts — open it straight from disk. It respects `prefers-reduced-motion`, works on mobile,
 and degrades to per-step figures inside auto-height embeds. The scroll story rearranges one
 unit chart of 82 dots (height, mass, homeworlds, film appearances, pilots), then hands off to
-a dashboard carrying the Dagster lineage strip and the DuckDB SQL behind every chart.
+a dashboard carrying the Dagster lineage strip and the DuckDB SQL behind every chart — every
+displayed string is executed against the fixture-built warehouse by the offline test suite,
+so the SQL a reader opens is SQL that provably runs.
 
 ## How this was built
 
@@ -95,9 +101,14 @@ analyst, UX, storyteller, QA, hiring-manager lens, and more) defined in
 skills. Before every debate the panelists research the codebase and update their own knowledge;
 afterwards they bank what won and lost. The human adjudicates every verdict, and each decision
 is logged in [`.claude/panel/decisions/`](.claude/panel/decisions/) — the pipeline-reveal
-feature on the site was specified this way, including the panel catching that two of the site's
-headline numbers were computed by no pipeline asset at all (they're honestly labeled as
-authoring-time tallies, pinned by pytest).
+feature on the site was specified this way, including the panel catching that three of the
+site's headline numbers were computed by no pipeline asset at all. Those beats shipped honestly
+labeled as authoring-time tallies pinned by pytest; later the `character_stats` transform landed
+on its own merits, computed them in the pipeline, and flipped those beats to direct lineage
+with asset-check badges. The same process then caught a second false claim: three of the five
+SQL strings displayed on the dashboard didn't actually run against the warehouse. Now every
+displayed string lives in the page's data payload and is executed and compared by the offline
+suite — the fix and the guard landed together.
 
 ## Learn Dagster with this repo
 
@@ -120,7 +131,7 @@ starwars-dagster/
 │   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls
 │   │   ├── transforms.py         ← 02_transformed: DuckDB + SQL
 │   │   ├── analytics.py          ← 03_analytics: galaxy_report
-│   │   └── checks.py             ← 8 asset checks (4 blocking, 4 warn)
+│   │   └── checks.py             ← 13 asset checks (4 blocking, 9 warn)
 │   └── resources/
 │       └── swapi_resource.py
 ├── site/

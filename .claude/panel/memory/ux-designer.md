@@ -34,6 +34,20 @@
 - Label template is fixed: "The paper trail — where {claim} comes from"; beat 4 (the
   held pause) renders the quiet variant "The paper trail." — identical placement/size
   everywhere.
+- The provenance rail is UNIFORM (post-landing cleanup, 2026-07-18): every beat renders
+  the same rule — all checks of its chain assets. Spoiler safety lives in the strings,
+  never in the renderer; no per-beat filters, no beat-indexed reveal logic, no hidden
+  counts. Labels must be safe on EVERY surface because the label is the entire touch
+  and keyboard experience.
+- Hover is a side channel, never a promise: `title` tooltips are desktop-plus
+  enhancement only; legend/help copy must never instruct "hover ..." — instead it names
+  the canonical non-hover home (settled legend text: "◆ blocking check · ◇ drift
+  warning · full check descriptions live in the Dagster UI").
+- Displayed SQL is executed SQL: any SQL text on the site lives in DATA and is executed
+  by the offline suite against the fixture warehouse. DATA.provenance carries no
+  narrative fields (nothing pytest can't verify against real Dagster defs +
+  known_facts). Spoiler pin law: a standing offline test derives payoff terms from
+  known_facts and fails any check string rendering before its claim's reveal beat.
 
 ## Working knowledge
 
@@ -105,3 +119,56 @@ I only had it second-hand from the analyst.
 (desktop centered flex); flat-mode render of the chain; `aria-label` generated from
 the same provenance data, not hand-written; the shared selector doesn't accidentally
 restyle `details.sql` open-state behavior.
+
+## Prep notes: trio-leak / SQL / coverage (2026-07-18, compacted after banking)
+
+Durable facts (settled outcomes moved above):
+
+- Check `why` renders as `s.title = k.why` on an 11.5px `.prov-check` span — if anyone
+  ever proposes tap-to-expand `why`, that needs ≥24px targets and is a
+  disclosure-inside-a-disclosure; the defensible model is "supplemental on hover,
+  canonical in Dagster," which the settled legend now states.
+- Flat-mode ordering precedent to protect: `enterFlat()` inserts the inline figure
+  BEFORE `details.prov`, preserving copy → figure → paper-trail order in every beat.
+- Spoilers are scroll-mode-only by nature: flat mode shows all beats' full text at
+  once, so leak fixes never need a flat-mode variant — another reason fixes belong in
+  strings built at init, not in scroll-aware rendering.
+- Two-surface audit ladder for disclosure text: label (≤20 chars, all devices) vs
+  description/`why` (desktop hover + Dagster). Verbatim-rendering laws bind only the
+  projection; the authored strings are ours to write on both surfaces.
+
+## Banked: post-landing cleanup (2026-07-18)
+
+**Won:**
+- The legend rider landed verbatim: the false "hover a check for its why" promise is
+  gone, replaced by shape legend + a pointer to the canonical non-hover home
+  (`site/index.html:869`). This is now settled law and skill rule #8.
+- My touch/keyboard finding (hover-why is a `title` attribute; the label IS the whole
+  touch surface) was cited by BOTH camps and shaped the winning remedy: labels are now
+  spoiler-free everywhere ("all-six set", "pilot census", "flight record", "mass
+  baseline") — the fix I said would "fix the whole touch surface" is exactly what
+  shipped. Lesson: a precise surface analysis can steer the outcome even when your
+  proposal loses.
+- Q2 landed render-identical as I demanded (SQL into DATA, zero UX delta); Q3(a) gave
+  beat 1 the same badge machinery as beat 2 — my cross-beat-consistency point.
+
+**Lost:**
+- The cumulative beat-indexed rail I backed lost 5–3–1 to re-authoring. The decisive
+  arguments were outside my lane but correct on mine too: a `beat` field is
+  hand-authored narrative metadata pytest cannot verify (QA), and the one-home law
+  makes hand-listed rosters drift bugs (tech-writer). I traded rail uniformity for
+  spoiler safety when re-authoring buys both — I underweighted "spoiler safety lives
+  in the strings" because I was anchored on renderer-side solutions.
+- My "+N hidden" count-line rider died with the designer's filter; nothing is hidden
+  now, so it was moot. Riders on OTHER roles' proposals evaporate with them — spend
+  debate words on my proposal's survivable parts.
+
+**Prep differently:** when a leak/content problem has both a string fix and a renderer
+fix, cost the string fix FIRST — it usually preserves uniformity and predictability,
+which are my values. Draft the exact replacement strings during prep; the analyst's
+concrete number-free labels were half of why re-authoring won.
+
+**Watchlist (still open):** real-device AT exposure of `title` on the check badges;
+desktop center-flex scroll-anchoring jump when a reveal opens (still unverified on
+hardware); verify the "13 checks" ripple didn't change rail density assumptions at
+360px (four badges per chip row was the prior worst case).

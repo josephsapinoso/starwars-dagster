@@ -29,9 +29,22 @@
   no horizontal overflow escape in reveals — every node visible without scrolling at
   the ~260px mobile budget. Reveals exist on beats 1–6 only; beat 0 stays clean; beat 7
   carries a provenance-computed callback line. (Pipeline-reveal panel, 2026-07-18.)
-- Guard honesty is a visual law too: a check badge may only sit where the check asserts
-  the displayed number (or its labeled denominator/structure); derived/unguarded claims
-  say so in plain words next to the chain. (Pipeline-reveal panel, 2026-07-18.)
+- Guard honesty, AMENDED (post-landing cleanup, 2026-07-18): the rail is a uniform
+  asset-level citation — every beat renders ONE rule, all checks of its chain assets;
+  spoiler/emphasis safety lives in the STRINGS (number-free labels generated from
+  provenance), never in per-beat renderer conditionals or filters. My earlier per-beat
+  badge-placement reading ("badge only where the check asserts the displayed number")
+  is superseded at rail level; the plain-words rule for derived/unguarded claims stands.
+- Displayed SQL is executed SQL: any SQL text on the site lives in DATA and is executed
+  offline against the fixture warehouse. Renders via the existing `details.sql`
+  treatment with ZERO new marks — no "verified SQL" badge exists or ever will; ◇/◆ +
+  prov-note wording already carry "asserted offline". (Post-landing cleanup, 2026-07-18.)
+- DATA.provenance carries no narrative fields — everything in it stays derivable from /
+  verifiable against the real Dagster defs plus known_facts. Visually: rail labels and
+  legend are generated type, never hand-lettered. (Post-landing cleanup, 2026-07-18.)
+- Rail legend copy is settled: "◆ blocking check · ◇ drift warning · full check
+  descriptions live in the Dagster UI" — the old hover promise was false on
+  touch/keyboard (ux rider, 2026-07-18).
 - Dashboard cards get NO per-card mini-DAGs — the full-width lineage strip is the
   establishing shot; duplicating it per card is mark multiplication. (Pipeline-reveal
   panel, 2026-07-18.)
@@ -94,7 +107,79 @@ label width vs container) before proposing an axis; and when the spec says "SVG
 diagram," treat the technology as a guess to challenge, not a constraint to design
 within — HTML reuse beat SVG on every axis I care about.
 
-**Open items I track visually:** if the per-character-grain transform lands (upgrading
-beats 4–6 to DIRECT), the derived-claim honesty line disappears from those reveals and
-their chains gain a node — recheck vertical budget then. README screenshot retake
-unchanged.
+**Open items I track visually:** *(vertical-budget watch resolved into the concrete
+observation below, 2026-07-18.)* README screenshot retake unchanged (now needs 12 green
+checks; desktop UI required).
+
+## Banked: per-character transform landed (2026-07-18)
+
+Execution close-out of the pipeline-reveal open item (commit `082d9c9`, decision note
+`2026-07-18-per-character-transform-landed.md`) — no new debate; system held.
+
+- **Mark system survived intact.** Zero new mark types: beats 4–6 now render a
+  three-chip vertical chain (`raw_people → star_wars_db → character_stats`) using the
+  existing `.chip` + ↓ connector vocabulary, and `character_stats` carries a four-badge
+  `.prov-check` rail (all ◇ WARN — exact-value baselines are drift, per known_facts
+  law). The only addition anywhere is one more `.chip` in the static DAG strip
+  (`character_stats` under "02 · Transforms"); `.hot` gold seat unchanged
+  (`galaxy_report` only). Verified in site source. This is the reuse-first outcome the
+  chip law was written for.
+- **Concrete open observation (was the vertical-budget watch item):** beats 4–6 grew
+  taller — 3 chips + 2 connectors + a 4-check rail replaces the old 1–2-chip derived
+  chain plus honesty line. Nobody has eyeballed this on a real mobile viewport yet. The
+  settled station geometry (min(64svh,560px)) tolerates an open reveal growing the card
+  taller than the station, so I expect it holds. **RESOLVED 2026-07-18:** headless
+  re-check at 390x844 and 360x740 PASSED — reveals grow downward, no horizontal
+  overflow, stage cap holds. The watch item is closed; the floor rules (never shrink
+  type, never touch the stage) remain the fix path if a future change regresses it.
+## Prep notes: post-landing cleanup (compacted 2026-07-18)
+
+Superseded by the Banked section below. Surviving facts worth keeping:
+- Rail CSS lives at site/index.html:204–207; `.prov-check` is 11.5px mono — a
+  pre-existing badge-only exception below the 12px floor; do not propagate it to any
+  other mark, and never shrink it further.
+- Title-attribute `why` tooltips remain hover-only with no touch affordance; the
+  legend fix removed the false promise but not the gap. Standing watch, not mine alone.
+- The guard-honesty caveat lines on beats 4–6 self-removed when claims became direct
+  and check-guarded — generated copy worked in both directions, no hand edits.
+- Beat-7 word-list overflow ("undefined checks") was caught by the drift guard —
+  generated type failing loudly beats silent fabrication.
+
+## Banked: post-landing cleanup (2026-07-18)
+
+Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0 (SQL truth),
+2aa845e (spoiler fix + height check).
+
+**Lost (Q1), and why it's the right loss:** my guard+blocking filtered rail fell to
+the coverage-understatement objection — character_stats carries ZERO blocking checks,
+so under my rule the final beats would render near-empty rails forever, visually
+understating real coverage. Re-authoring won 5–3–1 on the one-home law (the trio
+description hand-listed a roster whose single source is known_facts.py — a drift bug
+independent of spoilers). But the remedy delivers every demand I actually hold:
+renderer untouched, ONE rule on every beat, no per-beat conditionals, no narrative
+fields in provenance; my whack-a-mole objection is answered structurally by the
+standing spoiler pin (term sets derived from known_facts, seen-to-fail before merge).
+Two lessons banked: (1) I proposed a renderer-layer fix for a content-layer problem —
+when strings are generated AND pinned by a test, fixing the strings IS systemic;
+filtering the renderer was solving honesty with layout. (2) Before proposing any
+filter rule, run its degenerate case against every asset's actual inventory — one
+all-WARN asset collapsed "guard+blocking" into an empty rail.
+
+**Won (Q2/Q3):** SQL truth landed with zero visual delta — existing `details.sql`
+treatment, no new "verified" mark, unanimous; chart 5's subtitle gained its
+denominator clause (data-analyst's point, but it's the on-chart-denominator law
+paying out). Q3(a) landed clean: one ◇ badge where characters_enriched appears,
+WORDS extended through "thirteen" in the same commit, galaxy_report stays check-free
+— a disclosed gap beats a phantom badge.
+
+**Rail-mass watch (open, visual):** uniform rail means beats 1–3 now show four
+characters_enriched badges (up one) and beat 1 additionally carries the
+height-baseline ◇. Labels are number-free and short, and the rail flex-wraps, so I
+expect the 360px budget holds — but nobody has re-eyeballed the densest rails since
+the count went to 13. Next site-touching prep: headless pass at 360×740 counting
+wrapped rail lines; flag any rail exceeding ~2 lines.
+
+**Prep differently next time:** enumerate each asset's checks BY SEVERITY before
+designing any rail/badge rule, and test the rule against both the sparsest and the
+densest asset; state which layer (renderer vs strings) a fix belongs to as part of
+the proposal, not as an afterthought.

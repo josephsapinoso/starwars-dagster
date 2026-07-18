@@ -38,3 +38,33 @@ narrative arc the reader opts into. Judge it as story.
 
 7. **Opt-in preserves reader pacing by definition** — but only if opening a reveal never
    moves the stage, advances a beat, or changes what unopened readers see.
+
+8. **Blast-radius rule for shared machinery.** When reveals render metadata from a
+   shared source (a lineage chain, a check registry, a glossary), a string's blast
+   radius is every beat that cites its container — not the beat it was written for.
+   Audit procedure: for each beat, list every string its reveal can surface (labels,
+   hovers, tooltips), then mark any that state a LATER beat's number, name, or
+   punchline. A one-off audit decays — encode it as a standing automated guard so new
+   strings are screened at birth.
+
+9. **Fix leaks in the strings, not the renderer.** (Adjudicated 2026-07-18: the
+   storyteller's placement-filter proposal lost, correctly.) Separate a string's
+   *operational meaning* from its *rendered phrasing*: a label can name the
+   invariant's subject without stating its payoff — "all-six set", not "six-film
+   trio"; "flight record", not "max flown = 5". Before claiming re-authoring cannot
+   work, DRAFT the number-free, name-free label; if the subject can be named without
+   the payoff, re-authoring works. Placement filtering fails when its key (a beat
+   index on machine-verified metadata) would be hand-authored narrative attribution
+   the test surface cannot check — never buy spoiler safety with an unverifiable
+   field. Companion rule for check/guard prose: descriptions state the invariant and
+   its stakes; run metadata carries the particulars; no check string may quote
+   another beat's caption or punchline; rosters and payoff numbers live only in the
+   single facts module.
+
+10. **The spoiler pin.** The durable form of rule 8's guard: an offline test that
+    DERIVES the payoff term sets — names AND payoff numbers, phrase-anchored — from
+    the project's single source-of-truth facts module, and asserts no metadata string
+    renders on a beat earlier than its claim's reveal. Two disciplines: the pin must
+    be seen to fail (plant a leak, watch it catch, revert) before it counts as a
+    guard; and every new metadata string passes the pin before landing. Names-only
+    pins are half a pin — a bare payoff count ("19", "5") leaks as loudly as a name.

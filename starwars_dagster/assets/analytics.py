@@ -9,9 +9,10 @@ Key Dagster concept — asset metadata:
   asset in the Dagster UI, so you can inspect results without opening files.
 
 Asset lineage here:
-  characters_enriched ──┐
+  characters_enriched ───┐
   film_character_counts ─┼──► galaxy_report (Markdown file)
-  starship_stats ────────┘
+  starship_stats ────────┤
+  character_stats ───────┘
 """
 
 import pathlib
@@ -31,9 +32,10 @@ def galaxy_report(
     characters_enriched: pd.DataFrame,
     film_character_counts: pd.DataFrame,
     starship_stats: pd.DataFrame,
+    character_stats: pd.DataFrame,
 ) -> str:
     """
-    Assembles a Markdown report from the three transform assets.
+    Assembles a Markdown report from the four transform assets.
 
     This is your 'presentation layer' — what a stakeholder or analyst would
     consume. In a real pipeline you might push this to Slack, email, or Notion.
@@ -69,6 +71,18 @@ def galaxy_report(
     )
     climate_known = int(characters_enriched["homeworld_climate"].notna().sum())
     homeworld_known = int(characters_enriched["homeworld"].notna().sum())
+
+    # ── Screen persistence (per-character grain) ──────────────────────────────
+    total_characters = len(character_stats)
+    one_film = int((character_stats["film_count"] == 1).sum())
+    six_film_names = sorted(
+        character_stats.loc[character_stats["film_count"] == 6, "character_name"]
+    )
+    pilots = int((character_stats["starships_flown"] > 0).sum())
+    top_pilot = (
+        character_stats.nlargest(1, "starships_flown")[["character_name", "starships_flown"]]
+        .to_dict("records")
+    )
 
     # ── Best hyperdrive ships ─────────────────────────────────────────────────
     best_ships = (
@@ -120,6 +134,16 @@ def galaxy_report(
         f"*Among the {climate_known} of {len(characters_enriched)} characters whose homeworld climate is known.*",
         "",
         "\n".join(f"- **{climate}**: {count} characters" for climate, count in climate_counts.items()),
+        "",
+        "### Screen Persistence",
+        "",
+        f"- **{one_film} of {total_characters}** characters appear in exactly one film",
+        f"- Only **{len(six_film_names)}** appear in all six: {', '.join(six_film_names) if six_film_names else '—'}",
+        f"- **{pilots} of {total_characters}** are ever listed at a starship's controls",
+        "\n".join(
+            f"- Most starships flown: **{r['character_name']}** ({r['starships_flown']})"
+            for r in top_pilot
+        ),
         "",
         "---",
         "",

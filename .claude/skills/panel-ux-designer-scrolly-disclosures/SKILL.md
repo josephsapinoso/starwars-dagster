@@ -49,3 +49,23 @@ never a data/status series).
 Native `<details>/<summary>` — no ARIA re-plumbing of the toggle. Any inline SVG
 diagram inside gets `role="img"` + an `aria-label` that states the whole meaning
 (chain + status counts), matching the site's `.dag` strip precedent.
+
+## 8. `title` tooltips are a desktop-only side channel
+A `title` attribute is unreachable on touch and keyboard and only inconsistently
+exposed by AT. Audit rule: every visible label must stand alone without its tooltip
+— treat the tooltip as desktop-plus enhancement, never as the mitigation for
+sensitive/verbose content ("the details are only on hover" is false on phones: touch
+users get LESS text, not gated text). Corollary: legend/help copy must not instruct
+"hover ..." unless the same information has a non-hover path; and any editorial
+review of disclosure text must review labels and tooltips as two different surfaces
+with two different audiences.
+
+Adopted fix pattern (banked 2026-07-18, provenance rail): keep the tooltip as a
+desktop-plus courtesy, but have the legend name the canonical non-hover home instead
+of the gesture — "◆ blocking check · ◇ drift warning · full check descriptions live
+in the Dagster UI". And because the label is the entire touch/keyboard surface,
+author every visible label to be safe and self-sufficient on its own; never park
+sensitive or load-bearing content in the tooltip and call it mitigated. When a
+content leak has both a string fix and a renderer fix (filters, per-context rules),
+cost the string fix first — it preserves uniform, predictable rendering across
+surfaces and modes.

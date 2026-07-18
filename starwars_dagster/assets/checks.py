@@ -15,6 +15,12 @@ Key Dagster concept — Asset Checks:
   Tests vs. checks: pytest guards the CODE at dev time (offline, fixtures);
   these checks guard the DATA at run time (live SWAPI pull). You need both,
   because SWAPI can change under you without a single line of code changing.
+
+  Description style rule (panel-settled, 2026-07-18): a description states
+  the INVARIANT and its STAKES; run metadata carries the particulars; the
+  rosters and numbers themselves live only in known_facts.py. Check strings
+  render on the site's story rails, so they must never pre-tell a later
+  beat's payoff — tests/test_site_provenance.py pins this.
 """
 
 import duckdb
@@ -27,6 +33,7 @@ from dagster import (
 
 from starwars_dagster.assets.ingestion import raw_people
 from starwars_dagster.assets.transforms import (
+    character_stats,
     characters_enriched,
     film_character_counts,
     star_wars_db,
@@ -36,9 +43,14 @@ from starwars_dagster.known_facts import (
     EXPECTED_DB_TABLES,
     EXPECTED_EPISODE_IDS,
     EXPECTED_FILM_COUNT,
+    EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_ONE_FILM_COUNT,
     EXPECTED_PEOPLE_COUNT,
+    EXPECTED_PILOT_COUNT,
+    EXPECTED_UNKNOWN_HEIGHT_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
     REQUIRED_PEOPLE_KEYS,
+    SIX_FILM_CHARACTERS,
 )
 
 
@@ -153,9 +165,9 @@ def characters_enriched_join_coverage(characters_enriched: pd.DataFrame) -> Asse
 
 @asset_check(
     asset=characters_enriched,
-    description=f"{EXPECTED_UNKNOWN_MASS_COUNT} of {EXPECTED_PEOPLE_COUNT} people "
-    "have mass='unknown' in the verified snapshot. The report's mass-based claims "
-    "depend on this denominator, so drift here should be noticed, not silent.",
+    description="The count of people with mass='unknown' matches the verified "
+    "baseline in known_facts.py. The report's mass-based claims depend on this "
+    "denominator, so drift here should be noticed, not silent.",
 )
 def characters_enriched_unknown_mass_baseline(characters_enriched: pd.DataFrame) -> AssetCheckResult:
     mass = characters_enriched["mass"]
@@ -164,6 +176,22 @@ def characters_enriched_unknown_mass_baseline(characters_enriched: pd.DataFrame)
         passed=unknown == EXPECTED_UNKNOWN_MASS_COUNT,
         severity=AssetCheckSeverity.WARN,
         metadata={"unknown_mass": unknown, "expected": EXPECTED_UNKNOWN_MASS_COUNT},
+    )
+
+
+@asset_check(
+    asset=characters_enriched,
+    description="The count of people with height='unknown' matches the verified "
+    "baseline in known_facts.py. The census's opening range claim and the "
+    "report's height stats depend on it.",
+)
+def characters_enriched_unknown_height_baseline(characters_enriched: pd.DataFrame) -> AssetCheckResult:
+    height = characters_enriched["height"]
+    unknown = int(((height == "unknown") | height.isna()).sum())
+    return AssetCheckResult(
+        passed=unknown == EXPECTED_UNKNOWN_HEIGHT_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"unknown_height": unknown, "expected": EXPECTED_UNKNOWN_HEIGHT_COUNT},
     )
 
 
@@ -188,4 +216,64 @@ def starship_stats_cast_sanity(starship_stats: pd.DataFrame) -> AssetCheckResult
         passed=not negatives,
         severity=AssetCheckSeverity.WARN,
         metadata={"null_rates_after_cast": null_rates, "negative_values": negatives},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description=f"{EXPECTED_ONE_FILM_COUNT} of {EXPECTED_PEOPLE_COUNT} characters "
+    "appear in exactly one film in the verified snapshot. The story's one-scene-"
+    "wonders beat displays this number, so drift here changes the page.",
+)
+def character_stats_one_film_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    one_film = int((character_stats["film_count"] == 1).sum())
+    return AssetCheckResult(
+        passed=one_film == EXPECTED_ONE_FILM_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"one_film_characters": one_film, "expected": EXPECTED_ONE_FILM_COUNT},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description="The set of characters appearing in all six films matches the "
+    "verified snapshot in known_facts.py. The story's late payoff leans on this "
+    "exact set — if it shifts, that beat is wrong, not just stale.",
+)
+def character_stats_six_film_trio(character_stats: pd.DataFrame) -> AssetCheckResult:
+    six_film = set(character_stats.loc[character_stats["film_count"] == 6, "character_name"])
+    return AssetCheckResult(
+        passed=six_film == SIX_FILM_CHARACTERS,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"six_film_characters": sorted(six_film), "expected": sorted(SIX_FILM_CHARACTERS)},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description="The count of characters listed at the controls of at least one "
+    "starship matches the verified baseline in known_facts.py — the denominator "
+    "behind the census's flight records.",
+)
+def character_stats_pilot_count_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    pilots = int((character_stats["starships_flown"] > 0).sum())
+    return AssetCheckResult(
+        passed=pilots == EXPECTED_PILOT_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"pilots": pilots, "expected": EXPECTED_PILOT_COUNT},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description="No character has flown more starships than the verified maximum "
+    "in known_facts.py. The census's most-flown record depends on this cap — "
+    "drift means the leaderboard changed.",
+)
+def character_stats_max_flown_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    max_flown = int(character_stats["starships_flown"].max()) if len(character_stats) else 0
+    return AssetCheckResult(
+        passed=max_flown == EXPECTED_MAX_STARSHIPS_FLOWN,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"max_starships_flown": max_flown, "expected": EXPECTED_MAX_STARSHIPS_FLOWN},
     )
