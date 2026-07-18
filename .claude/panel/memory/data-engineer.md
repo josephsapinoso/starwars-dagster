@@ -34,23 +34,35 @@
 - The one-line strict-JSON format of `const DATA` is load-bearing — tests parse it by
   extraction; changing the format must fail loudly. (Pipeline-reveal panel.)
 - No assets added primarily to make a diagram truthful — presentation-driven pipeline
-  design is out; label the derivation honestly instead. A per-character-grain transform
-  remains an open candidate on its own analytical merits only. (Pipeline-reveal panel.)
+  design is out; label the derivation honestly instead. The per-character-grain
+  transform cleared this bar on analytical merits and landed as `character_stats`
+  (commit 082d9c9) — the principle stands for future candidates. (Pipeline-reveal panel.)
+- Exact-value baselines (42 one-film, the six-film trio, 19 pilots, max flown 5) are
+  WARN drift checks — never blocking; `known_facts.py` already held all four, zero new
+  constants. Provenance-map membership is claim-driven: an asset no claim cites
+  (raw_starships, post-082d9c9) leaves the map rather than lingering as decoration.
+  (Per-character-transform landing.)
 
 ## Working knowledge
 
 - Lineage: `SWAPIResource → raw_{films,people,planets,starships,species}
   (assets/ingestion.py) → star_wars_db (transforms.py, DuckDB at data/star_wars.duckdb)
-  → {characters_enriched, film_character_counts, starship_stats} → galaxy_report
-  (analytics.py)`. Ten assets in three groups.
+  → {characters_enriched, film_character_counts, starship_stats, character_stats} →
+  galaxy_report (analytics.py)`. ELEVEN assets in three groups (was ten; corrected
+  2026-07-18 after commit 082d9c9). Site totals: 11 assets / 4 transforms / 12 checks.
 - The site's `const DATA` literal (site/index.html:378) is hand-authored, one-line
   strict JSON — no asset writes the HTML. The pipeline↔site contract is enforced at
   runtime (drift detector) and, where possible, by offline tests, not by generation.
 - DuckDB is not a Dagster resource; assets connect directly to the path string threaded
   through `star_wars_db`. List/dict fields are JSON-stringified into DuckDB columns.
-- Eight asset checks in `assets/checks.py`: four blocking ERROR (people shape, tables
-  populated, exactly six episodes, no null names) and four WARN drift (82-count, join
-  coverage, 23-unknown-mass baseline, TRY_CAST sanity).
+- Twelve asset checks in `assets/checks.py`: four blocking ERROR (people shape, tables
+  populated, exactly six episodes, no null names) and eight WARN drift (82-count, join
+  coverage, 23-unknown-mass baseline, TRY_CAST sanity, plus four `character_stats`
+  baselines: one_film=42, six-film trio, pilot_count=19, max_flown=5).
+- `character_stats` (02_transformed): `star_wars_db` → per-person `film_count` /
+  `starships_flown` via `json_array_length()` on the JSON-stringified URL arrays — no
+  unnesting needed; CSV side-effect `character_stats.csv`; feeds `galaxy_report`, which
+  now consumes it for the screen-persistence figures instead of page-authoring math.
 
 ## Prep notes: pipeline-reveal (2026-07-17, compacted post-decision)
 
@@ -94,5 +106,33 @@
 - **Prep differently:** verify the brief's factual claims against the actual data
   before designing the contract that encodes them; check README integrity (it was
   truncated mid-word — hiring-manager found it).
-- Open candidates I co-own: per-character-grain transform (real analytics merits only;
-  would upgrade beats 4–6 to DIRECT), SQL-string migration into a verified home.
+- Open candidates I co-own: per-character-grain transform (LANDED 082d9c9 — see below),
+  SQL-string migration into a verified home (still OPEN).
+
+## Banked: per-character transform landed (2026-07-18, commit 082d9c9)
+
+- Execution note, not a debate: `.claude/panel/decisions/2026-07-18-per-character-transform-landed.md`.
+  Built straight from the banked acceptance criteria — the bank worked as a spec.
+- What landed: one asset `character_stats` (details promoted to Working knowledge);
+  four WARN drift checks; beats 4–6 flipped to `relation:"direct"` with
+  `guard.kind:"check"` on the `raw_people → star_wars_db → character_stats` chain.
+  `known_facts.py` needed zero changes — the single-source-of-baselines law paid off
+  exactly as designed.
+- Contract discipline held: the provenance subtree was edited surgically and the
+  one-line strict-JSON `DATA` literal round-tripped byte-identical for every other
+  subtree. `raw_starships` dropped from the provenance map because no claim cites it
+  anymore — claims drive membership, not diagram completeness (now Settled).
+- Same-commit guard law honored: provenance pin
+  (`test_beats_four_through_six_are_direct_and_check_guarded`), grain/zero-count tests,
+  snapshot-gated test that the four WARN checks pass, plus a performed negative check
+  (perturbing EXPECTED_ONE_FILM_COUNT failed both guards).
+- Latent-bug lesson: the beat-7 number-word array stopped at "nine" — 12 checks would
+  have rendered "undefined checks" — and beat-7 prose hardcoded "three transforms".
+  Word-lists and spelled-out counts are hidden duplicate facts; the drift detector now
+  warns on word-list overflow. Next prep: grep for prose-encoded numerals whenever a
+  count changes.
+- My SQL-string migration stretch remains OPEN, still blocked on a verification story
+  for SQL text; the README screenshot retake now needs 12 green checks (desktop UI).
+- Prep differently: my Working-knowledge asset count went stale (said ten after eleven
+  shipped) — after any pipeline-shape commit, refresh the lineage bullet in the same
+  banking pass.

@@ -26,10 +26,16 @@
 - **The one-line strict-JSON format of `const DATA` is load-bearing** — tests parse it
   by extraction; format changes must fail loudly. (2026-07-18.)
 - **`relation: direct|derived` is the honesty vocabulary (2026-07-18):** claims not
-  computed by any asset render as derived — "computed from raw_people[].films at
-  authoring time, guarded offline by pytest against known_facts.py" — never as
-  asset-attributed. Derived/none guards never render a check badge as asserting the
-  number.
+  computed by any asset render as derived — never as asset-attributed. Derived/none
+  guards never render a check badge as asserting the number. (Since commit 082d9c9 no
+  claim currently uses `derived`, but the vocabulary and its structural pytest guard
+  remain law for any future claim.)
+- **Per-character grain is materialized (2026-07-18, commit 082d9c9):** `character_stats`
+  (02_transformed, `star_wars_db` → per-person `film_count`, `starships_flown`) computes
+  the 42/trio/19/maxFlown-5 numbers in-pipeline; four WARN drift checks assert them from
+  known_facts constants. Beats 4–6 are `relation:"direct"` with check guards on
+  `raw_people → star_wars_db → character_stats`. Totals: 11 assets / 4 transforms /
+  12 checks; character_stats feeds galaxy_report. Do not re-derive these by hand.
 
 ## Working knowledge
 
@@ -44,23 +50,25 @@
   values derive from `blocking`, beat-7 callback counts match the object.
 - Chart honesty conventions in force: log scale flagged in mass/scatter captions;
   excluded rows named; Chart/Table toggle exposes underlying rows per dashboard card.
-- **Check→claim relevance map** (durable reference, verified 2026-07-17 against
-  checks.py/transforms.py):
+- **Check→claim relevance map** (durable reference; re-verified 2026-07-18 against
+  checks.py/transforms.py after commit 082d9c9):
   - Beat 0 (82): `raw_people_count_matches_verified_snapshot` WARN +
     `raw_people_has_required_shape` ERROR — direct; best-guarded number on the site.
     `raw_people` is the first node of every chain, so this story appears in all six
     reveals without a beat-0 reveal.
-  - Beat 1 (heights, 1 unmeasured): no check covers height nulls. Coverage gap.
+  - Beat 1 (heights, 1 unmeasured): no check covers height nulls. Coverage gap (open).
   - Beat 2 (23/82): `characters_enriched_unknown_mass_baseline` WARN — direct.
   - Beat 3 (homeworlds): `characters_enriched_join_coverage` WARN — direct.
-  - Beats 4–5: `films_are_exactly_the_six_episodes` ERROR guards the six-film FRAME
-    only; the 42 and the trio are films-per-CHARACTER, computed by NO asset
-    (hand-derived from `raw_people[].films` at authoring). `SIX_FILM_CHARACTERS` is in
-    known_facts.py:20 but never imported by checks.py — trio is pytest-guarded only.
-  - Beat 6: `starship_stats` is per-SHIP; "19 of 82 flew" / "Obi-Wan flew 5" are
-    per-PERSON, computed by no asset. `starship_stats_cast_sanity` is irrelevant to
-    the pilots claims.
-  - `galaxy_report` has zero attached checks.
+  - Beats 4–5 (42 one-film, six-film trio): `character_stats_one_film_baseline` +
+    `character_stats_six_film_trio` WARN — direct. `SIX_FILM_CHARACTERS` is now
+    imported by checks.py; the trio is guarded both in-pipeline and by pytest.
+    `films_are_exactly_the_six_episodes` ERROR still guards the six-film frame.
+  - Beat 6 (19 of 82 flew; Obi-Wan 5): `character_stats_pilot_count_baseline` +
+    `character_stats_max_flown_baseline` WARN — direct, at the correct per-PERSON
+    grain. `starship_stats` remains per-SHIP and irrelevant to the pilots claims;
+    `raw_starships` no longer appears in any claim chain.
+  - `galaxy_report` still has zero attached checks (open gap; note it now consumes
+    character_stats and carries a Screen Persistence section).
 - WARN severity is runtime-only in Dagster; `spec.blocking` is the static field —
   provenance must encode `blocking` and derive badge wording from it (data-engineer/
   qa-engineer finding I should have caught in prep).
@@ -84,11 +92,9 @@
 **Lost (and why):**
 - Option (a), the per-character-grain transform, lost to data-engineer +
   hiring-manager: adding an asset primarily so a diagram can point at it is
-  presentation-driven pipeline design, and a hastily-checked version reads as coverage
-  theater. Fair adjudication — my analytics case survives as an open candidate on its
-  own merits (would compute films-per-character and ships-per-person, with checks
-  asserting 42-of-82, the trio, 19-of-82, maxFlown 5, upgrading beats 4–6 to DIRECT).
-  If I re-propose it, lead with the grain-correctness/analytics value, not the diagram.
+  presentation-driven pipeline design. Fair adjudication at the time; it survived as
+  an open candidate on analytics merits and later landed (see Banked section below).
+  Lesson stands: lead with grain-correctness/analytics value, not the diagram.
 - Hiring-manager's beat-0 reveal (which would have showcased the best-guarded number)
   lost to the clean-hook coalition; I was neutral, and the structural compensation —
   raw_people heading every chain — preserves the census guard story anyway.
@@ -102,7 +108,32 @@
   decision changed what "denominators on-chart" means for reveal text (plain text,
   trivially drift-checkable — good for me, but I didn't argue it).
 
-**Open items I track:** per-character transform (above); the five hand-written
-dashboard SQL strings still have no verified home; beat-1 height-null check gap and
-galaxy_report's zero checks remain undisclosed-on-pipeline gaps worth raising when
-check coverage next comes up.
+**Open items I track:** the five hand-written dashboard SQL strings still have no
+verified home; beat-1 height-null check gap and galaxy_report's zero checks remain
+undisclosed coverage gaps worth raising when check coverage next comes up.
+
+## Banked: per-character transform landed (2026-07-18, commit 082d9c9)
+
+Execution close-out, not a debate — the pipeline-reveal open item shipped at the
+user's direction, implemented from the banked acceptance criteria. I verified the
+code, not just the note: `character_stats` in transforms.py (star_wars_db →
+per-person film_count, starships_flown, feeds galaxy_report); four WARN drift checks
+in checks.py built from known_facts constants (42, trio, 19, maxFlown 5) with
+known_facts.py unchanged; provenance pin
+`test_beats_four_through_six_are_direct_and_check_guarded` at
+tests/test_site_provenance.py:135; grain/zero-count and snapshot-gated tests rode
+the same commit, plus a negative check (perturbed baseline fails both guards).
+
+**Won (delayed):** the exact assertion set I specified in the pipeline-reveal debate
+shipped verbatim, and severity followed my law — exact-value baselines are WARN
+drift, never blocking. The relation vocabulary proved its worth: `derived` labels
+made the upgrade a clean, testable flip to `direct` instead of a copy rewrite.
+**Bonus wins for my constraints:** the beat-7 number-word overflow bug ("undefined
+checks" at 12) was caught and the drift detector now warns on word-list overflow;
+hardcoded "three transforms" copy was fixed — both are exactly the data-vs-copy
+drift class my standing constraint exists for. Hardcoded number-words and counts in
+prose/aria labels are a drift surface I should audit whenever totals change.
+
+**Prep differently:** when an option loses on cost grounds, keep its acceptance
+criteria specified to landing precision anyway — that is what let this ship later
+with zero new debate.

@@ -28,8 +28,9 @@ true_checks = {
 }
 ```
 
-Expected today: 10 assets (raw_* ×5 → star_wars_db → 3 transforms →
-galaxy_report); 8 checks, blocking split 4/4.
+Expected today (post commit 082d9c9, 2026-07-18): 11 assets (raw_* ×5 →
+star_wars_db → 4 transforms → galaxy_report); 12 checks, split 4 blocking /
+8 warn. If these counts drift, re-introspect — never patch them by hand.
 
 ## 2. Severity rule: derive from `spec.blocking`, never hand-type
 

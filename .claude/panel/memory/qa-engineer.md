@@ -44,12 +44,15 @@
 
 ## Working knowledge
 
-- The 8 checks in `assets/checks.py`: blocking — `raw_people_has_required_shape`,
-  `star_wars_db_tables_populated`, `films_are_exactly_the_six_episodes`,
-  `characters_enriched_has_no_null_names`; WARN —
-  `raw_people_count_matches_verified_snapshot`,
-  `characters_enriched_join_coverage`,
-  `characters_enriched_unknown_mass_baseline`, `starship_stats_cast_sanity`.
+- Inventory (post-082d9c9): 11 assets, 4 transforms, 12 checks in `assets/checks.py`.
+  Blocking (4) — `raw_people_has_required_shape`, `star_wars_db_tables_populated`,
+  `films_are_exactly_the_six_episodes`, `characters_enriched_has_no_null_names`.
+  WARN (8) — `raw_people_count_matches_verified_snapshot`,
+  `characters_enriched_join_coverage`, `characters_enriched_unknown_mass_baseline`,
+  `starship_stats_cast_sanity`, plus four `character_stats` drift baselines:
+  `character_stats_one_film_baseline` (42), `character_stats_six_film_trio`
+  (C-3PO/R2-D2/Obi-Wan), `character_stats_pilot_count_baseline` (19),
+  `character_stats_max_flown_baseline` (5).
 - Failure modes with named detectors today: SWAPI shape change (shape check), count
   drift (count/mass baselines), join rot (coverage check), cast rot (TRY_CAST
   sanity), copy drift on the site (runtime detector). New site claims must extend one
@@ -99,9 +102,10 @@ What lost / was overruled, and why I accept it:
   every chain, so the census guards appear in all six reveals. Testable claim; fine.
 - Analyst's per-character transform deferred on merits, not laziness — the honest
   `derived` labeling is the correct QA outcome; a transform added as diagram fuel
-  would have been coverage theater. If the open item lands, its checks must assert
-  42-of-82, the trio, 19-of-82, maxFlown 5 — and beats 4–6 flip to DIRECT with test
-  updates in the same commit.
+  would have been coverage theater. My condition if it landed: checks asserting
+  42-of-82, the trio, 19-of-82, maxFlown 5, with beats 4–6 flipping to DIRECT and
+  test updates in the same commit. [SATISFIED — see Banked: per-character-transform
+  landed, below.]
 
 Prep-differently next time: my prep verified mechanics but took the brief's
 beat→asset map on faith until the analyst falsified parts of it. For any brief that
@@ -109,3 +113,36 @@ asserts a data→claim mapping, spot-check the mapping itself against the raw da
 during PREP, not just the machinery. Also: when I want scope (SQL migration), arrive
 with the verification design in hand — objections without a detector design get
 deferred.
+
+## Banked: per-character-transform landed (2026-07-18, commit 082d9c9)
+
+Execution note: `.claude/panel/decisions/2026-07-18-per-character-transform-landed.md`.
+No new debate — the open item shipped directly against my banked acceptance criteria,
+and I verified in-repo that every condition was honored:
+
+- New `character_stats` asset (`star_wars_db` → per-person `film_count`,
+  `starships_flown`, feeds `galaxy_report`); four WARN drift checks assert exactly
+  42-of-82, the trio, 19-of-82, maxFlown 5. Correct severity call: exact-value
+  baselines are drift, never blocking. `known_facts.py` unchanged — baselines were
+  already banked there; single-home law held.
+- Same-commit condition honored in full: beats 4–6 flipped to `relation:"direct"` +
+  `guard.kind:"check"` alongside the provenance pin
+  `test_beats_four_through_six_are_direct_and_check_guarded`, grain/zero-count
+  behavior tests via `InlineSWAPIResource` (tests/test_transforms.py), and a
+  snapshot-gated test asserting the four WARN evaluations PASS
+  (`test_character_stats_drift_checks_pass_on_the_real_snapshot`) — necessary
+  because WARN cannot fail a materialize, so green must be asserted explicitly.
+- Negative check performed and reported: perturbing `EXPECTED_ONE_FILM_COUNT` made
+  both the check-passing test and the banked-facts pytest fail, then was reverted.
+  "Seen to fail" standard met.
+- Bonus catches vindicating the drift detector: beat-7 number-word array stopped at
+  "nine" (12 checks would have rendered "undefined checks"; detector now warns on
+  word-list overflow), and stale "three transforms" copy fixed in prose + aria label.
+  Lesson: any count rendered through a lookup table needs an overflow guard.
+- `raw_starships` dropped from the provenance map because no claim cites it anymore —
+  correct under guard-honesty law: provenance lists what claims cite, not the whole DAG.
+
+Still OPEN (unchanged): the five hand-written dashboard SQL strings in `makeCard`
+remain unverified copy — keep resisting any new hand-written pipeline copy, and next
+time I raise migration I bring a concrete verification design. README screenshot
+retake also still open (needs 12 green checks, desktop UI).
