@@ -33,6 +33,10 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
   drift=WARN); `known_facts.py` is the single source of baselines; no second
   data-quality framework, no coverage gates; CI stays offline-only.
 - A feature and its automated guard land in the same commit.
+- Site provenance is honest and verified: all lineage/severity strings render from
+  `DATA.provenance` (pytest-checked against the real Dagster defs; badge severity derives
+  from the static `blocking` flag); a check badge appears only where the check asserts the
+  displayed number; the one-line strict-JSON `const DATA` literal is load-bearing.
 
 Open item: re-materialize locally and retake the three README screenshots so the
 Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
