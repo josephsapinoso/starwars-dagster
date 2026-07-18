@@ -5,70 +5,38 @@ scroll-story website at `site/index.html`, published as a Claude artifact at
 https://claude.ai/code/artifact/e71e41b6-f606-492c-af77-d19a8b3443d7 (republish to the
 same URL — never mint a new one).
 
-## Design panel workflow (user's preferred process for design/creative decisions)
+## Design panel (user's preferred process for design/creative decisions)
 
-For any significant design, UX, storytelling, or portfolio/engineering-craft decision
-on this project (e.g. adding tests or asset checks, restructuring the README, CI), run
-the owner's **role-panel debate** before implementing:
+For any significant design, UX, storytelling, pipeline, or portfolio decision, run the
+standing role panel — see **`.claude/panel/charter.md`** for the full protocol
+(prep → debate → synthesis → bank). The nine panelists are the `panel-*` agents in
+`.claude/agents/`; each keeps its own memory in `.claude/panel/memory/` and may author
+its own skills under `.claude/skills/panel-*`. Scoping: visual/site decisions → the
+first six roles; pipeline/repo/portfolio decisions → add hiring-manager, qa-engineer,
+technical-writer; all nine only when the decision spans both. Claude is the final
+decision maker and writes the decision log to `.claude/panel/decisions/`.
 
-1. Spawn parallel subagents, one per role, each given the same factual brief
-   (current state, constraints, available data) and asked for: a verdict, ONE concrete
-   proposal, their top 3 must-haves, and their top 3 objections to what the *other*
-   roles will likely propose. Keep each position short (≤500 words) and opinionated.
-2. The roles:
-   - Star Wars Lore Fanatic — authenticity; what's earned vs. kitsch
-   - Data Engineer — lineage, reproducibility, data honesty, no build-step creep
-   - Data Analyst — which claims the data actually supports; denominators and nulls
-   - Graphic Designer — typography, color budget, one coherent mark system
-   - UX Designer — user control, accessibility, mobile, embeds; never gate content
-   - Professional Visual Storyteller — narrative spine, hook, beat sheet, pacing
-   - Data Engineering Hiring Manager — the 90-second portfolio scan; what signal each
-     choice sends (README first impression, commit history, visible tradeoffs); what
-     questions it would raise in an interview
-   - QA / Data Quality Engineer — tests, Dagster asset checks, schema/null validation,
-     failure modes when SWAPI changes; nothing ships unverified
-   - Technical Writer — README/WORKSHOP.md as the landing page; docs must explain the
-     *why* and the tradeoffs, not just the how; jargon earns its place
+**Anything marked "Settled" in a panelist's memory is banked law — do not relitigate.**
 
-   Scoping: for pure visual/site decisions the original six roles carry the debate;
-   for pipeline, repo, or portfolio-presentation decisions the last three must be
-   included. Don't run all nine unless the decision genuinely spans both.
-3. Claude acts as **final decision maker**: adjudicate conflicts explicitly (say who
-   won each argument and why), then present one synthesized plan — not a menu.
+## Hard constraints digest (non-negotiable; full rationale lives in panel memories)
 
-Lessons already banked from the first panel (do not relitigate):
-- No auto-playing or time-gated intros, ever; reader-paced scroll only, no scroll-jacking.
-- Every number on the site must be derivable from the inline pipeline JSON; disclose
-  denominators/nulls on-chart (a runtime drift-detector in `site/index.html` warns on
-  mismatch between data and copy).
-- Verified data facts: 82 people; THREE characters appear in all six films (C-3PO,
-  R2-D2, Obi-Wan — not just the droids); 23 lack mass; Naboo 11 + Tatooine 10.
-- Site constraints: single HTML file, no CDNs/webfonts/build step; gold #ffe81f is
-  display accent only, never a data series; must handle reduced-motion, mobile, and
-  the flat/auto-height-embed fallback (sticky can't engage there).
-
-Lessons banked from the testing panel (merged in PR #3 — do not relitigate):
-- pytest guards the CODE offline against committed fixtures; Dagster `@asset_check`s
-  guard the DATA at materialization (structural breakage = ERROR/blocking; upstream
-  drift = WARN — SWAPI is not ours to freeze). Verified baselines live once in
-  `starwars_dagster/known_facts.py`, imported by both tests and checks.
-- Behavior tests craft their own records via `InlineSWAPIResource` (tests/conftest.py)
-  and must NEVER depend on shared fixture content; only the banked-facts tests read
-  the frozen snapshot. `scripts/snapshot_fixtures.py` refreshes it (also runnable via
-  the `snapshot.yml` Actions workflow — needed because remote dev containers may not
-  reach swapi.info; GitHub runners can). CI (`ci.yml`) is offline-only.
-- No second data-quality framework (no Great Expectations/Pandera), no coverage
-  gates, no CI matrix. Dagster-native checks + one green workflow carry the signal.
-
-Lessons banked from the mobile beat-spacing panel (merged in PR #4 — do not relitigate):
-- The viewport meta tag must stay — it was missing and phones silently fell back to
-  the ~980px desktop layout; none of the mobile CSS applied on real devices.
-- Mobile story geometry: stage pinned at min(52svh, 480px) — never shrink it
-  (denominator captions and annotations are at the legibility floor); cards dock
-  top-anchored in min(64svh, 560px) steps at a constant station; exactly ONE authored
-  pause (`.step--held`, 90svh) before the witnesses reveal; beat counter ("n / 8",
-  NBSP-glued) rides the sticky stage caption. Rejected for cause: scroll-snap
-  (scroll-jack), decorative fill in the gaps, stage shrinkage.
+- Site is ONE HTML file: no CDNs, no webfonts, no build step.
+- Gold #ffe81f is display accent only — never a data series; saber blue is the data hue.
+- No auto-play, no time gates, no scroll-jacking; content never gated (disclosures opt-in).
+- Reduced-motion, mobile (<860px), and the flat/auto-height-embed fallback must all work;
+  the viewport meta tag stays.
+- Every number on the site derivable from the inline JSON; denominators/nulls on-chart;
+  the runtime drift detector stays and grows with new claims.
+- Mobile story geometry is settled (stage min(52svh,480px); min(64svh,560px) stations;
+  one `.step--held` pause; "n / 8" beat counter).
+- pytest guards CODE offline; asset checks guard DATA (structural=ERROR/blocking,
+  drift=WARN); `known_facts.py` is the single source of baselines; no second
+  data-quality framework, no coverage gates; CI stays offline-only.
+- A feature and its automated guard land in the same commit.
+- Site provenance is honest and verified: all lineage/severity strings render from
+  `DATA.provenance` (pytest-checked against the real Dagster defs; badge severity derives
+  from the static `blocking` flag); a check badge appears only where the check asserts the
+  displayed number; the one-line strict-JSON `const DATA` literal is load-bearing.
 
 Open item: re-materialize locally and retake the three README screenshots so the
 Dagster lineage view shows the 8 green asset checks (needs the desktop UI).
