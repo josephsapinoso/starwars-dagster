@@ -15,10 +15,9 @@
   reveal. One disclosure style, shared with details.sql. (Pipeline-reveal panel,
   2026-07-18.)
 - Beat-7 callback wording is computed from provenance counts so it is drift-detectable
-  and arithmetically true — since commit 082d9c9 it renders "One pipeline, four
-  transforms, twelve checks". Never hand-write pipeline arithmetic into copy; the
-  number-word list is drift-guarded against overflow (the "undefined checks" near-miss
-  proved why). (2026-07-18.)
+  and arithmetically true (currently thirteen checks after 2aa845e). Never hand-write
+  pipeline arithmetic into copy; the number-word list is drift-guarded against overflow
+  (the "undefined checks" near-miss proved why). (2026-07-18.)
 - Reveal label template is generated, not per-beat bespoke: "The paper trail — where
   {claim} comes from"; beat 4 (the held pause) renders the quietest variant, "The paper
   trail." — identical placement/size everywhere. "Paper trail" is lore's one sanctioned
@@ -30,6 +29,19 @@
 - Every provenance/severity string derives from `DATA.provenance`, pytest-verified
   against real Dagster definitions; check rationales are verbatim checks.py
   descriptions. Copy in the reveals is projection, never authorship. (2026-07-18.)
+- **Spoiler pin law** (post-landing cleanup, 2026-07-18): a standing offline test
+  derives payoff term sets from `known_facts` — names AND payoff numbers,
+  phrase-anchored — and asserts no check string renders on a beat earlier than its
+  claim's reveal. Every new check passes this audit before landing, and the pin must
+  be seen to fail before merge. My one-off leak audits are retired into this test.
+- **The rail is uniform; spoiler safety lives in the strings, not the renderer.**
+  Every beat renders the same rule (all checks of its chain assets). No beat-indexed
+  filtering — a `beat` field would be hand-authored narrative metadata pytest cannot
+  verify. Corollary: DATA.provenance carries no narrative fields, ever. (2026-07-18.)
+- **Description style rule** (technical-writer's, I enforce the story half): check
+  descriptions state the invariant and its stakes; run metadata carries the
+  particulars; known_facts.py is the only roster/number home. No check string quotes
+  another beat's caption or payoff. (2026-07-18.)
 
 ## Working knowledge
 
@@ -42,14 +54,13 @@
   handoff to the "records office" (dashboard). Additions must serve this spine or a
   deliberate second read-through, never interrupt the build to beat 5.
 - The witnesses payoff must not leak early — no earlier beat, caption, or affordance
-  may reveal the trio before beat 5. Re-audit whenever provenance strings change.
-  Audit history: 2026-07-17 PASS (no check named the trio). 2026-07-18 re-run after
-  commit 082d9c9: **FAIL on beat 4** — `character_stats_six_film_trio` (label
-  "six-film trio"; hover why names C-3PO, R2-D2, Obi-Wan Kenobi verbatim) renders in
-  beat 4's paper trail, because beats 4–6 share the character_stats chain and chainEl
-  shows every check on every asset in the chain. Mitigated (opt-in details, hover for
-  the names) but the label alone gives away "three saw all six" inside the held pause,
-  one beat before the payoff. Flagged to the panel; fix is not mine to write.
+  may reveal the trio before beat 5. Audit history: 2026-07-17 PASS; 2026-07-18 FAIL
+  (four forward leaks via the shared character_stats/characters_enriched chains —
+  the trio, "19 pilots", "max flown = 5", "23 unweighed" all rendered early); fixed
+  in 2aa845e via re-authored strings (labels now "all-six set" / "pilot census" /
+  "flight record" / "mass baseline" — invariant-subject, number-free, name-free).
+  The audit is now the standing spoiler pin test; manual re-audit only for strings
+  the pin cannot derive from known_facts (new payoff *concepts*, not new numbers).
 - The held pause is beat 4 (the cameos). Any affordance living inside the pause must be
   the quietest voice on the page — the pause's job is to set up beat 5.
 - Reveal micro-story structure: claim → machinery (vertical chip chain, one gold `.hot`
@@ -59,13 +70,13 @@
   82-count warn) recur in all six reveals — the structural reason beat 0 could stay
   clean without losing the hiring-manager's scannability concern.
 - Beats 4–6 are `relation:"direct"` since commit 082d9c9: they ride the
-  raw_people → star_wars_db → character_stats chain with `guard.kind:"check"` (four
-  WARN drift checks: 42-of-82, the trio, 19-of-82, maxFlown 5). Their honesty lines
-  now render from the NOTE.check template — "The figure is asserted in the pipeline
-  itself by the {ref} check." The old derived-tally wording survives only as the
-  unused NOTE.pytest derived branch; the honest-third-act line softened accordingly
-  (guarded-offline-only now applies to fewer numbers, and beat 7's prose says "four
-  transforms" truthfully).
+  raw_people → star_wars_db → character_stats chain with `guard.kind:"check"`
+  (WARN drift checks under the re-authored spoiler-safe labels). Honesty lines
+  render from the NOTE.check template — "The figure is asserted in the pipeline
+  itself by the {ref} check." Beat 1 flipped pytest→check the same way in 2aa845e
+  (`characters_enriched_unknown_height_baseline`), zero hand edits both times.
+  Pipeline now carries 13 checks (4 blocking, 9 warn); WORDS list runs through
+  "thirteen".
 - Dashboard: the lineage strip is the epilogue's establishing shot; per-card mini-DAGs
   were rejected unanimously — telling the gag eight ways.
 

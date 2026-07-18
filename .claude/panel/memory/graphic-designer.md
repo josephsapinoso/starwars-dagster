@@ -29,9 +29,22 @@
   no horizontal overflow escape in reveals — every node visible without scrolling at
   the ~260px mobile budget. Reveals exist on beats 1–6 only; beat 0 stays clean; beat 7
   carries a provenance-computed callback line. (Pipeline-reveal panel, 2026-07-18.)
-- Guard honesty is a visual law too: a check badge may only sit where the check asserts
-  the displayed number (or its labeled denominator/structure); derived/unguarded claims
-  say so in plain words next to the chain. (Pipeline-reveal panel, 2026-07-18.)
+- Guard honesty, AMENDED (post-landing cleanup, 2026-07-18): the rail is a uniform
+  asset-level citation — every beat renders ONE rule, all checks of its chain assets;
+  spoiler/emphasis safety lives in the STRINGS (number-free labels generated from
+  provenance), never in per-beat renderer conditionals or filters. My earlier per-beat
+  badge-placement reading ("badge only where the check asserts the displayed number")
+  is superseded at rail level; the plain-words rule for derived/unguarded claims stands.
+- Displayed SQL is executed SQL: any SQL text on the site lives in DATA and is executed
+  offline against the fixture warehouse. Renders via the existing `details.sql`
+  treatment with ZERO new marks — no "verified SQL" badge exists or ever will; ◇/◆ +
+  prov-note wording already carry "asserted offline". (Post-landing cleanup, 2026-07-18.)
+- DATA.provenance carries no narrative fields — everything in it stays derivable from /
+  verifiable against the real Dagster defs plus known_facts. Visually: rail labels and
+  legend are generated type, never hand-lettered. (Post-landing cleanup, 2026-07-18.)
+- Rail legend copy is settled: "◆ blocking check · ◇ drift warning · full check
+  descriptions live in the Dagster UI" — the old hover promise was false on
+  touch/keyboard (ux rider, 2026-07-18).
 - Dashboard cards get NO per-card mini-DAGs — the full-width lineage strip is the
   establishing shot; duplicating it per card is mark multiplication. (Pipeline-reveal
   panel, 2026-07-18.)
@@ -119,50 +132,54 @@ Execution close-out of the pipeline-reveal open item (commit `082d9c9`, decision
   re-check at 390x844 and 360x740 PASSED — reveals grow downward, no horizontal
   overflow, stage cap holds. The watch item is closed; the floor rules (never shrink
   type, never touch the stage) remain the fix path if a future change regresses it.
-## Prep notes: trio leak / SQL verification / coverage gaps (2026-07-18)
+## Prep notes: post-landing cleanup (compacted 2026-07-18)
 
-Read the brief, `chainEl` (site/index.html:823–843), rail CSS (:201–208), disclosure
-CSS (:191–197), checks.py:199–256, and the DATA literal's character_stats block.
+Superseded by the Banked section below. Surviving facts worth keeping:
+- Rail CSS lives at site/index.html:204–207; `.prov-check` is 11.5px mono — a
+  pre-existing badge-only exception below the 12px floor; do not propagate it to any
+  other mark, and never shrink it further.
+- Title-attribute `why` tooltips remain hover-only with no touch affordance; the
+  legend fix removed the false promise but not the gap. Standing watch, not mine alone.
+- The guard-honesty caveat lines on beats 4–6 self-removed when claims became direct
+  and check-guarded — generated copy worked in both directions, no hand edits.
+- Beat-7 word-list overflow ("undefined checks") was caught by the drift guard —
+  generated type failing loudly beats silent fabrication.
 
-- **Q1 scope is wider than "one label."** `chainEl` renders the FULL check inventory
-  of every chain asset in every beat. Beats 4–6 share character_stats, so beat 4's
-  rail shows all four WARN badges: "42 one-film cameos" (its own claim), plus
-  "six-film trio" (beat 5's payoff), "19 pilots" and "max flown = 5" (beat 6's).
-  Three forward leaks, not one — lore-fanatic's memory agrees. Re-authoring one
-  label (option a) is whack-a-mole; "trio" leaks the count by definition, and
-  spoiler-proofing all four strings degrades them in the beats where they ARE the
-  payoff and in the Dagster UI.
-- **My design read: filter, but with ONE rule for all beats, never per-beat
-  conditionals.** Rule: a story rail shows blocking (structural) checks + the beat's
-  own guard check — on every beat, 0–7. That is not a fork; it is one rule
-  everywhere (same mark, same placement, shorter rails). The brief's variant
-  ("…only on non-final beats") IS a fork — same asset wearing different rails
-  depending on beat position is exactly the inconsistency I exist to veto.
-- This extends a banked distinction: overflow-x was ruled a dashboard affordance,
-  not a story affordance. Likewise **full check inventory is a dashboard/Dagster-UI
-  affordance; the story rail is narrative** and shows what the beat asserts. Bonus:
-  it strengthens guard-honesty (badges sit where they assert the displayed number)
-  and cuts beat 4–6 rail mass from 4 badges to 1 — pure win for the vertical budget.
-  The trio check's rich verbatim description then renders only on beat 5, post-
-  payoff, so checks.py strings stay operationally meaningful untouched.
-- Guard for the fix: rendering-rule invariant (per-beat rail ⊆ {guard, blocking}) —
-  wire-up belongs to qa/data-engineer; I hold the visual rule.
-- **Q2 (SQL into DATA):** zero visual delta if — and only if — rendering stays the
-  existing `details.sql pre/code` treatment (mono 12px, #9fd0ff, `--void` inset).
-  Support adoption; veto any new "verified SQL" badge/mark — the ◇/◆ vocabulary and
-  prov-note sentence pattern already cover "this is asserted offline."
-- **Q3:** minimal visual footprint. A height-null WARN check adds one ◇ badge where
-  characters_enriched appears (fine under the guard-only rule); galaxy_report has no
-  story rail (beat 7 is a callback line), so its check touches only the Dagster UI.
-  Neutral on merits — defer to qa/hiring-manager; no mark-system stakes.
-- Mobile watch item resolved by headless pass (see above) — I can argue Q1 without a
-  pending geometry caveat.
-- Still cannot verify: how the rail reads on a REAL device/desktop hover (title-attr
-  `why` tooltips are hover-only — untestable headless, and no touch affordance
-  exists for them; worth flagging, not mine to fix this round).
+## Banked: post-landing cleanup (2026-07-18)
 
-- **Also good:** the derived-claim honesty lines on beats 4–6 are gone because the
-  claims are now DIRECT and check-guarded — the guard-honesty law worked in both
-  directions (the caveat text appeared when unguarded, disappears when guarded, no
-  hand-edited copy either way). Beat-7 word-list overflow ("undefined checks" at 12)
-  caught and drift-guarded — generated type failing loudly beats silent fabrication.
+Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0 (SQL truth),
+2aa845e (spoiler fix + height check).
+
+**Lost (Q1), and why it's the right loss:** my guard+blocking filtered rail fell to
+the coverage-understatement objection — character_stats carries ZERO blocking checks,
+so under my rule the final beats would render near-empty rails forever, visually
+understating real coverage. Re-authoring won 5–3–1 on the one-home law (the trio
+description hand-listed a roster whose single source is known_facts.py — a drift bug
+independent of spoilers). But the remedy delivers every demand I actually hold:
+renderer untouched, ONE rule on every beat, no per-beat conditionals, no narrative
+fields in provenance; my whack-a-mole objection is answered structurally by the
+standing spoiler pin (term sets derived from known_facts, seen-to-fail before merge).
+Two lessons banked: (1) I proposed a renderer-layer fix for a content-layer problem —
+when strings are generated AND pinned by a test, fixing the strings IS systemic;
+filtering the renderer was solving honesty with layout. (2) Before proposing any
+filter rule, run its degenerate case against every asset's actual inventory — one
+all-WARN asset collapsed "guard+blocking" into an empty rail.
+
+**Won (Q2/Q3):** SQL truth landed with zero visual delta — existing `details.sql`
+treatment, no new "verified" mark, unanimous; chart 5's subtitle gained its
+denominator clause (data-analyst's point, but it's the on-chart-denominator law
+paying out). Q3(a) landed clean: one ◇ badge where characters_enriched appears,
+WORDS extended through "thirteen" in the same commit, galaxy_report stays check-free
+— a disclosed gap beats a phantom badge.
+
+**Rail-mass watch (open, visual):** uniform rail means beats 1–3 now show four
+characters_enriched badges (up one) and beat 1 additionally carries the
+height-baseline ◇. Labels are number-free and short, and the rail flex-wraps, so I
+expect the 360px budget holds — but nobody has re-eyeballed the densest rails since
+the count went to 13. Next site-touching prep: headless pass at 360×740 counting
+wrapped rail lines; flag any rail exceeding ~2 lines.
+
+**Prep differently next time:** enumerate each asset's checks BY SEVERITY before
+designing any rail/badge rule, and test the rule against both the sparsest and the
+densest asset; state which layer (renderer vs strings) a fix belongs to as part of
+the proposal, not as an afterthought.
