@@ -140,59 +140,58 @@ asset, not just its own.
 
 Still open upstream: dashboard SQL strings; README screenshot retake (12 green checks).
 
-## Prep notes: trio-leak blast radius + SQL/coverage story stakes (2026-07-18)
+## Prep notes: post-landing cleanup (2026-07-18) — compacted after banking
 
-Full cross-beat audit of chainEl (index.html:823-843) against the DATA.provenance
-literal (line 390) and checks.py descriptions. A check renders on EVERY beat whose
-chain contains its asset; hover `why` = verbatim description.
+Full leak audit found four forward leaks (trio in the held pause; pilots count and
+max-flown punchline two beats early; "23 unweighed" one beat early — the last one
+the brief missed, proving the problem structural). All four fixed in 2aa845e; the
+audit method survives as skill rule 8 and the standing spoiler pin test. My fix
+ranking (filter > re-author > accept) was adjudicated and my top pick lost — see
+Banked below for why my "(a) cannot fix the core leak" claim was wrong.
 
-Leak table (severity order):
-1. **Beat 4 rail → "six-film trio"** (label states three-saw-all-six; hover names
-   C-3PO/R2-D2/Obi-Wan AND quotes "the 'Ben counts' beat" — the beat-5 caption
-   itself). Inside the held pause, one beat before THE payoff. Critical.
-2. **Beat 4 rail → "19 pilots" + "max flown = 5"** — beat 6's number and punchline
-   two beats early; max-flown hover names Obi-Wan ("punchline of the pilots beat"),
-   a double leak (he's also a witness). High.
-3. **Beat 5 rail → same two labels** one beat before beat 6. Moderate (post-payoff
-   slope, but still front-runs the Obi-Wan punchline).
-4. **Beat 1 rail → "23 unweighed"** — beat 2's absence-beat number one beat early
-   (characters_enriched carries it; beats 1-3 share that chain). Mild: beat 2's
-   power is framing more than surprise, and the label lacks the denominator. The
-   brief missed this one — it proves the problem is structural, not one bad string.
-Clean: "homeworld joins" before beat 3 (no numbers); all backward-looking renders;
-beat 6 rail; structural check labels everywhere.
+## Banked: post-landing cleanup (2026-07-18, decision log 2026-07-18-post-landing-cleanup.md; commits c0b97e0, 2aa845e)
 
-Fix ranking by cost to the spine:
-- **(b) per-beat rail filtering — my pick, near-zero spine cost, positive side
-  effect.** Hide on beat N any check that is the guard.ref of a claim with
-  beat > N (derivable from DATA alone: kills leaks 1, 3, 4 and the trio hover).
-  max_flown guards no claim, so the rule needs one small data hook — e.g. an
-  optional per-check `spoilerBeat`/earliest-beat field in DATA.provenance.assets —
-  to catch leak 2. Bonus: beat 4's rail drops from four WARN chips to one, making
-  the held pause's affordance genuinely the quietest on the page (currently it's
-  the noisiest rail). Guard: drift detector + pytest assert no future-beat guard
-  check ever renders early — my one-off audit becomes a standing spoiler guard.
-- **(a) re-author label/description — cannot fix the core leak.** The check's
-  operational meaning IS "exactly three saw all six"; any accurate label/description
-  states it. Re-authoring only mutes hover meta-leaks (naming beats/punchlines),
-  and those phrases are good ops copy in the Dagster UI. (a) alone = lobotomize the
-  check or keep the spoiler. Acceptable as a light companion (drop the literal
-  "Ben counts"/"punchline" phrasings) but not as the fix.
-- **(c) accept — reject.** Opt-in + hover mitigation doesn't cover the label, and
-  the worst seat in the house (held pause) hosts the worst spoiler. Three of six
-  reveals leak forward; "mitigated" is not a pacing strategy.
+**Q1 — my mechanism lost 5–3–1; my audit won everything it was for.** The
+cumulative-rail (beat-indexed clearance) proposal fell to two arguments I should
+have pre-empted: the one-home law (the trio description hand-listing the roster
+was a drift bug against known_facts.py regardless of spoilers — the fix was owed
+anyway) and qa's kill shot, that a `beat` field is hand-authored narrative
+attribution pytest cannot verify, sitting inside the one object whose credibility
+is "everything here is machine-checked." Sequencing lost to string-fixing because
+placement filtering required buying spoiler safety with an unverifiable field —
+and I of all people should not trade verified provenance for pacing. My prep
+claim that "re-authoring cannot fix the core leak because the check's meaning IS
+the payoff" was simply wrong: I conflated operational meaning with rendered
+phrasing. "All-six set" states the invariant's subject without its count;
+"flight record" without its punchline. I never drafted the counterexample label
+before declaring it impossible. That is the lesson.
 
-Q2 (SQL-in-DATA + executed-fixture pytest): no beat copy touched; disclosure text
-becomes provably true — supports it as an extension of guard-honesty voice law.
-Watch only that the drift-detector claim, if added, stays console-silent for readers.
-Q3a (height WARN check): flips beat 1's honesty line pytest→check via the NOTE
-template automatically — zero hand edits, restores beat 1/beat 2 symmetry; the new
-label ("1 unmeasured" or similar) is beat 1's own claim, so it renders forward-clean
-on beats 2-3. No spoiler risk; I'm for it. Q3b (galaxy_report structural check):
-epilogue-side, no rail renders it; pure hiring-manager/qa territory — neutral,
-defer, but insist any new check's label/description pass the spoiler audit before
-landing (feature + guard same commit should include the spoiler guard).
+What won, and it is the part that mattered:
+- All four leaks fixed, including the "23 unweighed" leak only my audit caught.
+- My meta-leak companion edit landed verbatim — no checks.py string quotes
+  another beat's caption ("'Ben counts' beat" and "punchline of the pilots beat"
+  are gone); now law via the description style rule.
+- My "make the law executable" demand IS the remedy's spine: the standing
+  spoiler pin, and my objection to qa's names-only version carried — the pin
+  derives names AND payoff numbers from known_facts, seen-to-fail before merge.
+  My one-off audit is honorably retired into a test.
+- Must-have #3 achieved: the held pause carries no beat-5/6 string on any
+  surface. The hook, beat sheet, "n / 8", and held pause are untouched.
 
-Cannot verify: how a filtered rail reads at 390px with the drop (headless geometry
-was checked pre-fix); whether Dagster-UI copy edits under (a) matter to
-hiring-manager's lineage-view story — his call, not mine.
+**Q3a played out exactly as predicted:** beat 1's honesty line flipped
+pytest→check through the NOTE template with zero hand edits — third data point
+for generated-over-bespoke. **Q2** landed engineer's shape; displayed-SQL-is-
+executed-SQL is now an extension of guard-honesty voice law, no beat copy touched.
+
+Prep differently next time:
+- Before pitching a mechanism, ask whether it adds any authored field the
+  existing verification surface cannot check. If yes, the panel will (rightly)
+  kill it; find a strings-side path first.
+- Before declaring a string fix impossible, draft the best possible string —
+  steelman the re-author option by actually writing the label. If the invariant's
+  *subject* can be named without its *payoff*, re-authoring works.
+- When my audit finds a leak the brief missed, lead with it: "structural, not
+  one bad string" was my strongest evidence and I buried it at severity 4.
+
+Watch item: screenshot retake now targets 13 green checks; any future check's
+strings pass the spoiler pin at birth — that is enforcement, not debate.
