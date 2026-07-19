@@ -135,6 +135,9 @@
   /* ── dashboard shell ────────────────────────────────────────────────── */
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px 80px; }
   .section-head { margin: 72px 0 20px; }
+  .coda { margin: 72px 0 12px; color: var(--ink-3); max-width: 68ch; }
+  .coda p { margin: 0; }
+  .coda a { display: block; padding: 14px 0; color: var(--ink-2); }
   .section-head .eyebrow { color: var(--gold); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; }
   .section-head h2 { font-family: var(--disp); text-transform: uppercase; font-size: clamp(24px, 3.4vw, 34px); letter-spacing: .02em; margin: 6px 0 0; line-height: 1.05; text-wrap: balance; }
   .section-head .note { color: var(--ink-3); font-size: 14px; margin-top: 6px; max-width: 68ch; }
@@ -251,7 +254,7 @@
 </div>
 
 <!-- ═══════════════ THE CENSUS — scroll story ═══════════════ -->
-<section class="story" id="story" aria-label="The census: a scroll story in eight steps">
+<section class="story" id="story" tabindex="-1" aria-label="The census: a scroll story in eight steps">
   <h2 class="vh">The census — a scroll story in eight steps</h2>
   <div class="scrolly">
     <div class="steps" id="steps">
@@ -387,6 +390,11 @@
     <div class="card span6" id="card-homeworlds"></div>
     <div class="card span6" id="card-hyper"></div>
     <div class="card span12" id="card-registry"></div>
+  </div>
+
+  <div class="coda">
+    <p>The census is filed. Nothing here is sealed — every figure above traces to a record, and every record is open to a second reading.</p>
+    <a href="#story">Take the census again <span aria-hidden="true">↑</span></a>
   </div>
 
 </main>
@@ -1024,7 +1032,7 @@ function ticks(max, n=4) {
   const sql = DATA.sql.films;
   const {viz, tblWrap} = makeCard("#card-films", "Cast & fleet per episode",
     "Characters and starships appearing in each film", {
-    legend: [{label: "Characters", color: "var(--s1)"}, {label: "Starships", color: "var(--s2)"}],
+    legend: [{label: "Characters", color: "var(--s1)"}, {label: "Starships", color: "color-mix(in srgb, var(--s1) 45%, var(--panel))"}],
     sql
   });
   buildTable(tblWrap, [
@@ -1056,7 +1064,7 @@ function ticks(max, n=4) {
       const gx = cx - barW - 1;                       // 2px surface gap between the pair
       const series = [
         {key: "Characters", v: f.characters, color: "var(--s1)", x: gx},
-        {key: "Starships",  v: f.starships,  color: "var(--s2)", x: gx + barW + 2},
+        {key: "Starships",  v: f.starships,  color: "color-mix(in srgb, var(--s1) 45%, var(--panel))", x: gx + barW + 2},
       ];
       for (const s of series) {
         const g = el("g", {class: "bar", tabindex: "0", role: "img",
@@ -1080,7 +1088,9 @@ function ticks(max, n=4) {
 /* ── chart 2: gender part-to-whole stacked bar ────────────────────────── */
 (function genderChart() {
   const sql = DATA.sql.gender;
-  const palette = ["var(--s1)", "var(--s4)", "var(--s3)", "var(--s5)", "var(--s2)"];
+  // one data hue: rank-ordered opacity ladder; the legend paints the same steps
+  const LADDER = [1, .75, .55, .4, .28];
+  const palette = LADDER.map(o => `color-mix(in srgb, var(--s1) ${Math.round(o*100)}%, var(--panel))`);
   const cats = genderCounts.slice(0, 5);
   const {viz, tblWrap} = makeCard("#card-gender", "Who counts as who",
     "Gender field across all 82 characters (droids report n/a)", {
@@ -1169,17 +1179,25 @@ function ticks(max, n=4) {
     el("text", {x: m.l + iw/2, y: H-6, "text-anchor": "middle", class: "axis-t"}, svg).textContent = "height, cm";
     el("text", {x: 14, y: m.t + 4, class: "axis-t"}, svg).textContent = "mass, kg (log)";
 
+    const extremes = new Set([heaviest.name, tallest.name, shortest.name]);
     for (const p of scatterPts) {
       const px = x(p.height), py = y(p.mass);
-      const g = el("g", {class: "dot"}, svg);
+      const g = labeled.has(p.name)
+        ? el("g", {class: "dot", tabindex: "0", "aria-label": `${p.name}: ${fmt(p.mass)} kilograms, ${p.height} centimeters`}, svg)
+        : el("g", {class: "dot"}, svg);
       el("circle", {cx: px, cy: py, r: 6.5, fill: "var(--panel)"}, g);      // 2px surface ring
       el("circle", {cx: px, cy: py, r: 4.5, fill: "var(--s1)"}, g);
+      // the gold ring asserts an extreme; named non-extremes get labels only
+      if (extremes.has(p.name))
+        el("circle", {cx: px, cy: py, r: 8.5, fill: "none", stroke: "var(--gold)", "stroke-width": 1.5}, g);
       if (labeled.has(p.name)) {
-        el("circle", {cx: px, cy: py, r: 4.5, fill: "var(--s3)"}, g);
         const anchor = px > W - 130 ? "end" : "start";
-        const dx = anchor === "end" ? -10 : 10;
+        const dx = anchor === "end" ? -12 : 12;
         el("text", {x: px + dx, y: py + 4, "text-anchor": anchor, class: "anno-t"}, svg)
           .textContent = `${p.name} · ${fmt(p.mass)} kg`;
+        const show = e => tipShow(e, p.name, [{color: "var(--s1)", value: fmt(p.mass) + " kg", label: `· ${p.height} cm`}]);
+        g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, p.name, [{color: "var(--s1)", value: fmt(p.mass) + " kg", label: `· ${p.height} cm`}]));
+        g.addEventListener("blur", tipHide);
       }
     }
     // nearest-point hover across the whole plot (no pinpoint targets)
@@ -1272,17 +1290,17 @@ function ticks(max, n=4) {
     hyperTop.forEach((d, i) => {
       const yc = m.t + row*i + row/2, bh = Math.min(24, row-11);
       const g = el("g", {class: "bar", tabindex: "0", "aria-label": `${d.name}: hyperdrive class ${d.hyperdrive}`}, svg);
-      el("path", {d: barPathH(m.l, yc-bh/2, x(speed(d))-m.l, bh, 4), fill: "var(--s2)", class: "bar-fill"}, g);
+      el("path", {d: barPathH(m.l, yc-bh/2, x(speed(d))-m.l, bh, 4), fill: "var(--s1)", class: "bar-fill"}, g);
       el("rect", {x: 0, y: yc-row/2, width: W, height: row, fill: "transparent"}, g);
       const nm = d.name.length > 18 ? d.name.slice(0, 17) + "…" : d.name;
       el("text", {x: m.l-8, y: yc+4, "text-anchor": "end", class: "cat-t"}, svg).textContent = nm;
       el("text", {x: x(speed(d))+7, y: yc+4, class: "val-t"}, svg).textContent = d.hyperdrive.toFixed(1);
       const show = e => tipShow(e, d.name, [
-        {color: "var(--s2)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive (lower = faster)"},
+        {color: "var(--s1)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive (lower = faster)"},
         {value: d.mglt != null ? d.mglt + " MGLT" : "MGLT unknown", label: `· ${d.cls || "unknown class"}`},
       ]);
       g.addEventListener("pointermove", show);
-      g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, d.name, [{color: "var(--s2)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive"}]));
+      g.addEventListener("focus", () => tipShow({clientX: innerWidth/2, clientY: innerHeight/2}, d.name, [{color: "var(--s1)", value: "class " + d.hyperdrive.toFixed(1), label: "hyperdrive"}]));
       g.addEventListener("pointerleave", tipHide); g.addEventListener("blur", tipHide);
     });
   }

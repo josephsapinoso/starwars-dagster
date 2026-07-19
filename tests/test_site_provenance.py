@@ -223,6 +223,22 @@ def test_no_payoff_leaks_before_reveal_beat(prov):
                 )
 
 
+def test_the_coda_stays_number_free(prov):
+    # The coda is exempt from the census drift detector BECAUSE it is
+    # number-free; this pin asserts the exemption's premise, not the wording
+    # (decision 2026-07-19). It also runs the spoiler vocabulary over it.
+    html = SITE.read_text(encoding="utf-8")
+    m = re.search(r'<div class="coda">(.*?)</div>', html, re.S)
+    assert m, "the coda block is missing"
+    text = re.sub(r"<[^>]+>", " ", m.group(1)).lower()
+    assert not re.search(r"\d", text), (
+        "a digit entered the coda — it must either leave or the coda joins "
+        "the drift detector like every other number-bearing element"
+    )
+    for term in ("trio", "ben counts", "obi-wan", "yoda", "896"):
+        assert term not in text
+
+
 def test_totals_match_the_real_definitions(prov, real):
     totals = prov["totals"]
     assert totals["assets"] == len(real["keys"])
