@@ -183,83 +183,54 @@ means check harder for anchoring next debate. Watch: unconditionalizing the Yoda
 line's data-gated render is a law violation, not a style choice; the coda is the ONLY
 post-grid narrative element — the frame closes once.
 
-## Banked: token hygiene + type consolidation (2026-07-19, decision log 2026-07-19-token-hygiene.md; a30a5bc)
+## Banked: token hygiene + type consolidation (2026-07-19, decision log 2026-07-19-token-hygiene.md; a30a5bc; compacted)
 
-Won — the whisper clause is the guard's architecture, and it carried both contested
-holds:
-- `.prov-check` 11.5 held 4–2 with my craft argument quoted as decisive (summary-12 +
-  chip-mono-12 would swallow the badge voice on the held pause's rail). Note WHY it
-  won: not "Settled says so" but the concrete adjacent-voices math. Precedent survives
-  best when re-argued from the surface, not the statute.
-- "Merge the prose, exempt the geometry" adopted as the whole Q2 shape (3–2 on chart
-  lettering); all my voice-safe merges shipped verbatim (12.5→13, 13.5→14, 16.5→17,
-  fine-print tier 11). Register markers (case/spacing/color/family) carried every
-  merged voice, exactly as prep predicted.
-- The scenery-is-not-ink split won the starfield question: my exact-pin shape ANSWERED
-  the engineer's allow-lists-rot objection — a pinned entry that drifts fails the
-  test, so the sanction can't rot silently. No bridge on the opening chord; the hook
-  keeps zero new init dependencies.
-- Q3 fell my way from the same root (5–1, no tokens): the executable test is the
-  registry. My rule-6 token-naming prep was moot — right instinct (one home for the
-  scale), wrong medium (I assumed the home would be CSS).
+Won across the board: the whisper clause was the guard's architecture; `.prov-check`
+11.5 held 4–2 on the concrete adjacent-voices math (precedent survives best re-argued
+from the surface, not the statute); "merge the prose, exempt the geometry" adopted
+whole, my voice-safe merges verbatim (register markers carried every merged voice);
+exact pins answered allow-lists-rot (a drifted pin is a red test); registry-is-the-test
+5–1. Lost nothing outright. Lessons kept in skill rules 7–9: bring the drafted pin
+TABLE, not the pin idea; when two roles collide on a mechanism, check whether MY shape
+dissolves the objection before picking a side. Ux's fixed-viewBox legibility watch item
+returned as watchlist Q4 and died on the collision math — raise-only-grants-permission
+worked exactly as banked.
 
-Lost: nothing outright; my "cat-t?" merge hedge resolved to exempt (12.5 pinned as
-geometry), which was the better answer — I'd flagged it with a question mark for a
-reason.
+## Banked: watchlist round (2026-07-19, decision log 2026-07-19-watchlist-round.md; fdd3178)
 
-Prep differently next time:
-- Bring the pin TABLE, not the pin idea. I argued for (selector, px, reason) shape;
-  the adjudication still had to assemble which selectors and which reasons. Drafting
-  the literal exemption list at prep time is the typescale equivalent of drafting the
-  final copy — the text itself is the strongest argument.
-- When two roles collide on a mechanism (bridge vs literal), check whether MY shape
-  dissolves the objection before picking a side; the whisper clause turned a 3–3 split
-  into a resolution, which is worth more than a vote.
+Three wins, one instructive loss.
 
-Watch items:
-- The pins now carry story rationale in executable form ("whisper tier — the held
-  pause's authored contrast"). Any future edit to `.prov-check`'s size is a law
-  violation surfaced by pytest, not a debate — point at the failing reason string.
-- Ux's fixed-viewBox stage-legibility observation was noted for a possible FUTURE
-  proposal with its own evidence. If it returns, raise-only-grants-permission puts
-  the burden on the mover; the geometry pins are not an invitation.
+- **Q3 won 5–1**: build-only tap-to-pin, and my reader-owned-dismissal must-have
+  shipped exactly — pin on touch pointermove, touch pointerleave does not hide,
+  dismissal is the reader's next tap or own scroll, never a timer (verified on
+  fdd3178: tipPinned at index.html:799, leave-guard :802, scroll dismiss :469).
+  Suppress-for-touch died on lore's census-conceit veto — the ally I predicted.
+- **Q1 won 4–2** on my voice-load math: 48 tab stops, ~15 crossing the held pause,
+  quoted in the adjudication as the carrying cost argument. Hover `title=` stays a
+  desktop bonus; the legend line is the honest non-hover contract.
+- **Q4 unanimous** with my narrative warrant IN the log verbatim ("prose and captions
+  are the payoff carriers; annos are deixis") and the beat-5 collision math as standing
+  veto ground. The analyst's channel audit supplied the measured half of my claim —
+  redundancy proven, not asserted. Condition honored: the Q3 pin is a bonus, not the
+  justification.
+- **Q2 LOST (ship 3–2–1)** — and rightly. My three must-have conditions were met in
+  full (toggle-event-only, instant, proven non-double-compensating: 0/−180/0/0 in both
+  anchoring states on the landed code), and the adjudication turned my own law around:
+  rule 7 is violated ON Safari today, not by the fix. My error was framing: I held the
+  right conditions and the wrong verdict. "Accept-and-watch unless someone brings the
+  anchoring-aware shape" should have been "ship IF these three measured conditions
+  pass" — the same gate, but with authorship. When I can name the exact shape that
+  would flip me, that shape IS my proposal; leaning accept and waiting for someone
+  else to draft it forfeits the win to whoever does.
 
-## Prep notes: watchlist round (2026-07-19)
+Prep differently: draft the flip-condition as the proposal (the Q2 lesson — the
+mechanism-agnostic sibling of "draft the final copy"). Keep authoring cross-question
+findings: the Q3×Q4 cross-finding became Q4's warrant and made Q3 the redemption —
+the interaction between two questions was worth more than either answer alone.
+Cannot-verify honesty paid off: my "cannot verify Safari hardware" line became the
+round's measured-vs-inferred law rather than a weakness.
 
-Verified in-source; narrative judgments formed for debate.
-
-- **Q1 (badge whys).** `title=k.why` at site/index.html:879 is the page's only
-  title attr. Whys are VERBATIM check descriptions (test_site_provenance.py:95)
-  — already governed by the description style rule AND already inside the spoiler
-  pin's audited surface (line 212 audits `label + why` per beat). So ANY exposure
-  path is spoiler-safe by construction; no new pin needed. Voice stance: 48
-  focusable badges = ~15 tab stops through the held pause's quietest voice; a
-  visible disclosure triples rail length. Legend already routes honestly to the
-  Dagster UI (settled copy). Lean accept-and-document; if exposed, mechanism is
-  ia/ux's, my constraints: no new visible rail strings, nothing on beat 4 louder
-  than its summary.
-- **Q2 (Safari jump).** Reveal-arc rule 7: opening a reveal must never move the
-  reader. The Safari jump violates it at the exact opt-in moment — so a toggle
-  compensation is position-PRESERVING, not scroll-jacking. But: Chromium already
-  compensates via scroll anchoring, so an unconditional scrollBy would
-  double-compensate and break the verified-good browser; and we cannot verify
-  Safari hardware here. Lean accept-and-watch unless someone brings an
-  anchoring-aware shape; if built: instant, toggle-event-only, never during
-  user scroll.
-- **Q3 (touch flash).** Tooltip is deixis (dot→name), redundant with prose;
-  spine survives its absence. Tap-to-pin is reader-paced (reader shows AND
-  dismisses). Oppose suppress-for-touch — see cross-finding below.
-- **Q4 (stage type).** viewBox 700×620 (line 327); .anno-name 12 (97), .axis-t
-  11.5 (184). CRITICAL: beat 5's annos ARE the witnesses' names (line 693, hot
-  gold), stacked at 20 viewBox-units spacing — a bump to the needed 20–22px makes
-  the three payoff names OVERLAP. The naive css-only fix breaks precisely the
-  payoff beat; stagger-never-shrink means any bump demands stagger rework. Prose
-  carries every payoff name (beat 5 names the trio; beat 6 names Obi-Wan · 5),
-  so annos are deixis, not delivery. Lean accept; burden on the mover includes
-  the 20-unit collision math, per raise-only-grants-permission.
-- **Cross-finding (Q3×Q4).** On mobile today, dot identity reaches readers by NO
-  path (5px annos + no touch tooltip). Acceptable ONLY because prose is the
-  payoff carrier — any "accept" verdict should state that reason. If exactly one
-  targeted fix ships, legible beat-5 witness names is the highest narrative
-  value on the page.
-- Cannot verify: real Safari/iOS behavior; hardware touch event order.
+Watch: the ux watchlist is now empty — future rounds start from fresh evidence, not
+carryover items. Both tripwires (Q1/Q4) are logged; if either trips, the reopening
+burden includes the logged hazards (shared `.axis-t` selectors, @media-blind scanner,
+8-state anchor-geometry cost).

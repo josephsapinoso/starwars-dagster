@@ -16,10 +16,18 @@ Run this audit first; the verdict is per-claim, not per-channel.
    List every number, name, and null-disclosure it renders. Distinguish
    *computed-from-DATA* strings (e.g. `String(cnt)` from a PEO filter) from
    *hardcoded literals* (e.g. `"everywhere else · 61"`).
-2. **Find each claim's readable twin.** Search beat copy (`.step-inner p`),
-   the HTML caption (`.stage-cap` — unscaled HTML, aria-live), captions/asides,
-   and dashboard tables (Chart/Table toggle). A claim with a readable twin
-   degrades to decoration when the channel fails — not deception.
+2. **Find each claim's readable twin — AT THE SAME GRAIN.** Search beat copy
+   (`.step-inner p`), the HTML caption (`.stage-cap` — unscaled HTML,
+   aria-live), captions/asides, and dashboard tables (Chart/Table toggle). A
+   claim with a readable twin degrades to decoration when the channel fails —
+   not deception. A twin only counts if it matches the claim's grain: an
+   aggregate table is NOT a twin for a per-person identity channel. Ask what
+   claim DIES if this channel dies for one modality — if the answer is "the
+   only surface naming these individuals," that is a load-bearing orphan even
+   though every number appears elsewhere. (Learned 2026-07-19: my
+   "convenience, not access" Q3 framing lost to exactly this — the stage
+   tooltip is the sole surface naming most of the 82 people; the census
+   conceit is now settled law.)
 3. **Classify the residue.** Claims unique to the degraded channel fall into:
    - *derivable*: arithmetic complement of guarded numbers (61 = 82−11−10) —
      acceptable, note it;

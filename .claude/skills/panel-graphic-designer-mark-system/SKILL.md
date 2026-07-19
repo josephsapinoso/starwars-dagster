@@ -69,12 +69,23 @@ justify a permanent seat.
 `tipShow(evt, title, rows)` (~445–465) is the ONE tooltip: title + rows of
 {color chip, value, label}. Its grammar is a data readout, not a prose container —
 proposals to pour paragraph-length text (e.g. 113–213-char check `why` strings) into
-it fork the mark even though `r.color` is optional. Behavior precedents inside the
-system: hover-follow (pointermove), and keyboard focus pinning the tooltip at screen
-center until blur (dashboard bars/dots). A touch tap-to-pin is the touch analog of
-the focus behavior — same mark, same persistence family — not a new tooltip style.
+it fork the mark even though `r.color` is optional. Its complete persistence family
+(all one mark, landed fdd3178):
+- **hover-follow** — pointermove shows, pointerleave hides (mouse);
+- **focus-pin** — keyboard focus pins at screen center until blur (dashboard marks);
+- **touch-pin** — the touch analog of focus-pin: a real tap's pointermove shows AND
+  sets `tipPinned` (`e.pointerType === "touch"`); pointerleave ignores touch; the
+  module-level scroll listener and any hit-test miss call `tipHide`. Dismissal is
+  always the reader's own act (next tap or scroll), NEVER a timer. The pointerType
+  branch lives only in the stage handlers (~799–802) — the shared module gains one
+  flag, zero new marks or styles.
 Because the tooltip is real-pixel HTML, it is immune to SVG viewBox scaling: on
-small screens it can carry a scaled figure's readout at full legibility.
+small screens it carries a scaled figure's readout at full legibility — but as a
+BONUS channel only. Never make the pin load-bearing for accepting scaled-type
+illegibility; the warrant must be redundancy in the existing system (a real-pixel
+twin in caption/prose for every claim). The census conceit is settled law: the stage
+tooltip is the only surface naming most of the 82 individuals, so no input modality
+may be cut off from it — suppress-for-touch is banned.
 
 ## SVG type audits: effective size, not CSS size (technique, 2026-07-19)
 

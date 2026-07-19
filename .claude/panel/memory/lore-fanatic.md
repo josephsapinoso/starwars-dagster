@@ -120,13 +120,10 @@
 
 - Dataset scope is the six-episode saga (Episodes I–VI) as served by swapi.info;
   no sequels, no anthology films. Claims like "every film" mean these six.
-- The site's story frames the data as a census ("A Galaxy of 82 People") — a
-  bureaucratic-archive conceit that is period-appropriate for the Republic/Empire and
-  earned rather than decorative. Beat 7 already breaks the fourth wall on purpose
-  ("The machinery that counted it … is waiting below"), which is what licenses the
-  per-beat reveals: extend, don't invent.
-- The opening crawls of all six films are preserved verbatim in a dashboard reveal
-  (`DATA.films[].crawl`) — the right home for them: primary-source text, opt-in.
+- The census conceit ("A Galaxy of 82 People") is period-appropriate and earned;
+  beat 7's fourth-wall break licenses the per-beat reveals: extend, don't invent.
+- All six opening crawls preserved verbatim in `DATA.films[].crawl` —
+  primary-source text, opt-in; the right home for them.
 - Beat-6 quote verified: "flying is for droids" is a fair paraphrase of Obi-Wan in
   Revenge of the Sith ("Flying is for droids."); attribution correct as rendered.
 - Beat→asset truth: beats 4–6 DIRECT via live `character_stats_*` checks; beat 1's
@@ -139,10 +136,9 @@
   count. Constants in known_facts; "896"/"yoda" are spoiler-pinned terms.
 - `characters_enriched` is now a real DuckDB table (write-back on the same df the
   asset returns), so `FROM characters_enriched` in the displayed SQL is true.
-- Beat-1 verified facts (bankable copy material): height range Yoda 66 cm → Yarael
-  Poof 264 cm; the single unmeasured character is **Arvel Crynyd** — the A-wing
-  pilot who took out the Executor's bridge in RotJ. A fitting person for the census
-  to have failed to measure; earned if ever named on the page.
+- Beat-1 facts: height range Yoda 66 cm → Yarael Poof 264 cm; the single
+  unmeasured character is **Arvel Crynyd** (the A-wing pilot who took out the
+  Executor's bridge in RotJ) — earned if ever named on the page.
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
 

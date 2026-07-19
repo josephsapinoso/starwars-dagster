@@ -165,97 +165,65 @@
   prep — file:line findings became shipped fixes without spending debate capital.
   Keep auditing the artifact between debates and file findings with line numbers.
 
-## Banked: token hygiene + raise-only type (2026-07-19, commit a30a5bc)
+## Banked: token hygiene + raise-only type (2026-07-19, a30a5bc, compacted)
+
+- Won: AA fix shipped better than my remedy — per-rank `.seg-pct` ink from the same
+  ladder index that drives segment color (no single ink passed both grounds).
+  Lesson: run the contrast pair for EVERY ground, not the worst one I checked. Dead
+  11px attr deleted; the JS-scan guard requirement was pure prep yield; 360/390
+  re-verified pre-merge.
+- Lost: `.prov-check` 11.5→12 (4–2) — the exception is load-bearing craft (voice
+  separation), and the whisper clause pins it loud and testable, answering my real
+  objection (unauditable holes) better than erasing it. Chart-lettering raises
+  exempted as a pinned geometry tier (evidence burden real and unfunded).
+- Prep differently: cost my own remedies with the rigor I cost others'; before
+  retiring a settled exception, check whether it is craft, not debt.
+- Durable: six dashboard charts measure `viz.clientWidth` (true CSS px, verify at
+  360); stage svg is fixed 700×620 viewBox (scaled text). Rail at 360: chips one
+  per row in a 244px rail, summaries 46–64px. Gender label gate `w > 46` untouched.
+
+## Banked: watchlist round (2026-07-19, commit fdd3178) — all four items CLOSED
 
 **Won:**
-- AA-fix-ships-this-pass carried, and got BETTER than my proposal. My prep found the
-  live defect (white 11.5px on --s1 ≈3.6:1) and I said "white at 12px is not on the
-  menu" — correct. But my remedy (single dark ink) was refined by the orchestrator's
-  math: NO single ink passes both labeled segments (--void ≈5.5:1 on full s1 but
-  ≈3.7:1 on the 75% tint; --ink ≈4.8:1 on the tint but fails full s1). Landed:
-  `.seg-pct` class with per-rank ink from the same ladder index that drives segment
-  color (site ~98, ~1131–35). Lesson: when proposing an ink, run the contrast pair
-  for EVERY ground it can sit on, not the worst one I happened to check.
-- Dead 11px attr deleted with its inert small flags — the JS-attr-precedence find was
-  pure prep yield. JS-scan requirement shipped in the guard (shared must-have with
-  the analyst; a JS-blind guard would have missed all four literal residues).
-- Headless 360/390 re-verify ran pre-merge: no overflow, kickers fit, rails wrap,
-  seg-pct inks confirmed rendering var(--void)/var(--ink), zero drift warnings.
+- Q2 shipped in my exact delta-compensation shape (click-capture + toggle scrollBy
+  instant), and my dual-branch merge gate ran on the landed code: anchoring-on
+  0/0/0 and anchoring-off 0/0/0 at beats 1/4/6, with the Safari condition
+  (−181/−179/−179 unfixed) reproduced via the `overflow-anchor:none` proxy. The
+  reveal-arc law was already being violated ON Safari; the fix restores it. The
+  no-offline-guard objection resolved via the render-only precedent: recorded proxy
+  evidence re-run pre-merge, no fakeable mechanical pin.
+- Q1 (4–2) and Q4 (unanimous) acceptances carried WITH my reopening tripwires in
+  the log — and "acceptance is a decision with a tripwire" is now settled law
+  verbatim. My Q4 killer fact (20-unit witness stack caps any raise below target)
+  held; lore flipped in debate.
+- My stale-state must-have landed inside the Q3 shape I lost: scroll dismissal
+  calls explicit tipHide (site:469). Verified: touch pin survives pointerleave,
+  scroll dismisses, mouse path byte-identical including scroll survival of
+  unpinned tooltips.
 
-**Lost:**
-- `.prov-check` 11.5→12 (4–2). The storyteller's craft argument beat my
-  retire-the-exception tidiness: summary is 12 and chips are mono 12, so a 12px badge
-  merges the guard voice into the machinery voice on the held pause's rail. The
-  whisper clause converts the exception from a hole into a pinned law, which answers
-  my real objection (unauditable exemptions) better than erasing it. Lesson: my
-  target was the HOLE, not the size — when a pin can make an exception loud and
-  testable, retiring it buys nothing.
-- Chart-lettering raises (3–2): exempted as a pinned geometry tier. Fair — the
-  collision/gate evidence burden was real and unfunded, and raise-only grants
-  permission, not obligation. My fixed-viewBox stage-legibility find (stage text
-  renders ×~0.69 on the 480px mobile stage; 12px ≈ 8.2px effective) is logged as a
-  possible FUTURE proposal needing its own evidence. → Watchlist.
+**Lost, and the lesson:**
+- Q3 5–1: suppress-for-touch fell to the census-conceit veto. My "enrichment,
+  redundant below" claim was wrong at the individual grain — the stage tooltip is
+  the ONLY surface naming most of the 82 people; the dashboards aggregate. Cutting
+  touch off from a modality-exclusive surface is exactly the inequity my own
+  tooltip law exists to prevent — I ran the redundancy audit line-by-line for Q4
+  and never ran the same audit for Q3. Before calling a tooltip enrichment, audit
+  at the finest grain it exposes, not the grain the charts summarize. Also: the pin
+  state machine I priced as expensive was ~4 lines, because dismissal reused
+  existing paths (hit-test miss, scroll) — cost the shape in the actual codebase
+  before calling it prohibitive.
 
-**Prep differently:** cost my own remedies with the same rigor I cost others' — the
-adaptive-ink refinement was one contrast multiplication away from being MY proposal.
-And when defending a raise that retires a settled exception, check first whether the
-exception is load-bearing craft (voice separation) rather than accumulated debt.
+**Prep differently:** run content-redundancy audits symmetrically across every
+question they could decide, not just the one I favor accepting. And when I hold a
+veto-shaped position, assume another role holds the opposing veto and pre-cost the
+compromise with my must-haves attached — the stale-state rider is what salvaged Q3
+for me.
 
-**Durable working knowledge kept:** six dashboard charts measure `viz.clientWidth`
-(true CSS px, verify at 360); stage svg is fixed 700×620 viewBox (scaled text). Rail
-density at 360 verified: chips wrap one per row inside a 244px rail, summaries
-46–64px ≥44px target; sole cosmetic note is mid-word overflow-wrap of the long check
-ref "character_stats_one_film_baseline" — acceptable, revisit only if user-facing
-prose starts breaking. Gender label gate `w > 46` untouched (label size stayed 11.5).
-
-**Watchlist (carried + new):** real-device AT exposure of `title` on check badges;
-desktop center-flex scroll-anchoring jump on reveal open; stage-dot tooltip flash on
-touch tap; NEW — stage viewBox legibility raise (own evidence pass: viewBox-relative
-collision check, mobile effective-size table, before/after at 480px stage cap) if I
-choose to fund it.
-
-## Prep notes: watchlist round (2026-07-19)
-
-All four E-claims verified at source; three brief-corrections and two proposal
-shapes found.
-
-- **Q1 (badge whys).** site:879 verified — sole title attr, zero focus/aria; the
-  visible label + "◆ blocks/◇ warns" stands alone. Brief's "number-free" is WRONG:
-  whys carry numbers ("82 people", "42 of 82 … exactly one film" — the beat-4
-  payoff verbatim). But it's spoiler-safe by ASSET TOPOLOGY: character_stats (which
-  owns that check) first enters a chain at beat 4 (beats 1–3 chain
-  characters_enriched); and the spoiler pin ALREADY scans `label + why`
-  (test_site_provenance.py:211–215; terms for beats 2/5/6/7). So exposing whys adds
-  no new spoiler surface. Real exposure cost is elsewhere: whys are 113–213-char
-  prose and the shared tooltip is a chip model (name + value rows) — prose doesn't
-  fit it; visible rail text would bloat the whisper tier. Whys are verbatim
-  spec.description projections (test:95), so the settled legend's canonical home
-  (Dagster UI) genuinely holds this exact text. Lean: accept-and-document, trigger
-  = any why gaining load-bearing content with no non-hover home.
-- **Q2 (Safari jump).** Mechanism verified (desktop center-flex, min(102svh,880px);
-  reveal ≈360px → 180px half-shift; Chromium anchoring absorbs it). Proposal shape
-  banked: browser-neutral delta compensation — record clicked summary rect.top on
-  summary `click` (fires pre-toggle), compare on `toggle`, `scrollBy(0, delta)` if
-  |delta|>1. Self-noops where anchoring works AND on top-anchored mobile; instant,
-  once per user action — anchoring restoration, not scroll-jacking. Cheap
-  verification path: Playwright WebKit genuinely lacks scroll anchoring — reproduce
-  the jump AND verify the fix headlessly before shipping. Accept+watch is also
-  honest if nobody funds the WebKit pass.
-- **Q3 (touch flash).** 770–782 verified: svg-level pointermove hit-test, no
-  pointerType handling. Lean suppress-for-touch (`if (e.pointerType==="touch")
-  { tipHide(); return; }`): the flash is a glitch, not a feature gap — stage
-  tooltips are enrichment; dashboard marks below carry full data with focus parity,
-  and keyboard users already get no stage-dot tooltips (accepted state). Tap-to-pin
-  costs a state machine + dismissal design + scroll-gesture risk for redundant
-  content.
-- **Q4 (stage legibility).** Sizes verified (.axis-t 11.5 → 5.1px eff @360; scale
-  .446). KILLER FACT the brief missed: the witnesses stack (site:693) spaces three
-  hot anno names 20 viewBox units apart — declared font must stay ≲18 to keep any
-  gap, capping mobile effective size at ~8.0px @360, BELOW the 9–10px target. A
-  media bump cannot deliver its promise without re-authoring anno geometry (a
-  viewBox rework — unfunded). Also `.axis-t` is shared with the six measured-px
-  dashboard charts, so any bump must scope to `#stageSvg` AND flat-mode `.step-fig
-  svg` or it inflates legible desktop-regime text. Redundancy verified line-by-line:
-  every anno + caption fact prints in beat copy/asides (Yoda 66, Poof, Jabba 1,358,
-  23 unweighed, Naboo 11/Tatooine 10, witness names, Obi-Wan · 5). Lean:
-  accept-and-document; trigger = any future anno carrying content NOT in the copy.
+**Watchlist (fresh — confirmatory only, no open design questions):**
+- Real-iOS pass of the shipped Q2/Q3 behavior when hardware appears; the proxy
+  inference is recorded under the measured-vs-inferred law, so this is
+  confirmation, not debt.
+- Real-AT exposure of `title` on check badges — a Q1-tripwire watch, not a work
+  item.
+- Retired: touch-flash, anchoring jump, stage-type raise (the Q4 tripwires own any
+  reopening).
