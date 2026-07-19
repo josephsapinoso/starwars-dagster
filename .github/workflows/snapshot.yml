@@ -24,13 +24,14 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install
-        run: pip install -e .
+        run: pip install -e ".[dev]"
       - name: Fetch snapshot
         run: python scripts/snapshot_fixtures.py
-      - name: Verify banked facts against the fresh snapshot
-        run: |
-          pip install pytest
-          pytest tests/test_pipeline.py -v -k "people_count or six_films or unknown_mass or naboo"
+      # The bot's push never triggers ci.yml (GITHUB_TOKEN commits don't fire
+      # workflows), so this step IS the CI for a refreshed snapshot: the full
+      # suite must be green before the fixtures are allowed onto the branch.
+      - name: Run the full suite against the fresh snapshot
+        run: pytest -v
       - name: Commit fixtures
         run: |
           git config user.name "github-actions[bot]"

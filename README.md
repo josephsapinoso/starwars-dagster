@@ -11,7 +11,7 @@ a scroll-told census of the 82 characters the saga keeps records on, ending in a
 dashboard. Open any beat's **"paper trail"** to see the exact pipeline lineage and data-quality
 checks behind that figure.
 
-Part of [my portfolio](#) <!-- personal-site link slot: swap in the live URL when it ships -->
+<!-- personal-site link slot: restore `Part of [my portfolio](URL)` here when the live URL ships -->
 
 ![Asset Lineage Graph](screenshots/dagster_asset_lineage.png)
 

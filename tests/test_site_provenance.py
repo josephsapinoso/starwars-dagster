@@ -97,6 +97,15 @@ def test_provenance_assets_edges_and_checks_are_real(prov, real):
             assert len(c["label"]) <= 20, f"{c['name']}: display label too long"
 
 
+def test_site_declares_standards_mode_and_language():
+    # no doctype means quirks mode — an unpredictable substrate under every
+    # settled geometry rule — and no lang is a WCAG 3.1.1 failure
+    html = SITE.read_text(encoding="utf-8")
+    assert html.lstrip().lower().startswith("<!doctype html>")
+    assert '<html lang="en">' in html
+    assert html.rstrip().endswith("</html>")
+
+
 def test_claims_cover_exactly_beats_one_through_six(prov):
     assert sorted(c["beat"] for c in prov["claims"]) == [1, 2, 3, 4, 5, 6]
 

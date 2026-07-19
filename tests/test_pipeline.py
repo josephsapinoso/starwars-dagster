@@ -190,6 +190,18 @@ def test_exactly_one_character_has_unknown_height():
 
 
 @requires_real_snapshot
+def test_the_unmeasured_pilot_flew_the_a_wing():
+    # beat 1's aside names Arvel Crynyd as an A-wing pilot; pin the craft to
+    # the data so the copy can never misattribute it again (it shipped as
+    # "X-wing" once — survey catch, 2026-07-19)
+    people = {p["url"]: p["name"] for p in load_fixture("people")}
+    a_wing = next(s for s in load_fixture("starships") if s["name"] == "A-wing")
+    assert [people[u] for u in a_wing["pilots"]] == ["Arvel Crynyd"]
+    unmeasured = [p["name"] for p in load_fixture("people") if p["height"] == "unknown"]
+    assert unmeasured == ["Arvel Crynyd"]
+
+
+@requires_real_snapshot
 def test_42_of_82_appear_in_exactly_one_film():
     one_film = [p for p in load_fixture("people") if len(p["films"]) == 1]
     assert len(one_film) == EXPECTED_ONE_FILM_COUNT

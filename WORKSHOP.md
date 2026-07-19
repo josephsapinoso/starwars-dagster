@@ -687,18 +687,26 @@ pip install dagster-dbt dbt-duckdb
 
 Then define your transforms as dbt models and load them as Dagster assets with `@dbt_assets`.
 
-### Add Great Expectations or Soda for data quality
+### Why NOT Great Expectations or Soda?
 
-```python
-from dagster import asset_check, AssetCheckResult
+A common next step in other tutorials is bolting on a dedicated data-quality
+framework. This repo deliberately doesn't — and the reasoning is a lesson in
+itself:
 
-@asset_check(asset=characters_enriched)
-def characters_not_empty(characters_enriched):
-    return AssetCheckResult(
-        passed=len(characters_enriched) > 0,
-        description=f"Found {len(characters_enriched)} characters",
-    )
-```
+- **Dagster-native `@asset_check`s already cover the need here** (Module 8):
+  they run with materialization, show up on the lineage graph, and share
+  Python with the transforms they guard. A second framework would mean a
+  second place to define expectations, a second config surface, and a second
+  set of failure semantics — cost without new coverage at this scale.
+- **When would one earn its cost?** When checks must be authored by people
+  who don't write pipeline code (a data steward writing YAML expectations),
+  when you need cross-orchestrator portability, or when a catalog of hundreds
+  of table-shape assertions outgrows hand-written Python. None of that is
+  true for five tables and thirteen checks.
+
+The tradeoff, not the tool, is the takeaway: add a data-quality framework
+when its authorship or scale story applies to you — not because a tutorial
+listed it as a next step.
 
 Asset checks appear in the Dagster UI as pass/fail badges on each asset.
 
