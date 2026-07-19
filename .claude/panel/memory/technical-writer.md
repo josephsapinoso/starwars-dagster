@@ -163,6 +163,22 @@
   near-verbatim. Drafting copy for the branch you expect to win, gated on the fix,
   is cheap and makes "same commit" frictionless. Do it again.
 
+## Prep notes: improvement survey (2026-07-19)
+
+- WORKSHOP currency audit: write-back taught (line 367, one sentence), character_stats
+  in the diagram (115), NO hardcoded check counts anywhere (drift-proof, good). Gap:
+  Module 8 stops at three patterns — test_site_provenance.py and the executed-SQL
+  suite are absent from the tutorial, yet README:26 names Module 8 the long-form home
+  of the testing philosophy.
+- WORKSHOP Module 10 "Add Great Expectations or Soda" (~line 690) is a mislabeled
+  stub: its code sample is a plain Dagster @asset_check duplicating Module 8, and it
+  recommends the one thing the repo's hard constraints deliberately exclude, with no
+  why/tradeoff.
+- README:14 renders a literal dead `#` portfolio anchor above the fold (slot is
+  settled; rendering it dead is not).
+- Decision-log discoverability OK-ish: decisions/README.md exists; repo README links
+  the folder, not an exemplar decision file.
+
 ## Open watch items (mine)
 - Screenshot retake still open — target is now 13 green checks. Caption ("Asset
   Lineage Graph") names without counting, so it doesn't overclaim; keep it
