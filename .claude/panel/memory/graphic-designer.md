@@ -150,46 +150,20 @@ Settled whisper pin (see Settled; 2026-07-19 bank). Title-attribute `why` toolti
 remain hover-only with no touch affordance (standing watch, not mine alone). Generated copy self-corrects in both
 directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
 
-## Banked: birth registry + hue enforcement (2026-07-19)
+## Banked: birth registry + hue enforcement (2026-07-19, compacted)
 
-Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e (registry
-card), 4d92cb7 (coda + hue enforcement), f170379 (screenshots at 15 checks — the
-long-standing README-retake open item is CLOSED).
-
-**Won — Q3 adopted in full, registry card shipped as specced.** Amber deleted;
-persistent gold rings on the three true extremes with Vader label-only; hyper s2→s1;
-films at 45% tint; gender ladder with the legend converting to matching swatches
-(names + counts summing to 82 stay visible). Registry card: part-to-whole bar with
-absence as faint tint, log dot strip, two anno-t labels, Yoda's single gold ring, BBY
-gloss printed. Zero new mark types across three commits. Gold-ring-means-extreme is
-now banked law (promoted to Settled). The coda shipped ornament-free —
-whitespace-is-pacing held without my needing to argue it.
-
-**Implementation deltas to keep:**
-- The ladder landed as `color-mix(in srgb, var(--s1) N%, var(--panel))` SOLID steps,
-  not my raw fill-opacity spec — a stronger form of my own must-have ("ladder
-  identical in bar, legend, tooltips"): fill-opacity can't cross into HTML legend/chip
-  backgrounds; one palette array now feeds all three media with identical strings.
-  Verified in source (~1092–1127). Same lesson as the chip debate: when the goal is
-  identity across media, specify the computed VALUE, not the rendering trick.
-- Two anno-t labels collided on the dot strip; the fix was staggered rows, not
-  smaller type — the floor rules worked as the designed fix path.
-- The testimony caption clipped as SVG text at 390px and became wrapping HTML below
-  the strip — promoted to the Settled caption law.
-
-**Prep differently next time:** spec tints as "identical color values across SVG and
-HTML," letting implementation choose the mechanism; test any SVG text longer than a
-name at 360–390px before speccing it as SVG; plan label collisions (stagger rows) for
-any strip carrying two or more annotations.
-
-**CORRECTION (2026-07-19):** the four "off-token" hexes from my survey (#0a0f1c,
-#2a3550, #4bd5ee, #9fd0ff) were already tokenized in commit 1123757 as --tip-bg,
---axis, --cyan, --sql-ink — that ledger entry is retired. The small-type scale
-remains live and is being adjudicated 2026-07-19 (prep notes below).
-**Rail-mass watch CLOSED (2026-07-19):** verified at 360px with 15 checks — no
-horizontal scroll; densest rails wrap one chip per row, chips 125–180px vs 244px
-rail width, 6-row max stack (character_stats), summaries ≥44px. Headroom exists
-even for a badge-type raise.
+Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e, 4d92cb7,
+f170379 (screenshots at 15 checks — README-retake CLOSED). Q3 adopted in full;
+registry card shipped as specced with zero new mark types; amber deleted; gold rings
+on the three true extremes only (Vader label-only). Gold-ring, solid-tint-ladder, and
+HTML-caption laws all promoted to Settled. Lessons kept: when the goal is identity
+across media, spec the computed VALUE, not the rendering trick (ladder landed as
+color-mix, not my fill-opacity spec — the stronger form of my own must-have); label
+collisions fix by staggered rows; test SVG text longer than a name at 360–390 before
+speccing it as SVG. CORRECTION absorbed: the four "off-token" survey hexes were
+already tokenized in 1123757 (--tip-bg, --axis, --cyan, --sql-ink). Rail-mass watch
+CLOSED: 360px with 15 checks — no horizontal scroll, chips 125–180px in a 244px
+rail, 6-row max stack, summaries ≥44px.
 
 ## Banked: token hygiene + style guard (2026-07-19)
 

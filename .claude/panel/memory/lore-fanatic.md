@@ -171,10 +171,9 @@ vanish) is my job too; guard plumbing that changes what a displayed number MEANS
 ## Banked: token hygiene + raise-only type (2026-07-19)
 
 Decision: `.claude/panel/decisions/2026-07-19-token-hygiene.md`; commit a30a5bc
-(site/index.html + tests/test_site_style_hygiene.py). Verified landed: both rgba
-leaks are now `color-mix(in srgb, var(--gold) 40%/35%, transparent)` (lines 53,
-153); starfield comment "scenery, not ink" at 491; guard pins #ffe81f once-in-
-:root, zero 255,232,31 anywhere, `var(--gold)` free.
+(site/index.html + tests/test_site_style_hygiene.py). Verified landed: gold
+rgba leaks → color-mix (lines 53/153); "scenery, not ink" comment at 491; guard
+pins #ffe81f once-in-:root, zero 255,232,31, `var(--gold)` free.
 
 **Won — clean sweep in my lane:**
 - The gold single-home pin shipped EXACTLY as I shaped it: the guard pins
