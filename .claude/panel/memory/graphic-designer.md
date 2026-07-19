@@ -200,3 +200,45 @@ tint-ladder array — ink-adapts-to-its-ground is the tint law's natural sequel.
    free; if I can't fund the evidence, don't spend the votes.
 4. The ledger rotted twice (four-hexes, prov-check) — keep verifying every ledger
    claim against source in PREP; this time the correction saved my credibility.
+
+## Prep notes: watchlist round (2026-07-19)
+
+All four brief evidence items verified against source; my additions below.
+
+- **Tooltip grammar (site/index.html:445–465):** `tipShow(evt, title, rows)` is a
+  DATA READOUT — title + rows of {color chip, value, label}. It is the site's one
+  tooltip; a 113–213-char prose `why` poured into it would fork the mark's grammar
+  (readout → paragraph). If Q1 lands "expose via tooltip," fight for a different
+  vehicle. Precedent that matters: dashboard focus-tooltips (1078/1128/1202) pin at
+  screen center until blur — so a touch tap-to-pin (Q3) is the touch ANALOG of
+  existing focus behavior, not a behavior fork.
+- **Q1 exposure math:** 48 `.prov-check` badges; focusable exposure = 48 new tab
+  stops; visible disclosure = nested details (new pattern vs one-disclosure law) and
+  ~48×160 chars competing with the held pause. The settled legend copy ("full check
+  descriptions live in the Dagster UI") IS the honest contract; title= is a desktop
+  bonus. Accept-and-document is system-coherent; a11y case may override — then the
+  least-bad shape is focus parity, NOT prose-in-tooltip via rows abuse.
+- **Q4 stakes are real but duplicated:** stage annos are the direct labels of the
+  gold-hot dots ("Jabba · 1,358 kg" hot, three six-film names hot, "Obi-Wan · 5
+  starships" hot) — at 5.3px effective @360 my "every gold dot is direct-labeled"
+  law effectively fails on mobile. BUT every anno payoff is duplicated in bold 16px
+  beat prose (lines 274, 282, six-film cap) and `.stage-cap` is HTML 13px REAL
+  pixels (never viewBox-scaled). Effective size = css px × rendered/viewBox width
+  (700 wide → ×.45 @360).
+- **Q4 bump cost is not one pin:** the hygiene guard's parser (test_site_style_
+  hygiene.py:96–109) splits on `}` and partitions on the FIRST `{` — inside
+  `@media { .axis-t { … } }` the inner selector is lost, so any media bump needs a
+  PARSER amendment, not just a pin row. The no-font-size-tokens law (mine) forbids
+  the variable shortcut. And a 20–22px anno in a 700-unit viewBox (~210 units for
+  "Yarael Poof · 2.64 m") breaks authored anchor geometry (offsets ±10–16 tuned to
+  12px) across 8 stage states — an unfundable collision re-verification (lesson 3).
+- **Q3/Q4 are coupled:** the tooltip is real-pixel HTML, immune to viewBox scale.
+  Tap-to-pin makes every stage dot touch-legible, substituting for illegible annos
+  without touching type law. Suppress-for-touch + Q4-accept leaves touch users only
+  caption + prose. Current touch reality: emulated tap fires NO pointermove → no
+  tooltip at all; real hardware flashes (spec pointer sequence).
+- **Q2 (thin stake):** compensation would be a single synchronous scrollBy inside
+  the toggle handler — zero animation, so visually it cannot read as motion or
+  scroll-jacking; reduced-motion safe by construction. The visual harm of NOT
+  fixing: the gold ▸ summary jumps ~180px under the finger on iOS. Unverifiable
+  here (no Safari hardware); mostly ux/frontend ground.
