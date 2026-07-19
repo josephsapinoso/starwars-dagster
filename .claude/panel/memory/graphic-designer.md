@@ -146,8 +146,7 @@ Won Q2/Q3: SQL truth with zero visual delta (no "verified" mark, unanimous);
 denominator clause on chart 5; one ◇ where characters_enriched appears while
 galaxy_report stays honestly check-free — a disclosed gap beats a phantom badge.
 Watch update: `.prov-check` 11.5 is no longer a retire-on-raise exception — it is a
-Settled whisper pin (see Settled; 2026-07-19 bank). Title-attribute `why` tooltips
-remain hover-only with no touch affordance (standing watch, not mine alone). Generated copy self-corrects in both
+Settled whisper pin (see Settled; 2026-07-19 bank). Generated copy self-corrects in both
 directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
 
 ## Banked: birth registry + hue enforcement (2026-07-19, compacted)
