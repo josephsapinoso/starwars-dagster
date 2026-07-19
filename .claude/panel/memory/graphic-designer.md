@@ -159,8 +159,48 @@ HTML," letting implementation choose the mechanism; test any SVG text longer tha
 name at 360–390px before speccing it as SVG; plan label collisions (stagger rows) for
 any strip carrying two or more annotations.
 
-**Still open (from the survey, not adjudicated):** off-token hex colors (`#0a0f1c`
-tip bg, `#2a3550` .baseline, `#4bd5ee` hero, `#9fd0ff` SQL ink) and the ~9-size
-small-type scale — token hygiene + raise-only consolidation remain future proposals.
-Rail-mass watch continues at 15 checks (re-eyeball densest rails at 360px next
-site-touching prep).
+**CORRECTION (2026-07-19):** the four "off-token" hexes from my survey (#0a0f1c,
+#2a3550, #4bd5ee, #9fd0ff) were already tokenized in commit 1123757 as --tip-bg,
+--axis, --cyan, --sql-ink — that ledger entry is retired. The small-type scale
+remains live and is being adjudicated 2026-07-19 (prep notes below).
+**Rail-mass watch CLOSED (2026-07-19):** verified at 360px with 15 checks — no
+horizontal scroll; densest rails wrap one chip per row, chips 125–180px vs 244px
+rail width, 6-row max stack (character_stats), summaries ≥44px. Headroom exists
+even for a badge-type raise.
+
+## Prep notes: token hygiene + raise-only type consolidation (2026-07-19)
+
+Verified in site/index.html today:
+- Token block is `:root` lines 8–31. Only TWO off-token colors remain, both in JS:
+  `#cdd8ef` starfield star fill (~489 — canvas cannot consume var(); needs a ONE-TIME
+  getComputedStyle bridge at init, never per-frame) and `#fff` gender in-segment
+  %-label fill (~1131 — SVG presentation attributes accept var() directly, so
+  `fill="var(--ink)"` needs no bridge; pure white appears nowhere else on the site,
+  so #eef1f7 is the more coherent value anyway).
+- Gold alpha variants are rgba(255,232,31,…) literals (e.g. 53, 152) — gold's own
+  triplet, derived not off-token; a hex-only guard is the right scope.
+- Sub-body scale confirmed: 10.5 · 11 · 11.5 · 12(×9) · 12.5(×8) · 13(×8) · 13.5 ·
+  14, plus the 16.5 card-h3 oddball. Five half-pixel steps are the disease.
+
+Positions for debate:
+- **Q1 — tokenize both.** `--star: #cdd8ef` earns a :root seat: the token block is
+  the SINGLE color registry (precedent: --tip-bg/--axis are equally minor and live
+  there); a "sanctioned literal" comment in JS is a second registry. Afterward the
+  rule is absolute — hex literals exist ONLY inside :root, CSS or JS, no allow-list
+  to rot.
+- **Q2 — integer scale, strictly raise-only:** 10.5→11, 11.5→12 (retires the
+  .prov-check badge exception; rail headroom verified above), 12.5→13, 13.5→14,
+  16.5→17. Result: 11 micro · 12 floor · 13 secondary · 14 aside/note · 16 body ·
+  17 card-h3. Geometry-load-bearing, re-verify at 360/390 after the raise: axis-t /
+  val-t / anno-t / cat-t (SVG, collision history — fix by staggering, never
+  shrinking), the gender %-label fit gate `w > 46` (must rise with the type, ~48),
+  .kicker at .28em tracking inside 44ch cards, dot-strip staggered anno rows,
+  JS small-label attr stays 11.
+- **Q3 — no font-size tokens.** Sizes never co-vary at runtime (unlike the tint
+  ladder, where value-identity across media forced tokens); var() indirection costs
+  readability in a hand-authored file. The sanctioned scale lives as a comment in
+  :root; the pytest guard is the enforcement.
+- **Q4 — one structural pytest** in the existing suite, same commit as the raises
+  (feature+guard law): regex-scrape hex literals (assert none outside :root) and
+  fixed-px font-size values in CSS and JS attrs (assert membership in the sanctioned
+  set); clamp() display sizes exempt by pattern. No second lint framework.

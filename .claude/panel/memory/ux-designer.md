@@ -155,6 +155,43 @@ AT exposure of `title` on check badges; desktop center-flex scroll-anchoring jum
 a reveal opens (unverified on hardware); stage-dot tooltip flashes on touch tap
 (pointerleave on release — minor).
 
+## Prep notes: token hygiene + raise-only small type (2026-07-19)
+
+- **Two SVG geometry regimes (changes all collision/legibility math).** Stage svg is a
+  fixed 700×620 viewBox → text scales with the SVG: collisions are width-INdependent,
+  but effective mobile size is ×~0.69 (`.anno-name` 12px renders ~8.2px at the 480px
+  mobile stage cap). Raises HELP stage legibility. All six dashboard charts measure
+  `viz.clientWidth` (lines 1047/1108/1162/1241/1279/1330) → font sizes are true CSS px
+  and collisions are worst at 360px. Re-verify after any raise: registry end-anchored
+  axis pair (lines 1367–68), scatter annos, gender `w > 46` label gate.
+- **Dead attr found (line 747):** `attrs["font-size"] = 11` on small stage annos is
+  inert — SVG presentation attributes lose to ANY CSS rule, and `.anno-name` sets 12px.
+  Small annos already render at 12px; the brief's "11px JS small-label" inventory entry
+  is false. Deleting the attr is a zero-visual-change cleanup. Lesson: JS-attr styling
+  drifts silently; the Q4 guard should flag `font-size`/hex attrs set in JS.
+- **Live contrast defect (lines 1131–32):** the gender in-segment % labels (fill #fff,
+  11.5px/600) ARE live (no CSS font-size matches unclassed `.viz text`). White on --s1
+  #3987e5 ≈ 3.6:1, on violet #9085e9 ≈ 3.1:1 — below the 4.5:1 AA floor for small
+  text; raising the size doesn't fix it (bold large-text threshold ≈ 18.7px). Redundant
+  homes exist (legend name+count, table, tooltip) but strict AA fails. Fix path: route
+  fill+size through a real class so contrast is governable; dark ink (--void ≈ 5.4:1 on
+  --s1) passes if the designer accepts dark-on-color.
+- **Starfield bridge safety:** canvas is `aria-hidden` decoration; `reduced` guard
+  draws once statically. A token bridge is safe ONLY as a one-time cached
+  `getComputedStyle` read at IIFE init (never per-frame — `draw()` is a rAF loop;
+  resize reseeds but must not re-read). Works identically in flat/auto-height iframes.
+  I'm indifferent between cached bridge and a sanctioned commented literal.
+- **Raise-only implications I'll defend:** target scale {11, 12, 13, 14} is reachable
+  purely by raises (10.5→11, 11.5→12, 12.5→13, 13.5→14). `.prov-check` 11.5→12 is a
+  raise, not a shrink — allowed by the settled exception's wording and it RETIRES the
+  exception; contingent on re-running the 360px rail check (chips 125–180px @11.5 →
+  ~+4% width, still far under the 244px rail). `.dag-group .g-label` 10.5→11 is safe
+  (own `overflow-x:auto` container). Gender %: at 360px viz ≈ 272px, male (~197px) and
+  female (~56px) segments pass the 46px gate; "73%" at 12px ≈ 24px — fits. 16.5px h3:
+  leave or →17, no UX stake (card-head is flex; wrap is graceful). Raises never hurt
+  touch targets. SVG text sizes should become classes consuming tokens — attrs are the
+  drift vector; only canvas needs a JS bridge.
+
 **Closed 2026-07-19 — rail density at 360px (15 checks): VERIFIED.** Orchestrator
 headless run (Chromium/Playwright, 360×780, file:// load, all `details.prov` forced
 open): document/body scrollWidth exactly 360, no horizontal scroll; every

@@ -63,3 +63,29 @@ justify a permanent seat.
     label renders as wrapping HTML below the figure — SVG `<text>` clips at narrow
     widths (proven at 390px). Two or more annotations on one strip get staggered
     rows on collision; type never shrinks as the fix.
+
+## Color-token consumption across media (verified 2026-07-19)
+
+- Hex literals belong ONLY in the `:root` token block — including ceremony/one-use
+  colors (--cyan, --tip-bg, --axis are precedent). A "sanctioned literal" comment in
+  JS is a second registry; don't create one.
+- **Canvas** cannot consume `var()`: bridge with
+  `getComputedStyle(document.documentElement).getPropertyValue('--token')` ONCE at
+  init — never per frame inside a rAF loop.
+- **SVG presentation attributes** (`fill=`, `stroke=`) DO accept `var(--token)`
+  directly — no bridge, no class required (a class is still preferable when the
+  style repeats).
+
+## Type-scale discipline (proposed 2026-07-19, pending adjudication)
+
+- Raise-only law: sizes merge UP the scale, never down; half-pixel sizes are the
+  disease. Target sub-body scale: 11 micro · 12 floor · 13 secondary · 14 aside ·
+  16 body · 17 card-h3.
+- SVG label sizes (`.axis-t`, `.val-t`, `.anno-t`, `.cat-t`) are
+  geometry-load-bearing: any size change requires 360/390px collision
+  re-verification; collisions fix by staggering rows, never shrinking. JS fit gates
+  tied to type width (e.g. the gender %-label `w > 46`) must move with the size.
+- Font sizes are NOT tokens: they never co-vary at runtime (unlike the tint ladder,
+  where cross-media value identity forced tokens). Document the scale as a :root
+  comment; enforce with ONE structural pytest (hex-outside-:root scan + font-size
+  set membership, clamp() display sizes exempt) — never a second lint framework.
