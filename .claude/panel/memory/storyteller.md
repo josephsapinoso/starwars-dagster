@@ -97,10 +97,9 @@
   log. The honest proxy is named as a proxy.
 - **Acceptance is a decision with a tripwire** (2026-07-19): an accepted limitation
   enters the log with its reopening trigger written down; a shrug is not a verdict.
-  Live tripwires: any badge why gaining load-bearing content with no non-hover home,
-  or the legend line ceasing to be true (Q1); any stage anno carrying content absent
-  from copy/caption, or a viewBox rework arriving without the 8-state anchor-geometry
-  re-verification costed (Q4).
+  Live: Q1 — a why gains load-bearing content with no non-hover home, or the legend
+  line goes false; Q4 — an anno carries content absent from copy/caption, or a viewBox
+  rework arrives without the 8-state anchor-geometry re-verification costed.
 - **The census conceit is load-bearing** (2026-07-19): the stage tooltip is the only
   surface naming most of the 82 individuals; no input modality may be cut off from it.
   On touch it pins; dismissal is the reader's own next tap or own scroll, NEVER a timer.

@@ -187,31 +187,28 @@ fdd3178. Verified landed in site/index.html: `tipPinned = e.pointerType ===
 "touch"` (line 799), touch-exempt pointerleave (802), scroll dismissal (469),
 measured-delta instant scrollBy (484).
 
-Won: my suppress-for-touch VETO carried Q3 5–1 and the census conceit is now
-banked law in my exact framing — the stage tooltip as the 82's only roll-call
-surface, Arvel Crynyd's "never measured" reachable by every input modality.
-My Q4 debate flip was quoted in the adjudication ("a raise that can't reach
-legibility is churn wearing honesty's clothes") — flipping myself early, once
-the 8px cap and the redundancy audit landed, bought more than defending a
-doomed raise would have.
+Won: suppress-for-touch VETO carried Q3 5–1; the census conceit is now law in
+my exact framing — the stage tooltip as the 82's only roll-call surface, Arvel
+Crynyd's "never measured" reachable by every input modality. My Q4 debate flip
+was quoted in the adjudication ("a raise that can't reach legibility is churn
+wearing honesty's clothes"); flipping early, once the 8px cap and redundancy
+audit landed, bought more than defending a doomed raise.
 
-Lost: Q1, 4–2 — accept-and-document beat exposure on voice load (48 tab stops,
-~15 crossing the held pause: the page's quietest voice must not become its
-loudest keyboard path). A soft loss: accept was my own stated fallback, and
-both my conditions entered the log — legend line 911 stays true, and my
-verbatim-or-nothing rule became the settled exposure-changes-reach-not-content
-law. The reopening tripwire holds my ground without the affordance.
+Lost: Q1, 4–2 — accept-and-document won on voice load (48 tab stops, ~15
+crossing the held pause: the quietest voice must not become the loudest
+keyboard path). A soft loss: accept was my stated fallback, and both my
+conditions entered the log — legend line 911 stays true; verbatim-or-nothing
+became the settled exposure-changes-reach-not-content law. The tripwire holds
+my ground without the affordance.
 
-Prep differently next time: (1) rank fallbacks explicitly in debate — naming
-"fallback: accept" made losing Q1 nearly costless and still banked my
-conditions; (2) audit channel redundancy BEFORE defending legibility — where
-every canon fact has a legible twin in copy/caption, acceptance IS the
-lore-safe verdict; (3) count interruptions crossing the held pause — its voice
-budget is a constraint other roles will spend against, so bring the number;
-(4) when hardware is unreachable, pre-sort my evidence into measured vs
-inferred — that labeling is now log law and prep should arrive already split.
+Prep differently: (1) rank fallbacks explicitly in debate — naming "fallback:
+accept" made losing Q1 nearly costless and still banked my conditions;
+(2) audit channel redundancy BEFORE defending legibility — where every canon
+fact has a legible twin in copy/caption, acceptance IS the lore-safe verdict;
+(3) count interruptions crossing the held pause — bring the number; (4) arrive
+with evidence pre-sorted into measured vs inferred — that labeling is now law.
 
-Durable facts kept from prep: badge whys are verbatim Dagster check
-descriptions (machinery register, spoiler pin audits label+why); they are NOT
-number-free — raw_people's why carries "82", safe as beat-0's own hook. Hover
-`title=` stays a desktop bonus with no non-hover twin, by decision.
+Durable prep facts: badge whys are verbatim Dagster descriptions (machinery
+register; spoiler pin audits label+why); NOT number-free — raw_people's why
+carries "82", safe as beat-0's own hook. Hover `title=` stays a desktop bonus
+with no non-hover twin, by decision.
