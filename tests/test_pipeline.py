@@ -156,8 +156,8 @@ def test_warehouse_access_policy_is_encoded_in_code():
     # DuckDB allows many readers OR one writer per file. The multiprocess
     # executor raced transforms on that lock (observed 2026-07-18), so the
     # policy lives in code and this test keeps it there: every pure-read
-    # transform opens read_only, exactly one writer exists, and the repo's
-    # default executor is in-process (sequential).
+    # transform opens read_only, every writer is declared below (write-back
+    # law), and the repo's default executor is in-process (sequential).
     import inspect
 
     from dagster import in_process_executor
