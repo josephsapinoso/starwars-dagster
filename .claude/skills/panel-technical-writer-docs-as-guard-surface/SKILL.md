@@ -11,6 +11,13 @@ Q3(b). Shipping it would have turned a hands-on exercise into answer-key
 copying. The collision finding flipped QA's vote and made disclose-only
 unanimous. Teaching integrity can veto a feature, not just a phrasing.
 
+Second exercise (birth-registry panel, 2026-07-19): the prep grep caught
+WORKSHOP:705's hardcoded "five tables and thirteen checks" before the 13→15
+ripple would have falsified it; it shipped count-free ("a checks file you can
+read in one sitting") in the same commit, and WORKSHOP is now on the permanent
+count-ripple checklist — teaching prose states counts count-free unless the
+count is the lesson.
+
 ## Procedure (run during PREP for any proposed repo feature)
 
 1. **Grep the teaching docs for the feature's nouns.** For this repo:

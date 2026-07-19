@@ -70,34 +70,54 @@
 - galaxy_report stays check-free BY DESIGN: a check there pre-solves WORKSHOP
   Exercise 8 and duplicates pytest coverage. The gap is deliberately disclosed, not
   an oversight — don't re-propose it. (Post-landing cleanup, 2026-07-18.)
+- Failure-mode separation law: a displayed number derived through a parse gets TWO
+  guards — a drift baseline (WARN, snapshot-gated green assertion) and a
+  data-independent parse-honesty invariant asserted UNGATED (must hold on synthetic
+  fixtures too). "The data moved" and "the parser broke" must fail differently;
+  one check conflating them lets the headline lie under a glowing badge.
+  (Birth-registry panel, 2026-07-19, 7–1.)
+- Absence pins are legitimate guards: an element exempted from a detector by a
+  property (number-free, spoiler-free) gets a pin asserting that PROPERTY
+  (test_the_coda_stays_number_free); pinning wording is theater. (2026-07-19, 5–3.)
+- Warehouse access policy is encoded in code: pure-read transforms open
+  `read_only=True`, every writer is declared, the executor is pinned in-process —
+  test_pipeline.py::test_warehouse_access_policy_is_encoded_in_code. character_stats
+  is ratified as the SECOND declared writer; EXPECTED_DB_TABLES stays five,
+  `star_wars_db_tables_populated` did not grow, the write-back parity test loops
+  BOTH writers. (2026-07-19.)
+- Quoted-testimony rule: external claims (dialogue, canon) may be audited in copy
+  but never rendered as site-derived data; derived numbers come only from DATA.
+  WORKSHOP.md is on the count-ripple checklist; teaching prose stays count-free
+  unless the count is the lesson. (2026-07-19.)
 
 ## Working knowledge
 
-- Inventory (post-2aa845e): 11 assets, 4 transforms, 13 checks in `assets/checks.py`;
-  41 pytest tests green. Blocking (4) — `raw_people_has_required_shape`,
-  `star_wars_db_tables_populated`, `films_are_exactly_the_six_episodes`,
-  `characters_enriched_has_no_null_names`. WARN (9) —
-  `raw_people_count_matches_verified_snapshot`, `characters_enriched_join_coverage`,
-  `characters_enriched_unknown_mass_baseline`,
-  `characters_enriched_unknown_height_baseline` (guards beat 1's "1 unmeasured"),
-  `starship_stats_cast_sanity`, plus four `character_stats` drift baselines:
-  one-film (42), six-film trio, pilot count (19), max flown (5).
-- SQL guard file map (tests/test_site_sql.py): ungated layer —
-  `test_data_sql_has_exactly_the_five_chart_entries`,
-  `test_no_inline_sql_strings_remain_in_the_page` (pins `const sql = \`` out of
-  chart IIFEs), `test_every_displayed_string_executes_against_the_warehouse`
-  (parametrized over films/gender/scatter/homeworlds/hyper),
-  `test_displayed_sql_carries_no_unverified_count_comments`; snapshot-gated layer —
-  five `test_*_sql_reproduces_the_*` compare tests asserting executed rows == the
-  rows the charts derive from DATA. Warehouse = module-scoped fixture materializing
-  raw_* → star_wars_db → characters_enriched with FakeSWAPIResource, then
-  read_only duckdb.connect on the pipeline-written file.
+- Inventory (post-f170379, 2026-07-19): 11 assets, 4 transforms, 15 checks —
+  4 blocking (`raw_people_has_required_shape`, `star_wars_db_tables_populated`,
+  `films_are_exactly_the_six_episodes`, `characters_enriched_has_no_null_names`),
+  11 WARN: people count, join coverage, unknown-mass, unknown-height (beat 1's
+  "1 unmeasured"), cast sanity, four character_stats drift baselines (one-film 42,
+  six-film trio, pilots 19, max flown 5), plus `character_stats_birth_year_baseline`
+  (undated + oldest vs known_facts) and `character_stats_birth_year_parse_honesty`
+  (parsed NULLs == raw `'unknown'` strings, via `additional_ins` on star_wars_db,
+  read_only connect). Grep trap: checks.py's docstring mentions `@asset_check` and
+  `blocking=True`, so grep counts read 16/5 — always introspect check_specs.
+- SQL guard file map (tests/test_site_sql.py): `SQL_KEYS` is six —
+  films/gender/scatter/homeworlds/hyper/ages. Ungated layer —
+  `test_data_sql_has_exactly_the_chart_entries` (renamed count-free; asserts
+  key set == SQL_KEYS), the no-inline-SQL pin, the execute test (parametrized over
+  SQL_KEYS), the no-numeric-comments pin; snapshot-gated layer — six
+  `test_*_sql_reproduces_the_*` compare tests; the ages one also pins positive-BBY
+  (`all(r[1] > 0)` — a signed year would falsify the displayed unit). Warehouse =
+  module-scoped fixture, pipeline-built, read_only connect.
 - Failure modes with named detectors: SWAPI shape change (shape check), count drift
-  (count/mass/height baselines), join rot (coverage check), cast rot (TRY_CAST
-  sanity), copy drift on site (runtime detector), SQL rot (execute layer), SQL
-  computing the wrong thing or DATA edited without SQL (compare layer), spoiler
-  regression in check strings (spoiler pin). New site claims must extend one of
-  these, not bypass them.
+  (count/mass/height/birth baselines), parse breakage (parse-honesty, ungated),
+  join rot (coverage check), cast rot (TRY_CAST sanity), copy drift on site
+  (runtime detector), SQL rot (execute layer), SQL computing the wrong thing or
+  DATA edited without SQL (compare layer), spoiler regression in check strings
+  (spoiler pin), coda regressing into numbers (digits absence pin), writer/reader
+  lock race (access-policy test + in-process executor pin). New site claims must
+  extend one of these, not bypass them.
 - A feature and its guard land in the same commit; "verified" means an automated
   detector exists and has been seen to fail when the guarded thing breaks.
 - `from starwars_dagster import defs` is network-free (SWAPIResource constructed,
@@ -123,61 +143,51 @@ deferred — bring the verification design in hand.
 
 Decision log: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`.
 
-Won (nearly the whole slate), and why it held:
+Won nearly the whole slate: write-back one-code-path + EXPECTED_DB_TABLES-stays-five
+became law verbatim; execute-and-compare shipped as test_site_sql.py (unanimous —
+arrived with the full detector design as a skill, not a smell); Q1 re-authoring won
+on the one-home law + "a `beat` field is unverifiable attribution" (now the
+no-narrative-fields law); galaxy_report retraction bought credibility. Amendments
+accepted: spoiler pin covers payoff NUMBERS too (seen-to-fail via "trio" reinsert);
+test_site_sql builds its own module-scoped warehouse instead of reusing full_run
+(same principle, less coupling). Lessons kept: verify other roles' audits in-repo
+during PREP; every new WARN check needs a "what asserts green?" answer.
 
-- Both write-back conditions are now law verbatim (one code path with same-df parity
-  assertion; EXPECTED_DB_TABLES stays five — the ordering-lie argument is in the log
-  word for word). Verified in-repo: transforms.py:131 writes the same df it returns;
-  parity test exists in test_pipeline.py.
-- My execute-and-compare spec shipped as tests/test_site_sql.py, both layers plus
-  the no-inline-SQL and no-numeric-comments pins. Unanimous adoption — direct payoff
-  of last panel's lesson: I arrived with the full detector design (skill) instead of
-  the smell, and the 18-month open item closed in one debate.
-- Q1 re-authoring won 5–3–1 on MY framing: the one-home law (trio roster hand-listed
-  in a description = drift bug) plus "a `beat` field is hand-authored attribution
-  pytest cannot verify" sealed it. That second argument is now the settled
-  "provenance carries no narrative fields" law.
-- My galaxy_report retraction held: disclose-only, unanimous. Retracting a weak-yes
-  when the Exercise-8 collision surfaced cost nothing and bought credibility.
+## Banked: birth registry + polish (2026-07-19)
 
-Amended / deviations I accept:
+Decision log: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`.
+Commits: 1f3cf9e (registry) · 4d92cb7 (coda + hues) · 7d96df5 (limits) · f170379
+(screenshots at 15 green — the open item from last bank is CLOSED).
 
-- Spoiler pin: I leaned names-only; storyteller's amendment added payoff NUMBERS to
-  the derived term sets. Correct — "42", "19", "5" leak the punchline as surely as
-  the trio's names. Seen-to-fail verified by reinserting "trio" into a beat-4 label.
-- Implementation deviation from my spec: test_site_sql.py builds its own
-  module-scoped warehouse fixture (raw_* through characters_enriched) instead of
-  reusing test_pipeline's full_run. Same principle honored — pipeline-built DB, no
-  bespoke tables, read_only connect — and module scoping avoids cross-file fixture
-  coupling. Fine; skill updated to match reality.
+My rulings WERE the adjudication: two-checks won 7–1 (failure-mode separation now
+law); the coda digits-pin stood 5–3 as an absence assertion; the guard slate shipped
+nearly item-for-item (known_facts constants, subject-only descriptions, gated green
+assertion for the baseline, UNGATED parse-honesty assertion, synthetic parse pytest
+for ABY/fractional/garbage/unknown, DATA.sql.ages through both layers with the
+positive-BBY pin, drift-detector claims, spoiler terms extended and seen-to-fail via
+a "Yoda" label leak + baseline bump).
 
-Prep-differently next time: verifying the data-engineer's SQL audit in-repo during
-PREP (instead of taking it on faith) made my debate position unassailable — keep
-doing that. And when a guard's severity is WARN, always ask "what asserts green?" —
-the snapshot-gated pass-assertion pattern is now standard for every new WARN check.
+Deviation ratified: the execute layer caught character_stats' displayed table
+missing mid-implementation, forcing it to become the SECOND declared writer. My
+condition held — EXPECTED_DB_TABLES stays five, tables_populated did not grow, the
+parity test loops both writers. This also resolved my prep item 2 (lock race) by a
+DIFFERENT design than I specced: instead of an execute_job-under-multiprocess
+detector, the policy itself is encoded (readers read_only, writers declared,
+executor pinned in_process via test_warehouse_access_policy_is_encoded_in_code).
+Accepted: pinning the executor makes the racy mode unreachable, and any future
+executor swap fails the test first — cheaper than my detector and equally named.
+The stale "one writer" comment nit was fixed same day.
 
-Still OPEN: README screenshot retake, now targeting 13 green checks (desktop UI).
+BANK-pass verification habit that paid off: grep said 16 checks / 5 blocking; truth
+is 15/4 (docstring mentions). Introspect check_specs, never grep counts.
 
-## Prep notes: improvement survey (2026-07-19)
+Prep-differently: when I spec a detector, also spec the acceptable POLICY
+alternative (make the failure mode unreachable + pin the policy) — the panel may
+land there, and pre-approving its conditions keeps my ruling intact.
 
-Fresh-eyes repo audit found two real guard holes + one honest-disclosure gap:
-
-1. snapshot.yml verifies only `-k "people_count or six_films or unknown_mass or
-   naboo"` — misses unknown_height, one-film-42, pilots-19/max-5, the WARN
-   green-assertion test, and all five SQL compare tests. Worse: its bot push uses
-   GITHUB_TOKEN, which does NOT trigger ci.yml, so a drifted snapshot can land on
-   main with zero CI run. Fix: full `pytest -v` gate before commit. Cost S.
-2. Multiprocess-executor DuckDB lock race (observed 2026-07-18): three read-only
-   transforms connect read-write (transforms.py:153/188/235); characters_enriched
-   legitimately writes. `materialize()` in tests is in-process, so the suite is
-   structurally BLIND to the deploy-mode failure — a failure mode with no named
-   detector. Guard design: read_only=True on pure readers + serialize the writer;
-   detector = offline `execute_job(reconstructable(...))` under the default
-   executor against fixtures, seen-to-fail first. Cost M.
-3. Site never says WHEN its numbers were verified. SNAPSHOT.json carries a date;
-   a verified-as-of field in DATA, pytest-pinned equal to the fixture date, makes
-   staleness visible and forces republish on refresh. Cost S. Watch the
-   no-narrative-fields law: a date is verifiable, not narrative — route it via
-   known_facts.
-
-WORDS overflow: confirmed guarded (site runtime warn + provenance totals test).
+Still OPEN (from 2026-07-19 survey, not in this debate's scope):
+1. snapshot.yml runs a partial `-k` pytest subset and its GITHUB_TOKEN bot push
+   does not trigger ci.yml — a drifted snapshot can land with zero CI. Fix: full
+   pytest gate before commit. Cost S.
+2. Verified-as-of date in DATA, pytest-pinned to the SNAPSHOT.json date (a date is
+   verifiable, not narrative — route via known_facts). Cost S.

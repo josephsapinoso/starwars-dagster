@@ -28,12 +28,20 @@ true_checks = {
 }
 ```
 
-Expected today (post commit 2aa845e, 2026-07-18): 11 assets (raw_* ×5 →
-star_wars_db → 4 transforms → galaxy_report); 13 checks, split 4 blocking /
-9 warn (the ninth WARN is `characters_enriched_unknown_height_baseline`,
-guarding beat 1's displayed "1 unmeasured"). If these counts drift,
-re-introspect — never patch them by hand. Count ripples touch the WORDS
-number-word list, beat-7 callback totals, README, and CLAUDE.md — same commit.
+Expected today (post commit 1f3cf9e, 2026-07-19): 11 assets (raw_* ×5 →
+star_wars_db → 4 transforms → galaxy_report); 15 checks, split 4 blocking /
+11 warn. The two newest WARN checks are the birth-registry pair on
+`character_stats`: `character_stats_birth_year_baseline` (drift: undated count +
+oldest BBY vs known_facts) and `character_stats_birth_year_parse_honesty`
+(data-independent: parsed NULLs == raw `'unknown'` strings, reaching the
+warehouse via `additional_ins={"star_wars_db": ...}`, read_only connect —
+asserted green UNGATED in pytest because it must hold on synthetics too).
+If these counts drift, re-introspect — never patch by hand, and never COUNT BY
+GREP: checks.py's module docstring mentions `@asset_check` and `blocking=True`,
+so grep reads 16/5 when the truth is 15/4. Count ripples touch the WORDS
+number-word list, beat-7 callback totals, README, CLAUDE.md, and WORKSHOP.md
+(kept count-free per the 2026-07-19 law: teaching prose states counts
+count-free unless the count is the lesson) — same commit.
 
 ## 2. Severity rule: derive from `spec.blocking`, never hand-type
 
@@ -66,8 +74,13 @@ say so.
   exactly the agreed one. Also the spoiler pin
   (`test_site_provenance.py::test_no_payoff_leaks_before_reveal_beat`): payoff
   term sets derived from known_facts (names AND numbers, e.g.
-  SIX_FILM_CHARACTERS, "trio"), asserted absent from any check string rendered
-  on a beat earlier than its claim's reveal.
+  SIX_FILM_CHARACTERS, "trio", and since 2026-07-19 OLDEST_DATED_CHARACTER +
+  the 896 figure), asserted absent from any check string rendered on a beat
+  earlier than its claim's reveal. Every extension is seen-to-fail before merge
+  (latest: a "Yoda" label leak + baseline bump). Related absence pin:
+  `test_the_coda_stays_number_free` guards the coda's detector exemption by
+  asserting its PROPERTY (no digits), never its wording — pinning wording is
+  theater (settled 2026-07-19).
 - runtime drift detector: internal consistency only — every rendered beat has a
   provenance entry, badge values are in the two-value enum, counts cited in
   reveal copy match `DATA`. It cannot see Dagster; don't pretend it can.

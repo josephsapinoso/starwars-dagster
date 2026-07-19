@@ -49,6 +49,25 @@
 - galaxy_report stays check-free BY DESIGN: a check there would pre-solve WORKSHOP
   Exercise 8 and duplicate pytest coverage. The gap is deliberately disclosed, not an
   oversight — docs must keep saying so. (Post-landing cleanup, 2026-07-18.)
+- **Quoted-testimony rule (docs-genre law, MINE to enforce):** external claims —
+  dialogue, canon, anything the repo didn't compute — may be AUDITED in copy but never
+  rendered as site-derived data; derived numbers come only from DATA. The Yoda "900"
+  precedent: 896 BBY is the derived number; 900 appears only as testimony being
+  checked against it. (Birth-registry panel, 2026-07-19.)
+- **WORKSHOP.md is on the permanent count-ripple checklist**, and teaching prose
+  states counts count-free unless the count IS the lesson ("a checks file you can
+  read in one sitting", WORKSHOP:705). Any copy encoding a count is a drift surface.
+  (Birth-registry panel, 2026-07-19.)
+- README "Limits, by design" is settled: placed between "How this was built" and
+  "Learn Dagster" (honesty-genre continuity → Module-10 handoff); engineering
+  register, number-free; bullet shape is limit → why fine now → forcing trigger;
+  closes with ONE link to WORKSHOP Module 10 as the sole home of the tooling
+  why-nots. (Birth-registry panel, 2026-07-19.)
+- Absence pins are legitimate guards: an element exempted from a detector by a
+  property (number-free, spoiler-free) gets a pin asserting that property; pinning
+  exact wording is theater. Failure-mode separation: a parsed displayed number gets
+  BOTH a drift baseline and a parse-honesty invariant — "data moved" and "parser
+  broke" must fail differently. (Birth-registry panel, 2026-07-19.)
 
 ## Working knowledge
 
@@ -70,59 +89,32 @@
 - Reveal implementation is HTML `.chip` elements (not SVG), so text is natively
   accessible; `aria-label` is generated from the same provenance data — no separate
   hand-written accessible-name strings to drift.
-- Ground truth (updated 2026-07-18, commits c0b97e0 + 2aa845e): 11 assets /
-  4 transforms / 13 checks (4 blocking, 9 warn) — the 13th is the WARN height-null
-  baseline guarding beat 1's "1 unmeasured". `characters_enriched` now writes back
-  to the warehouse (`CREATE OR REPLACE TABLE`; EXPECTED_DB_TABLES stays five). The
-  five dashboard SQL strings live in DATA and are executed + compared offline.
-  README's "How this was built" now carries TWO past-tense honesty beats: the
-  hand-derived numbers, then the three-of-five false SQL strings.
+- Ground truth (updated 2026-07-19, commits 1f3cf9e/4d92cb7/7d96df5/f170379):
+  11 assets / 4 transforms / 15 checks (4 blocking, 11 warn) — 14th/15th are the
+  registry's WARN pair (birth-date baseline + parse-honesty). `birth_year_bby`
+  column; registry card in the Census section; six SQL strings in DATA, all
+  executed + compared offline; WORDS through "fifteen" (index.html:842); coda after
+  the last grid with a digits-pin. README: Limits section at 117–137; screenshots
+  retaken at 15 green checks (f170379). "How this was built" carries TWO past-tense
+  honesty beats: hand-derived numbers, then the three-of-five false SQL strings.
+- Known stray others should fix (not mine to touch): QA's skill file
+  `panel-qa-engineer-provenance-verification/SKILL.md:32` still says "13 checks".
 
-## Banked: pipeline-reveal (2026-07-18)
+## Banked: pipeline-reveal + transform landing (2026-07-18, compacted)
 
-- Won: single-source rationale — my drift-risk finding (checks.py `description=` vs
-  a hand-written third home in `DATA.provenance`) became banked law; the pytest
-  suite asserts verbatim match. Won: generated-label principle — one template
-  filled from provenance, though the winning wording is lore's "paper trail" bridge,
-  not my number-filled "Where 23 of 82 comes from" draft. Lesson: I supply the
-  mechanism (generate, don't hand-write); voice is a shared decision.
-- Won by proxy: my aria concern about SVG titling dissolved when HTML chips beat
-  SVG (adjudication #4) — real text needs no aria re-plumbing; labels still
-  generate from the one data source.
-- Won: README rewrite lands with the decided order, including the identity-sentence
-  swap I flagged and WORKSHOP.md preserved as a linked appendix. The `.claude/`
-  panel gets exactly one short process section with its one-sentence why — my
-  "signal or gimmick" question resolved as: show it, briefly, human as adjudicator.
-- Lost/deferred: nothing of mine cut; the analyst's per-character transform and the
-  SQL-string migration are open items — if the transform lands, beats 4–6 upgrade
-  to DIRECT and their honesty lines must be regenerated, not patched (the
-  projection architecture makes this automatic; verify tests force it).
-- Prep differently next time: I verified the site's microcopy but not the accuracy
-  of the brief's beat→asset map — the analyst's falsification of it reshaped
-  everything, including the copy I'd have to write. Before drafting explanation
-  systems, check whether the thing being explained is true.
-
-## Banked: per-character transform landed (2026-07-18, commit 082d9c9)
-
-- Execution note, not a debate (decision file:
-  `2026-07-18-per-character-transform-landed.md`). The transform open item from
-  pipeline-reveal is CLOSED; the SQL-string migration stays open (blocked on a
-  verification story).
-- My "regenerate, don't patch" prediction held: the projection architecture flipped
-  beats 4–6 to direct/check-guarded by changing provenance data, and README counts
-  updated everywhere they appear (headline line 44, asset table, tree comment).
-- Narrative win worth reusing: the "How this was built" paragraph retold the
-  derived-first story in PAST tense — the honest-labeling episode became proof of
-  process instead of stale copy. Count also corrected "two" → "three" hand-derived
-  numbers. Pattern: when facts change, superseded claims either update or become
-  explicit history; they never linger as present tense.
-- Docs caught two latent copy bugs the pipeline change exposed: beat-7 number-word
-  list overflow ("undefined checks" at 12) and hardcoded "three transforms" in
-  prose + DAG-strip aria label. Lesson: any copy that encodes a count is a drift
-  surface — prefer generation from provenance, or a detector that warns on overflow.
-- Screenshot caption discipline held without edits: caption "Asset Lineage Graph"
-  describes without counting, so the old image doesn't overclaim. Captions that
-  name, not enumerate, survive data changes.
+- Wins now promoted to Settled: single-source rationale (checks.py `description=`,
+  pytest-verified verbatim), generated labels from one template, README order,
+  WORKSHOP as linked appendix. Lesson kept: I supply the mechanism (generate,
+  don't hand-write); voice is a shared decision — lore's "paper trail" beat my
+  number-filled label draft.
+- "Regenerate, don't patch" held when the transform landed (082d9c9): provenance
+  data flipped beats 4–6 to direct and all counts moved with it. Superseded claims
+  either update or become explicit PAST-tense history — never linger as present
+  tense (the "How this was built" honesty-arc pattern).
+- Copy that encodes a count is a drift surface (beat-7 WORDS overflow, hardcoded
+  "three transforms"); captions that name-not-enumerate survive data changes.
+- Prep lesson: before drafting explanation systems, check whether the thing being
+  explained is true — the analyst falsified the brief's beat→asset map once.
 
 ## Banked: post-landing cleanup (2026-07-18, commits c0b97e0 + 2aa845e)
 
@@ -163,30 +155,46 @@
   near-verbatim. Drafting copy for the branch you expect to win, gated on the fix,
   is cheap and makes "same commit" frictionless. Do it again.
 
-## Prep notes: improvement survey (2026-07-19)
+## Banked: birth registry + coda + limits (2026-07-19; decision
+`2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e/4d92cb7/7d96df5/f170379)
 
-- WORKSHOP currency audit: write-back taught (line 367, one sentence), character_stats
-  in the diagram (115), NO hardcoded check counts anywhere (drift-proof, good). Gap:
-  Module 8 stops at three patterns — test_site_provenance.py and the executed-SQL
-  suite are absent from the tutorial, yet README:26 names Module 8 the long-form home
-  of the testing philosophy.
-- WORKSHOP Module 10 "Add Great Expectations or Soda" (~line 690) is a mislabeled
-  stub: its code sample is a plain Dagster @asset_check duplicating Module 8, and it
-  recommends the one thing the repo's hard constraints deliberately exclude, with no
-  why/tradeoff.
-- README:14 renders a literal dead `#` portfolio anchor above the fold (slot is
-  settled; rendering it dead is not).
-- Decision-log discoverability OK-ish: decisions/README.md exists; repo README links
-  the folder, not an exemplar decision file.
+- **Won Q4 whole:** my placement (between "How this was built" and "Learn Dagster")
+  and closing Module-10 link adopted, with the hiring-manager's bullet shape
+  (limit → why fine now → forcing trigger). What won was CONTINUITY — the section
+  extends the honesty genre the arc established, then hands off to Module 10
+  instead of duplicating the tooling why-nots.
+- **Won the WORKSHOP:705 catch:** "five tables and thirteen checks" retired
+  count-free in the same commit ("a checks file you can read in one sitting");
+  WORKSHOP joined the permanent count-ripple checklist as banked law. Second real
+  exercise of the docs-as-guard-surface skill — the prep grep found a live drift
+  surface before it lied in public.
+- **No stake lost:** the one-vs-two-check fight wasn't mine; QA's failure-mode
+  separation won 7–1 and shapes my copy anyway — "the data moved" and "the parser
+  broke" are different sentences, so the guards that catch them must be too.
+- Description discipline held WITHOUT me: both registry check descriptions arrived
+  subject-only, 39/43/896/Yoda in known_facts only — the style rule living in
+  checks.py's docstring did its job on authors I never briefed.
+- Quoted-testimony rule banked (storyteller's framing; the docs version is mine to
+  own): audit external claims in words, never render them as derived data.
+- 13→15 ripple verified post-landing: README:48 + :160, WORKSHOP:705, WORDS through
+  "fifteen" (index.html:842), screenshots at 15 green (f170379). One stray outside
+  the ripple's reader-facing scope: QA's provenance-verification skill still says
+  "13 checks" — flagged upward; each role owns its own memory/skill drift.
+- Prep differently: my survey flagged Module 10's Great-Expectations stub as a
+  mislabeled duplicate; the verdict then made Module 10 the SOLE home of the
+  tooling why-nots. When a verdict promotes a doc to sole-home status, immediately
+  re-check that the doc can carry the weight — don't wait for the next survey.
 
 ## Open watch items (mine)
-- Screenshot retake still open — target is now 13 green checks. Caption ("Asset
-  Lineage Graph") names without counting, so it doesn't overclaim; keep it
-  count-free until the retake lands.
-- Two-reader test for check strings (kept from prep): every description serves the
-  Dagster operator AND the site hover reader; names/numbers surface per-run in
-  metadata (e.g. six_film_characters/expected) — exactly where an operator looks.
-  Function names render only on their payoff beat, so no rename churn.
-- Watch the honesty arc's length: two confession beats read as process; a third
-  should prompt asking whether the paragraph needs restructuring into a pattern
-  statement rather than a growing list.
+
+- Module 10 is now README's only pointer for "why one check framework / no coverage
+  gates" — next prep, verify its text actually argues the why/tradeoff rather than
+  the old "add Great Expectations or Soda" stub framing.
+- Two-reader test for check strings: every description serves the Dagster operator
+  AND the site hover reader; names/numbers surface per-run in metadata — exactly
+  where an operator looks. Held for the registry pair; keep testing on every new
+  check.
+- Honesty-arc length: the SQL-truth sentence is the SECOND confession beat. A THIRD
+  is the trigger to restructure "How this was built" from a growing chronological
+  list into a pattern statement (the process keeps catching false claims — name the
+  pattern once, then list episodes tersely).
