@@ -43,7 +43,31 @@ Judge every merge by whether the VOICE survives, not whether the pixel survives.
    --fs-12-5 documents nothing and fossilizes the number. Tokens for kept steps
    only — a token per orphan size just launders the mess.
 
-7. **Scenery colors are not tokens.** A one-use paint inside a canvas (starfield,
+7. **The whisper clause — pin exceptions, don't hole them (SHIPPED shape, a30a5bc).**
+   Every sanctioned exception to the scale is an exact (selector-fragment, exact-px,
+   reason) tuple in the structural guard, asserted to exist at exactly that value:
+   a raise OR a shrink fails the test and prints the reason. This converts "allow-list"
+   (which rots silently) into "law" (which fails loudly), and it answers the
+   allow-lists-rot objection outright — a drifted pin is a red test, not a stale
+   comment. As shipped in tests/test_site_style_hygiene.py: `SANCTIONED_SCALE`
+   {11,12,13,14,16,17,18,42} plus `EXEMPT_SELECTORS` pinning the geometry tier
+   (.axis-t/.val-t/.anno-t 11.5, .cat-t 12.5, .seg-pct 11.5 with its w>46 gate) and
+   the whisper tier (.prov-check 11.5, reason citing the held pause). Put the STORY
+   rationale in the reason string — the pin then argues for itself at failure time.
+   Corollary: bring the drafted pin table to the debate, not just the pin idea.
+
+8. **Raise-only grants permission, not obligation.** A raise-only consolidation never
+   obliges pinned geometry to move: standing still needs no evidence; moving
+   collision-managed lettering does (clipping, gates, stagger reflow). Use this to
+   refuse "while we're at it" raises smuggled into hygiene passes.
+
+9. **The registry is the test, not a token set.** The sanctioned scale's one
+   machine-readable home is the executable structural test — it fails when the file
+   drifts, unlike prose ledgers or CSS variables minted only to feed a checker.
+   Rule 6's role-named tokens apply only IF tokens are wanted for authoring reasons;
+   never mint tokens purely to give a guard something to read.
+
+10. **Scenery colors are not tokens.** A one-use paint inside a canvas (starfield,
    texture) that no other element will ever consume gains nothing from the token
    system, and a runtime bridge (getComputedStyle at init) adds a failure mode to
    the page's opening chord. Sanctioned literal + comment beats indirection when

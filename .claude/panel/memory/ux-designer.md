@@ -70,6 +70,20 @@
 - **SVG text doesn't wrap:** any caption that can clip at 390px becomes wrapping HTML
   outside the SVG (testimony caption precedent, 2026-07-19); no horizontal overflow at
   390/360 is the verification bar.
+- **Token hygiene laws (2026-07-19):** (a) *Whisper clause* — every sanctioned style
+  exception is an exact (selector, value, reason) pin in `test_site_style_hygiene`,
+  failing loudly on change in either direction; unexplained holes are theater.
+  (b) *Scenery is not ink* — decorative paint (aria-hidden canvas) may stay a literal
+  with a required sanction comment; data ink must be tokenized; no runtime bridges for
+  decoration. (c) *Ink adapts to its ground* — on-mark labels pick ink per computed
+  ground from the SAME array that drives the ground color, every rendered pair ≥4.5:1
+  verified computationally; never one ink that fails somewhere, never a new hex; if no
+  pairing passes, drop the on-mark label (legend/table already carry the data).
+  (d) *The registry is the test* — the sanctioned type scale {11,12,13,14,17 + pinned
+  exemptions} lives only in the structural pytest; no font-size tokens, no parallel
+  lists. (e) *Raise-only grants permission, not obligation* — standing still needs no
+  evidence; moving chart geometry does. `.prov-check` stays 11.5 (pinned): the badge
+  voice must not merge with the 12px summary/chip machinery voice on the rail.
 
 ## Working knowledge
 
@@ -117,89 +131,67 @@
   replacement strings during prep. Riders on other roles' proposals evaporate with
   them — spend debate words on my own proposal's survivable parts.
 
-## Banked: birth registry, coda, hue enforcement (2026-07-19)
+## Banked: birth registry, coda, hue enforcement (2026-07-19, compacted)
 
-**Won (verified in site/index.html, commits 1f3cf9e/4d92cb7/f170379):**
-- Coda mechanics shipped exactly as filed: block anchor (`.coda a` display:block,
-  14px vertical padding → 53px measured hit area, line 140), `#story tabindex="-1"`
-  (line 257) with headless-verified focus movement, `aria-hidden` ↑ glyph (line 397),
-  no JS, no arrival animation. Promoted to Settled as the fragment-navigation pattern.
-- No-tooltip-content law held its first offensive test: the BBY gloss PRINTS in the
-  card subtitle instead of hiding in a `title`.
-- Keyboard parity landed wider than my ask: not just the new annotated registry dots —
-  all six renderers now give marks tabindex + aria-label + focus tooltips, closing the
-  scatter-dot gap from my improvement survey. Registry table (43 rows) is the
-  keyboard-canonical home; denominators visible.
-- Sliver protection: converted gender legend keeps name + count summing to 82; no
-  segment depends on a tooltip.
-- Mobile regression caught in-flight: testimony caption clipped in SVG at 390px and
-  was rebuilt as wrapping HTML; 390/360 no-horizontal-overflow verified. Banked as the
-  "SVG text doesn't wrap" rule.
+- Won: coda mechanics shipped exactly as filed (promoted to Settled as the
+  fragment-navigation pattern); no-tooltip-content law survived its first offensive
+  test (BBY gloss prints in the subtitle); keyboard parity landed wider than my ask
+  (all six renderers, not just registry dots — the improvement-survey scatter gap
+  closed); sliver protection via legend conversion; testimony-caption clipping caught
+  in-flight → "SVG text doesn't wrap" rule.
+- Lost, rightly: I called the coda digits-pin theater. QA's distinction stands —
+  pinning a PROPERTY (stays number-free, the premise of its detector exemption) is an
+  honest absence assertion; pinning WORDING would be theater. Before objecting to a
+  guard, name the exact property it asserts; my own guard-honesty law WANTS such pins.
+- Prep lesson (my highest-yield yet): the fresh-eyes improvement survey doubling as
+  prep — file:line findings became shipped fixes without spending debate capital.
+  Keep auditing the artifact between debates and file findings with line numbers.
 
-**Lost (only one, and rightly):**
-- I called the coda digits-pin theater. QA's distinction is correct: pinning a
-  PROPERTY (stays number-free — the premise of its exemption from the drift detector)
-  is a cheap, honest absence assertion; pinning WORDING would be the theater, and
-  nobody proposed that. Lesson: before objecting to a guard, name the exact property
-  it asserts; "this pins prose" and "this pins the absence that justifies an
-  exemption" are different objects. My own guard-honesty law actually WANTS the pin.
+## Banked: token hygiene + raise-only type (2026-07-19, commit a30a5bc)
 
-**Prep differently next time:** the fresh-eyes improvement survey doubling as prep was
-the highest-yield prep I've done — file:line-specific findings (scatter parity, caption
-clipping risk class, doctype/lang, heading outline) became shipped fixes without
-spending debate capital. Keep auditing the artifact between debates and file findings
-with line numbers; small a11y debts get swept into big commits essentially for free.
+**Won:**
+- AA-fix-ships-this-pass carried, and got BETTER than my proposal. My prep found the
+  live defect (white 11.5px on --s1 ≈3.6:1) and I said "white at 12px is not on the
+  menu" — correct. But my remedy (single dark ink) was refined by the orchestrator's
+  math: NO single ink passes both labeled segments (--void ≈5.5:1 on full s1 but
+  ≈3.7:1 on the 75% tint; --ink ≈4.8:1 on the tint but fails full s1). Landed:
+  `.seg-pct` class with per-rank ink from the same ladder index that drives segment
+  color (site ~98, ~1131–35). Lesson: when proposing an ink, run the contrast pair
+  for EVERY ground it can sit on, not the worst one I happened to check.
+- Dead 11px attr deleted with its inert small flags — the JS-attr-precedence find was
+  pure prep yield. JS-scan requirement shipped in the guard (shared must-have with
+  the analyst; a JS-blind guard would have missed all four literal residues).
+- Headless 360/390 re-verify ran pre-merge: no overflow, kickers fit, rails wrap,
+  seg-pct inks confirmed rendering var(--void)/var(--ink), zero drift warnings.
 
-**Watchlist (carried, still open — all three genuinely need hardware):** real-device
-AT exposure of `title` on check badges; desktop center-flex scroll-anchoring jump when
-a reveal opens (unverified on hardware); stage-dot tooltip flashes on touch tap
-(pointerleave on release — minor).
+**Lost:**
+- `.prov-check` 11.5→12 (4–2). The storyteller's craft argument beat my
+  retire-the-exception tidiness: summary is 12 and chips are mono 12, so a 12px badge
+  merges the guard voice into the machinery voice on the held pause's rail. The
+  whisper clause converts the exception from a hole into a pinned law, which answers
+  my real objection (unauditable exemptions) better than erasing it. Lesson: my
+  target was the HOLE, not the size — when a pin can make an exception loud and
+  testable, retiring it buys nothing.
+- Chart-lettering raises (3–2): exempted as a pinned geometry tier. Fair — the
+  collision/gate evidence burden was real and unfunded, and raise-only grants
+  permission, not obligation. My fixed-viewBox stage-legibility find (stage text
+  renders ×~0.69 on the 480px mobile stage; 12px ≈ 8.2px effective) is logged as a
+  possible FUTURE proposal needing its own evidence. → Watchlist.
 
-## Prep notes: token hygiene + raise-only small type (2026-07-19)
+**Prep differently:** cost my own remedies with the same rigor I cost others' — the
+adaptive-ink refinement was one contrast multiplication away from being MY proposal.
+And when defending a raise that retires a settled exception, check first whether the
+exception is load-bearing craft (voice separation) rather than accumulated debt.
 
-- **Two SVG geometry regimes (changes all collision/legibility math).** Stage svg is a
-  fixed 700×620 viewBox → text scales with the SVG: collisions are width-INdependent,
-  but effective mobile size is ×~0.69 (`.anno-name` 12px renders ~8.2px at the 480px
-  mobile stage cap). Raises HELP stage legibility. All six dashboard charts measure
-  `viz.clientWidth` (lines 1047/1108/1162/1241/1279/1330) → font sizes are true CSS px
-  and collisions are worst at 360px. Re-verify after any raise: registry end-anchored
-  axis pair (lines 1367–68), scatter annos, gender `w > 46` label gate.
-- **Dead attr found (line 747):** `attrs["font-size"] = 11` on small stage annos is
-  inert — SVG presentation attributes lose to ANY CSS rule, and `.anno-name` sets 12px.
-  Small annos already render at 12px; the brief's "11px JS small-label" inventory entry
-  is false. Deleting the attr is a zero-visual-change cleanup. Lesson: JS-attr styling
-  drifts silently; the Q4 guard should flag `font-size`/hex attrs set in JS.
-- **Live contrast defect (lines 1131–32):** the gender in-segment % labels (fill #fff,
-  11.5px/600) ARE live (no CSS font-size matches unclassed `.viz text`). White on --s1
-  #3987e5 ≈ 3.6:1, on violet #9085e9 ≈ 3.1:1 — below the 4.5:1 AA floor for small
-  text; raising the size doesn't fix it (bold large-text threshold ≈ 18.7px). Redundant
-  homes exist (legend name+count, table, tooltip) but strict AA fails. Fix path: route
-  fill+size through a real class so contrast is governable; dark ink (--void ≈ 5.4:1 on
-  --s1) passes if the designer accepts dark-on-color.
-- **Starfield bridge safety:** canvas is `aria-hidden` decoration; `reduced` guard
-  draws once statically. A token bridge is safe ONLY as a one-time cached
-  `getComputedStyle` read at IIFE init (never per-frame — `draw()` is a rAF loop;
-  resize reseeds but must not re-read). Works identically in flat/auto-height iframes.
-  I'm indifferent between cached bridge and a sanctioned commented literal.
-- **Raise-only implications I'll defend:** target scale {11, 12, 13, 14} is reachable
-  purely by raises (10.5→11, 11.5→12, 12.5→13, 13.5→14). `.prov-check` 11.5→12 is a
-  raise, not a shrink — allowed by the settled exception's wording and it RETIRES the
-  exception; contingent on re-running the 360px rail check (chips 125–180px @11.5 →
-  ~+4% width, still far under the 244px rail). `.dag-group .g-label` 10.5→11 is safe
-  (own `overflow-x:auto` container). Gender %: at 360px viz ≈ 272px, male (~197px) and
-  female (~56px) segments pass the 46px gate; "73%" at 12px ≈ 24px — fits. 16.5px h3:
-  leave or →17, no UX stake (card-head is flex; wrap is graceful). Raises never hurt
-  touch targets. SVG text sizes should become classes consuming tokens — attrs are the
-  drift vector; only canvas needs a JS bridge.
+**Durable working knowledge kept:** six dashboard charts measure `viz.clientWidth`
+(true CSS px, verify at 360); stage svg is fixed 700×620 viewBox (scaled text). Rail
+density at 360 verified: chips wrap one per row inside a 244px rail, summaries
+46–64px ≥44px target; sole cosmetic note is mid-word overflow-wrap of the long check
+ref "character_stats_one_film_baseline" — acceptable, revisit only if user-facing
+prose starts breaking. Gender label gate `w > 46` untouched (label size stayed 11.5).
 
-**Closed 2026-07-19 — rail density at 360px (15 checks): VERIFIED.** Orchestrator
-headless run (Chromium/Playwright, 360×780, file:// load, all `details.prov` forced
-open): document/body scrollWidth exactly 360, no horizontal scroll; every
-`.prov-checks` rail wraps cleanly (chips 125–180px vs 244px rail → one chip per row,
-zero overflow); densest rail is character_stats with 6 stacked "◇ warns" chips on
-beats 4–6 — tall but opt-in inside the disclosure, nothing clipped; summaries measured
-46–64px so the ≥44px touch target holds; zero drift-detector console warnings.
-Cosmetic note only: at 360px the prov-note paragraph breaks the long check ref
-"character_stats_one_film_baseline" mid-word via overflow-wrap. No overflow; accepting
-as-is — mid-word breaking of a code identifier beats horizontal scroll. Revisit only
-if check refs get longer or user-facing prose starts breaking.
+**Watchlist (carried + new):** real-device AT exposure of `title` on check badges;
+desktop center-flex scroll-anchoring jump on reveal open; stage-dot tooltip flash on
+touch tap; NEW — stage viewBox legibility raise (own evidence pass: viewBox-relative
+collision check, mobile effective-size table, before/after at 480px stage cap) if I
+choose to fund it.

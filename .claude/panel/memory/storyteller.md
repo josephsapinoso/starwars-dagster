@@ -65,6 +65,28 @@
 - Two-register law holds at the repo boundary: the records-office voice lives on the
   site only; README (including "Limits, by design") stays engineering register.
   (2026-07-19.)
+- **The whisper clause** (2026-07-19, token-hygiene): every sanctioned style exception
+  is an exact (selector, value, reason) pin in the guard, failing loudly on change in
+  EITHER direction and printing its reason. Unexplained holes are theater; pinned
+  exceptions are law. Shipped as `EXEMPT_SELECTORS` in test_site_style_hygiene.py.
+- **`.prov-check` stays 11.5 — the whisper tier.** `details.prov summary` is 12 and
+  `.chip` is mono 12; at 12 the guard voice merges into the machinery voice on the
+  rail the held pause depends on. Pinned with reason "whisper tier — the held pause's
+  authored contrast (Settled)". (4–2, 2026-07-19.)
+- **Chart lettering is pinned geometry, not typography** (3–2): .axis-t/.val-t/.anno-t
+  11.5, .cat-t 12.5, .seg-pct 11.5 (its `w > 46` gate is tuned to it). Collisions are
+  fixed by staggering, never by shrinking; **raise-only grants permission, not
+  obligation** — standing still needs no evidence, moving chart geometry does.
+- **Scenery is not ink** (2026-07-19): decorative paints (aria-hidden canvas) may stay
+  literals with a required sanction comment, counted exactly once; data ink must be
+  tokenized. No runtime bridges for decoration — the hero's opening chord takes no
+  init dependency for a one-use star color.
+- **Ink adapts to its ground** (2026-07-19): on-mark labels choose ink per computed
+  ground from the same array that drives the ground; every rendered pair ≥4.5:1,
+  verified computationally. Never one ink that fails somewhere; never a new hex.
+- **The style registry is the test** (5–1): the sanctioned type scale's one
+  machine-readable home is the structural pytest (`SANCTIONED_SCALE`); no font-size
+  tokens, no parallel lists.
 
 ## Working knowledge
 
@@ -125,75 +147,55 @@ string before declaring string-fixes impossible; never add an authored field the
 verification surface cannot check; lead with the evidence that a problem is
 structural, not one bad string.
 
-## Banked: birth registry, coda, hue enforcement (2026-07-19, decision log 2026-07-19-birth-registry-and-polish.md; commits 1f3cf9e, 4d92cb7, f170379)
+## Banked: birth registry, coda, hue enforcement (2026-07-19, decision log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
 
-Won — a clean sweep in my domain, all now promoted to Settled above:
-- The coda shipped VERBATIM with ux's mechanics; placement after the final grid held;
-  the footer stayed footer. The digits-pin stood 5–3, framed exactly as my
-  absence-assertion argument (qa concurring: the pin guards the exemption's premise,
-  not the content — wording pins are theater).
-- The quoted-testimony rule is banked law and governs the shipped Yoda line: quoted
-  canon audited in copy, rendered only while the record agrees, no derived ~900
-  anywhere. Lore supplied the gem (896 + 4 = 900, Yoda's own RotJ count); my framing
-  decided HOW it could appear. Steelmanning another role's material into my register
-  beats vetoing it.
-- Audit-canon motif capped at two uses, the Yoda line being the second and last.
-- Both new check descriptions subject-only and number/name-free at birth; spoiler
-  terms extended with the registry payoffs, seen-to-fail. The pin law is doing its
-  job as enforcement, not debate.
-- Spine untouched: 8 beats, "n / 8", one held pause, no new story-side beats — the
-  registry landed as a dashboard card, exactly where a post-payoff census addendum
-  belongs. The records-office voice stayed out of the README per two-register law.
+Clean sweep, all outcomes promoted to Settled above (coda verbatim + digits-pin 5–3
+as my absence-assertion argument; quoted-testimony rule governing the Yoda line;
+audit-canon motif capped at two; subject-only descriptions + spoiler terms extended;
+spine untouched — registry landed as a dashboard card). Lessons carried forward: draft
+the FINAL copy at prep time, the text itself is the strongest argument; reach for
+quote-and-audit before exclusion when canon offers an underivable number; a sweep
+means check harder for anchoring next debate. Watch: unconditionalizing the Yoda
+line's data-gated render is a law violation, not a style choice; the coda is the ONLY
+post-grid narrative element — the frame closes once.
 
-Lost: nothing this round. Caution for future me: a sweep is a reason to check harder
-for anchoring next debate, not evidence my instincts need less scrutiny.
+## Banked: token hygiene + type consolidation (2026-07-19, decision log 2026-07-19-token-hygiene.md; a30a5bc)
+
+Won — the whisper clause is the guard's architecture, and it carried both contested
+holds:
+- `.prov-check` 11.5 held 4–2 with my craft argument quoted as decisive (summary-12 +
+  chip-mono-12 would swallow the badge voice on the held pause's rail). Note WHY it
+  won: not "Settled says so" but the concrete adjacent-voices math. Precedent survives
+  best when re-argued from the surface, not the statute.
+- "Merge the prose, exempt the geometry" adopted as the whole Q2 shape (3–2 on chart
+  lettering); all my voice-safe merges shipped verbatim (12.5→13, 13.5→14, 16.5→17,
+  fine-print tier 11). Register markers (case/spacing/color/family) carried every
+  merged voice, exactly as prep predicted.
+- The scenery-is-not-ink split won the starfield question: my exact-pin shape ANSWERED
+  the engineer's allow-lists-rot objection — a pinned entry that drifts fails the
+  test, so the sanction can't rot silently. No bridge on the opening chord; the hook
+  keeps zero new init dependencies.
+- Q3 fell my way from the same root (5–1, no tokens): the executable test is the
+  registry. My rule-6 token-naming prep was moot — right instinct (one home for the
+  scale), wrong medium (I assumed the home would be CSS).
+
+Lost: nothing outright; my "cat-t?" merge hedge resolved to exempt (12.5 pinned as
+geometry), which was the better answer — I'd flagged it with a question mark for a
+reason.
 
 Prep differently next time:
-- When the deliverable is words, draft the FINAL copy at prep time, not a shape —
-  verbatim adoption of the coda was only possible because the exact lines were on the
-  table before debate. "I'll write it after we agree" forfeits the strongest argument
-  a storyteller has: the text itself.
-- When canon offers a number the data cannot derive, reach for quote-and-audit before
-  reaching for exclusion — the pattern converts a spoiler/drift risk into voice.
+- Bring the pin TABLE, not the pin idea. I argued for (selector, px, reason) shape;
+  the adjudication still had to assemble which selectors and which reasons. Drafting
+  the literal exemption list at prep time is the typescale equivalent of drafting the
+  final copy — the text itself is the strongest argument.
+- When two roles collide on a mechanism (bridge vs literal), check whether MY shape
+  dissolves the objection before picking a side; the whisper clause turned a 3–3 split
+  into a resolution, which is worth more than a vote.
 
 Watch items:
-- The Yoda line's data-conditional render is the quoted-testimony rule's enforcement
-  half; any future copy edit that unconditionalizes it is a law violation, not a
-  style choice.
-- The coda is the ONLY post-grid narrative element. Future panels will be tempted to
-  append more closing prose there; the frame closes once.
-
-## Prep notes: token hygiene + raise-only type consolidation (2026-07-19)
-
-Verified in site/index.html: token block lines 8–31 (the four "off-token" hexes in the
-designer's old ledger ARE tokenized — --tip-bg/--axis/--cyan/--sql-ink); remaining
-literals are JS-only (#cdd8ef starfield fill ~489, #fff gender %-label ~1131). No stale
-notes of mine touched by this brief — my Yoda-line and coda line refs still match.
-
-Core prep finding — voice lives in register markers, not half-pixels: every small-type
-voice on this page is carried by case, letterspacing, color tier (ink-2/ink-3/gold),
-and family (disp/mono/body), with size as the fourth cue. So raise-only merges are
-narratively safe wherever the register markers survive. Voice pairs that MUST survive
-consolidation: aside < body (13.5→14 vs 16: fine, ink-3 does the whispering); crawl
-pre < crawl h4 (13 vs 14: both unchanged, hierarchy intact); .prov-check as the
-quietest string on the rail (held-pause law) — it must stay BELOW the summary/legend
-tier, so raising it to 12 flattens the one voice the pause depends on.
-
-Debate positions:
-- Merge map: 12.5→13 (kicker, stage-cap "n / 8", k-label, legend, cat-t?, prov-note,
-  tip — all keep register via case/spacing/color); 13.5→14; 16.5→17; 10.5/11 CSS
-  micro-labels (g-label, prov-legend) up to one fine-print tier.
-- In-SVG chart lettering (axis-t/val-t/anno-t 11.5, JS small-anno 11, gender %-label
-  11.5) is GEOMETRY, not typographic voice — collisions were historically fixed by
-  staggering, never shrinking. Exempt it from the scale as an allow-list, and make the
-  guard encode "stagger, never shrink/resize" as law.
-- Guard (Q4): yes, one structural pytest in the existing suite; my ask is that the
-  allow-list carries a reason string per exemption, so a future "just shrink the
-  label" edit fails loudly.
-- Colors (Q1): mostly designer's turf. My one stake: the hero's opening chord must
-  not gain a runtime dependency — a getComputedStyle bridge for one never-reused
-  star color adds an init failure mode for zero narrative gain; sanctioned literal
-  with comment is fine. The SVG #fff label is class-able; no story stake either way.
-- Font tokens (Q3): if tokens land, name the kept steps by ROLE/tier (fine-print /
-  caption / sub / note), not by pixel — the scale then documents the voice hierarchy.
-  Tokens only for kept steps; no story objection to skipping tokens entirely.
+- The pins now carry story rationale in executable form ("whisper tier — the held
+  pause's authored contrast"). Any future edit to `.prov-check`'s size is a law
+  violation surfaced by pytest, not a debate — point at the failing reason string.
+- Ux's fixed-viewBox stage-legibility observation was noted for a possible FUTURE
+  proposal with its own evidence. If it returns, raise-only-grants-permission puts
+  the burden on the mover; the geometry pins are not an invitation.

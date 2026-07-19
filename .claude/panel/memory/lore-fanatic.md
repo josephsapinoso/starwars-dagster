@@ -87,10 +87,9 @@
   EITHER direction. Unexplained holes are theater; pinned exceptions are law.
 - **Scenery is not ink (token hygiene):** decorative paints (the aria-hidden
   starfield #cdd8ef) may stay literals with a required sanction comment; data ink
-  must be tokenized. No runtime bridges built for decoration.
-- **Ink adapts to its ground (token hygiene):** on-mark labels choose ink per
-  computed ground from the same array that drives the ground; every rendered pair
-  ≥4.5:1, verified computationally; never a new hex.
+  must be tokenized; no runtime bridges built for decoration. And ink adapts to
+  its ground: on-mark labels take per-ground ink from the array that drives the
+  ground, every rendered pair ≥4.5:1 verified computationally, never a new hex.
 - **The style registry is the test (token hygiene):** the sanctioned type scale's
   one machine-readable home is `test_site_style_hygiene.py` — no font-size tokens,
   no parallel lists. Raise-only grants permission, not obligation: standing still
@@ -133,16 +132,12 @@
 
 ## Open watch items (compacted from 2026-07-18 survey prep)
 
-- SHIPPED, no longer open: the A-wing fix (site now reads "One A-wing pilot, Arvel
-  Crynyd") and the hero-dek scope ("the six-film Star Wars saga, Episodes I–VI").
 - STILL OPEN: upstream SWAPI quirks the site republishes verbatim — candidate
   "clerical errors" disclosure, roster would live in known_facts: "Beru Whitesun
   lars" (lowercase l), "Ayla Secura" (canon Aayla), species "Wookie" (canon Wookiee),
   "Neimodian" (canon Neimoidian), R4-P17 — an astromech droid — filed as species
   Human, gender female. In-universe framing ("as filed") is the honest angle: the
   census records the error rather than silently correcting canon.
-- Gold note: `.unit.hot` stage spotlight dots (Jabba, trio, Obi-Wan) are shipped
-  annotation/ceremony, not a series. Not relitigating.
 
 ## Banked: pipeline-reveal (2026-07-18, compacted)
 
@@ -162,71 +157,51 @@ unverifiable-attribution point — re-authoring wasn't bowdlerizing; fidelity ca
 in a derived reference (skill corollary rewritten). Lessons banked: ask "how many
 homes does this fact have?"; never propose provenance fields pytest can't verify.
 
-## Banked: birth registry, coda, hues, limits (2026-07-19)
+## Banked: birth registry, coda, hues, limits (2026-07-19, compacted)
 
-Decision: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`;
-commits 1f3cf9e (registry), 4d92cb7 (coda+hues), 7d96df5 (limits), f170379
-(screenshots at 15 green).
+Decision: `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e, 4d92cb7,
+7d96df5, f170379. Near-sweep: BBY-is-the-dataset's-unit unanimous in my framing;
+annotation cap held; gold-ring-means-extreme strengthened gold-ceremony; the
+896+4=900 Yoda gem shipped as data-conditional quoted testimony; both register
+laws applied by others unprompted — restraint is now ambient. Lessons banked:
+I bring facts, but the honest RENDER CONDITION (when a gem appears, when it must
+vanish) is my job too; guard plumbing that changes what a displayed number MEANS
+(undated vs unparsed) is provenance in my lane — have a position, don't sit out.
 
-**Won — nearly a sweep:**
-- Q1(a) unanimous, in my framing: BBY is the dataset's own unit, two-register safe.
-  Positive `birth_year_bby`, "-896" never displays (pinned), gloss printed, zero ABY
-  implied anywhere. My typography ruling ("896 BBY", as filed) shipped verbatim.
-- Annotation cap held exactly: Yoda + Jabba, Yoda alone gold-ringed — and the ring
-  now carries a law (gold ring = extreme), so my gold-ceremony line got STRONGER.
-  Amber died without a fight; Vader stays label-only because he is not an extreme.
-- The canon gem shipped: 896 + 4 = 900 matches Yoda's own RotJ count. Best possible
-  form — quoted testimony being audited, rendered only while the record agrees.
-- The coda is payoff-free; the README limits section is Star-Wars-free. Both register
-  laws applied by others without my needing to argue them. Restraint is now ambient.
+## Banked: token hygiene + raise-only type (2026-07-19)
 
-**Lost / co-authored:**
-- Nothing of mine was vetoed, but the gem only shipped because the storyteller
-  supplied the honest rendering (quoted testimony, data-conditional). Same lesson as
-  the beat-7 callback: I bring facts, someone else brings the mechanism that makes
-  them non-decorative. That mechanism is MY job too.
-- Two checks vs one: I sat out the fight, and QA's failure-mode argument turned out
-  to be an authenticity point in my lane — "39 undated" silently meaning "39
-  unparsed" under a glowing badge is a number telling a different truth than its
-  label. Guard plumbing that changes what a displayed number MEANS is provenance,
-  not just engineering; I should have a position next time.
+Decision: `.claude/panel/decisions/2026-07-19-token-hygiene.md`; commit a30a5bc
+(site/index.html + tests/test_site_style_hygiene.py). Verified landed: both rgba
+leaks are now `color-mix(in srgb, var(--gold) 40%/35%, transparent)` (lines 53,
+153); starfield comment "scenery, not ink" at 491; guard pins #ffe81f once-in-
+:root, zero 255,232,31 anywhere, `var(--gold)` free.
 
-**Prep differently next time:** for any canon number I want on the page, arrive with
-three things — the fact, the source quote verified, and the RENDER CONDITION (when
-it appears, when it must vanish). Data-conditional copy is the mechanism that turns
-a gem from decoration into audit; it's now banked in the register-discipline skill.
+**Won — clean sweep in my lane:**
+- The gold single-home pin shipped EXACTLY as I shaped it: the guard pins
+  byte-patterns, not ceremony, so the line-693 tooltip swatch and `.unit.hot`
+  spotlights were never endangered. Gold-is-ceremony graduated from banked prose
+  to a mechanical assertion — the strongest form a law can take.
+- Q1 split-the-literals carried: gender ink tokenized (with the AA fix), starfield
+  sanctioned+commented. The 3–3 tie broke my way on failure-mode asymmetry: a
+  pinned literal that drifts FAILS the test; a getComputedStyle bridge's
+  init-order risk on the hero canvas has no guard at all. "Machinery built for
+  decoration is the engineering cousin of kitsch" held.
+- Crawl register untouched: 12/13/14 are kept steps; raise-only is inherently
+  friendly to verbatim primary-source text, as prepped.
+- Q3 one-home ruling landed 5–1: no font-size tokens; the executable test is the
+  registry. `.prov-check` 11.5 held 4–2 — I backed the storyteller's
+  authored-contrast case rather than fronting it; theirs was the decisive craft
+  argument (12px merges the guard voice into the machinery voice on the rail).
 
-## Prep notes: token hygiene + raise-only small type (2026-07-19)
+**Co-authored:** my ask was "named allow-list entries with reasons, no silent
+holes"; the storyteller supplied the enforcement shape — exact pins failing loudly
+in EITHER direction (the whisper clause). Third straight decision where I name the
+honesty requirement and someone else builds the mechanism: pair early with
+whoever owns the mechanism.
 
-Verified in site/index.html today (full-file hex scrape: only #cdd8ef line 489 and
-#fff line 1131 live outside :root — brief confirmed accurate):
-
-- **Gold audit.** `#ffe81f` appears EXACTLY ONCE, at :root line 17, with the law in
-  its comment. But two gold-derived rgba literals leak outside :root:
-  `rgba(255,232,31,.4)` (line 53, cue hover border) and `rgba(255,232,31,.35)`
-  (line 152, .chip.hot border). Both are ceremony (glows), but they are second
-  homes for gold's identity — same drift bug shape as a prose roster beside
-  known_facts. Fix in the file's own idiom: `color-mix(in srgb, var(--gold) 40%,
-  transparent)` — the technique the data palette already uses at line 1093.
-- **Gold guard nuance (critical for DEBATE):** the guard must pin "gold literal
-  (#ffe81f / 255,232,31) appears exactly once, in :root" — NOT "no gold in JS".
-  Line 693 uses `var(--gold)` as the tooltip swatch for six-film characters; that
-  echoes the banked-and-settled `.unit.hot` ceremony spotlight. A naive JS gold ban
-  would relitigate settled law by accident. The series home is provable clean: the
-  `palette` const (line 1093) is color-mix from --s1 saber blue.
-- **Starfield #cdd8ef (Q1):** scenery, not data, not ceremony. Blue-white is
-  correct starlight; it must never become gold or a saber hue. I lean sanctioned
-  literal + comment — a getComputedStyle bridge is machinery built for decoration,
-  the engineering cousin of kitsch. If the panel tokenizes, name it `--star`
-  (its own identity), never overload an ink or saber token.
-- **#fff gender-bar in-segment labels:** register-neutral contrast ink on data
-  bars. No lore stake; designer's call.
-- **Type with lore stakes:** primary-source text sizes — epigraph cite 12px, crawl
-  pre 13px, crawl h4 14px — are all kept steps under the proposed raise-only scale;
-  the verbatim crawls' legibility is untouched. Raise-only is inherently friendly
-  to quoted material. No objection in my lane to the 10.5→11 / 13.5→14 merges.
-- **Font-size tokens (Q3) / guard mechanics (Q4):** engineers' lane. I support one
-  structural pytest in the existing suite; my single ask is that it carry the gold
-  single-home assertion above, turning gold-is-ceremony from banked prose into a
-  mechanical pin. My own stale-note check: nothing of mine touched by this brief
-  is stale; the .unit.hot gold note above remains accurate and settled.
+**Prep differently next time:** the winning prep move was scraping for DERIVED
+forms of an identity color (rgba/hsl/color-mix), not just the hex — the two leaks
+I alone found let me shape the guard before Q4 opened. Generalize: for any
+single-home fact (color, roster, number), audit its derived encodings too. And
+the tie-breaking asymmetry argument came verbatim from last decision's banked
+lesson — write lessons sharp enough to fire as ammunition.

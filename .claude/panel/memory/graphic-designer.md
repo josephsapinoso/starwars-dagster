@@ -61,6 +61,30 @@
 - Captions longer than a label render as wrapping HTML below the figure, never SVG
   `<text>` — SVG text clips at narrow widths (registry testimony line clipped at
   390px). (Birth-registry panel, 2026-07-19.)
+- **Sub-body type scale is settled** (token-hygiene panel, 2026-07-19): fixed sizes are
+  integers {11, 12, 13, 14} + 16 body · 17 card-h3 · 18 glyphs · 42 KPI; clamp()
+  display sizes exempt. Half-pixels survive only as whisper-clause pins: .axis-t /
+  .val-t / .anno-t / .seg-pct at 11.5 and .cat-t at 12.5 (chart-geometry tier),
+  .prov-check at 11.5 (the held pause's authored whisper).
+- **The whisper clause:** every sanctioned style exception is an exact
+  (selector, value, reason) pin in `tests/test_site_style_hygiene.py` that fails
+  loudly on change in EITHER direction. Unexplained holes are theater; pinned
+  exceptions are law.
+- **The style registry is the test:** the sanctioned scale + pins have ONE
+  machine-readable home, the structural pytest — no font-size tokens, no parallel
+  lists. font-size is never set from JS/markup; use a class (guard-enforced).
+- **Raise-only grants permission, not obligation:** standing still needs no evidence;
+  moving chart geometry does (360/390 collision re-verify, fit gates move with type).
+- **Scenery is not ink:** decorative paints (the aria-hidden starfield canvas,
+  #cdd8ef) may stay literals — named, "scenery, not ink"-commented, counted exactly
+  once by the guard. Data ink must consume tokens. No runtime bridges for decoration.
+- **Ink adapts to its ground:** on-mark labels choose ink per computed ground from the
+  SAME array that paints the ground (`--void` on full s1, `--ink` on tints), every
+  rendered pair ≥4.5:1 verified computationally; the fallback is dropping the on-mark
+  label (legend/table carry the data) — never a new hex.
+- **Gold's one home:** the #ffe81f literal appears exactly once, in :root; alpha
+  ceremony derives via `color-mix(in srgb, var(--gold) N%, transparent)` — the
+  rgba(255,232,31,…) triplet is banned; `var(--gold)` itself is free everywhere.
 
 ## Working knowledge
 
@@ -121,10 +145,9 @@ degenerate case against every asset's real check inventory by severity first.
 Won Q2/Q3: SQL truth with zero visual delta (no "verified" mark, unanimous);
 denominator clause on chart 5; one ◇ where characters_enriched appears while
 galaxy_report stays honestly check-free — a disclosed gap beats a phantom badge.
-Surviving watch items: `.prov-check` 11.5px mono is a badge-only exception below the
-12px floor (never propagate or shrink — raising it is legal and would retire the
-exception); title-attribute `why` tooltips remain hover-only with no touch
-affordance (standing watch, not mine alone). Generated copy self-corrects in both
+Watch update: `.prov-check` 11.5 is no longer a retire-on-raise exception — it is a
+Settled whisper pin (see Settled; 2026-07-19 bank). Title-attribute `why` tooltips
+remain hover-only with no touch affordance (standing watch, not mine alone). Generated copy self-corrects in both
 directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
 
 ## Banked: birth registry + hue enforcement (2026-07-19)
@@ -168,39 +191,39 @@ horizontal scroll; densest rails wrap one chip per row, chips 125–180px vs 244
 rail width, 6-row max stack (character_stats), summaries ≥44px. Headroom exists
 even for a badge-type raise.
 
-## Prep notes: token hygiene + raise-only type consolidation (2026-07-19)
+## Banked: token hygiene + style guard (2026-07-19)
 
-Verified in site/index.html today:
-- Token block is `:root` lines 8–31. Only TWO off-token colors remain, both in JS:
-  `#cdd8ef` starfield star fill (~489 — canvas cannot consume var(); needs a ONE-TIME
-  getComputedStyle bridge at init, never per-frame) and `#fff` gender in-segment
-  %-label fill (~1131 — SVG presentation attributes accept var() directly, so
-  `fill="var(--ink)"` needs no bridge; pure white appears nowhere else on the site,
-  so #eef1f7 is the more coherent value anyway).
-- Gold alpha variants are rgba(255,232,31,…) literals (e.g. 53, 152) — gold's own
-  triplet, derived not off-token; a hex-only guard is the right scope.
-- Sub-body scale confirmed: 10.5 · 11 · 11.5 · 12(×9) · 12.5(×8) · 13(×8) · 13.5 ·
-  14, plus the 16.5 card-h3 oddball. Five half-pixel steps are the disease.
+Decision log `2026-07-19-token-hygiene.md`; commit a30a5bc (site/index.html +
+tests/test_site_style_hygiene.py). My standing proposal, landed.
 
-Positions for debate:
-- **Q1 — tokenize both.** `--star: #cdd8ef` earns a :root seat: the token block is
-  the SINGLE color registry (precedent: --tip-bg/--axis are equally minor and live
-  there); a "sanctioned literal" comment in JS is a second registry. Afterward the
-  rule is absolute — hex literals exist ONLY inside :root, CSS or JS, no allow-list
-  to rot.
-- **Q2 — integer scale, strictly raise-only:** 10.5→11, 11.5→12 (retires the
-  .prov-check badge exception; rail headroom verified above), 12.5→13, 13.5→14,
-  16.5→17. Result: 11 micro · 12 floor · 13 secondary · 14 aside/note · 16 body ·
-  17 card-h3. Geometry-load-bearing, re-verify at 360/390 after the raise: axis-t /
-  val-t / anno-t / cat-t (SVG, collision history — fix by staggering, never
-  shrinking), the gender %-label fit gate `w > 46` (must rise with the type, ~48),
-  .kicker at .28em tracking inside 44ch cards, dot-strip staggered anno rows,
-  JS small-label attr stays 11.
-- **Q3 — no font-size tokens.** Sizes never co-vary at runtime (unlike the tint
-  ladder, where value-identity across media forced tokens); var() indirection costs
-  readability in a hand-authored file. The sanctioned scale lives as a comment in
-  :root; the pytest guard is the enforcement.
-- **Q4 — one structural pytest** in the existing suite, same commit as the raises
-  (feature+guard law): regex-scrape hex literals (assert none outside :root) and
-  fixed-px font-size values in CSS and JS attrs (assert membership in the sanctioned
-  set); clamp() display sizes exempt by pattern. No second lint framework.
+**Won:** the CSS integer collapse exactly as specced (10.5→11, 12.5→13, 13.5→14,
+16.5→17); dead 11px JS attr deleted; gold rgba leaks → color-mix idiom; Q3
+no-font-size-tokens carried 5–1 with my registry-is-the-test framing adopted
+verbatim; Q4 guard scans CSS AND JS (analyst's veto reinforced this), strips the
+one-line DATA literal first, ships same-commit, seen-to-fail before landing. Gender
+`#fff` died AND the AA failure was fixed in the same move via per-rank ink from the
+tint-ladder array — ink-adapts-to-its-ground is the tint law's natural sequel.
+
+**Lost, and rightly:**
+- `.prov-check`→12 (4–2). I proposed retiring a Settled exception inside a hygiene
+  pass — relitigation by the back door. The storyteller's craft argument was correct
+  ON MY OWN TERMS: `details.prov summary` is 12 and `.chip` is mono 12, so at 12px
+  the guard voice merges into the machinery voice on the rail the held pause depends
+  on. The 11.5 whisper is authored contrast, not disease.
+- Chart-lettering raises (3–2): exempted as a pinned geometry tier. My raise carried
+  an unfunded verification burden (collisions, clipping, the w>46 gate); raise-only
+  grants permission, not obligation — standing still needs no evidence.
+- Zero sanctioned literals: the exact-pin shape answers my "allow-lists rot"
+  objection (a drifted pin FAILS the test), while my canvas bridge had an unanswered
+  init-order risk on the hero canvas. Scenery-is-not-ink is a better cut than my
+  absolutism — the guard still counts and comments the literal.
+
+**Prep differently next time:**
+1. Distinguish disease from authored exception before proposing a collapse — a
+   half-pixel with a craft rationale and a Settled seat is not hygiene debt.
+2. When my objection to an allow-list is "it rots," first check whether an
+   executable exact pin removes the rot before rejecting the list outright.
+3. Cost my own riders: a raise needing two-viewport collision re-verification is not
+   free; if I can't fund the evidence, don't spend the votes.
+4. The ledger rotted twice (four-hexes, prov-check) — keep verifying every ledger
+   claim against source in PREP; this time the correction saved my credibility.

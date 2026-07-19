@@ -27,13 +27,21 @@ tokens; attributes are the drift vector no stylesheet review ever sees.
 A raise-only type consolidation must run BOTH checks: viewBox-relative collision
 pass for fixed charts, 360/390px pass for measured charts.
 
-## 3. Small text on colored marks: do the contrast math
+## 3. Small text on colored marks: adaptive ink, verified per pair
 In-segment / on-mark labels below ~18.7px bold need 4.5:1 against the mark color.
 White on mid-saturation brand hues commonly lands 3–3.6:1 and FAILS; raising the
-font size does not fix it. Escapes, in order: dark ink on light-enough segments
-(often passes >5:1); move the label outside the mark; rely on a legend/table that
-already carries name + value (redundancy softens harm but does not satisfy strict
-AA — say so honestly rather than calling it mitigated).
+font size does not fix it. Do NOT assume one replacement ink works either: run the
+contrast pair for EVERY ground the label can sit on (a dark ink that hits 5.5:1 on
+the full-strength hue can drop to 3.7:1 on a 75% tint of the same hue). Settled
+escape ladder (banked 2026-07-19, "ink adapts to its ground"):
+1. Per-rank ink chosen from the SAME array/index that drives the ground color
+   (e.g. `--void` on rank 1, `--ink` on tinted ranks), every rendered pair ≥4.5:1
+   verified computationally at implementation — never a new hex.
+2. If no pairing passes, drop the on-mark label entirely and let the legend/table
+   (which must already carry name + value) be the home.
+Redundant homes soften harm but do not satisfy strict AA — say so honestly rather
+than calling it mitigated. Route the fill+size through a real class (e.g.
+`.seg-pct`) so contrast stays governable by the style guard.
 
 ## 4. Token bridges for canvas only
 SVG text should get its colors/sizes via classes → CSS → tokens; no JS bridge.
