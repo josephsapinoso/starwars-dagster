@@ -193,6 +193,21 @@ structural this time — executing the displayed SQL myself during prep (rather 
 arguing from the brief) is what made my position unassailable; keep doing primary
 verification in prep, it converts opinion into evidence the panel can't discount.
 
-Open items I track: (1) README screenshot retake — one retake, lineage view showing
-13 green asset checks, needs desktop UI; (2) watch that future copy never frames the
-write-back as site-serving (framing law above).
+Open items I track: (1) ~~README screenshot retake~~ done (13 green, per 2026-07-19
+survey brief); (2) watch that future copy never frames the write-back as site-serving
+(framing law above).
+
+## Prep notes: improvement survey (2026-07-19)
+
+Primary-verification pass on the current repo found two scan defects and one gap:
+- `README.md` line 14: `Part of [my portfolio](#)` — a DEAD link above the fold. The
+  slot is settled law; a dead anchor is not. Fix: keep the slot as an HTML comment
+  only until the URL ships.
+- `create_github_repo.ps1` committed at repo root: one-time personal bootstrap script,
+  hardcoded Windows path exposing a "Learning Data Engineering and Analytics" folder —
+  reintroduces exactly the self-study framing the README rewrite removed, plus
+  token-handling clutter. Delete it.
+- README states what's deliberately absent but never answers the next interview probe:
+  "what breaks at 10x?" (full-refresh not incremental, DuckDB not a shared warehouse,
+  no partitions, schedule not sensors). A short "Limits, by design" section would
+  convert those from vulnerabilities into stated tradeoffs.
