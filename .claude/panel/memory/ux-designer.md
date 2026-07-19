@@ -168,6 +168,18 @@ fix, cost the string fix FIRST — it usually preserves uniformity and predictab
 which are my values. Draft the exact replacement strings during prep; the analyst's
 concrete number-free labels were half of why re-authoring won.
 
+## Prep notes: improvement survey (2026-07-19)
+
+Fresh-eyes audit of `site/index.html`: the file has NO doctype and NO `<html lang>` —
+quirks mode + undeclared language (WCAG 3.1.1). Story beats use `span.kicker`, not
+headings: zero heading outline between the h1 and the dashboard h2s, so AT users can't
+jump beat-to-beat. Chart parity gap: bar `<g>`s get `tabindex=0`+aria-label but scatter
+dots (`class:"dot"`, ~line 1141) get neither, and no chart shows the shared tooltip on
+focusin — table view is the canonical keyboard home, so these are enhancements, not
+blockers. Stage dot tooltip is pointer-only; on touch it flashes on tap (pointerleave
+fires on release) — minor. `:focus-visible` gold outline is global and good; toggles use
+aria-pressed; stage caption is aria-live=polite and beat-updated.
+
 **Watchlist (still open):** real-device AT exposure of `title` on the check badges;
 desktop center-flex scroll-anchoring jump when a reveal opens (still unverified on
 hardware); verify the "13 checks" ripple didn't change rail density assumptions at
