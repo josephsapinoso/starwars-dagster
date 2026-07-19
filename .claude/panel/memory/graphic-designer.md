@@ -183,3 +183,21 @@ wrapped rail lines; flag any rail exceeding ~2 lines.
 designing any rail/badge rule, and test the rule against both the sparsest and the
 densest asset; state which layer (renderer vs strings) a fix belongs to as part of
 the proposal, not as an afterthought.
+
+## Prep notes: open improvement survey (2026-07-19)
+
+Fresh-eyes audit of site/index.html found three color-budget leaks the one-data-hue
+law never reached (dashboard predates the law's enforcement there):
+- Scatter (~line 1145): labeled outliers get an amber `--s3` dot painted OVER the
+  blue dot — a second emphasis hue competing with gold's banked "the one to look at"
+  mark. Story precedent: gold-hot + direct label is the emphasis mark.
+- Hyperdrive leaderboard (~1242): single-series bars in green `--s2` while the
+  homeworlds bars sit in blue — hue change carries zero meaning.
+- Gender chart (~1050): five-hue palette [s1,s4,s3,s5,s2]; films chart adds green as
+  a second series. Only films has a defensible need for a second visual channel.
+- Off-token hex colors: `#0a0f1c` (tip bg), `#2a3550` (.baseline), `#4bd5ee` (hero
+  opener), `#9fd0ff` (SQL code ink) — color budget not auditable from :root alone.
+- Type-scale drift: ~9 distinct sizes between 10.5 and 13.5px across captions,
+  legends, badges, asides. Floor laws intact; the scale itself is fragmented.
+Proposed (survey): 1) enforce one-data-hue on dashboard charts, 2) small-type-scale
+consolidation (raise-only), 3) token hygiene pass. None touches settled geometry.
