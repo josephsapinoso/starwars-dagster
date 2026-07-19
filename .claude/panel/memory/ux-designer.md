@@ -150,7 +150,19 @@ clipping risk class, doctype/lang, heading outline) became shipped fixes without
 spending debate capital. Keep auditing the artifact between debates and file findings
 with line numbers; small a11y debts get swept into big commits essentially for free.
 
-**Watchlist (carried, still open):** real-device AT exposure of `title` on check
-badges; desktop center-flex scroll-anchoring jump when a reveal opens (unverified on
-hardware); stage-dot tooltip flashes on touch tap (pointerleave on release — minor);
-rail density at 360px now that the check count is 15.
+**Watchlist (carried, still open — all three genuinely need hardware):** real-device
+AT exposure of `title` on check badges; desktop center-flex scroll-anchoring jump when
+a reveal opens (unverified on hardware); stage-dot tooltip flashes on touch tap
+(pointerleave on release — minor).
+
+**Closed 2026-07-19 — rail density at 360px (15 checks): VERIFIED.** Orchestrator
+headless run (Chromium/Playwright, 360×780, file:// load, all `details.prov` forced
+open): document/body scrollWidth exactly 360, no horizontal scroll; every
+`.prov-checks` rail wraps cleanly (chips 125–180px vs 244px rail → one chip per row,
+zero overflow); densest rail is character_stats with 6 stacked "◇ warns" chips on
+beats 4–6 — tall but opt-in inside the disclosure, nothing clipped; summaries measured
+46–64px so the ≥44px touch target holds; zero drift-detector console warnings.
+Cosmetic note only: at 360px the prov-note paragraph breaks the long check ref
+"character_stats_one_film_baseline" mid-word via overflow-wrap. No overflow; accepting
+as-is — mid-word breaking of a code identifier beats horizontal scroll. Revisit only
+if check refs get longer or user-facing prose starts breaking.
