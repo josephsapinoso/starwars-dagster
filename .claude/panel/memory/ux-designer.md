@@ -84,6 +84,36 @@
   lists. (e) *Raise-only grants permission, not obligation* — standing still needs no
   evidence; moving chart geometry does. `.prov-check` stays 11.5 (pinned): the badge
   voice must not merge with the 12px summary/chip machinery voice on the rail.
+- **Watchlist-round laws (2026-07-19, commit fdd3178):**
+  (a) *Anchoring restoration is not scroll-jacking* — the sanctioned shape for
+  disclosure-growth compensation: capture the clicked summary's rect.top on summary
+  `click` (capture phase), compare on `toggle`, `scrollBy({top:delta,
+  behavior:"instant"})` when |delta|>1 (site ~471–485). Synchronous,
+  activation-triggered, self-noops where the browser anchors and on top-anchored
+  mobile; animated or assumed-delta variants stay banned.
+  (b) *Acceptance is a decision with a tripwire* (my must-have, now law verbatim) —
+  an accepted limitation enters the log with its reopening trigger written down; a
+  shrug is not a verdict.
+  (c) *Measured-vs-inferred labeling* — decisions resting on unreachable hardware
+  state measured facts and inferences separately, verbatim, in the log.
+  (d) *The census conceit is load-bearing* — the stage tooltip is the only surface
+  naming most of the 82 individuals; no input modality may be cut off from it.
+  Suppress-for-touch is dead there; touch PINS instead (site ~465–469, 799–802):
+  touch pointermove shows and pins, pointerleave skips hide for touch, dismissal is
+  the reader's next tap (hit-test miss → tipHide) or scroll (explicit tipHide),
+  never a timer.
+  (e) *Exposure changes reach, not content* — widening a verified string's audience
+  renders the same string verbatim from its one home; if it doesn't fit the vessel,
+  change the vessel.
+- **Standing acceptances with tripwires (watchlist round):** badge whys stay
+  title-only desktop bonus — reopen if any why gains load-bearing content with no
+  non-hover home, or the legend line ceases to be true (the spoiler pin already
+  scans label+why, test_site_provenance.py:211–215; whys are verbatim
+  spec.description projections, so the Dagster-UI canonical home is genuine). Stage
+  SVG type stays (~5.1px eff @360) — redundancy-warranted, css-raise IMPOSSIBLE
+  below target (witness stack 20 viewBox units caps ~8px eff); reopen if any anno
+  carries content not in copy/caption; any viewBox rework must arrive with the
+  8-state anchor-geometry re-verification costed.
 
 ## Working knowledge
 

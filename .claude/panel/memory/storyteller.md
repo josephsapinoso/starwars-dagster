@@ -87,6 +87,30 @@
 - **The style registry is the test** (5–1): the sanctioned type scale's one
   machine-readable home is the structural pytest (`SANCTIONED_SCALE`); no font-size
   tokens, no parallel lists.
+- **Anchoring restoration is not scroll-jacking** (2026-07-19): a synchronous,
+  activation-triggered, MEASURED-delta scroll correction that no-ops where the browser
+  already anchors is the sanctioned shape for disclosure-growth compensation; animated
+  or assumed-delta variants stay banned. Reveal-arc law ("opening a reveal never moves
+  the reader") is violated by anchoring-less Safari, not by this fix.
+- **Measured-vs-inferred labeling** (2026-07-19): any decision resting on unreachable
+  hardware states its measured facts and its inferences separately, verbatim, in the
+  log. The honest proxy is named as a proxy.
+- **Acceptance is a decision with a tripwire** (2026-07-19): an accepted limitation
+  enters the log with its reopening trigger written down; a shrug is not a verdict.
+  Live tripwires: any badge why gaining load-bearing content with no non-hover home,
+  or the legend line ceasing to be true (Q1); any stage anno carrying content absent
+  from copy/caption, or a viewBox rework arriving without the 8-state anchor-geometry
+  re-verification costed (Q4).
+- **The census conceit is load-bearing** (2026-07-19): the stage tooltip is the only
+  surface naming most of the 82 individuals; no input modality may be cut off from it.
+  On touch it pins; dismissal is the reader's own next tap or own scroll, NEVER a timer.
+- **Exposure changes reach, not content** (2026-07-19): widening a verified string's
+  audience renders the same string verbatim from its one home; if it doesn't fit the
+  vessel, change the vessel.
+- **Q4 acceptance warrant** (unanimous, in the log verbatim): "prose and captions are
+  the payoff carriers; annos are deixis" — zero load-bearing orphans at 5px. The beat-5
+  collision math (witness names 20 viewBox-units apart cap any raise at ~8px effective)
+  is standing veto ground against naive stage-type raises.
 
 ## Working knowledge
 

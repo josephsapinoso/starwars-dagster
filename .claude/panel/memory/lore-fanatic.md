@@ -95,6 +95,26 @@
   no parallel lists. Raise-only grants permission, not obligation: standing still
   needs no evidence; moving chart geometry does. `.prov-check` stays 11.5 —
   the held pause's authored whisper tier.
+- **The census conceit is load-bearing (watchlist round, 2026-07-19):** the stage
+  tooltip is the ONLY surface naming most of the 82 individuals; no input modality
+  may be cut off from it. Tap-to-pin lives in the shared tooltip layer; dismissal
+  is the reader's own next tap or scroll, never a timer.
+- **Exposure changes reach, not content (watchlist round):** widening a verified
+  string's audience renders the SAME string verbatim from its one home; if it
+  doesn't fit the vessel, change the vessel. Truncation/paraphrase for space is a
+  second home and a misquoted check — my veto trigger, now law.
+- **Acceptance is a decision with a tripwire (watchlist round):** an accepted
+  limitation enters the log with its reopening trigger; a shrug is not a verdict.
+  Q1 trips on a why gaining load-bearing content with no non-hover home, or the
+  legend line ceasing to be true; Q4 trips on any anno carrying content absent
+  from copy/caption, and viewBox reworks must cost the anchor re-verification.
+- **Measured-vs-inferred labeling (watchlist round):** any decision resting on
+  unreachable hardware states its measured facts and its inferences separately,
+  verbatim, in the log.
+- **Anchoring restoration is not scroll-jacking (watchlist round):** a synchronous,
+  activation-triggered, measured-delta scroll correction that no-ops where the
+  browser already anchors is the sanctioned disclosure-compensation shape;
+  animated or assumed-delta variants remain banned.
 
 ## Working knowledge
 
@@ -109,18 +129,14 @@
   (`DATA.films[].crawl`) — the right home for them: primary-source text, opt-in.
 - Beat-6 quote verified: "flying is for droids" is a fair paraphrase of Obi-Wan in
   Revenge of the Sith ("Flying is for droids."); attribution correct as rendered.
-- Beat→asset truth (current, post-082d9c9 + cleanup): beats 4–6 are DIRECT, guarded
-  by live `character_stats_*` checks (one-film 42, six-film trio, pilot count,
-  max-flown); beat 1's "1 unmeasured" is guarded by the WARN check
-  `characters_enriched_unknown_height_baseline`. **Fifteen checks total** (4 blocking,
-  11 warn) since the birth registry added two WARNs (birth baseline + parse-honesty).
-  Trio names surface at runtime in check metadata (`expected: sorted(
-  SIX_FILM_CHARACTERS)`) — the roster's single home is known_facts.py.
-- Birth-registry verified facts: 43 of 82 dated, 39 undated (the archive's biggest
-  gap); oldest Yoda 896 BBY, second Jabba 600 BBY; all dated values BBY. The canon
-  gem: 896 BBY birth + death in 4 ABY = 900, matching Yoda's own RotJ count ("When
-  nine hundred years old you reach…"). Constants live in known_facts
-  (EXPECTED_OLDEST_BIRTH_BBY = 896.0 etc.); "896"/"yoda" are spoiler-pinned terms.
+- Beat→asset truth: beats 4–6 DIRECT via live `character_stats_*` checks; beat 1's
+  "1 unmeasured" via the WARN `characters_enriched_unknown_height_baseline`.
+  **Fifteen checks total** (4 blocking, 11 warn). Trio names surface only via
+  check metadata (`expected: sorted(SIX_FILM_CHARACTERS)`); roster's single home
+  is known_facts.py.
+- Birth-registry facts: 43 of 82 dated, 39 undated; oldest Yoda 896 BBY, second
+  Jabba 600 BBY. Canon gem: 896 BBY + death 4 ABY = 900, matching Yoda's RotJ
+  count. Constants in known_facts; "896"/"yoda" are spoiler-pinned terms.
 - `characters_enriched` is now a real DuckDB table (write-back on the same df the
   asset returns), so `FROM characters_enriched` in the displayed SQL is true.
 - Beat-1 verified facts (bankable copy material): height range Yoda 66 cm → Yarael
@@ -139,93 +155,67 @@
   Human, gender female. In-universe framing ("as filed") is the honest angle: the
   census records the error rather than silently correcting canon.
 
-## Banked: pipeline-reveal (2026-07-18, compacted)
+## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
 
-Won: "six pipelines" killed as false, my computed-callback wording became law;
-register separation + "paper trail" bridge adopted; kitsch vetoes held; reveals on
-beats 1–6 only. Lost: my cut of the beat-7 callback — storyteller kept it, made
-honest by my wording law. Lessons banked: propose the repair, not just the veto;
-"which asset computes this number" is a provenance question in MY lane — trace every
-displayed number to its computing code before opining on framing.
-
-## Banked: post-landing cleanup (2026-07-18, compacted)
-
-Won: displayed-SQL-is-executed-SQL law in my "misattributed quote" framing; height
-WARN check earned; spoiler pin born from my "sequence the quotation" instinct with
-derived term sets. Lost 5–3–1: my beat-indexed rail, to the one-home law + QA's
-unverifiable-attribution point — re-authoring wasn't bowdlerizing; fidelity can live
-in a derived reference (skill corollary rewritten). Lessons banked: ask "how many
-homes does this fact have?"; never propose provenance fields pytest can't verify.
+Won: "six pipelines" killed as false; computed-callback wording, register
+separation, "paper trail" bridge, kitsch vetoes, reveals-on-1–6 all law;
+displayed-SQL-is-executed-SQL in my "misattributed quote" framing; spoiler pin
+born from my "sequence the quotation" instinct. Lost: beat-7-callback cut
+(storyteller kept it, made honest); beat-indexed rail 5–3–1 to the one-home law.
+Lessons: propose the repair, not just the veto; trace every displayed number to
+its computing code; ask "how many homes does this fact have?"; never propose
+provenance fields pytest can't verify.
 
 ## Banked: birth registry, coda, hues, limits (2026-07-19, compacted)
 
-Decision: `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e, 4d92cb7,
-7d96df5, f170379. Near-sweep: BBY-is-the-dataset's-unit unanimous in my framing;
-annotation cap held; gold-ring-means-extreme strengthened gold-ceremony; the
-896+4=900 Yoda gem shipped as data-conditional quoted testimony; both register
-laws applied by others unprompted — restraint is now ambient. Lessons banked:
-I bring facts, but the honest RENDER CONDITION (when a gem appears, when it must
-vanish) is my job too; guard plumbing that changes what a displayed number MEANS
-(undated vs unparsed) is provenance in my lane — have a position, don't sit out.
+Decision: `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e..f170379.
+Near-sweep: BBY-unit unanimous in my framing; annotation cap held; gold-ring-
+means-extreme strengthened ceremony; the Yoda gem shipped as data-conditional
+quoted testimony. Lessons: the honest RENDER CONDITION (when a gem appears,
+when it vanishes) is my job too; guard plumbing that changes what a number
+MEANS (undated vs unparsed) is provenance in my lane — don't sit out.
 
-## Banked: token hygiene + raise-only type (2026-07-19)
+## Banked: token hygiene + raise-only type (2026-07-19, compacted)
 
-Decision: `.claude/panel/decisions/2026-07-19-token-hygiene.md`; commit a30a5bc
-(site/index.html + tests/test_site_style_hygiene.py). Verified landed: gold
-rgba leaks → color-mix (lines 53/153); "scenery, not ink" comment at 491; guard
-pins #ffe81f once-in-:root, zero 255,232,31, `var(--gold)` free.
+Decision: `2026-07-19-token-hygiene.md`; commit a30a5bc. Clean sweep in my lane:
+gold single-home pin shipped as I shaped it (pins byte-patterns, not ceremony);
+split-the-literals carried ("machinery built for decoration is the engineering
+cousin of kitsch"); one-home font ruling 5–1; `.prov-check` 11.5 held. Lessons:
+pair early with whoever owns the mechanism (I name the honesty requirement,
+they build it); for any single-home fact, audit its DERIVED encodings too.
 
-Won — clean sweep in my lane: gold single-home pin shipped as I shaped it (pins
-byte-patterns, not ceremony; tooltip swatch and `.unit.hot` never endangered);
-Q1 split-the-literals carried on failure-mode asymmetry ("machinery built for
-decoration is the engineering cousin of kitsch" held); crawl register untouched;
-one-home font ruling 5–1; `.prov-check` 11.5 held — I backed the storyteller's
-authored-contrast case rather than fronting it. Co-authored pattern (third
-straight decision): I name the honesty requirement, someone else builds the
-mechanism — pair early with whoever owns the mechanism. Prep lesson: for any
-single-home fact, audit its DERIVED encodings too (the rgba/color-mix scrape
-found the two leaks); write banked lessons sharp enough to fire as ammunition.
+## Banked: watchlist round (2026-07-19)
 
-## Prep notes: watchlist round (2026-07-19)
+Decision: `.claude/panel/decisions/2026-07-19-watchlist-round.md`; commit
+fdd3178. Verified landed in site/index.html: `tipPinned = e.pointerType ===
+"touch"` (line 799), touch-exempt pointerleave (802), scroll dismissal (469),
+measured-delta instant scrollBy (484).
 
-Verified in-repo against the brief (all four items are affordance/mechanics
-questions; my lane is what the exposed/illegible/suppressed STRINGS are):
+Won: my suppress-for-touch VETO carried Q3 5–1 and the census conceit is now
+banked law in my exact framing — the stage tooltip as the 82's only roll-call
+surface, Arvel Crynyd's "never measured" reachable by every input modality.
+My Q4 debate flip was quoted in the adjudication ("a raise that can't reach
+legibility is churn wearing honesty's clothes") — flipping myself early, once
+the 8px cap and the redundancy audit landed, bought more than defending a
+doomed raise would have.
 
-- **Q1 badge whys are register-clean and spoiler-audited already.** `k.why` is a
-  VERBATIM projection of the real Dagster check description
-  (test_site_provenance.py:95–96), machinery register, zero Star Wars content
-  (checks.py descriptions verified). The spoiler pin (:181–223) audits
-  `label + why` per beat over the rendered STRING SET — independent of the
-  affordance. So exposure (focus/aria/visible) adds reach, not spoiler surface,
-  IF AND ONLY IF the same strings render verbatim. Truncation or paraphrase for
-  space = a second home + a misquoted check → my veto trigger.
-- **Brief correction:** whys are NOT number-free — raw_people's why carries "82
-  people" (f-string from known_facts, checks.py:136). Safe: 82 is beat-0's own
-  hook; all later-payoff descriptions avoid numbers by design (spoiler law
-  working as intended). Don't repeat "number-free" in debate.
-- **Legend interaction (Q1):** the settled rail-legend line "full check
-  descriptions live in the Dagster UI" (index.html:911) stays TRUE under
-  focus/aria exposure but reads as misdirection under a VISIBLE disclosure of
-  the same texts. Visible disclosure therefore requires reopening settled copy;
-  focus-parity (matching the dashboard charts' existing focus/blur tooltips)
-  doesn't. That asymmetry is my Q1 lean.
-- **Q3 stakes in my lane:** the stage tooltip (index.html:770–782, shared
-  system) is the ONLY place most of the 82 names surface on the stage — annos
-  name only the extremes. Suppress-for-touch would cut mobile readers' sole
-  access to the census's individuals (incl. Arvel Crynyd's "never measured").
-  Tap-to-pin keeps the names; content is in-universe data narration, register
-  fine either way.
-- **Q4 canon inventory at ~5px effective:** the illegible annos are exactly the
-  earned canon references — "Yoda · 66 cm", "Yarael Poof · 2.64 m", "Jabba ·
-  1,358 kg", the trio's three names (gold, beat 5), "Obi-Wan · 5 starships"
-  (gold). EVERY one also lives legibly in beat copy or caption — beat-5 copy
-  (index.html:305) names the trio in full, so no canon fact is mobile-lost by
-  accepting. But the gold `.anno-name.hot` emphasis at 5px is an unreadable
-  gold smudge: ceremony you can't read is decoration, which argues for a
-  raise-only bump (uniform across stage text — never bump only the hot annos;
-  that would re-rank emphasis). Raise-only grants permission; the mechanism and
-  the guard amendment are the engineers' call.
-- **Q2 (Safari jump):** no lore stake; defer to mechanics. Only settled law I
-  watch: any compensation must not fight the reader's own scrolling.
-- Cannot verify: real-iOS/macOS behavior (jump E2, flash E3) — headless
-  evidence only; spec-based inference stands unconfirmed on hardware.
+Lost: Q1, 4–2 — accept-and-document beat exposure on voice load (48 tab stops,
+~15 crossing the held pause: the page's quietest voice must not become its
+loudest keyboard path). A soft loss: accept was my own stated fallback, and
+both my conditions entered the log — legend line 911 stays true, and my
+verbatim-or-nothing rule became the settled exposure-changes-reach-not-content
+law. The reopening tripwire holds my ground without the affordance.
+
+Prep differently next time: (1) rank fallbacks explicitly in debate — naming
+"fallback: accept" made losing Q1 nearly costless and still banked my
+conditions; (2) audit channel redundancy BEFORE defending legibility — where
+every canon fact has a legible twin in copy/caption, acceptance IS the
+lore-safe verdict; (3) count interruptions crossing the held pause — its voice
+budget is a constraint other roles will spend against, so bring the number;
+(4) when hardware is unreachable, pre-sort my evidence into measured vs
+inferred — that labeling is now log law and prep should arrive already split.
+
+Durable facts kept from prep: badge whys are verbatim Dagster check
+descriptions (machinery register, spoiler pin audits label+why); they are NOT
+number-free — raw_people's why carries "82", safe as beat-0's own hook. Hover
+`title=` stays a desktop bonus with no non-hover twin, by decision.
