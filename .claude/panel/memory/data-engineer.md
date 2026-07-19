@@ -196,5 +196,21 @@
 - **Prep differently:** when proposing a write-back or a new check, state its
   check/materialization ordering implications explicitly, and grep WORKSHOP for
   exercise collisions before recommending coverage anywhere near the teaching modules.
-- Closes my long-open SQL-string migration item. Still open: README screenshot retake,
-  now targeting 13 green checks (desktop UI).
+- Closes my long-open SQL-string migration item. README screenshot retake since done
+  (13 green checks).
+
+## Prep notes: open improvement survey (2026-07-18)
+
+- DuckDB lock race root cause confirmed in code: the three pure-reader transforms
+  (film_character_counts, starship_stats, character_stats) call
+  `duckdb.connect(star_wars_db)` in READ-WRITE mode (transforms.py:153/188/235);
+  checks.py:86 already uses `read_only=True`. Under the default multiprocess executor,
+  concurrent write-mode connects on one file race. `full_pipeline_job` (schedules.py)
+  sets no executor/concurrency policy — the known-good in-process mode is tribal
+  knowledge, not repo config.
+- No lockfile anywhere: pyproject.toml has floating ranges (`dagster>=1.7`,
+  `duckdb>=0.10`); CI installs whatever resolves that day. Environment is not
+  reconstructible from the repo.
+- `tests/fixtures/swapi/SNAPSHOT.json` records source + `fetched_at`
+  (2026-07-17T15:40Z) + record counts, but the site surfaces no "data as of" —
+  DATA has no meta subtree; snapshot identity is invisible to readers.

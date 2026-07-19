@@ -81,6 +81,21 @@
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
 
+## Prep notes: open improvement survey (2026-07-18)
+
+- **Shipped canon error, beat 1 aside:** site says "One X-wing pilot, Arvel Crynyd".
+  Crynyd flew an **A-wing** (Green Leader, RotJ, Executor's bridge) — and the site's
+  own DATA agrees: the A-wing row has pilots:1 and it's him. My own Working-knowledge
+  entry had this right; the page contradicts it. Fix is one word.
+- Hero dek says "the Star Wars saga" unqualified — post-2019 readers hear nine
+  episodes; the six-film scope isn't stated until the dashboard.
+- Upstream SWAPI quirks the site republishes verbatim (candidate "clerical errors"
+  disclosure, roster would live in known_facts): "Beru Whitesun lars" (lowercase l),
+  "Ayla Secura" (canon Aayla), species "Wookie" (canon Wookiee), "Neimodian" (canon
+  Neimoidian), R4-P17 — an astromech droid — filed as species Human, gender female.
+- Gold note: `.unit.hot` fills stage spotlight dots (Jabba, trio, Obi-Wan) gold —
+  shipped through prior panels as annotation/ceremony, not a series. Not relitigating.
+
 ## Banked: pipeline-reveal (2026-07-18)
 
 **Won:**

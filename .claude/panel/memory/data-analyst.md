@@ -106,6 +106,22 @@
 - README screenshot open item now targets **13** green checks; land any future check
   count changes BEFORE retaking screenshots.
 
+## Prep notes: improvement survey (2026-07-18)
+
+Unused DATA fields verified by grep against the live `const DATA` line (line 390):
+`birthYear` null for **39 of 82** (43 dated — biggest untold null story);
+`people.species` null for **0 of 82** (fully populated, unused beyond scatter
+table/tooltip); starship `cost` null for **10 of 36** (26 priced); `length`,
+`speed`, `crew`, per-ship `films`/`pilots` all unused; planets payload
+(climate/terrain/population/diameter/residents/films) and species payload
+(classification/language/lifespan/members) unused beyond KPI counts. Redundant
+grains now in DATA enable cross-foot checks: planets.residents vs
+people.homeworld counts; species.members vs people.species counts;
+starships.pilots edges vs people.starshipsFlown edges. Proposed top-3: (1)
+cross-foot drift checks, S; (2) birthYear age census beat/card, M (needs
+character_stats column for `direct`); (3) starship price board with cost
+denominators, M (extend starship_stats).
+
 ## Banked: pipeline-reveal (2026-07-18) — compacted
 
 Won: my false-beat-map prep finding drove the spec; check-badge honesty and the deep
