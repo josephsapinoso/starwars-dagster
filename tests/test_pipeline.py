@@ -140,6 +140,32 @@ def test_climate_lines_count_characters_and_disclose_the_denominator(full_run):
     assert "have a known homeworld" in report
 
 
+def test_warehouse_access_policy_is_encoded_in_code():
+    # DuckDB allows many readers OR one writer per file. The multiprocess
+    # executor raced transforms on that lock (observed 2026-07-18), so the
+    # policy lives in code and this test keeps it there: every pure-read
+    # transform opens read_only, exactly one writer exists, and the repo's
+    # default executor is in-process (sequential).
+    import inspect
+
+    from dagster import in_process_executor
+
+    from starwars_dagster import defs
+    from starwars_dagster.assets import transforms
+
+    readers = [
+        transforms.film_character_counts,
+        transforms.starship_stats,
+        transforms.character_stats,
+    ]
+    for asset_def in readers:
+        src = inspect.getsource(asset_def.op.compute_fn.decorated_fn)
+        assert "read_only=True" in src, f"{asset_def.key} must open the warehouse read_only"
+    writer_src = inspect.getsource(transforms.characters_enriched.op.compute_fn.decorated_fn)
+    assert "read_only" not in writer_src  # the one legitimate writer
+    assert defs.executor is in_process_executor
+
+
 # ── Banked facts — real dataset only ─────────────────────────────────────────
 # These assert exact values verified against swapi.info, so they only run when
 # the fixtures are a real dated snapshot (scripts/snapshot_fixtures.py), not

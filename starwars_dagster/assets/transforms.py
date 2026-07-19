@@ -150,7 +150,9 @@ def film_character_counts(context: AssetExecutionContext, star_wars_db: str) -> 
     SWAPI stores characters as a JSON array of URLs inside films.characters.
     We use DuckDB's json_array_length() to count them without unnesting.
     """
-    con = duckdb.connect(star_wars_db)
+    # read_only: DuckDB allows many readers OR one writer per file, so every
+    # pure-read transform must say which it is (tests/test_pipeline.py pins this)
+    con = duckdb.connect(star_wars_db, read_only=True)
 
     df = con.execute("""
         SELECT
@@ -185,7 +187,7 @@ def starship_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Data
     Raw SWAPI data has numeric fields as strings (e.g. "1.0", "unknown").
     We use TRY_CAST to convert, treating 'unknown' as NULL.
     """
-    con = duckdb.connect(star_wars_db)
+    con = duckdb.connect(star_wars_db, read_only=True)
 
     df = con.execute("""
         SELECT
@@ -232,7 +234,7 @@ def character_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Dat
     that computes the story's screen-persistence figures (one-film cameos,
     the six-film trio, the pilots) instead of leaving them page-authoring math.
     """
-    con = duckdb.connect(star_wars_db)
+    con = duckdb.connect(star_wars_db, read_only=True)
 
     df = con.execute("""
         SELECT

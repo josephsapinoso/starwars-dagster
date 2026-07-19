@@ -7,6 +7,7 @@ It wires together assets, resources, schedules, and jobs.
 
 from dagster import (
     Definitions,
+    in_process_executor,
     load_asset_checks_from_modules,
     load_assets_from_modules,
 )
@@ -35,4 +36,9 @@ defs = Definitions(
     },
     schedules=[daily_refresh_schedule],
     jobs=[full_pipeline_job, analytics_only_job],
+    # The warehouse is a single DuckDB file: many readers OR one writer.
+    # The default multiprocess executor races steps on that file lock
+    # (observed 2026-07-18), so the safe execution mode lives here in code,
+    # not in tribal knowledge. The graph is small; sequential is fast.
+    executor=in_process_executor,
 )

@@ -24,7 +24,7 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev]" -c requirements.lock
       - name: Fetch snapshot
         run: python scripts/snapshot_fixtures.py
       # The bot's push never triggers ci.yml (GITHUB_TOKEN commits don't fire

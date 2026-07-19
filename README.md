@@ -71,6 +71,10 @@ Run the offline test suite (no network needed):
 pip install -e ".[dev]" && pytest -v
 ```
 
+CI additionally pins transitive dependencies with `-c requirements.lock`
+(regenerate via `uv pip compile pyproject.toml --extra dev -o requirements.lock`);
+the version ranges in `pyproject.toml` stay authoritative for humans.
+
 `scripts/snapshot_fixtures.py` freezes a dated real-API snapshot and unlocks the exact-value
 tests (82 people, 3 six-film characters, 23 unknown masses, 42 one-film cameos, 19 pilots).
 A daily 6 AM schedule re-pulls from SWAPI — the same pattern you'd use for any REST feed.
