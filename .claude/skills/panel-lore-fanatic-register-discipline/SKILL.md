@@ -63,6 +63,24 @@ the loudest one. And never add hand-authored narrative fields (beat indexes, sto
 attribution) to provenance; if pytest can't verify it against the real definitions,
 it doesn't belong on the machine-checked object.
 
+## Corollary: quoted testimony, not derived data (banked 2026-07-19)
+
+External claims — film dialogue, canon numbers — may be *audited* in site copy but
+never rendered as if the pipeline derived them. Derived numbers come only from DATA;
+a canon number enters as testimony the census checks against its records. The model:
+the registry's Yoda line — "filed at 896 BBY — his own count, nine hundred years,
+checks out" — where 900 is Yoda's RotJ self-report (896 BBY + 4 ABY death = 900) and
+the line renders ONLY while DATA still shows 896 as the oldest. If the record moves,
+the audit line vanishes rather than lie.
+
+Practical rule: for any canon number proposed for the page, arrive with three things —
+the fact, the source quote verified, and the RENDER CONDITION (when it appears, when
+it must disappear). Data-conditional copy is what separates an earned canon gem from
+decoration. Related laws this rides with: the gold ring asserts "extreme" only
+(non-extremes get labels, never rings); annotations are capped at the load-bearing
+few; a unit native to the dataset (BBY) is used as-is, positive, with its gloss
+printed — never converted into a frame (ABY) the data doesn't contain.
+
 ## Why it works
 
 Mixing registers reads as a theme park; separating them reads as an archivist who
