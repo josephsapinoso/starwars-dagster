@@ -1,12 +1,15 @@
 ---
 name: panel-data-engineer-single-file-hygiene-guard
-description: Technique for guarding style-token hygiene (hex colors, font-size scale) in a hand-authored single-file site with one offline pytest structural test - no stylelint, no node, no build step, no allow-lists.
+description: Technique for guarding style-token hygiene (hex colors, font-size scale) in a hand-authored single-file site with one offline pytest structural test - no stylelint, no node, no build step; exceptions live as exact whisper-clause pins, and the test itself is the registry.
 ---
 
 # Single-file style-hygiene guard (no lint framework)
 
 How to pin "all colors are tokens, all small type is on the scale" for a hand-authored
-`site/index.html` when the repo law forbids build steps and second frameworks.
+`site/index.html` when the repo law forbids build steps and second frameworks. This
+records the shape that SHIPPED (token-hygiene decision, 2026-07-19, commit a30a5bc;
+reference implementation `tests/test_site_style_hygiene.py`) — including where it
+differs from the zero-exception design I originally argued.
 
 ## Census first, by machine
 
@@ -19,38 +22,60 @@ yourself before proposing anything:
 - Sizes: `rg -n 'font-size' site/index.html` → split CSS declarations from JS
   attribute/cssText occurrences. SVG `font-size` attributes are bare numbers (no
   `px`), so a px-anchored regex will miss them.
+- The scan must cover JS, not just `<style>`: in practice every literal residue
+  lived in script. A style-only scraper is coverage theater.
 
-## Design for a zero-allow-list invariant
+## The registry is the test
 
-The strongest guard has NO exception list, because exception lists are a second
-registry that rots. Get there by moving facts, not by widening the test:
+The panel ruled (5–1, against my token-derivation proposal): do NOT mint `--fs-*`
+CSS variables so the test can derive the scale. A rot-proof registry needs to be
+EXECUTABLE, not mirrored — a test constant fails when the file drifts, unlike prose
+ledgers, and tokens nothing at runtime consumes are the tail wagging the stylesheet.
+So the sanctioned scale is a plain set in the test
+(`SANCTIONED_SCALE = {11, 12, 13, 14, 16, 17, 18, 42}`), and that set plus the pins
+below are the single machine-readable home of the style law.
 
-1. JS color literals → one `getComputedStyle(document.documentElement)
-   .getPropertyValue('--token')` read at init (once, never per-frame). Runtime, not
-   a build step. No hard-coded fallback hex in the JS — a fallback is a second home
-   for the value. Canvas is the only consumer that genuinely needs the bridge; SVG
-   text can take a class with `fill: var(...)` instead.
-2. JS font-size attributes/cssText → classes, so every font-size fact lives in
-   `<style>` alone and the test's scope claim ("scrape the style block") is honest.
-3. Sanctioned scale → if the kept steps are `:root` tokens, the test DERIVES the
-   allowed set from the `:root` block instead of hard-coding a parallel list. One
-   home for the scale; a merge edits one line.
+## Exceptions: the whisper clause, not an allow-list
 
-Resulting invariants, one pytest test beside the existing structural checks
-(doctype/lang precedent at tests/test_site_provenance.py:103):
+My "allow-lists rot" objection is answered by making every exception an EXACT pin
+that fails loudly on change in either direction:
 
-- every hex literal in the file sits inside the `:root` block;
-- no `font-size` occurrence outside `<style>`;
-- every sub-body font-size literal in `<style>` is (or resolves to) a `:root` step.
+- Fonts: `EXEMPT_SELECTORS = [(selector_fragment, exact_px, reason), ...]` — the
+  test asserts each pinned selector exists at exactly that size (a raise OR a
+  shrink breaks it and prints the reason), and any unpinned off-scale size fails.
+- Colors: `SANCTIONED_LITERALS = [(hex, required_marker_comment)]` — scenery is not
+  ink: a decorative paint (aria-hidden canvas) may stay a literal, but only counted
+  exactly once and carrying its sanction comment on the same line. Data ink must be
+  tokenized (SVG takes `fill: var(--...)` via a class directly — no bridge needed).
+- Singleton brand color: pin the byte-pattern itself — literal exactly once, in
+  :root, `rgba(r,g,b,…)` spellings banned (derive with
+  `color-mix(in srgb, var(--gold) N%, transparent)`), `var(--gold)` explicitly free.
+  Pin bytes, never ceremony.
+
+Why no canvas `getComputedStyle` bridge for the decorative literal: the bridge's
+failure mode (init-order race → blank hero canvas) is unguardable offline, while
+the pinned literal's failure mode (drift) is exactly what the pin catches. When
+both sides' failure modes are real, prefer the side whose failure the guard can see.
+
+## Structure that shipped
+
+One pytest module beside the existing structural checks, module-scoped fixture that:
+(1) strips the one-line `const DATA` literal FIRST and asserts it found the line —
+the exclusion is load-bearing, and future DATA content must never trip a style
+census; (2) extracts `<style>` and `:root`; (3) keeps a "nonstyle" remainder for
+the JS scan. Five tests: hex census (everything in :root or sanctioned), sanctioned
+literals pinned+commented+counted, gold single-home, CSS sizes on-scale-or-pinned
+(with the pin-exists back-assertion), and zero `font-size`/hex-fill in JS or markup
+(JS text must set classes, not styles; delete dead style-setting attrs).
 
 ## Gotchas
 
-- Exclude the one-line `const DATA` literal before regexing the file — its
-  load-bearing one-line strict-JSON format makes extraction trivial, and future DATA
-  content must never trip a style census.
-- `clamp()` display sizes are not scale members; scope the size invariant to fixed
-  sub-body values or the regex fights fluid type.
-- `rgba(...)` literals are a separate tokenization question — flag, don't let the
-  hex guard's scope silently expand mid-review.
+- `clamp()` display sizes are exempt by pattern, not by pin — scope the size
+  invariant to fixed values or the regex fights fluid type.
+- Convert JS font-size attrs/cssText to classes BEFORE writing the guard, so the
+  "no font-size outside `<style>`" invariant is absolute rather than pinned.
+- Seen-to-fail is part of landing: plant violations (one per invariant — eight in
+  the shipping pass), watch each fail with a readable message, revert.
 - A raised SVG label size is a geometry change: the guard proves scale membership,
-  not fit. Manual narrow-viewport re-verification stays a human step.
+  not fit. Raise-only grants permission, not obligation — standing still needs no
+  evidence; manual narrow-viewport re-verification stays a human step.

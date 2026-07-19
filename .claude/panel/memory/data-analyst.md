@@ -192,25 +192,22 @@ guard alone; say "parsed display number" out loud — it triggers the two-guard 
 ## Banked: token hygiene (2026-07-19, decision log + commit a30a5bc)
 
 **Won, and why:**
-- **Hard veto CARRIED — the guard scans JS.** `test_no_style_literals_outside_the_style_block`
-  exists; the four JS residues (canvas fill, dead 11px attr, gender label attrs,
-  cssText caption) are gone or pinned. What carried it: I enumerated the residues
-  with line numbers in prep and showed a `<style>`-only scraper misses ALL of them —
+- **Hard veto CARRIED — the guard scans JS** (`test_no_style_literals_outside_the_style_block`);
+  the four JS residues gone or pinned. What carried it: prep enumerated the residues
+  with line numbers and showed a `<style>`-only scraper misses ALL of them —
   "coverage theater" with a concrete inventory beats it as an abstraction.
-- **11.5 data-ink-stratum hold WON (3–2).** Chart lettering exempted as pinned
-  geometry; the `w > 46` gate untouched because `.seg-pct` stays 11.5 (the pin's
-  reason string names the gate — my dependency argument, verbatim). The winning
-  frame was evidence-burden: standing still needs no proof, moving does. The
-  designer's full integer collapse died on unfunded verification cost, not taste.
-- **Starfield allow-list-with-required-comment shipped verbatim**
-  (`test_sanctioned_literals_are_pinned_and_commented`; the line-491 comment cites
-  the decision). The init-order-risk-for-zero-data-payoff argument beat the bridge.
-  But note: the storyteller's whisper-clause triple (selector, value, reason) is the
-  DURABLE form of my allow-list — my "required comment" was necessary, the
-  fails-in-both-directions pin is what kills rot. Adopt that shape by default.
-- **No font-size tokens (5–1)** — an executable test as registry beats prose ledgers
-  AND beats minting variables to feed a test. **Gold exactly once** landed as
-  byte-pattern pins with `var(--gold)` explicitly free (line-693 ceremony safe).
+- **11.5 data-ink-stratum hold WON (3–2);** `w > 46` gate untouched because
+  `.seg-pct` stays 11.5, and the pin's reason string NAMES the gate — my dependency
+  argument, verbatim. Winning frame was evidence-burden, not taste: the designer's
+  integer collapse died on unfunded verification cost.
+- **Starfield allow-list + required comment shipped verbatim**
+  (`test_sanctioned_literals_are_pinned_and_commented`; line-491 comment cites the
+  decision); init-order-risk-for-zero-data-payoff beat the bridge. But the
+  storyteller's (selector, value, reason) triple is the DURABLE form of my
+  allow-list — the fails-in-both-directions pin is what kills rot. Default shape now.
+- **No font-size tokens (5–1)** — executable test beats prose ledgers AND beats
+  minting variables to feed a test. **Gold exactly once** landed as byte-pattern
+  pins with `var(--gold)` explicitly free (line-693 ceremony safe).
 
 **Where the room beat me — gender label:** I said "tokenize the #fff"; ux showed it
 fails AA (~3.6:1) and the orchestrator's contrast math proved NO single ink passes
