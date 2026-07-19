@@ -146,41 +146,30 @@
 
 ## Banked: pipeline-reveal + per-character transform (2026-07-18, compacted)
 
-Won: beats 1–6 only, clean hook, beat-7 callback, micro-story shape, quietest label on
-the pause, honest third act (hiring-manager independently argued honesty IS the hire
-signal). Lost: bespoke in-voice labels → ONE generated template; my "six pipelines"
-callback was arithmetically false (lore caught it) — proof hand-authored pipeline copy
-drifts. Voice lives in the template and the conceit, not per-instance wording.
-Execution (082d9c9) confirmed the template law: beats 4–6 flipped derived→direct with
-zero copy edits; my mandated re-audit caught the trio leaking into beat 4 — a check's
-blast radius is every beat that cites its asset, not just its own.
+Won: beats 1–6 only, clean hook, beat-7 callback, micro-story shape, quietest label
+on the pause, honest third act. Lost: bespoke labels → ONE generated template; my
+"six pipelines" callback was arithmetically false — hand-authored pipeline copy
+drifts. Execution (082d9c9): beats 4–6 flipped derived→direct with zero copy edits;
+my re-audit caught the trio leaking into beat 4 — a check's blast radius is every
+beat that cites its asset.
 
-## Banked: post-landing cleanup (2026-07-18, decision log 2026-07-18-post-landing-cleanup.md; c0b97e0, 2aa845e)
+## Banked: post-landing cleanup (2026-07-18, log 2026-07-18-post-landing-cleanup.md; c0b97e0, 2aa845e; compacted)
 
 My cumulative-rail mechanism lost 5–3–1, correctly: placement filtering bought spoiler
-safety with an unverifiable hand-authored `beat` field, and the trio roster in a check
-description was a one-home-law drift bug owed a fix regardless. My prep claim that
-"re-authoring cannot fix the core leak" was wrong — I conflated operational meaning
-with rendered phrasing and never drafted the counterexample label before declaring it
-impossible. What won: all four leaks fixed (including the "23 unweighed" leak only my
-audit caught); the meta-leak companion edit verbatim; the standing spoiler pin with
-names AND numbers (my objection to the names-only version carried); the held pause
-cleared of beat-5/6 strings. Lessons now in skill rules 9–10: draft the best possible
-string before declaring string-fixes impossible; never add an authored field the
-verification surface cannot check; lead with the evidence that a problem is
-structural, not one bad string.
+safety with an unverifiable hand-authored `beat` field. My claim that "re-authoring
+cannot fix the core leak" was wrong — I never drafted the counterexample label before
+declaring it impossible. Won: all four leaks fixed (incl. the "23 unweighed" leak only
+my audit caught); the spoiler pin with names AND numbers (my objection to names-only
+carried); the pause cleared. Lessons live in skill rules 9–10.
 
-## Banked: birth registry, coda, hue enforcement (2026-07-19, decision log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
+## Banked: birth registry, coda, hue enforcement (2026-07-19, log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
 
-Clean sweep, all outcomes promoted to Settled above (coda verbatim + digits-pin 5–3
-as my absence-assertion argument; quoted-testimony rule governing the Yoda line;
-audit-canon motif capped at two; subject-only descriptions + spoiler terms extended;
-spine untouched — registry landed as a dashboard card). Lessons carried forward: draft
-the FINAL copy at prep time, the text itself is the strongest argument; reach for
-quote-and-audit before exclusion when canon offers an underivable number; a sweep
-means check harder for anchoring next debate. Watch: unconditionalizing the Yoda
-line's data-gated render is a law violation, not a style choice; the coda is the ONLY
-post-grid narrative element — the frame closes once.
+Clean sweep; all outcomes promoted to Settled above (coda + digits-pin; quoted
+testimony; motif cap; subject-only descriptions; spine untouched — registry is a
+dashboard card). Lessons: draft the FINAL copy at prep time; reach for quote-and-audit
+before exclusion; a sweep means check harder for anchoring next debate. Watch:
+unconditionalizing the Yoda line's data-gated render is a law violation; the coda is
+the ONLY post-grid narrative element — the frame closes once.
 
 ## Banked: token hygiene + type consolidation (2026-07-19, decision log 2026-07-19-token-hygiene.md; a30a5bc; compacted)
 

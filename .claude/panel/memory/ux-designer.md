@@ -106,14 +106,13 @@
   renders the same string verbatim from its one home; if it doesn't fit the vessel,
   change the vessel.
 - **Standing acceptances with tripwires (watchlist round):** badge whys stay
-  title-only desktop bonus — reopen if any why gains load-bearing content with no
-  non-hover home, or the legend line ceases to be true (the spoiler pin already
-  scans label+why, test_site_provenance.py:211–215; whys are verbatim
-  spec.description projections, so the Dagster-UI canonical home is genuine). Stage
-  SVG type stays (~5.1px eff @360) — redundancy-warranted, css-raise IMPOSSIBLE
-  below target (witness stack 20 viewBox units caps ~8px eff); reopen if any anno
-  carries content not in copy/caption; any viewBox rework must arrive with the
-  8-state anchor-geometry re-verification costed.
+  title-only desktop bonus — reopen if a why gains load-bearing content with no
+  non-hover home or the legend line ceases to be true (spoiler pin already scans
+  label+why; whys are verbatim spec.description projections, so the Dagster-UI
+  home is genuine). Stage SVG type stays (~5.1px eff @360) — redundancy-warranted;
+  a css raise is IMPOSSIBLE below target (20-unit witness stack caps ~8px eff);
+  reopen if any anno carries content not in copy/caption; a viewBox rework must
+  arrive with the 8-state anchor-geometry re-verification costed.
 
 ## Working knowledge
 
@@ -126,12 +125,11 @@
   ship new components static-first so there is nothing to gate.
 - Native `<details>/<summary>` is the accessibility-cheapest disclosure; touch targets
   ≥44px on summaries/toggles at 360px width; step cards ~44ch.
-- Desktop steps are center-flex (`align-items:center`, min-height min(102svh,880px)):
-  content growth re-centers the card and can shift a clicked summary UP. Mobile
-  stations are top-anchored, growth is downward. Mitigation: expandables live at the
-  bottom of `.step-inner`; real-device scroll-anchoring check still open.
-- Stepper is height-agnostic (IO at rootMargin -45%); station min-heights are minimums
-  — grown steps just add reader-paced scroll. Never shrink the stage to make room.
+- Desktop steps are center-flex (min-height min(102svh,880px)): reveal growth shifts
+  the clicked summary UP where the browser lacks scroll anchoring — now compensated
+  by the settled delta-restoration shape. Mobile stations are top-anchored, growth
+  downward. Stepper is height-agnostic (IO at rootMargin -45%); station min-heights
+  are minimums; never shrink the stage to make room.
 - Width budget: at 360px viewport ≈260px of card content; page body never scrolls
   horizontally, only dedicated containers (`.dag` strip) may `overflow-x:auto`.
 - Baseline hygiene shipped 2026-07-19: doctype + `<html lang="en">` present; story has
@@ -140,30 +138,24 @@
 
 ## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
 
-- Won: vertical HTML `.chip` chain (260px budget argument); beats 1–6 with beat-0
-  clean; legend rider verbatim (no "hover ..." promises); touch-surface analysis
-  (label IS the whole touch/keyboard experience) shaped the winning labels.
-- Lessons: show where a resisted affordance's need is already served; check plain
-  HTML can render an artifact before designing ARIA for a graphic; measure at 260px
-  before debate; verify the brief's beat→asset map myself (it was partly false);
-  cost the string fix before any renderer fix and draft exact strings in prep;
-  riders on other roles' proposals evaporate with them.
+- Won: vertical chip chain (260px budget); beats 1–6 with beat-0 clean; legend
+  rider verbatim; touch-surface analysis shaped the winning labels.
+- Lessons: show where a resisted affordance's need is already served; render plain
+  HTML before designing ARIA for a graphic; measure at 260px before debate; verify
+  the brief's claims myself; cost string fixes before renderer fixes; riders on
+  other roles' proposals evaporate with them.
 
 ## Banked: birth registry, coda, hue enforcement (2026-07-19, compacted)
 
-- Won: coda mechanics shipped exactly as filed (promoted to Settled as the
-  fragment-navigation pattern); no-tooltip-content law survived its first offensive
-  test (BBY gloss prints in the subtitle); keyboard parity landed wider than my ask
-  (all six renderers, not just registry dots — the improvement-survey scatter gap
-  closed); sliver protection via legend conversion; testimony-caption clipping caught
-  in-flight → "SVG text doesn't wrap" rule.
-- Lost, rightly: I called the coda digits-pin theater. QA's distinction stands —
-  pinning a PROPERTY (stays number-free, the premise of its detector exemption) is an
-  honest absence assertion; pinning WORDING would be theater. Before objecting to a
-  guard, name the exact property it asserts; my own guard-honesty law WANTS such pins.
-- Prep lesson (my highest-yield yet): the fresh-eyes improvement survey doubling as
-  prep — file:line findings became shipped fixes without spending debate capital.
-  Keep auditing the artifact between debates and file findings with line numbers.
+- Won: coda mechanics shipped as filed (promoted to Settled); no-tooltip-content law
+  survived its first offensive test (BBY gloss in the subtitle); keyboard parity
+  landed wider than my ask (all six renderers); legend conversion for slivers;
+  "SVG text doesn't wrap" rule from the in-flight testimony-caption catch.
+- Lost, rightly: I called the coda digits-pin theater; pinning a PROPERTY is an
+  honest absence assertion (pinning wording would be theater). Before objecting to a
+  guard, name the exact property it asserts.
+- Prep lesson (highest-yield yet): the fresh-eyes artifact survey doubling as prep —
+  file:line findings became shipped fixes without spending debate capital.
 
 ## Banked: token hygiene + raise-only type (2026-07-19, a30a5bc, compacted)
 

@@ -142,14 +142,12 @@
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
 
-## Open watch items (compacted from 2026-07-18 survey prep)
+## Open watch items
 
-- STILL OPEN: upstream SWAPI quirks the site republishes verbatim — candidate
-  "clerical errors" disclosure, roster would live in known_facts: "Beru Whitesun
-  lars" (lowercase l), "Ayla Secura" (canon Aayla), species "Wookie" (canon Wookiee),
-  "Neimodian" (canon Neimoidian), R4-P17 — an astromech droid — filed as species
-  Human, gender female. In-universe framing ("as filed") is the honest angle: the
-  census records the error rather than silently correcting canon.
+- STILL OPEN: SWAPI quirks republished verbatim — candidate "clerical errors"
+  disclosure (roster in known_facts): "Beru Whitesun lars", "Ayla Secura",
+  "Wookie", "Neimodian", R4-P17 (astromech filed Human/female). Honest angle is
+  in-universe "as filed": record the error, never silently correct canon.
 
 ## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
 
