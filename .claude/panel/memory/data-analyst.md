@@ -194,6 +194,43 @@ coverage-theater instinct misfired against a check that carries real information
 Rule of thumb banked: economy arguments only beat redundancy arguments when the two
 guards would fail for the SAME reason.
 
+## Prep notes: token hygiene + raise-only small type (2026-07-19)
+
+- **11.5px is the data-ink stratum.** The whole cluster carries quantitative claims:
+  `.axis-t` (denominator endcaps — "82 characters", "youngest dated · Wicket, 8 BBY"),
+  `.val-t` (bar value labels at `x(d.n)+7`, right of bars — raise risks right-edge
+  clipping), `.anno-t` (registry "Name · N BBY" annos, line 1359), the JS gender
+  %-label (line 1131–1132: `fill:"#fff"`, `"font-size":"11.5"` as unitless SVG attr),
+  and `.prov-check` (settled badge-only exception). Any raise here needs 360/390px
+  re-verification of: val-t clipping, anno staggering, densest prov rail wrap.
+- **Gender %-label has a hardcoded fit gate:** renders only when `w > 46` px
+  (line 1130). The 46 was tuned for 11.5px; a raise-only merge to 12 must re-derive
+  or re-verify that constant, else a wider label overflows the segment it certifies.
+  The label is data ink (rounded %, tooltip carries the .1f exact) — its `#fff`
+  belongs in the token system; the starfield `#cdd8ef` (line 489, aria-hidden
+  decorative canvas) does not — sanctioned literal + comment + guard allow-list
+  beats a getComputedStyle bridge that adds init-order risk for zero data payoff.
+- **JS-side literal habitats a `<style>`-only scraper would miss** — all four current
+  residues live in JS, not CSS: canvas `fillStyle` (489), anno small-label attr
+  `font-size = 11` (747), gender label attrs (1131–32), registry caption inline
+  `cssText` `font-size:13px` (1374). A hygiene guard scanning only `<style>` is
+  coverage theater. Preferred fix: convert SVG attr font-sizes to CSS classes (a
+  `.seg-t` for the gender label; reuse existing classes elsewhere) so the guard can
+  assert "no font-size/fill literals in JS outside an explicit allow-list."
+  Scraper must handle unitless SVG attrs AND `px` forms, and must exclude the
+  one-line `const DATA` literal (load-bearing; never regex-mangle it).
+- **Guard home:** this is structural, not data-vs-copy — it belongs in the offline
+  pytest suite (doctype/lang precedent), NOT the runtime drift detector, which
+  grows with claims only. One test, existing suite, no second lint framework;
+  lands in the same commit as the consolidation.
+- Line 1374 caption is a model citizen: computes `dated.length` from DATA and gates
+  the literal "896 BBY" behind `oldest.name==="Yoda" && oldest.bby===896`.
+- Raising `.prov-check` 11.5→12 is technically raise-only and would dissolve the
+  settled exception — acceptable to me ONLY with densest-rail 360px re-wrap proof;
+  otherwise keep the exception as-is (settled: never propagate, never shrink).
+- No numbers change in this brief; drift detector untouched. My stale-note check:
+  none of my notes reference the four already-tokenized hexes — memory clean.
+
 **Prep differently:** before defending a single-guard position, enumerate the
 distinct failure modes of the value's derivation path (source drift / parse
 breakage / join loss / render drift) and check each has a guard that fires alone.
