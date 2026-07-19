@@ -108,57 +108,24 @@ with ZERO new mark types; `.hot` gold seat unchanged (`galaxy_report` only) — 
 reuse-first outcome the chip law was written for. Vertical-budget watch RESOLVED:
 headless 390x844 / 360x740 pass — reveals grow downward, stage cap holds; floor rules
 (never shrink type, never touch the stage) remain the fix path on regression.
-## Prep notes: post-landing cleanup (compacted 2026-07-18)
+## Banked: post-landing cleanup (2026-07-18, compacted)
 
-Superseded by the Banked section below. Surviving facts worth keeping:
-- Rail CSS lives at site/index.html:204–207; `.prov-check` is 11.5px mono — a
-  pre-existing badge-only exception below the 12px floor; do not propagate it to any
-  other mark, and never shrink it further.
-- Title-attribute `why` tooltips remain hover-only with no touch affordance; the
-  legend fix removed the false promise but not the gap. Standing watch, not mine alone.
-- The guard-honesty caveat lines on beats 4–6 self-removed when claims became direct
-  and check-guarded — generated copy worked in both directions, no hand edits.
-- Beat-7 word-list overflow ("undefined checks") was caught by the drift guard —
-  generated type failing loudly beats silent fabrication.
-
-## Banked: post-landing cleanup (2026-07-18)
-
-Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0 (SQL truth),
-2aa845e (spoiler fix + height check).
-
-**Lost (Q1), and why it's the right loss:** my guard+blocking filtered rail fell to
-the coverage-understatement objection — character_stats carries ZERO blocking checks,
-so under my rule the final beats would render near-empty rails forever, visually
-understating real coverage. Re-authoring won 5–3–1 on the one-home law (the trio
-description hand-listed a roster whose single source is known_facts.py — a drift bug
-independent of spoilers). But the remedy delivers every demand I actually hold:
-renderer untouched, ONE rule on every beat, no per-beat conditionals, no narrative
-fields in provenance; my whack-a-mole objection is answered structurally by the
-standing spoiler pin (term sets derived from known_facts, seen-to-fail before merge).
-Two lessons banked: (1) I proposed a renderer-layer fix for a content-layer problem —
-when strings are generated AND pinned by a test, fixing the strings IS systemic;
-filtering the renderer was solving honesty with layout. (2) Before proposing any
-filter rule, run its degenerate case against every asset's actual inventory — one
-all-WARN asset collapsed "guard+blocking" into an empty rail.
-
-**Won (Q2/Q3):** SQL truth landed with zero visual delta — existing `details.sql`
-treatment, no new "verified" mark, unanimous; chart 5's subtitle gained its
-denominator clause (data-analyst's point, but it's the on-chart-denominator law
-paying out). Q3(a) landed clean: one ◇ badge where characters_enriched appears,
-WORDS extended through "thirteen" in the same commit, galaxy_report stays check-free
-— a disclosed gap beats a phantom badge.
-
-**Rail-mass watch (open, visual):** uniform rail means beats 1–3 now show four
-characters_enriched badges (up one) and beat 1 additionally carries the
-height-baseline ◇. Labels are number-free and short, and the rail flex-wraps, so I
-expect the 360px budget holds — but nobody has re-eyeballed the densest rails since
-the count went to 13. Next site-touching prep: headless pass at 360×740 counting
-wrapped rail lines; flag any rail exceeding ~2 lines.
-
-**Prep differently next time:** enumerate each asset's checks BY SEVERITY before
-designing any rail/badge rule, and test the rule against both the sparsest and the
-densest asset; state which layer (renderer vs strings) a fix belongs to as part of
-the proposal, not as an afterthought.
+Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0, 2aa845e.
+Lost Q1 (guard+blocking filtered rail) to the coverage-understatement objection:
+character_stats carries ZERO blocking checks, so my rule degenerated to empty rails.
+The remedy (re-authored strings + standing spoiler pin) delivered every demand I
+actually hold: renderer untouched, ONE uniform rule per beat, no narrative fields.
+Lessons: (1) when strings are generated AND test-pinned, fixing strings IS systemic —
+don't solve content-layer honesty with renderer layout; (2) run any filter rule's
+degenerate case against every asset's real check inventory by severity first.
+Won Q2/Q3: SQL truth with zero visual delta (no "verified" mark, unanimous);
+denominator clause on chart 5; one ◇ where characters_enriched appears while
+galaxy_report stays honestly check-free — a disclosed gap beats a phantom badge.
+Surviving watch items: `.prov-check` 11.5px mono is a badge-only exception below the
+12px floor (never propagate or shrink — raising it is legal and would retire the
+exception); title-attribute `why` tooltips remain hover-only with no touch
+affordance (standing watch, not mine alone). Generated copy self-corrects in both
+directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
 
 ## Banked: birth registry + hue enforcement (2026-07-19)
 

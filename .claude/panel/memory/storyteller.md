@@ -162,3 +162,38 @@ Watch items:
   style choice.
 - The coda is the ONLY post-grid narrative element. Future panels will be tempted to
   append more closing prose there; the frame closes once.
+
+## Prep notes: token hygiene + raise-only type consolidation (2026-07-19)
+
+Verified in site/index.html: token block lines 8–31 (the four "off-token" hexes in the
+designer's old ledger ARE tokenized — --tip-bg/--axis/--cyan/--sql-ink); remaining
+literals are JS-only (#cdd8ef starfield fill ~489, #fff gender %-label ~1131). No stale
+notes of mine touched by this brief — my Yoda-line and coda line refs still match.
+
+Core prep finding — voice lives in register markers, not half-pixels: every small-type
+voice on this page is carried by case, letterspacing, color tier (ink-2/ink-3/gold),
+and family (disp/mono/body), with size as the fourth cue. So raise-only merges are
+narratively safe wherever the register markers survive. Voice pairs that MUST survive
+consolidation: aside < body (13.5→14 vs 16: fine, ink-3 does the whispering); crawl
+pre < crawl h4 (13 vs 14: both unchanged, hierarchy intact); .prov-check as the
+quietest string on the rail (held-pause law) — it must stay BELOW the summary/legend
+tier, so raising it to 12 flattens the one voice the pause depends on.
+
+Debate positions:
+- Merge map: 12.5→13 (kicker, stage-cap "n / 8", k-label, legend, cat-t?, prov-note,
+  tip — all keep register via case/spacing/color); 13.5→14; 16.5→17; 10.5/11 CSS
+  micro-labels (g-label, prov-legend) up to one fine-print tier.
+- In-SVG chart lettering (axis-t/val-t/anno-t 11.5, JS small-anno 11, gender %-label
+  11.5) is GEOMETRY, not typographic voice — collisions were historically fixed by
+  staggering, never shrinking. Exempt it from the scale as an allow-list, and make the
+  guard encode "stagger, never shrink/resize" as law.
+- Guard (Q4): yes, one structural pytest in the existing suite; my ask is that the
+  allow-list carries a reason string per exemption, so a future "just shrink the
+  label" edit fails loudly.
+- Colors (Q1): mostly designer's turf. My one stake: the hero's opening chord must
+  not gain a runtime dependency — a getComputedStyle bridge for one never-reused
+  star color adds an init failure mode for zero narrative gain; sanctioned literal
+  with comment is fine. The SVG #fff label is class-able; no story stake either way.
+- Font tokens (Q3): if tokens land, name the kept steps by ROLE/tier (fine-print /
+  caption / sub / note), not by pixel — the scale then documents the voice hierarchy.
+  Tokens only for kept steps; no story objection to skipping tokens entirely.
