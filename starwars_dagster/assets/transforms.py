@@ -150,7 +150,9 @@ def film_character_counts(context: AssetExecutionContext, star_wars_db: str) -> 
     SWAPI stores characters as a JSON array of URLs inside films.characters.
     We use DuckDB's json_array_length() to count them without unnesting.
     """
-    con = duckdb.connect(star_wars_db)
+    # read_only: DuckDB allows many readers OR one writer per file, so every
+    # pure-read transform must say which it is (tests/test_pipeline.py pins this)
+    con = duckdb.connect(star_wars_db, read_only=True)
 
     df = con.execute("""
         SELECT
@@ -185,7 +187,7 @@ def starship_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Data
     Raw SWAPI data has numeric fields as strings (e.g. "1.0", "unknown").
     We use TRY_CAST to convert, treating 'unknown' as NULL.
     """
-    con = duckdb.connect(star_wars_db)
+    con = duckdb.connect(star_wars_db, read_only=True)
 
     df = con.execute("""
         SELECT
@@ -238,10 +240,20 @@ def character_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Dat
         SELECT
             p.name                          AS character_name,
             json_array_length(p.films)      AS film_count,
-            json_array_length(p.starships)  AS starships_flown
+            json_array_length(p.starships)  AS starships_flown,
+            -- BBY positive, ABY negative (none in the current snapshot),
+            -- 'unknown' and anything unparseable become NULL
+            TRY_CAST(regexp_extract(p.birth_year, '^([0-9.]+)(BBY|ABY)$', 1) AS DOUBLE)
+                * CASE WHEN p.birth_year LIKE '%ABY' THEN -1 ELSE 1 END
+                                            AS birth_year_bby
         FROM people p
         ORDER BY p.name
     """).df()
+
+    # Same write-back contract as characters_enriched: the per-character grain
+    # is queryable, so the dashboard's displayed SQL (DATA.sql.ages) runs
+    # against the real table (tests/test_site_sql.py executes it).
+    con.execute("CREATE OR REPLACE TABLE character_stats AS SELECT * FROM df")
 
     con.close()
 

@@ -1,6 +1,6 @@
 ---
 name: panel-storyteller-reveal-arc
-description: Storyteller technique for layering an opt-in "second arc" (provenance, methodology, making-of reveals) under a primary narrative without leaking payoffs or stalling the spine. Use when a panel topic adds expandable/aside content to an existing beat sheet.
+description: Storyteller technique for layering an opt-in "second arc" (provenance, methodology, making-of reveals) under a primary narrative without leaking payoffs or stalling the spine, and for closing the frame (codas, quoted-testimony audits of external claims). Use when a panel topic adds expandable/aside content to an existing beat sheet or closing copy after the final data surface.
 ---
 
 # The second arc: opt-in reveals under a primary spine
@@ -68,3 +68,31 @@ narrative arc the reader opts into. Judge it as story.
     be seen to fail (plant a leak, watch it catch, revert) before it counts as a
     guard; and every new metadata string passes the pin before landing. Names-only
     pins are half a pin — a bare payoff count ("19", "5") leaks as loudly as a name.
+    When a new payoff ships, extending the pin's term sets is part of the payoff's
+    landing, not a follow-up.
+
+11. **Close the frame with a coda, not a summary.** (Adjudicated 2026-07-19.) After
+    the last data surface, one short in-voice paragraph plus a re-read affordance
+    that loops to the story's top ("Take the census again ↑" → #story). The coda
+    states the story's epistemic promise ("nothing here is sealed") — it recaps no
+    numbers and repeats no payoffs, because a coda that restates figures is a
+    summary, and a summary is a second ending. That number/name/payoff-free property
+    is what exempts it from the project's drift detector, so the exemption gets an
+    **absence pin**: a test asserting the property (digit-free), never the wording.
+    Pinning the wording is theater; the premise is what's load-bearing. Placement:
+    inside the main content, after the final grid — the footer stays footer, and the
+    frame closes exactly once (resist all future appended closing prose).
+
+12. **Quoted testimony: auditing external claims in copy.** When canon/dialogue
+    offers a number the data cannot derive but can corroborate, do not exclude it
+    and do not fake it as data — AUDIT it in the story's own register ("filed at
+    896 BBY — his own count, nine hundred years, checks out"). Mechanics, all
+    mandatory: (a) the quoted figure is never rendered as site-derived data —
+    derived numbers come only from the data literal; (b) the line renders
+    data-conditionally on the exact facts it audits (name AND value), so if the
+    record drifts the line disappears rather than lies; (c) no derived twin of the
+    quoted figure exists anywhere (~900 computed from 896 would launder testimony
+    into data); (d) the motif is rationed — an audit-the-canon aside is a motif at
+    two uses and a tic at three. Prep discipline: when the deliverable is words,
+    draft the FINAL copy before debate; verbatim adoption is only possible if the
+    exact text is on the table.

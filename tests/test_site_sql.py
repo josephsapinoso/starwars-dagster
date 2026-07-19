@@ -24,6 +24,7 @@ import pytest
 from dagster import materialize
 
 from starwars_dagster.assets import (
+    character_stats,
     characters_enriched,
     raw_films,
     raw_people,
@@ -37,7 +38,7 @@ from tests.conftest import SNAPSHOT_MARKER, FakeSWAPIResource
 REPO = Path(__file__).resolve().parent.parent
 SITE = REPO / "site" / "index.html"
 
-SQL_KEYS = ["films", "gender", "scatter", "homeworlds", "hyper"]
+SQL_KEYS = ["films", "gender", "scatter", "homeworlds", "hyper", "ages"]
 
 requires_real_snapshot = pytest.mark.skipif(
     not SNAPSHOT_MARKER.exists(),
@@ -60,7 +61,7 @@ def warehouse(tmp_path_factory, monkeypatch_module):
     monkeypatch_module.chdir(cwd)
     result = materialize(
         [raw_films, raw_people, raw_planets, raw_starships, raw_species,
-         star_wars_db, characters_enriched],
+         star_wars_db, characters_enriched, character_stats],
         resources={"swapi": FakeSWAPIResource()},
     )
     assert result.success
@@ -86,7 +87,7 @@ def run_sql(warehouse, sql: str):
 
 # ── Layer 1: EXECUTE (ungated — broken SQL is broken on any data) ───────────
 
-def test_data_sql_has_exactly_the_five_chart_entries(data):
+def test_data_sql_has_exactly_the_chart_entries(data):
     assert "sql" in data, "DATA.sql missing — the site would render empty disclosures"
     assert sorted(data["sql"]) == sorted(SQL_KEYS)
     for k in SQL_KEYS:
@@ -157,6 +158,23 @@ def test_homeworlds_sql_reproduces_the_top_ten(data, warehouse):
             counts[p["homeworld"]] = counts.get(p["homeworld"], 0) + 1
     expected = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:10]
     assert [(r[0], r[1]) for r in run_sql(warehouse, data["sql"]["homeworlds"])] == expected
+
+
+@requires_real_snapshot
+def test_ages_sql_reproduces_the_birth_registry(data, warehouse):
+    # positive-BBY form is pinned here: a signed year in the result set would
+    # falsify the unit on display (decision 2026-07-19)
+    rows = run_sql(warehouse, data["sql"]["ages"])
+    expected = sorted(
+        (
+            (p["name"], float(p["birthYear"][:-3]))
+            for p in data["people"]
+            if p["birthYear"]
+        ),
+        key=lambda r: (-r[1], r[0]),
+    )
+    assert [(r[0], float(r[1])) for r in rows] == expected
+    assert all(r[1] > 0 for r in rows)
 
 
 @requires_real_snapshot

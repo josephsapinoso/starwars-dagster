@@ -57,24 +57,49 @@
 - **The rail is uniform (2026-07-18):** every beat renders the same rule — all checks
   of its chain assets. Spoiler safety lives in the strings, not the renderer; no
   per-beat filtering that would make disclosed coverage beat-dependent.
-- **13 checks (4 blocking / 9 WARN) as of 2aa845e:**
-  `characters_enriched_unknown_height_baseline` (WARN, from
-  EXPECTED_UNKNOWN_HEIGHT_COUNT) guards beat 1's "1 unmeasured"; beat 1's guard
-  flipped pytest→check. `galaxy_report` stays check-free BY DESIGN (WORKSHOP
-  Exercise-8 collision + coverage-theater law) — a deliberate, disclosed gap, not an
-  open one. Stop flagging it.
+- **15 checks (4 blocking / 11 WARN) as of 1f3cf9e:** birth registry added
+  `character_stats_birth_year_baseline` + `character_stats_birth_year_parse_honesty`
+  (both WARN). `galaxy_report` stays check-free BY DESIGN (WORKSHOP Exercise-8
+  collision + coverage-theater law) — deliberate, disclosed. Stop flagging it.
+- **Birth registry baselines (2026-07-19, commit 1f3cf9e):** **39 of 82** have no
+  birth year on file; **43** dated; oldest on file **896 BBY (Yoda)**; all 43 dated
+  values are BBY, zero ABY. Frozen in known_facts (EXPECTED_UNDATED_BIRTH_COUNT,
+  EXPECTED_DATED_BIRTH_COUNT, OLDEST_BIRTH_BBY, OLDEST_DATED_CHARACTER); parsed
+  in-pipeline as `character_stats.birth_year_bby` (sign-safe: ABY parses negative,
+  tested on synthetics). Registry card computes every count from DATA in JS — zero
+  numeric literals.
+- **Failure-mode separation law (2026-07-19, 7–1 — I was the 1):** any displayed
+  number derived through a parse gets TWO guards — a drift baseline AND a
+  data-independent parse-honesty invariant — because "the data moved" and "the
+  parser broke" must fail differently. Without parse-honesty, "39 undated" can
+  silently mean "39 unparsed" while the badge glows green.
+- **Gold ring means "extreme" (2026-07-19):** persistent gold emphasis asserts
+  superlatives only; named non-extremes (Vader) get labels, never rings.
+- **Quoted-testimony rule (2026-07-19):** external claims (dialogue, canon — e.g.
+  Yoda's "900 years") may be audited in copy but never rendered as site-derived
+  data; derived numbers come only from DATA.
+- **Absence pins are legitimate guards (2026-07-19):** an element exempted from a
+  detector by a property (number-free coda) gets a pin asserting that property;
+  pinning wording is theater. The coda digit-pin is an absence assertion.
+- **Gender legend conversion (2026-07-19):** segment names + counts summing to 82
+  stay visible via the CONVERTED legend (opacity ladder via color-mix; bar/legend/
+  tooltips carry identical colors). Legend counts are part of the denominator law.
+- **WORKSHOP.md is on the count-ripple checklist;** teaching prose states counts
+  count-free unless the count is the lesson. Q4 "Limits, by design" bullets are
+  number-free by law.
 
 ## Working knowledge
 
 - Nulls are the story, not noise: the mass beeswarm's 23 missing values and the
   homeworld join's misses are disclosed in captions — this pattern must extend to any
   new claim.
-- The drift detector (site/index.html) recomputes {total, noMass, oneFilm, naboo,
-  tatooine, pilots, maxFlown} from `DATA.people` and compares against expectations,
-  plus the six-film-trio exact-set check, provenance internal consistency (claims
-  cover beats 1–6, chain ids resolve, badges derive from `blocking`, beat-7 callback
-  counts, number-word list overflow), and — since c0b97e0 — that every SQL disclosure
-  resolves a nonempty DATA entry.
+- The drift detector (site/index.html) recomputes {total, noMass, noHeight, oneFilm,
+  naboo, tatooine, pilots, maxFlown, undatedBirth, oldestBby} from `DATA.people` and
+  compares against expectations, plus the six-film-trio exact-set check, provenance
+  internal consistency (claims cover beats 1–6, chain ids resolve, badges derive from
+  `blocking`, beat-7 callback counts, number-word list overflow), that every SQL
+  disclosure resolves a nonempty DATA entry (list now includes "ages"), and the coda
+  digit-pin.
 - Chart honesty conventions in force: log scale flagged in captions; excluded rows
   named; Chart/Table toggle exposes rows per card; chart 5's subtitle computes
   "Top 10 of the ${rated} starships with a rated hyperdrive" from DATA — denominators
@@ -93,6 +118,10 @@
   - Beat 6 (19 flew; max 5): `character_stats_pilot_count_baseline` +
     `character_stats_max_flown_baseline` WARN — direct, per-PERSON grain.
     `starship_stats` is per-SHIP and irrelevant to pilots claims.
+  - Registry card (39/43/896): `character_stats_birth_year_baseline` +
+    `character_stats_birth_year_parse_honesty` WARN — direct via
+    `character_stats.birth_year_bby`; DATA.sql.ages executed + compared with the
+    positive-BBY pin.
 - WARN severity is runtime-only in Dagster; `spec.blocking` is the static field —
   provenance encodes `blocking` and derives badge wording from it.
 - Storage lies about types: load_table json.dumps's list fields into VARCHAR, so
@@ -103,67 +132,73 @@
   meaningful, not synthetic.
 - Hardcoded number-words and counts in prose/aria labels are a drift surface; audit
   them whenever totals change (the beat-7 "undefined checks" overflow bug class).
-- README screenshot open item now targets **13** green checks; land any future check
-  count changes BEFORE retaking screenshots.
+  Screenshots retaken at **15** green checks (f170379); checks-before-screenshots
+  sequencing held again.
+- Improvement-survey residue (2026-07-18, still unbuilt): starship `cost` null for
+  10 of 36 (26 priced — price-board candidate with denominators); planets/species
+  payloads unused beyond KPI counts; redundant grains enable cross-foot drift checks
+  (planets.residents vs people.homeworld; species.members vs people.species;
+  starships.pilots vs people.starshipsFlown). birthYear item shipped 2026-07-19.
 
 ## Banked: pipeline-reveal (2026-07-18) — compacted
 
-Won: my false-beat-map prep finding drove the spec; check-badge honesty and the deep
-pytest cross-check (topology, check ownership, blocking, verbatim rationales, exact
-coverage set, honest guard typing) became law; the drift detector grew provenance
-consistency checks. Lost: option (a) per-character grain lost on cost, then landed
-later on merit (082d9c9) — lessons: lead with grain-correctness, not the diagram, and
-keep a losing option's acceptance criteria specified to landing precision (that is
-exactly what let it ship later with zero new debate; my assertion set shipped
-verbatim, WARN-not-blocking per my severity law; the `derived` vocabulary made the
-upgrade a clean testable flip to `direct`). Prep-differently residue: check
-`spec.blocking` semantics myself; pre-rank either/or proposals and cost them; verify
-rendering-tech assumptions in briefs early. All three open items from this round
-(unverified SQL strings, beat-1 height gap, galaxy_report) were closed or resolved by
-the post-landing cleanup — see below.
+Won: false-beat-map prep drove the spec; check-badge honesty and the deep pytest
+cross-check became law. Lost: per-character grain lost on cost, then landed later on
+merit (082d9c9) — lessons: lead with grain-correctness, not the diagram; keep a
+losing option's acceptance criteria specified to landing precision (that let it ship
+later with zero new debate; the `derived` vocabulary made the upgrade a clean flip
+to `direct`). Prep residue: check `spec.blocking` semantics myself; pre-rank
+either/or proposals and cost them; verify rendering-tech assumptions early. All
+three open items from this round were closed by the post-landing cleanup.
 
-## Banked: post-landing cleanup (2026-07-18, commits c0b97e0 + 2aa845e)
+## Banked: post-landing cleanup (2026-07-18, c0b97e0 + 2aa845e) — compacted
 
-**Won broadly (Q1 5–3–1 with my labels; Q2/Q3 unanimous):**
-- Q1: re-authoring won and my number-free labels shipped almost verbatim ("all-six
-  set", "pilot census", "flight record", "mass baseline"). The remedy exceeded my
-  guard candidate: the spoiler pin covers numbers AND names, derived from known_facts,
-  across all beats — not just my beat-4 assertion. Note WHY it won, though: the
-  writer's one-home law (trio roster hand-listed in a check description = drift bug
-  that could make the Dagster UI lie) and QA's unverifiable-`beat`-field point carried
-  the room. My spoiler framing was correct but the DRIFT framing was decisive — frame
-  string bugs as data-integrity bugs first.
-- Q2: my compare-layer demand is law — tests/test_site_sql.py asserts each string's
-  result set equals the DATA-derived chart rows, not merely that it executes. The
-  droid recode moved INTO the gender SQL; both LIMIT-10 boards got name tiebreaks
-  mirrored in the JS sorts; the dead `-- 59 of 82` comment died and
-  `test_displayed_sql_carries_no_unverified_count_comments` pins the whole class;
-  chart 5's card discloses its denominator, computed from DATA (my law in its best
-  form — dynamic, not typed).
-- Q3(a): the height-null WARN check landed exactly as I specced (mirror of the mass
-  baseline, constant already in known_facts); beat 1 flipped pytest→check; all
-  13-check ripples (WORDS through "thirteen", provenance totals, README/CLAUDE.md)
-  rode the same commit. My checks-before-screenshots sequencing held.
+Won: number-free check labels shipped verbatim; the spoiler pin exceeded my guard
+candidate (numbers AND names, derived from known_facts, all beats); my compare-layer
+demand became law (test_site_sql.py asserts result sets equal DATA-derived chart
+rows); recodes/tiebreaks moved INTO the SQL; unverified count-comments are a pinned
+banned class; the height-null WARN check landed as specced with all count ripples in
+one commit. Decisive lesson: my spoiler framing was correct but the writer's DRIFT
+framing carried the room — frame string bugs as data-integrity bugs first.
+Lost/adjusted: galaxy_report zero-checks is deliberate design (I hedged where my own
+skill had the firm answer — promote skill guidance to verdicts); the engineer's
+write-back (make `FROM characters_enriched` TRUE) beat my fix-the-strings scope —
+when displayed SQL names a missing table, ask whether the table SHOULD exist; my
+anti-rail-filtering win rode a concrete counterexample ("character_stats has zero
+blocking checks, so final beats would understate forever"), not abstractions.
+Prep-differently: run read-only DuckDB against the fixture in prep and quote outputs;
+"cannot verify offline" cost the final 10% of an argument already won on paper.
 
-**Lost / adjusted:**
-- galaxy_report: I had carried "zero checks" as an open coverage gap; it is now
-  DELIBERATE disclosed design (Exercise-8 collision + coverage-theater law). My own
-  skill already said "design for the zero-check terminal asset rather than invent
-  coverage" — I should have promoted that to a firm verdict instead of a hedge; QA
-  got credit for the retraction I should have led.
-- Data-engineer's write-back shape beat my implicit fix-the-strings-only scope:
-  making `FROM characters_enriched` TRUE (same-df parity, table count frozen) is
-  stronger than rewriting queries around a missing table. Lesson: when displayed SQL
-  names a table that doesn't exist, first ask whether the table SHOULD exist.
-- I opposed rail filtering and won on the coverage-understatement objection — but the
-  designer's uniform-filter variant lost narrowly; the argument that saved my position
-  was "character_stats has zero blocking checks, so final beats would understate
-  forever." Keep that concrete counterexample style; abstractions about "disclosed
-  coverage" alone would not have carried.
+## Banked: birth registry + polish (2026-07-19, commits 1f3cf9e/4d92cb7/7d96df5/f170379)
 
-**Prep differently next time:** my execution-level audit (two provably wrong strings)
-was the highest-value artifact in the debate — but the orchestrator still had to run
-the queries live to clinch it (1222 "characters" for Episode I, two
-CatalogExceptions). Where a read-only DuckDB run against the fixture is possible in
-prep, do it and quote the outputs; "cannot verify offline" cost me the final 10% of
-the argument I had already won on paper.
+**Won:** card shape shipped nearly verbatim — "39 of 82" headline, "43 of 82 dated"
+denominators, youngest-dated Wicket line, every count computed from DATA in JS with
+zero numeric literals; drift detector gained undated=39 / oldestBby=896;
+DATA.sql.ages executed + compared with the positive-BBY pin; the Vader ruling is law
+(labeled, unringed — held against annotation creep); gender legend kept name+count
+summing to 82 riding the designer's opacity ladder; coda digit-pin won as I framed
+its half (absence assertion; wording-pin rightly dropped per QA); Q4 bullets shipped
+number-free as demanded.
+
+**Lost — and the loss is the lesson:** one-check economy, 7–1. I argued a single
+baseline check was sufficient; the room's failure-mode argument was better ON MY OWN
+TERMS: the baseline compares a count against a constant, but if the source format
+changes, the parser nulls everything, "undated" swells to absorb the breakage, and —
+because 39 could still match by coincidence during partial breakage, or the failure
+reads as drift when it's a bug — the badge asserts a number whose MEANING changed.
+Parse-honesty (each null traces to a literal 'unknown' raw string) is data-
+independent and separates "the data moved" from "the parser broke." That IS
+denominator honesty: "39 undated" and "39 unparsed" are different claims wearing the
+same digits. I optimized check count (economy) over failure semantics; my own
+coverage-theater instinct misfired against a check that carries real information.
+Rule of thumb banked: economy arguments only beat redundancy arguments when the two
+guards would fail for the SAME reason.
+
+**Prep differently:** before defending a single-guard position, enumerate the
+distinct failure modes of the value's derivation path (source drift / parse
+breakage / join loss / render drift) and check each has a guard that fires alone.
+Had I run that enumeration in prep, I'd have proposed the second check myself —
+qa-engineer and hiring-manager took the point that was natively mine (badge-glows-
+while-lying is MY guard-honesty law). Also: when a number passes through a parse,
+say "parsed display number" in my verdict explicitly — that phrase triggers the
+two-guard law now settled above.

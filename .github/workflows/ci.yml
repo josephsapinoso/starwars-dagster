@@ -15,7 +15,9 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install
-        run: pip install -e ".[dev]"
+        # -c pins every transitive dep to requirements.lock so today's green
+        # suite is still reproducible when dagster/duckdb move underneath us
+        run: pip install -e ".[dev]" -c requirements.lock
       # The whole suite is offline by design: assets run against committed
       # fixtures via an injected fake SWAPIResource. No network, no flakes.
       - name: Test

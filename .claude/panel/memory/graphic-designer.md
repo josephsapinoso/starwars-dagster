@@ -48,6 +48,19 @@
 - Dashboard cards get NO per-card mini-DAGs — the full-width lineage strip is the
   establishing shot; duplicating it per card is mark multiplication. (Pipeline-reveal
   panel, 2026-07-18.)
+- **The gold ring means "extreme"**: persistent gold rings assert superlatives only —
+  the three true extremes wear them (scatter pair + Yoda on the registry); named
+  non-extremes (Vader) get labels, never rings. (Birth-registry panel, 2026-07-19.)
+- One data hue is now enforced dashboard-wide: amber outlier dots deleted, hyperdrive
+  bars s2→s1, films' second series is a 45% s1 tint, gender is a rank-ordered s1
+  ladder. No chart anywhere paints s2–s5. (Birth-registry panel, 2026-07-19.)
+- Cross-medium tint law: multi-step tints of the data hue render as SOLID computed
+  colors — `color-mix(in srgb, var(--s1) N%, var(--panel))`, steps [100,75,55,40,28] —
+  never fill-opacity, so ONE palette array feeds SVG fills, HTML legend swatches, and
+  tooltip chips with identical color strings. (Birth-registry panel, 2026-07-19.)
+- Captions longer than a label render as wrapping HTML below the figure, never SVG
+  `<text>` — SVG text clips at narrow widths (registry testimony line clipped at
+  390px). (Birth-registry panel, 2026-07-19.)
 
 ## Working knowledge
 
@@ -77,61 +90,24 @@
   beat 4 (held pause) gets the quietest variant "The paper trail." — identical
   placement/size everywhere.
 
-## Banked: pipeline-reveal (2026-07-18)
+## Banked: pipeline-reveal (2026-07-18, compacted)
 
-**Won:**
-- Chip reuse spec adopted wholesale — mono 12px, rounded rect, `--line` stroke, single
-  `.hot` gold seat per chain. Adjudication went further than my SVG-imitation plan:
-  chains render as real HTML `.chip` elements, which is a *stronger* version of my own
-  must-have (CSS reused verbatim, accessibility free, no SVG text-measurement hazards
-  at small widths). Lesson: when arguing "match the existing CSS," propose *using* the
-  existing CSS — imitation in another medium was the weaker form of my own principle.
-- Monochrome ◆/◇ badge system won unanimously; severity derives from `spec.blocking`
-  so the mark can never lie. My "static artifact can't claim live status" argument
-  aligned with data-engineer/qa and became banked law.
-- Shared disclosure selector (`details.sql, details.prov`) won; the 28px hit-area
-  precedent gets fixed once for both (≥44px).
-- No dashboard per-card mini-DAGs — my mark-multiplication objection held (unanimous
-  minus a conditional).
+Won: chip reuse (adjudication upgraded my SVG-imitation plan to real HTML `.chip`
+elements — the stronger form of my own principle: propose *using* the existing CSS,
+not imitating it); monochrome ◆/◇ badges (severity from `spec.blocking`, mark can't
+lie); shared disclosure selector; no per-card mini-DAGs. Lost: horizontal chain with
+overflow-x — at ~260px it hides the terminal node (the payoff) behind a scroll.
+Banked distinction: overflow-x is a dashboard affordance, never a story affordance.
+Lessons: measure content budget before proposing an axis; treat a spec's stated
+technology ("SVG diagram") as a guess to challenge, not a constraint.
 
-**Lost:**
-- Horizontal chain with `overflow-x` escape lost to ux-designer's vertical stack. Right
-  call: at ~260px a horizontal chain hides the terminal node behind a scroll, and the
-  terminal node is the payoff. I imported the `.dag` strip's overflow pattern without
-  re-checking whether the escape hatch itself was acceptable in a *narrative* reveal —
-  the dashboard strip tolerates it because it's reference material, not a story beat.
-  Bank the distinction: overflow-x is a dashboard affordance, not a story affordance.
+## Banked: per-character transform landed (2026-07-18, compacted)
 
-**Prep differently next time:** measure the actual content budget (chip count × min
-label width vs container) before proposing an axis; and when the spec says "SVG
-diagram," treat the technology as a guess to challenge, not a constraint to design
-within — HTML reuse beat SVG on every axis I care about.
-
-**Open items I track visually:** *(vertical-budget watch resolved into the concrete
-observation below, 2026-07-18.)* README screenshot retake unchanged (now needs 12 green
-checks; desktop UI required).
-
-## Banked: per-character transform landed (2026-07-18)
-
-Execution close-out of the pipeline-reveal open item (commit `082d9c9`, decision note
-`2026-07-18-per-character-transform-landed.md`) — no new debate; system held.
-
-- **Mark system survived intact.** Zero new mark types: beats 4–6 now render a
-  three-chip vertical chain (`raw_people → star_wars_db → character_stats`) using the
-  existing `.chip` + ↓ connector vocabulary, and `character_stats` carries a four-badge
-  `.prov-check` rail (all ◇ WARN — exact-value baselines are drift, per known_facts
-  law). The only addition anywhere is one more `.chip` in the static DAG strip
-  (`character_stats` under "02 · Transforms"); `.hot` gold seat unchanged
-  (`galaxy_report` only). Verified in site source. This is the reuse-first outcome the
-  chip law was written for.
-- **Concrete open observation (was the vertical-budget watch item):** beats 4–6 grew
-  taller — 3 chips + 2 connectors + a 4-check rail replaces the old 1–2-chip derived
-  chain plus honesty line. Nobody has eyeballed this on a real mobile viewport yet. The
-  settled station geometry (min(64svh,560px)) tolerates an open reveal growing the card
-  taller than the station, so I expect it holds. **RESOLVED 2026-07-18:** headless
-  re-check at 390x844 and 360x740 PASSED — reveals grow downward, no horizontal
-  overflow, stage cap holds. The watch item is closed; the floor rules (never shrink
-  type, never touch the stage) remain the fix path if a future change regresses it.
+Commit `082d9c9`: beats 4–6 render the three-chip vertical chain + four-badge ◇ rail
+with ZERO new mark types; `.hot` gold seat unchanged (`galaxy_report` only) — the
+reuse-first outcome the chip law was written for. Vertical-budget watch RESOLVED:
+headless 390x844 / 360x740 pass — reveals grow downward, stage cap holds; floor rules
+(never shrink type, never touch the stage) remain the fix path on regression.
 ## Prep notes: post-landing cleanup (compacted 2026-07-18)
 
 Superseded by the Banked section below. Surviving facts worth keeping:
@@ -183,3 +159,41 @@ wrapped rail lines; flag any rail exceeding ~2 lines.
 designing any rail/badge rule, and test the rule against both the sparsest and the
 densest asset; state which layer (renderer vs strings) a fix belongs to as part of
 the proposal, not as an afterthought.
+
+## Banked: birth registry + hue enforcement (2026-07-19)
+
+Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e (registry
+card), 4d92cb7 (coda + hue enforcement), f170379 (screenshots at 15 checks — the
+long-standing README-retake open item is CLOSED).
+
+**Won — Q3 adopted in full, registry card shipped as specced.** Amber deleted;
+persistent gold rings on the three true extremes with Vader label-only; hyper s2→s1;
+films at 45% tint; gender ladder with the legend converting to matching swatches
+(names + counts summing to 82 stay visible). Registry card: part-to-whole bar with
+absence as faint tint, log dot strip, two anno-t labels, Yoda's single gold ring, BBY
+gloss printed. Zero new mark types across three commits. Gold-ring-means-extreme is
+now banked law (promoted to Settled). The coda shipped ornament-free —
+whitespace-is-pacing held without my needing to argue it.
+
+**Implementation deltas to keep:**
+- The ladder landed as `color-mix(in srgb, var(--s1) N%, var(--panel))` SOLID steps,
+  not my raw fill-opacity spec — a stronger form of my own must-have ("ladder
+  identical in bar, legend, tooltips"): fill-opacity can't cross into HTML legend/chip
+  backgrounds; one palette array now feeds all three media with identical strings.
+  Verified in source (~1092–1127). Same lesson as the chip debate: when the goal is
+  identity across media, specify the computed VALUE, not the rendering trick.
+- Two anno-t labels collided on the dot strip; the fix was staggered rows, not
+  smaller type — the floor rules worked as the designed fix path.
+- The testimony caption clipped as SVG text at 390px and became wrapping HTML below
+  the strip — promoted to the Settled caption law.
+
+**Prep differently next time:** spec tints as "identical color values across SVG and
+HTML," letting implementation choose the mechanism; test any SVG text longer than a
+name at 360–390px before speccing it as SVG; plan label collisions (stagger rows) for
+any strip carrying two or more annotations.
+
+**Still open (from the survey, not adjudicated):** off-token hex colors (`#0a0f1c`
+tip bg, `#2a3550` .baseline, `#4bd5ee` hero, `#9fd0ff` SQL ink) and the ~9-size
+small-type scale — token hygiene + raise-only consolidation remain future proposals.
+Rail-mass watch continues at 15 checks (re-eyeball densest rails at 360px next
+site-touching prep).

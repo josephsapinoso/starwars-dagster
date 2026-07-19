@@ -9,7 +9,7 @@ All selectors live in the single `<style>` block of `site/index.html`. Before an
 component is approved, walk this inventory: the proposal must reuse a mark below or
 justify a permanent seat.
 
-## Inventory (verified 2026-07-17)
+## Inventory (verified 2026-07-17; gold ring + hue ladder added 2026-07-19)
 
 | Mark | Selector / lines | Look | Meaning |
 |---|---|---|---|
@@ -21,6 +21,8 @@ justify a permanent seat.
 | Disclosure | `details.sql, details.prov` ~190–197 | 12px ink-3 summary, .06em tracking, gold `▸/▾` `::before`, `--void` inset body | opt-in depth (SQL + provenance); the ONLY disclosure style |
 | Check-badge rail | `.prov-checks / .prov-check` ~204–206 | mono 11.5px ink-3, ◆/◇ glyph + number-free label; flex-wrap | an asset's full check inventory; ◆ blocking, ◇ drift WARN. 11.5px is a badge-only exception to the 12px floor — do not propagate |
 | Overflow escape | `.dag { overflow-x: auto }` ~134 | horizontal scroll | wide diagrams scroll; type never shrinks below 12px. Dashboard affordance only — story reveals stack vertically |
+| Gold ring | ring circles on scatter + registry (r≈8.5, `stroke: var(--gold)`, `fill: none`) | thin gold circle around a mark | asserts a SUPERLATIVE — persistent only on true extremes (added 2026-07-19); named non-extremes get labels, never rings |
+| Hue ladder | one palette array: `color-mix(in srgb, var(--s1) N%, var(--panel))`, steps [100, 75, 55, 40, 28] | rank-ordered solid tints of the data hue | ordered categories in ONE hue; the same array feeds SVG fills, HTML legend swatches, and tooltip chips. Second-series tint is the 45% step (films) |
 
 ## Extension rules
 
@@ -47,3 +49,17 @@ justify a permanent seat.
 7. **Displayed SQL is executed SQL**: SQL text renders only from DATA via the
    existing `details.sql` treatment, with zero new marks — no "verified SQL" badge
    exists or ever will; ◆/◇ plus prov-note wording already carry "asserted offline".
+8. **The gold ring means "extreme" (banked law, 2026-07-19)**: persistent gold rings
+   assert superlatives only. If a mark is named for narrative reasons but is not a
+   verified extreme (Vader), it gets a label — never a ring. Diluting the ring to
+   "interesting" kills the mark.
+9. **Tints are solid computed colors, never opacity (2026-07-19)**: any multi-step
+   tint of the data hue uses `color-mix(in srgb, var(--s1) N%, var(--panel))` from a
+   single palette array shared by SVG fills, HTML legends, and tooltip chips —
+   fill-opacity cannot cross into HTML backgrounds, so the colors would diverge.
+   When identity across media is the goal, spec the computed VALUE, not the
+   rendering trick. No chart paints `--s2`–`--s5`; amber emphasis is dead.
+10. **Captions wrap in HTML, not SVG (2026-07-19)**: any caption longer than a short
+    label renders as wrapping HTML below the figure — SVG `<text>` clips at narrow
+    widths (proven at 390px). Two or more annotations on one strip get staggered
+    rows on collision; type never shrinks as the fix.

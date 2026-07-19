@@ -52,6 +52,31 @@
 - **The rail is uniform (post-landing cleanup):** every beat renders the same rule —
   all checks of its chain assets. Spoiler safety lives in the strings, not the
   renderer. My cumulative beat-indexed rail is dead; do not re-propose it.
+- **Quoted-testimony rule (birth registry, 2026-07-19):** external claims — dialogue,
+  canon numbers — may be *audited* in copy but never rendered as site-derived data;
+  derived numbers come only from DATA. The Yoda line ("filed at 896 BBY — his own
+  count, nine hundred years, checks out") renders ONLY while the record still agrees;
+  if the data moves, the audit line vanishes rather than lie.
+- **BBY is the dataset's own unit (birth registry):** `birth_year_bby` is positive;
+  "-896" never displays (pinned in the SQL compare test); the gloss "years before the
+  Battle of Yavin" prints visibly, not tooltip-only; NO ABY appears on card, column
+  copy, or checks — zero ABY records exist, and the parser's ABY branch lives only in
+  synthetic pytest cases. Claims must never imply ABY data we don't have.
+- **The gold ring means "extreme" (birth registry / Q3):** persistent gold emphasis
+  asserts superlatives only — Yoda alone ringed on the registry, the three true
+  extremes on the dashboard. Named non-extremes (Vader) get labels, never rings.
+  Amber is dead. This extends gold-is-ceremony; it does not soften it.
+- **Annotation cap (birth registry):** the registry dot strip carries exactly two
+  annotations — Yoda and Jabba. More would be decoration.
+- **Failure-mode separation law (birth registry):** a displayed number derived
+  through a parse gets TWO guards — drift baseline + data-independent parse-honesty —
+  because "the data moved" and "the parser broke" must fail differently; otherwise
+  "39 undated" can silently mean "39 unparsed" under a glowing badge.
+- **Absence pins are legitimate guards (birth registry):** an element exempted from a
+  detector by a property (the coda: number/name/payoff-free) gets a pin asserting
+  that property; pinning the wording itself is theater.
+- **The README "Limits, by design" section is Star-Wars-free** — machinery register,
+  per the two-register law; number-free, one link to WORKSHOP Module 10.
 
 ## Working knowledge
 
@@ -69,9 +94,15 @@
 - Beat→asset truth (current, post-082d9c9 + cleanup): beats 4–6 are DIRECT, guarded
   by live `character_stats_*` checks (one-film 42, six-film trio, pilot count,
   max-flown); beat 1's "1 unmeasured" is guarded by the WARN check
-  `characters_enriched_unknown_height_baseline`. Thirteen checks total (4 blocking,
-  9 warn). Trio names surface at runtime in check metadata (`expected: sorted(
+  `characters_enriched_unknown_height_baseline`. **Fifteen checks total** (4 blocking,
+  11 warn) since the birth registry added two WARNs (birth baseline + parse-honesty).
+  Trio names surface at runtime in check metadata (`expected: sorted(
   SIX_FILM_CHARACTERS)`) — the roster's single home is known_facts.py.
+- Birth-registry verified facts: 43 of 82 dated, 39 undated (the archive's biggest
+  gap); oldest Yoda 896 BBY, second Jabba 600 BBY; all dated values BBY. The canon
+  gem: 896 BBY birth + death in 4 ABY = 900, matching Yoda's own RotJ count ("When
+  nine hundred years old you reach…"). Constants live in known_facts
+  (EXPECTED_OLDEST_BIRTH_BBY = 896.0 etc.); "896"/"yoda" are spoiler-pinned terms.
 - `characters_enriched` is now a real DuckDB table (write-back on the same df the
   asset returns), so `FROM characters_enriched` in the displayed SQL is true.
 - Beat-1 verified facts (bankable copy material): height range Yoda 66 cm → Yarael
@@ -81,70 +112,67 @@
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
 
-## Banked: pipeline-reveal (2026-07-18)
+## Open watch items (compacted from 2026-07-18 survey prep)
 
-**Won:**
-- The "six pipelines" callback was killed as factually false; my alternative framing
-  survived as the wording *law* — the shipped line is computed from provenance counts
-  so it can never drift into a lie.
-- Register separation adopted wholesale: reveals live in the engineering register,
-  with "paper trail" as the single sanctioned bridge word, baked into the generated
-  label template (adjudication point 7).
-- Kitsch vetoes held without contest: monochrome ◆/◇ severity, no allegiance
-  iconography, gold confined to the single `.hot` chip seat (display accent —
-  consistent with gold-is-ceremony).
-- Coverage: beats 1–6 only, beat 0 clean — my position, shared with storyteller/ux/
-  designer, beat the hiring-manager's beat-0 reveal (satisfied structurally instead:
-  `raw_people` heads every chain, so the 82-census guards appear in all six reveals).
+- SHIPPED, no longer open: the A-wing fix (site now reads "One A-wing pilot, Arvel
+  Crynyd") and the hero-dek scope ("the six-film Star Wars saga, Episodes I–VI").
+- STILL OPEN: upstream SWAPI quirks the site republishes verbatim — candidate
+  "clerical errors" disclosure, roster would live in known_facts: "Beru Whitesun
+  lars" (lowercase l), "Ayla Secura" (canon Aayla), species "Wookie" (canon Wookiee),
+  "Neimodian" (canon Neimoidian), R4-P17 — an astromech droid — filed as species
+  Human, gender female. In-universe framing ("as filed") is the honest angle: the
+  census records the error rather than silently correcting canon.
+- Gold note: `.unit.hot` stage spotlight dots (Jabba, trio, Obi-Wan) are shipped
+  annotation/ceremony, not a series. Not relitigating.
 
-**Lost:**
-- My cut of the beat-7 callback. Storyteller won on keeping it; the compromise is my
-  wording law applied to their structure. Right outcome — the callback earns its
-  place once it is true and drift-detected. Lesson: propose the repair, not just the
-  veto; the panel keeps lines I would cut when someone makes them honest.
+## Banked: pipeline-reveal (2026-07-18, compacted)
 
-**Prep differently next time:** my prep verified quotes and registers but not the
-beat→asset map — the data-analyst caught that the brief's map was partly false, and
-that finding reshaped the whole spec. "Which asset actually computes this number" is
-a provenance/authenticity question squarely in my lane (a number attributed to the
-wrong asset is a misattributed quote). Next machinery topic: trace every displayed
-number to its computing code before opining on framing.
+Won: "six pipelines" killed as false, my computed-callback wording became law;
+register separation + "paper trail" bridge adopted; kitsch vetoes held; reveals on
+beats 1–6 only. Lost: my cut of the beat-7 callback — storyteller kept it, made
+honest by my wording law. Lessons banked: propose the repair, not just the veto;
+"which asset computes this number" is a provenance question in MY lane — trace every
+displayed number to its computing code before opining on framing.
 
-**Watch item:** the open per-character-grain transform would upgrade beats 4–6 to
-DIRECT — if it lands, the trio and 42-count get real checks; reveal wording for those
-beats must be updated from "derived" the same commit, or the honesty line becomes the
-new lie. → LANDED 2026-07-18 (commit 082d9c9); beats 4–6 now direct + check-guarded.
+## Banked: post-landing cleanup (2026-07-18, compacted)
 
-## Banked: post-landing cleanup (2026-07-18)
+Won: displayed-SQL-is-executed-SQL law in my "misattributed quote" framing; height
+WARN check earned; spoiler pin born from my "sequence the quotation" instinct with
+derived term sets. Lost 5–3–1: my beat-indexed rail, to the one-home law + QA's
+unverifiable-attribution point — re-authoring wasn't bowdlerizing; fidelity can live
+in a derived reference (skill corollary rewritten). Lessons banked: ask "how many
+homes does this fact have?"; never propose provenance fields pytest can't verify.
 
-**Won:**
-- Q2 outright and unanimously, in my framing: displayed SQL that isn't executed SQL
-  is a misattributed quote. Now law. Register held in implementation (c0b97e0): the
-  five DATA SQL strings are pure machine-shop voice, the stale "-- 59 of 82" comment
-  is dead, no Star Wars aliases or quote-jokes entered during the move.
-- Q3(a): the height-null WARN check landed (2aa845e); beat 1's guard flipped
-  pytest→check honestly, per my "mirrors beat 2, earned not decorative" read. Q3(b)
-  galaxy_report stays disclosed-not-checked — my defer-to-engineers call held.
-- Q1 substance despite losing the mechanism: nothing kitsch or bowdlerized entered
-  checks.py — the trio check still asserts the exact three-name set, and the names
-  still surface at runtime in metadata; my "sequence the quotation" instinct became
-  the standing spoiler pin; and my must-have #2 (derived, never hand-listed) is
-  literally how the pin builds its term sets from known_facts.
-- My prep widened the leak audit from "the trio" to all three forward leaks
-  (trio + 19 pilots + max-flown), and the fix covered all of them.
+## Banked: birth registry, coda, hues, limits (2026-07-19)
 
-**Lost:**
-- Q1 mechanism, 5–3–1: cumulative beat-indexed rail lost to re-authoring. Decisive:
-  the technical-writer's one-home law (the prose roster was a THIRD home for the
-  trio — a drift bug that could make the Dagster UI lie, independent of spoilers)
-  plus QA's point that a `beat` index is hand-authored attribution pytest cannot
-  verify. I framed re-authoring as bowdlerizing; it wasn't. "Matches
-  known_facts.SIX_FILM_CHARACTERS" is more precise than prose, and fidelity can
-  live in a derived reference, not only in a verbatim quotation. My skill's
-  "sequence the quotation" corollary is rewritten to match.
+Decision: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`;
+commits 1f3cf9e (registry), 4d92cb7 (coda+hues), 7d96df5 (limits), f170379
+(screenshots at 15 green).
 
-**Prep differently next time:** before defending any prose that carries a canon
-fact, ask "how many homes does this fact have?" — single-sourcing a roster is as
-much an authenticity question as getting the roster right. And check the pytest
-verifiability of any field I'd add to provenance before proposing it; unverifiable
-attribution on the machine-checked object is its own kind of misattribution.
+**Won — nearly a sweep:**
+- Q1(a) unanimous, in my framing: BBY is the dataset's own unit, two-register safe.
+  Positive `birth_year_bby`, "-896" never displays (pinned), gloss printed, zero ABY
+  implied anywhere. My typography ruling ("896 BBY", as filed) shipped verbatim.
+- Annotation cap held exactly: Yoda + Jabba, Yoda alone gold-ringed — and the ring
+  now carries a law (gold ring = extreme), so my gold-ceremony line got STRONGER.
+  Amber died without a fight; Vader stays label-only because he is not an extreme.
+- The canon gem shipped: 896 + 4 = 900 matches Yoda's own RotJ count. Best possible
+  form — quoted testimony being audited, rendered only while the record agrees.
+- The coda is payoff-free; the README limits section is Star-Wars-free. Both register
+  laws applied by others without my needing to argue them. Restraint is now ambient.
+
+**Lost / co-authored:**
+- Nothing of mine was vetoed, but the gem only shipped because the storyteller
+  supplied the honest rendering (quoted testimony, data-conditional). Same lesson as
+  the beat-7 callback: I bring facts, someone else brings the mechanism that makes
+  them non-decorative. That mechanism is MY job too.
+- Two checks vs one: I sat out the fight, and QA's failure-mode argument turned out
+  to be an authenticity point in my lane — "39 undated" silently meaning "39
+  unparsed" under a glowing badge is a number telling a different truth than its
+  label. Guard plumbing that changes what a displayed number MEANS is provenance,
+  not just engineering; I should have a position next time.
+
+**Prep differently next time:** for any canon number I want on the page, arrive with
+three things — the fact, the source quote verified, and the RENDER CONDITION (when
+it appears, when it must vanish). Data-conditional copy is the mechanism that turns
+a gem from decoration into audit; it's now banked in the register-discipline skill.

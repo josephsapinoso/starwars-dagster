@@ -38,6 +38,13 @@ EXPECTED_MAX_STARSHIPS_FLOWN = 5
 EXPECTED_NABOO_CHARACTERS = 11
 EXPECTED_TATOOINE_CHARACTERS = 10
 
+# The birth registry: people whose birth_year is the literal string "unknown",
+# and the oldest dated record (all dated records are BBY in this snapshot)
+EXPECTED_UNDATED_BIRTH_COUNT = 39
+EXPECTED_DATED_BIRTH_COUNT = 43
+EXPECTED_OLDEST_BIRTH_BBY = 896.0
+OLDEST_DATED_CHARACTER = "Yoda"
+
 # Keys every raw people record must carry for downstream transforms to work
 REQUIRED_PEOPLE_KEYS = {"name", "homeworld", "films", "mass", "gender"}
 

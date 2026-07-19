@@ -20,9 +20,12 @@ import pytest
 from starwars_dagster import defs
 from starwars_dagster.known_facts import (
     EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_OLDEST_BIRTH_BBY,
     EXPECTED_PEOPLE_COUNT,
     EXPECTED_PILOT_COUNT,
+    EXPECTED_UNDATED_BIRTH_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
+    OLDEST_DATED_CHARACTER,
     SIX_FILM_CHARACTERS,
 )
 
@@ -95,6 +98,24 @@ def test_provenance_assets_edges_and_checks_are_real(prov, real):
             )
             assert c["label"], f"{c['name']}: display label must be non-empty"
             assert len(c["label"]) <= 20, f"{c['name']}: display label too long"
+
+
+def test_site_declares_standards_mode_and_language():
+    # no doctype means quirks mode — an unpredictable substrate under every
+    # settled geometry rule — and no lang is a WCAG 3.1.1 failure
+    html = SITE.read_text(encoding="utf-8")
+    assert html.lstrip().lower().startswith("<!doctype html>")
+    assert '<html lang="en">' in html
+    assert html.rstrip().endswith("</html>")
+
+
+def test_story_has_a_real_heading_outline():
+    # AT users navigate the census by headings: a hidden h2 names the story
+    # section and each beat's kicker is an h3, not a styled span
+    html = SITE.read_text(encoding="utf-8")
+    assert '<h2 class="vh">' in html
+    assert html.count('<h3 class="kicker">') == 8
+    assert '<span class="kicker">' not in html
 
 
 def test_claims_cover_exactly_beats_one_through_six(prov):
@@ -177,6 +198,13 @@ def test_no_payoff_leaks_before_reveal_beat(prov):
             f"flown {EXPECTED_MAX_STARSHIPS_FLOWN}",
             "obi-wan",
         },
+        # the birth registry's payoffs live after every beat (dashboard card),
+        # so its numbers and record holder may never appear on any story rail
+        7: {
+            f"{EXPECTED_UNDATED_BIRTH_COUNT} of {EXPECTED_PEOPLE_COUNT}",
+            f"{EXPECTED_OLDEST_BIRTH_BBY:g}",
+            OLDEST_DATED_CHARACTER.lower(),
+        },
     }
     for claim in prov["claims"]:
         beat = claim["beat"]
@@ -193,6 +221,22 @@ def test_no_payoff_leaks_before_reveal_beat(prov):
                     f"beat {beat} rail pre-tells beat {reveal_beat}'s payoff: "
                     f"{term!r} appears in a check label/why rendered there"
                 )
+
+
+def test_the_coda_stays_number_free(prov):
+    # The coda is exempt from the census drift detector BECAUSE it is
+    # number-free; this pin asserts the exemption's premise, not the wording
+    # (decision 2026-07-19). It also runs the spoiler vocabulary over it.
+    html = SITE.read_text(encoding="utf-8")
+    m = re.search(r'<div class="coda">(.*?)</div>', html, re.S)
+    assert m, "the coda block is missing"
+    text = re.sub(r"<[^>]+>", " ", m.group(1)).lower()
+    assert not re.search(r"\d", text), (
+        "a digit entered the coda — it must either leave or the coda joins "
+        "the drift detector like every other number-bearing element"
+    )
+    for term in ("trio", "ben counts", "obi-wan", "yoda", "896"):
+        assert term not in text
 
 
 def test_totals_match_the_real_definitions(prov, real):

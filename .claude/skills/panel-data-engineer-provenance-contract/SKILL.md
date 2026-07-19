@@ -56,12 +56,33 @@ SQL copy anywhere.
 4. Audit executability first, by executing: strings referencing DataFrame-only
    "tables" or using `len()` on JSON-stringified VARCHAR run never/wrong (this repo
    had 3 of 5 wrong, silently, incl. 1222 "characters" for one film). Never eyeball.
-5. If a string needs a table that doesn't exist, a write-back must pass the merit
-   test on WAREHOUSE grounds (the grain belongs in the DB), never "to make the site's
-   SQL true". Conditions from the landing: `CREATE OR REPLACE TABLE ... AS SELECT *
-   FROM df` on the same df the asset returns (one code path, parity-asserted in the
-   integration test), and no existing check grows to cover it if that check guards an
-   UPSTREAM asset — the table doesn't exist yet at that check's runtime (ordering lie).
+5. If a string needs a table that doesn't exist, the execute layer WILL catch it
+   (it did: DATA.sql.ages named character_stats before that asset had a write-back,
+   2026-07-19). Better: settle table existence at design time — a new DATA.sql
+   entry's spec includes whether its table needs a write-back. A write-back forced
+   this way is verification-driven (the executed-SQL law demands a real table), not
+   presentation-driven; it still must make warehouse sense (queryable grain).
+   Conditions per writer: `CREATE OR REPLACE TABLE ... AS SELECT * FROM df` on the
+   same df the asset returns (one code path, parity-asserted in the integration
+   test, which loops over ALL declared writers), and no existing check grows to
+   cover it if that check guards an UPSTREAM asset — the table doesn't exist yet at
+   that check's runtime (ordering lie).
+6. Encode the warehouse access policy in code, not tribal knowledge (DuckDB = many
+   readers OR one writer per file): pure-reader assets open `read_only=True`,
+   writers are an enumerated list, the executor is in-process/sequential, and one
+   test inspects source + `defs.executor` to pin all three. Adding a writer means
+   updating that test's writer list in the same commit.
+
+## Parsed columns get a guard PAIR (settled law, 2026-07-19)
+
+Any displayed number derived through a parse ships with TWO checks, because two
+failure modes must fail differently: a WARN drift baseline against known_facts
+("the data moved") and a data-independent parse-honesty invariant comparing the
+parsed layer to the raw layer, e.g. parsed NULLs == raw sentinel count via
+`additional_ins` on the upstream asset ("the format broke"). One check conflating
+them lets the headline number lie under a glowing badge. Corollary: every parse
+branch — including ones empty in the current snapshot (ABY) — gets a synthetic
+pytest, or it is dead code.
 
 ## Check strings are site copy (settled, landed 2aa845e)
 

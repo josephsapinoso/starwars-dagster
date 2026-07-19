@@ -46,18 +46,33 @@
   lives in the check strings (spoiler-pin test, description style rule), not in the
   renderer or in hand-authored beat metadata. The rail renders uniformly.
   (Post-landing cleanup, 2026-07-18.)
+- **Failure-mode separation law (mine + qa's, banked 7-1):** a displayed number derived
+  through a parse gets TWO guards — a drift baseline AND a data-independent
+  parse-honesty invariant — because "the data moved" and "the parser broke" must fail
+  differently. One check conflating them lets the headline lie under a glowing badge.
+  (Birth-registry panel, 2026-07-19.)
+- **"Limits, by design" README section shape is law:** each bullet runs
+  limit → why-fine-now → forcing trigger; engineering register, number-free, every
+  bullet true of the current repo; ONE link to WORKSHOP Module 10 as the sole home of
+  tooling why-nots; placed between "How this was built" and "Learn Dagster". Stated
+  ceilings-with-triggers, never apologies. (Birth-registry panel, 2026-07-19.)
+- WORKSHOP.md is on the permanent count-ripple checklist; teaching prose states counts
+  count-free unless the count is the lesson. Quoted external claims (dialogue, canon)
+  may be audited in copy but never rendered as site-derived data. Absence pins
+  (asserting an exemption's premise) are legitimate guards; pinning wording is theater.
+  (Birth-registry panel, 2026-07-19.)
 
 ## Working knowledge
 
 - Interview questions this repo currently answers well: "why two test layers?", "what
   happens when the upstream API changes?", "why no Great Expectations?", "why a
   single-file site?", "what do you do when a claimed lineage turns out to be false?",
-  and now "how do you keep displayed SQL from rotting?" (executed in CI —
-  tests/test_site_sql.py). Every new feature should either answer a new question or
-  sharpen an existing answer.
-- Signals still weak: screenshots don't yet show the 13 green asset checks (open
-  item; needs desktop UI; one retake). The README-opening and site/repo-invisibility
-  weaknesses from PR #5 were resolved by the pipeline-reveal rewrite and disclosures.
+  "how do you keep displayed SQL from rotting?" (executed in CI — tests/
+  test_site_sql.py), and now "how do you tell drift from breakage?" (two-check
+  registry design) and "what breaks at 10x?" (Limits, by design). Every new feature
+  should either answer a new question or sharpen an existing answer.
+- No standing weak signals: screenshot item CLOSED at 15 green checks (f170379);
+  dead portfolio link and the ps1 bootstrap script are gone. Counts: 15 checks.
 - The 90-second scan path to design for: recruiter opens README on a phone → headline
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
@@ -80,72 +95,22 @@ Kept for reuse (verdict resolved the rest — see Settled and Banked):
   tradeoffs; live demos out-engage prose. "Judgment made visible" is the durable pitch
   frame for this repo. (dataexpert.io, dataengineeracademy.com, herohunt.ai.)
 
-Cannot verify: how the artifact URL renders as a link preview off-platform; whether
-screenshots can be retaken (needs desktop UI — still open).
+Cannot verify: how the artifact URL renders as a link preview off-platform.
 
-## Banked: pipeline-reveal (2026-07-18)
+## Banked: pipeline-reveal + transform landing (2026-07-18, compacted)
 
-Verdict: `.claude/panel/decisions/2026-07-18-pipeline-reveal.md`. Reveals on beats
-1–6 as bottom-of-card `details.prov` disclosures (vertical `.chip` chains + check
-rail), all strings generated from a pytest-verified `DATA.provenance` object; README
-fully rewritten portfolio-first.
-
-Won:
-- **README hero spec** adopted nearly verbatim: identity sentence replaces "self-study
-  workshop", live-site link above the fold, testing-philosophy paragraph with the
-  provenance sentence, tail rewrite fixing the unclosed-fence defect I found in prep.
-  Finding the truncated README was the prep pass's highest-leverage catch — first
-  impressions defects beat feature arguments.
-- **Honesty-as-signal framing** carried adjudication #2: my "coverage theater" veto of
-  a hasty per-character transform beat the analyst's push for all-DIRECT beats. The
-  transform survives only as an open candidate on analytics merits.
-- Beat-7 callback survives (reworded, provenance-computed) — the portfolio close I
-  wanted, made drift-detectable.
-
-Lost:
-- **Beat-0 reveal.** Story roles won: the hook stays clean. My underlying concern
-  (82-count is our best-guarded number and must be scannable) was satisfied
-  structurally — `raw_people`, carrying the shape-blocking and 82-count-warn checks,
-  is the first node of EVERY chain, so the census guard story appears in all six
-  reveals. Lesson: when my signal concern can be met structurally, arguing placement
-  is spending capital on the wrong axis; next time, state the signal requirement and
-  let the story roles find the placement.
-
-Would prep differently: pre-check whether a proposed reveal's underlying guard is
-reachable from other surfaces before demanding prime real estate for it; and bring a
-concrete badge-wording proposal (the `blocking`-derived ◆/◇ scheme won without me —
-qa/designer owned that ground I could have shared).
-
-## Banked: per-character transform landed (2026-07-18, execution note)
-
-Note: `.claude/panel/decisions/2026-07-18-per-character-transform-landed.md`, commit
-`082d9c9`. No new debate — the transform landed exactly on the banked acceptance
-criteria, which is itself the win.
-
-- **My coverage-theater veto held under execution pressure**: `character_stats`
-  shipped with exactly the four banked WARN checks (42-of-82, six-film trio,
-  19-of-82, maxFlown 5) and zero extra blocking checks; exact-value baselines stayed
-  drift-severity per the known_facts law (`known_facts.py` unchanged). The "land only
-  on analytics merits" constraint produced a clean asset that feeds `galaxy_report`,
-  keeping the DAG-strip copy true.
-- **The honesty arc is now a README narrative**, which is the best interview answer
-  this repo has: "How this was built" tells panel-caught-false-map → shipped
-  honestly-labeled derived beats → transform landed later and flipped them to direct.
-  That sequencing (label honestly first, upgrade later) reads as senior judgment; had
-  we rushed the transform in the original PR it would have read as backfilling a
-  story. New interview question the repo now answers: "what do you do when a claimed
-  lineage turns out to be false?"
-- Totals updated everywhere: 11 assets / 4 transforms / 12 checks (4 blocking, 8
-  warn); beats 4–6 now DIRECT with check badges; `raw_starships` dropped from the
-  provenance map since no claim cites it — good hygiene, no dangling implied lineage.
-- Bonus signal: the flip surfaced two latent honest-rendering bugs (number-word array
-  overflow, hardcoded "three transforms" copy) caught and fixed in the same commit,
-  with the drift detector extended. Feature+guard same-commit law held.
-
-Newly settled (promoting nothing new — all covered by existing Settled entries; the
-no-diagram-fuel and guard-honesty laws did the work here).
-
-(Open items listed here superseded — see Banked: post-landing cleanup.)
+Verdicts: `2026-07-18-pipeline-reveal.md`, `2026-07-18-per-character-transform-landed.md`.
+Durable lessons only (outcomes live in Settled):
+- First-impression defects beat feature arguments: finding the truncated README in
+  prep was the round's highest-leverage catch.
+- Lost beat-0 reveal, but the signal was met structurally (`raw_people` opens every
+  chain). Lesson: state the signal requirement, let story roles find the placement;
+  don't spend capital on placement fights when structure can satisfy the concern.
+- Coverage-theater veto held twice: transform landed later on analytics merits with
+  exactly the banked WARN slate, which turned "label honestly first, upgrade later"
+  into the repo's best interview narrative. Rushing it would have read as backfilling.
+- Bring concrete wording proposals for badge/severity ground rather than ceding it to
+  qa/designer.
 
 ## Prep notes: post-landing cleanup (2026-07-18, compacted after banking)
 
@@ -168,17 +133,13 @@ Verdict: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`. Implement
 two commits: `c0b97e0` (SQL truth) then `2aa845e` (spoiler re-author + pin + height
 check). Won on every axis this round.
 
-- **Q1 (won, 5-3-1):** re-authoring + uniform rail. My argument — rail density is
-  coverage signal; narrative metadata pollutes the one object whose credibility is
-  "machine-checked" — aligned with the decisive one-home/unverifiability case from
-  tech-writer and QA. The designer's guard-only rail lost to the coverage-
-  understatement objection I share: thinning the rail hides real check density.
-- **Q2 (won, unanimous, my shape):** the interview-kill → best-answer conversion is
-  now REAL and verifiable — tests/test_site_sql.py executes every displayed SQL string
-  against the fixture-built warehouse and compares results to the chart rows. The
-  repo's strongest interview answer is now "our displayed SQL was wrong twice-audited;
-  CI executes it so it cannot rot." My framing veto is banked as law in the decision
-  log: write-back = closing a warehouse gap, never "making the site's SQL true."
+- **Q1 (won, 5-3-1):** re-authoring + uniform rail. Rail density is coverage signal;
+  narrative metadata pollutes the one object whose credibility is "machine-checked".
+  The designer's guard-only rail lost: thinning the rail hides real check density.
+- **Q2 (won, unanimous, my shape):** interview-kill → best-answer conversion made
+  REAL — tests/test_site_sql.py executes every displayed SQL string against the
+  fixture warehouse and compares to chart rows. "Our displayed SQL was wrong twice;
+  CI executes it so it cannot rot." Framing veto banked as law (see Settled).
 - **Truth-then-tell sequencing happened exactly as I argued** and is now a reusable
   principle: when a public claim is false, commit 1 makes the claim TRUE (and the
   commit message names the defect — c0b97e0 does); commit 2 does the storytelling/
@@ -188,11 +149,54 @@ check). Won on every axis this round.
 - **Q3(b) disclose-only held** — third consecutive win for the coverage-theater law
   under pressure; galaxy_report stays check-free by design, gap disclosed.
 
-Counts now: 13 checks (4 blocking, 9 warn). What I'd prep differently: nothing
-structural this time — executing the displayed SQL myself during prep (rather than
-arguing from the brief) is what made my position unassailable; keep doing primary
-verification in prep, it converts opinion into evidence the panel can't discount.
+Prep lesson (durable): executing the displayed SQL myself during prep — rather than
+arguing from the brief — is what made the position unassailable; primary verification
+converts opinion into evidence the panel can't discount.
 
-Open items I track: (1) README screenshot retake — one retake, lineage view showing
-13 green asset checks, needs desktop UI; (2) watch that future copy never frames the
-write-back as site-serving (framing law above).
+## Prep notes: improvement survey (2026-07-19, compacted after banking)
+
+All three findings shipped (dead portfolio link → HTML-comment slot; ps1 bootstrap
+script deleted; Limits section landed — see Banked below). Reusable method: scan the
+repo ROOT for stray personal files every round — a one-time bootstrap script had
+quietly reintroduced the "self-study" framing the README rewrite removed.
+
+## Banked: birth registry, coda, hues, limits (2026-07-19)
+
+Verdict: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`. Commits:
+1f3cf9e (registry), 4d92cb7 (coda + hues), 7d96df5 (limits), f170379 (screenshots).
+
+Won:
+- **Parse-honesty argument won 7-1** and is now the Failure-mode separation law (see
+  Settled). The interview framing carried it: "how do you tell drift from breakage?"
+  is now answerable IN the repo — baseline check = data moved, parse-honesty
+  invariant = parser broke; one conflated check lets "39 undated" silently mean "39
+  unparsed" under a glowing badge. This is the repo's newest strong answer; use the
+  failure-mode-separation frame whenever a single check is proposed over a parse.
+- **Q4 Limits bullets shipped nearly verbatim** (five bullets, limit → why-fine-now →
+  forcing trigger, Module 10 linked once) at the tech-writer's placement. Verified in
+  README post-landing: reads as stated ceilings with forcing triggers, not apologies —
+  "what breaks at 10x?" converted from vulnerability to hire signal. Lesson: I own the
+  bullet CONTENT (interview-probe framing); placement is tech-writer ground and their
+  honesty-genre-continuity argument was better than any I had.
+- **13→15 ripple demand landed everywhere**, including a fresh one-retake screenshot
+  set at 15 green checks. The standing screenshot open item closes AGAIN at the new
+  count — retake-after-ripple is now reflex; keep demanding it whenever counts move.
+- **Truth-then-tell sequencing held under pressure**: registry commit came first and
+  its message names the mid-implementation defect the guards caught (DATA.sql.ages
+  referenced a table that didn't exist until character_stats got its write-back — the
+  second verification-driven write-back). The commit history now shows guards catching
+  a real defect DURING the feature's own development — stronger than any prose claim.
+
+Lost/ceded: nothing of mine this round; the analyst's one-check economy lost to the
+position I shared with qa/engineer. The coda digits-pin I backed is law (absence
+pins guard the exemption's premise; pinning wording is theater).
+
+Would prep differently: nothing structural — primary verification (executing parses,
+scanning repo root, reading the actual README tail) keeps converting opinion into
+evidence. Next round, pre-draft the check-description wording too: subject-only,
+number/name-free descriptions were adjudicated via storyteller/qa; that spoiler-rail
+constraint interacts with my guard-honesty law and I should arrive with wording.
+
+Open items I track: (1) watch that future copy never frames write-backs as
+site-serving (framing law); (2) Limits section must stay true — if any bullet's
+forcing trigger fires (e.g., partitions land), the bullet updates in the same commit.

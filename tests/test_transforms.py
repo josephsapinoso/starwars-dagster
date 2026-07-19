@@ -127,10 +127,11 @@ def test_left_join_keeps_characters_whose_homeworld_is_unmatched(isolated_cwd):
     assert pd.isna(df.loc["Orphan", "homeworld"])
 
 
-def _flyer(name: str, films: list, starships: list) -> dict:
+def _flyer(name: str, films: list, starships: list, birth_year: str = "unknown") -> dict:
     record = _person(name, "https://swapi.info/api/planets/1")
     record["films"] = films
     record["starships"] = starships
+    record["birth_year"] = birth_year
     return record
 
 
@@ -162,3 +163,30 @@ def test_character_stats_counts_arrays_and_keeps_person_grain(isolated_cwd):
     assert indexed.loc["Cameo", "starships_flown"] == 1
     assert indexed.loc["Ever-Present", "film_count"] == 6
     assert indexed.loc["Ever-Present", "starships_flown"] == 0
+
+
+def test_birth_year_parse_covers_every_format_branch(isolated_cwd):
+    # the snapshot contains zero ABY records, so without this synthetic test
+    # the sign branch is dead code (decision 2026-07-19)
+    swapi = InlineSWAPIResource(
+        data={
+            "people": [
+                _flyer("Plain", [], [], birth_year="19BBY"),
+                _flyer("Fractional", [], [], birth_year="41.9BBY"),
+                _flyer("PostYavin", [], [], birth_year="5ABY"),
+                _flyer("Undated", [], [], birth_year="unknown"),
+                _flyer("Garbage", [], [], birth_year="a long time ago"),
+            ]
+        }
+    )
+    result = materialize(RAW_ASSETS + [star_wars_db, character_stats], resources={"swapi": swapi})
+    assert result.success
+
+    df = result.output_for_node("character_stats").set_index("character_name")
+    assert df.loc["Plain", "birth_year_bby"] == 19.0
+    assert df.loc["Fractional", "birth_year_bby"] == pytest.approx(41.9)
+    # ABY records sit after Yavin: negative in BBY terms, never displayed signed
+    assert df.loc["PostYavin", "birth_year_bby"] == -5.0
+    # 'unknown' and unparseable strings become NULL, never zero
+    assert pd.isna(df.loc["Undated", "birth_year_bby"])
+    assert pd.isna(df.loc["Garbage", "birth_year_bby"])

@@ -11,7 +11,7 @@ a scroll-told census of the 82 characters the saga keeps records on, ending in a
 dashboard. Open any beat's **"paper trail"** to see the exact pipeline lineage and data-quality
 checks behind that figure.
 
-Part of [my portfolio](#) <!-- personal-site link slot: swap in the live URL when it ships -->
+<!-- personal-site link slot: restore `Part of [my portfolio](URL)` here when the live URL ships -->
 
 ![Asset Lineage Graph](screenshots/dagster_asset_lineage.png)
 
@@ -45,7 +45,7 @@ SWAPI (live API) → Raw JSON → DuckDB tables → SQL transforms → Markdown 
   Resource        01_raw         star_wars_db    02_transformed   03_analytics
 ```
 
-**11 assets across 3 groups, 13 asset checks (4 blocking, 9 warn):**
+**11 assets across 3 groups, 15 asset checks (4 blocking, 11 warn):**
 
 | Group | Assets | Description |
 |---|---|---|
@@ -70,6 +70,10 @@ Run the offline test suite (no network needed):
 ```bash
 pip install -e ".[dev]" && pytest -v
 ```
+
+CI additionally pins transitive dependencies with `-c requirements.lock`
+(regenerate via `uv pip compile pyproject.toml --extra dev -o requirements.lock`);
+the version ranges in `pyproject.toml` stay authoritative for humans.
 
 `scripts/snapshot_fixtures.py` freezes a dated real-API snapshot and unlocks the exact-value
 tests (82 people, 3 six-film characters, 23 unknown masses, 42 one-film cameos, 19 pilots).
@@ -110,6 +114,28 @@ SQL strings displayed on the dashboard didn't actually run against the warehouse
 displayed string lives in the page's data payload and is executed and compared by the offline
 suite — the fix and the guard landed together.
 
+## Limits, by design
+
+Ceilings I chose, and what would force each change:
+
+- **Full refresh, no history.** Every run re-pulls every endpoint and rebuilds the
+  warehouse from scratch — no incremental merge, no SCD, no change history. Right for a
+  small static dataset; a source too big to re-pull, or a consumer asking "what changed
+  since yesterday?", forces incremental loads and snapshotted dimensions.
+- **DuckDB, single file.** Embedded analytics database: zero infrastructure, but one
+  writer at a time and no concurrent consumers. A second tool or teammate reading the
+  warehouse while it builds forces a shared engine.
+- **No partitions.** The dataset is one small snapshot; a backfill is just a re-run.
+  Date-stamped history or per-endpoint reprocessing would force partitioned assets.
+- **Cron, not sensors.** SWAPI publishes no change events, so a daily schedule is the
+  honest cadence. An upstream that signals updates forces event-driven sensors.
+- **In-process executor, by policy.** Steps run sequentially to serialize on the DuckDB
+  file lock — a race the test suite pins. Independent heavy steps plus a
+  concurrency-safe warehouse would force multiprocess back on.
+
+Why the *tooling* absences (one check framework, no coverage gates) are deliberate lives
+in [WORKSHOP Module 10](WORKSHOP.md#14-module-10--going-further).
+
 ## Learn Dagster with this repo
 
 [`WORKSHOP.md`](WORKSHOP.md) is a 15-module, from-zero tutorial written alongside the pipeline:
@@ -131,7 +157,7 @@ starwars-dagster/
 │   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls
 │   │   ├── transforms.py         ← 02_transformed: DuckDB + SQL
 │   │   ├── analytics.py          ← 03_analytics: galaxy_report
-│   │   └── checks.py             ← 13 asset checks (4 blocking, 9 warn)
+│   │   └── checks.py             ← 15 asset checks (4 blocking, 11 warn)
 │   └── resources/
 │       └── swapi_resource.py
 ├── site/
