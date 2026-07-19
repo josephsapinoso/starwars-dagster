@@ -108,28 +108,16 @@
   a visually-hidden h2 and each beat kicker is a real `<h3>` — the heading outline gap
   from my survey is closed. Protect these; they are easy to lose in a rewrite.
 
-## Banked: pipeline-reveal (2026-07-18, compacted)
+## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
 
-- Won: vertical HTML `.chip` chain over horizontal SVG (my ~260px budget argument);
-  beats 1–6 only with beat-0 kept clean — the orchestrator satisfied the
-  hiring-manager *structurally* (raw_people heads every chain). Lesson: when resisting
-  an extra affordance, show where the underlying need is already served.
-- Lost/lesson: I spec'd ARIA for an SVG mini-DAG that never existed — interrogate
-  whether plain HTML can render the artifact before designing the ARIA for a graphic.
-- Prep lesson: measure a prototype at 260px before debate; read severity semantics
-  myself instead of inheriting the brief's beat→asset map (it was partly false).
-
-## Banked: post-landing cleanup (2026-07-18, compacted)
-
-- Won: legend rider verbatim (no "hover ..." promises); my touch-surface analysis
-  (label IS the whole touch/keyboard experience) was cited by both camps and shaped
-  the winning spoiler-free labels. A precise surface analysis steers outcomes even
-  when the headline proposal loses.
-- Lost: cumulative beat-indexed rail (5–3–1) — a hand-authored `beat` field is
-  unverifiable narrative metadata; re-authoring strings bought uniformity AND spoiler
-  safety. Lesson: cost the string fix before any renderer fix; draft exact
-  replacement strings during prep. Riders on other roles' proposals evaporate with
-  them — spend debate words on my own proposal's survivable parts.
+- Won: vertical HTML `.chip` chain (260px budget argument); beats 1–6 with beat-0
+  clean; legend rider verbatim (no "hover ..." promises); touch-surface analysis
+  (label IS the whole touch/keyboard experience) shaped the winning labels.
+- Lessons: show where a resisted affordance's need is already served; check plain
+  HTML can render an artifact before designing ARIA for a graphic; measure at 260px
+  before debate; verify the brief's beat→asset map myself (it was partly false);
+  cost the string fix before any renderer fix and draft exact strings in prep;
+  riders on other roles' proposals evaporate with them.
 
 ## Banked: birth registry, coda, hue enforcement (2026-07-19, compacted)
 
@@ -195,3 +183,49 @@ desktop center-flex scroll-anchoring jump on reveal open; stage-dot tooltip flas
 touch tap; NEW — stage viewBox legibility raise (own evidence pass: viewBox-relative
 collision check, mobile effective-size table, before/after at 480px stage cap) if I
 choose to fund it.
+
+## Prep notes: watchlist round (2026-07-19)
+
+All four E-claims verified at source; three brief-corrections and two proposal
+shapes found.
+
+- **Q1 (badge whys).** site:879 verified — sole title attr, zero focus/aria; the
+  visible label + "◆ blocks/◇ warns" stands alone. Brief's "number-free" is WRONG:
+  whys carry numbers ("82 people", "42 of 82 … exactly one film" — the beat-4
+  payoff verbatim). But it's spoiler-safe by ASSET TOPOLOGY: character_stats (which
+  owns that check) first enters a chain at beat 4 (beats 1–3 chain
+  characters_enriched); and the spoiler pin ALREADY scans `label + why`
+  (test_site_provenance.py:211–215; terms for beats 2/5/6/7). So exposing whys adds
+  no new spoiler surface. Real exposure cost is elsewhere: whys are 113–213-char
+  prose and the shared tooltip is a chip model (name + value rows) — prose doesn't
+  fit it; visible rail text would bloat the whisper tier. Whys are verbatim
+  spec.description projections (test:95), so the settled legend's canonical home
+  (Dagster UI) genuinely holds this exact text. Lean: accept-and-document, trigger
+  = any why gaining load-bearing content with no non-hover home.
+- **Q2 (Safari jump).** Mechanism verified (desktop center-flex, min(102svh,880px);
+  reveal ≈360px → 180px half-shift; Chromium anchoring absorbs it). Proposal shape
+  banked: browser-neutral delta compensation — record clicked summary rect.top on
+  summary `click` (fires pre-toggle), compare on `toggle`, `scrollBy(0, delta)` if
+  |delta|>1. Self-noops where anchoring works AND on top-anchored mobile; instant,
+  once per user action — anchoring restoration, not scroll-jacking. Cheap
+  verification path: Playwright WebKit genuinely lacks scroll anchoring — reproduce
+  the jump AND verify the fix headlessly before shipping. Accept+watch is also
+  honest if nobody funds the WebKit pass.
+- **Q3 (touch flash).** 770–782 verified: svg-level pointermove hit-test, no
+  pointerType handling. Lean suppress-for-touch (`if (e.pointerType==="touch")
+  { tipHide(); return; }`): the flash is a glitch, not a feature gap — stage
+  tooltips are enrichment; dashboard marks below carry full data with focus parity,
+  and keyboard users already get no stage-dot tooltips (accepted state). Tap-to-pin
+  costs a state machine + dismissal design + scroll-gesture risk for redundant
+  content.
+- **Q4 (stage legibility).** Sizes verified (.axis-t 11.5 → 5.1px eff @360; scale
+  .446). KILLER FACT the brief missed: the witnesses stack (site:693) spaces three
+  hot anno names 20 viewBox units apart — declared font must stay ≲18 to keep any
+  gap, capping mobile effective size at ~8.0px @360, BELOW the 9–10px target. A
+  media bump cannot deliver its promise without re-authoring anno geometry (a
+  viewBox rework — unfunded). Also `.axis-t` is shared with the six measured-px
+  dashboard charts, so any bump must scope to `#stageSvg` AND flat-mode `.step-fig
+  svg` or it inflates legible desktop-regime text. Redundancy verified line-by-line:
+  every anno + caption fact prints in beat copy/asides (Yoda 66, Poof, Jabba 1,358,
+  23 unweighed, Naboo 11/Tatooine 10, witness names, Obi-Wan · 5). Lean:
+  accept-and-document; trigger = any future anno carrying content NOT in the copy.

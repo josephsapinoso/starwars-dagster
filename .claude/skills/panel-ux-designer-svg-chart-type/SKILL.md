@@ -5,6 +5,18 @@ description: UX rules for typography and color inside SVG charts — presentatio
 
 # Type and color inside SVG charts
 
+## 0. Svg-level pointermove tooltips flash on real touch (and hide in emulation)
+A nearest-mark hit-test on svg `pointermove` + hide on `pointerleave` produces a
+show-then-hide FLASH on a real touch tap (spec sequence: over/enter/move → down/up
+→ out/leave), but headless touch emulation fires NO pointermove — the bug is
+invisible to Playwright/Chromium taps, so reason from the pointerevents spec, not
+from failed repro. Fix ladder: (1) suppress for touch — one guard,
+`if (e.pointerType === "touch") { hide(); return; }` — honest when the tooltip is
+enrichment and a canonical non-hover home (table/legend/copy) carries the data;
+(2) tap-to-pin only if the content has no other home — it costs a pin state,
+explicit dismissal design (next tap, scroll, beat change), and risks eating scroll
+gestures. Never leave the flash: a glitch is worse than a clean absence.
+
 Derived from site/index.html during the token-hygiene prep (2026-07-19).
 
 ## 1. Presentation attributes lose to ALL CSS
@@ -21,6 +33,18 @@ tokens; attributes are the drift vector no stylesheet review ever sees.
   width-INDEPENDENT (everything scales together — check once, any width), but
   *effective* rendered size = declared × (rendered/viewBox width). A "12px" label
   can really be ~8px on a phone; raising declared size is a mobile legibility win.
+  **Ceiling check before proposing any raise:** authored annotation geometry caps
+  the declared size — find the minimum stacked-label spacing in viewBox units
+  (e.g. names stacked `(i-1)*20` apart cap font at ≲18) and hand-tuned `x±10/y-12`
+  offsets tuned to the old size. Compute `ceiling × min(rendered/viewBox)`: if
+  that is still below the legibility floor (~9–10px effective), a font bump
+  CANNOT deliver — the honest options are a viewBox rework or documented
+  acceptance backed by verified content redundancy (every annotation fact also
+  printed in HTML copy/captions). Also check selector sharing: a class used in
+  BOTH regimes (`.axis-t` on the stage AND measured-px dashboard charts) must be
+  scoped per fixed-viewBox context — including flat-mode clones of the chart,
+  which usually live outside the main svg's id — or the bump inflates already
+  legible text.
 - **Measured width** (`viz.clientWidth`, viewBox rebuilt per render): font-size is
   true CSS px. Legibility is constant, but collisions and fit gates (e.g. "label
   only when segment > 46px") are worst at 360px — that's where you re-verify.

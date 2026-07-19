@@ -16,6 +16,18 @@ pipeline-reveal prep (2026-07-17).
   opening a details re-centers the card, shifting its top UP by half the reveal
   height — motion under the pointer. Mitigate: keep reveals compact, place the
   details at the card bottom, and verify browser scroll anchoring on a real device.
+- Verified 2026-07-19 (headless Chromium): browser scroll anchoring absorbs the
+  half-height shift entirely (scrollY auto-compensates ≈−half-growth; clicked
+  summary moves 0px). Safari/WebKit has NO scroll anchoring (no `overflow-anchor`
+  support) → the summary jumps there. Browser-neutral fix pattern, no UA sniffing:
+  record the clicked summary's `getBoundingClientRect().top` in the summary `click`
+  handler (fires before the default toggle), compare it on the `toggle` event, and
+  `scrollBy(0, delta)` when |delta| > ~1px. Self-noops wherever anchoring already
+  compensated and on top-anchored mobile stations; runs once, instantly, only in
+  response to the user's own activation — anchoring restoration, not scroll-jacking
+  (never smooth-scroll it). Verify both branches headlessly: Playwright's WebKit
+  engine genuinely lacks scroll anchoring, so the jump and the fix are both
+  reproducible without Apple hardware.
 - Never shrink the sticky stage to make room; the station min-height is a minimum —
   a grown step just adds reader-paced scroll distance. IO center-crossing steppers
   are height-agnostic, so nothing else needs to change.
