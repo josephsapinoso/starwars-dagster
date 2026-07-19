@@ -77,6 +77,25 @@
   that property; pinning the wording itself is theater.
 - **The README "Limits, by design" section is Star-Wars-free** — machinery register,
   per the two-register law; number-free, one link to WORKSHOP Module 10.
+- **Gold has exactly ONE home (token hygiene, 2026-07-19):** the byte-patterns
+  #ffe81f / 255,232,31 appear once, in :root; every derivation goes through
+  `var(--gold)` / color-mix. The guard pins the PATTERN, never the ceremony —
+  the line-693 tooltip swatch and `.unit.hot` spotlights remain settled uses.
+  Never propose (or accept) a "no gold in JS" rule; it relitigates ceremony.
+- **The whisper clause (token hygiene):** every sanctioned style exception is an
+  exact (selector, value, reason) pin in the guard, failing loudly on change in
+  EITHER direction. Unexplained holes are theater; pinned exceptions are law.
+- **Scenery is not ink (token hygiene):** decorative paints (the aria-hidden
+  starfield #cdd8ef) may stay literals with a required sanction comment; data ink
+  must be tokenized. No runtime bridges built for decoration.
+- **Ink adapts to its ground (token hygiene):** on-mark labels choose ink per
+  computed ground from the same array that drives the ground; every rendered pair
+  ≥4.5:1, verified computationally; never a new hex.
+- **The style registry is the test (token hygiene):** the sanctioned type scale's
+  one machine-readable home is `test_site_style_hygiene.py` — no font-size tokens,
+  no parallel lists. Raise-only grants permission, not obligation: standing still
+  needs no evidence; moving chart geometry does. `.prov-check` stays 11.5 —
+  the held pause's authored whisper tier.
 
 ## Working knowledge
 

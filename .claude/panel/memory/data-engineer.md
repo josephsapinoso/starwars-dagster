@@ -83,6 +83,21 @@
   panel.)
 - WORKSHOP.md is on the permanent count-ripple checklist; teaching prose states
   counts count-free unless the count is the lesson. (Birth-registry panel.)
+- **Whisper clause (token-hygiene panel, 2026-07-19):** every sanctioned style
+  exception is an exact (selector, value, reason) pin in the guard, failing loudly on
+  change in EITHER direction and printing its reason. Unexplained holes are theater;
+  pinned exceptions are law.
+- **Scenery is not ink:** decorative paints (aria-hidden canvas) may stay literals with
+  a required sanction comment, counted exactly once; data ink must be tokenized. No
+  runtime bridges for decoration.
+- **Ink adapts to its ground:** on-mark labels choose ink per computed ground from the
+  same array that drives the ground; every rendered pair ≥4.5:1, verified
+  computationally; never a single ink that fails somewhere, never a new hex.
+- **The style registry is the test:** the sanctioned type scale's one machine-readable
+  home is the structural pytest (`tests/test_site_style_hygiene.py`) — no `--fs-*`
+  tokens, no parallel lists. (I lost this 5–1; it is law.)
+- **Raise-only grants permission, not obligation:** standing still needs no evidence;
+  moving chart geometry does. `.prov-check` stays 11.5 (Settled; four roles hold it).
 
 ## Working knowledge
 
