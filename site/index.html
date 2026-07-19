@@ -21,6 +21,10 @@
     --s3: #c07c11;            /* amber        */
     --s4: #e05555;            /* sith red     */
     --s5: #9085e9;            /* violet       */
+    --cyan: #4bd5ee;          /* hero opener — display only, like gold */
+    --sql-ink: #9fd0ff;       /* SQL disclosure text */
+    --tip-bg: #0a0f1c;        /* tooltip surface */
+    --axis: #2a3550;          /* chart baselines */
     --disp: "Franklin Gothic Medium", "ITC Franklin Gothic", "Arial Narrow", Arial, sans-serif;
     --body: system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
@@ -31,6 +35,9 @@
 
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
 
+  /* visually hidden, exposed to AT — for the story's outline heading */
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
 
   /* ── hero ───────────────────────────────────────────────────────────────
      structural heights are capped with min() so the page stays bounded even
@@ -38,7 +45,7 @@
   .hero { position: relative; min-height: min(94svh, 860px); display: grid; place-items: center; overflow: hidden; padding: 64px 24px 56px; box-sizing: border-box; }
   .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hero-inner { position: relative; text-align: center; max-width: 880px; }
-  .hero .opener { color: #4bd5ee; font-size: clamp(17px, 2.2vw, 24px); font-weight: 500; margin: 0 0 18px; }
+  .hero .opener { color: var(--cyan); font-size: clamp(17px, 2.2vw, 24px); font-weight: 500; margin: 0 0 18px; }
   .hero h1 { font-family: var(--disp); font-weight: 700; text-transform: uppercase; margin: 0; color: var(--gold); line-height: .88; letter-spacing: .01em; font-size: clamp(64px, 14vw, 176px); text-wrap: balance; }
   .hero .dek { color: var(--ink-2); font-size: clamp(15px, 1.6vw, 17px); max-width: 56ch; margin: 26px auto 0; }
   .hero-nav { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -67,7 +74,7 @@
   .step { min-height: min(102svh, 880px); display: flex; align-items: center; }
   .step-inner { background: var(--panel); border: 1px solid var(--edge); border-radius: 12px; padding: 24px 26px; max-width: 44ch; opacity: .45; transition: opacity .4s ease; }
   .step.active .step-inner { opacity: 1; }
-  .step .kicker { display: block; color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .28em; font-size: 12.5px; font-weight: 600; margin-bottom: 10px; }
+  .step .kicker { display: block; color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .28em; font-size: 12.5px; font-weight: 600; margin: 0 0 10px; }
   .step p { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.65; }
   .step p + p { margin-top: 12px; }
   .step .aside { color: var(--ink-3); font-size: 13.5px; }
@@ -175,7 +182,7 @@
   .val-t { fill: var(--ink-2); font-size: 11.5px; font-variant-numeric: tabular-nums; }
   .anno-t { fill: var(--ink-2); font-size: 11.5px; }
   .gridline { stroke: var(--line); stroke-width: 1; }
-  .baseline { stroke: #2a3550; stroke-width: 1; }
+  .baseline { stroke: var(--axis); stroke-width: 1; }
   .bar { cursor: pointer; }
   .bar:hover .bar-fill, .bar:focus .bar-fill { filter: brightness(1.25); }
   .dot { cursor: pointer; }
@@ -196,7 +203,7 @@
   details.sql[open] summary::before, details.prov[open] summary::before { content: "▾ "; }
   details.sql summary:hover, details.prov summary:hover { color: var(--ink-2); }
   details.sql pre { margin: 0 0 10px; padding: 12px 14px; background: var(--void); border: 1px solid var(--line); border-radius: 7px; overflow-x: auto; }
-  details.sql code { font-family: var(--mono); font-size: 12px; color: #9fd0ff; line-height: 1.6; }
+  details.sql code { font-family: var(--mono); font-size: 12px; color: var(--sql-ink); line-height: 1.6; }
 
   /* the paper trail: vertical chip chain + check rail per asset —
      severity is shape + word (◆ blocks / ◇ warns), never color */
@@ -210,7 +217,7 @@
   .prov-legend { color: var(--ink-3); font-size: 11px; letter-spacing: .04em; margin: 0 0 10px; }
 
   /* tooltip */
-  #tip { position: fixed; z-index: 50; pointer-events: none; background: #0a0f1c; border: 1px solid var(--edge);
+  #tip { position: fixed; z-index: 50; pointer-events: none; background: var(--tip-bg); border: 1px solid var(--edge);
          border-radius: 8px; padding: 9px 12px; font-size: 12.5px; box-shadow: 0 8px 28px rgba(0,0,0,.55);
          opacity: 0; transition: opacity .12s; max-width: 280px; }
   #tip.on { opacity: 1; }
@@ -229,7 +236,7 @@
   <div class="hero-inner">
     <p class="opener">A long time ago in a galaxy far, far away, there lived&hellip;</p>
     <h1>82 people</h1>
-    <p class="dek">That's the entire on-file population of the Star Wars saga — every character its own database tracks, pulled from SWAPI, warehoused in DuckDB, and told here as a census of 82 dots.</p>
+    <p class="dek">That's the entire on-file population of the six-film Star Wars saga, Episodes I–VI — every character its own database tracks, pulled from SWAPI, warehoused in DuckDB, and told here as a census of 82 dots.</p>
     <nav class="hero-nav" aria-label="Page navigation">
       <a class="cue" href="#story">Take the census</a>
       <a class="side" href="#dash">or skip straight to the dashboard →</a>
@@ -245,19 +252,20 @@
 
 <!-- ═══════════════ THE CENSUS — scroll story ═══════════════ -->
 <section class="story" id="story" aria-label="The census: a scroll story in eight steps">
+  <h2 class="vh">The census — a scroll story in eight steps</h2>
   <div class="scrolly">
     <div class="steps" id="steps">
 
       <div class="step" data-step="0">
         <div class="step-inner">
-          <span class="kicker">The census</span>
+          <h3 class="kicker">The census</h3>
           <p>Here they are: all <strong>82</strong> — every character the saga's own database keeps a record on, from Luke Skywalker to Ratts Tyerel. A galaxy of billions, on file: 82 rows.</p>
         </div>
       </div>
 
       <div class="step" data-step="1">
         <div class="step-inner">
-          <span class="kicker">The measuring</span>
+          <h3 class="kicker">The measuring</h3>
           <p>Line them up by height and the census spans a four-fold range — from <strong>Yoda at 66&nbsp;cm</strong> to <strong>Yarael Poof</strong>, 264&nbsp;cm of mostly Quermian neck.</p>
           <p class="aside">One A-wing pilot, Arvel Crynyd, was never measured at all.</p>
         </div>
@@ -265,7 +273,7 @@
 
       <div class="step" data-step="2">
         <div class="step-inner">
-          <span class="kicker">The weighing</span>
+          <h3 class="kicker">The weighing</h3>
           <p>Mass is rude — and broken. <strong>Jabba Desilijic Tiure weighs 1,358&nbsp;kg</strong>, eight and a half times the runner-up, General Grievous. He single-handedly bends this chart onto a log scale.</p>
           <p class="aside">And 23 of the 82 never stepped on a scale: only the 59 weighed characters ride the axis.</p>
         </div>
@@ -273,7 +281,7 @@
 
       <div class="step" data-step="3">
         <div class="step-inner">
-          <span class="kicker">The hometowns</span>
+          <h3 class="kicker">The hometowns</h3>
           <p>Where is everybody from? Two zip codes. <strong>Naboo claims 11</strong> characters and <strong>Tatooine 10</strong> — together 21 of 82, a quarter of the census from one swamp kingdom and one desert.</p>
           <p class="aside">Five more list their homeworld as &ldquo;unknown.&rdquo; The galaxy has paperwork problems.</p>
         </div>
@@ -281,14 +289,14 @@
 
       <div class="step step--held" data-step="4">
         <div class="step-inner">
-          <span class="kicker">The cameos</span>
+          <h3 class="kicker">The cameos</h3>
           <p>Stack the census by screen persistence and the truth comes out: <strong>42 of 82 — more than half — appear in exactly one film.</strong> The galaxy far, far away is mostly one-scene wonders.</p>
         </div>
       </div>
 
       <div class="step" data-step="5">
         <div class="step-inner">
-          <span class="kicker">The witnesses</span>
+          <h3 class="kicker">The witnesses</h3>
           <p>Climb the stack and only <strong>three characters remain in all six films</strong>: C-3PO, R2-D2 — and Obi-Wan Kenobi, who had to become a ghost to keep his attendance.</p>
           <p class="aside">The famous claim that &ldquo;only the droids saw it all&rdquo; fails the data check. Ben counts.</p>
         </div>
@@ -296,14 +304,14 @@
 
       <div class="step" data-step="6">
         <div class="step-inner">
-          <span class="kicker">The pilots</span>
+          <h3 class="kicker">The pilots</h3>
           <p>So who actually flew this galaxy? Only 19 of 82 are ever listed at a starship's controls. Sized by ships flown, the census crowns <strong>Obi-Wan Kenobi — five starships</strong> — the man who insisted that flying is for droids.</p>
         </div>
       </div>
 
       <div class="step" data-step="7">
         <div class="step-inner">
-          <span class="kicker">The handoff</span>
+          <h3 class="kicker">The handoff</h3>
           <p>That's the census: measured, weighed, located, counted. The machinery that counted it — five raw SWAPI pulls, one DuckDB warehouse, four transforms, one report — is waiting below.</p>
           <p><a href="#dash">Enter the dashboard ↓</a></p>
         </div>
@@ -325,7 +333,7 @@
   <div class="section-head">
     <span class="eyebrow">Lineage</span>
     <h2>The pipeline that made this page</h2>
-    <p class="note">The actual Dagster asset graph, left to right. Everything downstream re-materializes when an upstream asset changes.</p>
+    <p class="note">The machinery that counted the census — the actual Dagster asset graph, left to right. Everything downstream re-materializes when an upstream asset changes.</p>
   </div>
   <div class="dag" role="img" aria-label="Dagster asset lineage: five raw ingestion assets flow into the star_wars_db DuckDB warehouse, which feeds four transform assets, which feed the galaxy_report.">
     <div class="dag-group">
@@ -358,6 +366,7 @@
   <div class="section-head">
     <span class="eyebrow">The Saga</span>
     <h2>Six films, by the numbers</h2>
+    <p class="note">The six source documents the archive keeps records on — every row below traces back to one of them.</p>
   </div>
   <div class="grid">
     <div class="card span7" id="card-films"></div>

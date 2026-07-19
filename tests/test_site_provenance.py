@@ -106,6 +106,15 @@ def test_site_declares_standards_mode_and_language():
     assert html.rstrip().endswith("</html>")
 
 
+def test_story_has_a_real_heading_outline():
+    # AT users navigate the census by headings: a hidden h2 names the story
+    # section and each beat's kicker is an h3, not a styled span
+    html = SITE.read_text(encoding="utf-8")
+    assert '<h2 class="vh">' in html
+    assert html.count('<h3 class="kicker">') == 8
+    assert '<span class="kicker">' not in html
+
+
 def test_claims_cover_exactly_beats_one_through_six(prov):
     assert sorted(c["beat"] for c in prov["claims"]) == [1, 2, 3, 4, 5, 6]
 
