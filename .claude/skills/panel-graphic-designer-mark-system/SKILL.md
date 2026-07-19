@@ -64,28 +64,41 @@ justify a permanent seat.
     widths (proven at 390px). Two or more annotations on one strip get staggered
     rows on collision; type never shrinks as the fix.
 
-## Color-token consumption across media (verified 2026-07-19)
+## Color-token consumption across media (banked 2026-07-19)
 
-- Hex literals belong ONLY in the `:root` token block — including ceremony/one-use
-  colors (--cyan, --tip-bg, --axis are precedent). A "sanctioned literal" comment in
-  JS is a second registry; don't create one.
-- **Canvas** cannot consume `var()`: bridge with
-  `getComputedStyle(document.documentElement).getPropertyValue('--token')` ONCE at
-  init — never per frame inside a rAF loop.
+- **Data-ink** hex literals belong ONLY in the `:root` token block — including
+  ceremony/one-use colors (--cyan, --tip-bg, --axis are precedent).
+- **Scenery is not ink:** decorative paints (the aria-hidden starfield canvas,
+  #cdd8ef) may stay literals — but only as a guard-pinned entry: exactly one
+  occurrence, carrying its required "scenery, not ink" comment. A pin that drifts
+  FAILS the test, so the allow-list cannot rot. No getComputedStyle bridge for
+  decoration (init-order risk on the hero canvas); bridges are for data ink only,
+  ONCE at init, never per frame.
+- **Gold's one home:** the #ffe81f literal appears exactly once, in :root; alpha
+  ceremony derives via `color-mix(in srgb, var(--gold) N%, transparent)` — the
+  rgba(255,232,31,…) triplet is banned. `var(--gold)` itself is free everywhere.
 - **SVG presentation attributes** (`fill=`, `stroke=`) DO accept `var(--token)`
-  directly — no bridge, no class required (a class is still preferable when the
-  style repeats).
+  directly — no bridge; prefer a class when the style repeats.
+- **Ink adapts to its ground:** on-mark labels (`.seg-pct` pattern) choose ink per
+  computed ground from the SAME array that paints the ground (`--void` on full s1,
+  `--ink` on tints), every rendered pair ≥4.5:1 verified computationally; the
+  fallback is dropping the on-mark label (legend/table carry the data) — never a
+  new hex, never one ink that fails somewhere.
 
-## Type-scale discipline (proposed 2026-07-19, pending adjudication)
+## Type-scale law (banked 2026-07-19; guard: tests/test_site_style_hygiene.py)
 
-- Raise-only law: sizes merge UP the scale, never down; half-pixel sizes are the
-  disease. Target sub-body scale: 11 micro · 12 floor · 13 secondary · 14 aside ·
-  16 body · 17 card-h3.
-- SVG label sizes (`.axis-t`, `.val-t`, `.anno-t`, `.cat-t`) are
-  geometry-load-bearing: any size change requires 360/390px collision
-  re-verification; collisions fix by staggering rows, never shrinking. JS fit gates
-  tied to type width (e.g. the gender %-label `w > 46`) must move with the size.
-- Font sizes are NOT tokens: they never co-vary at runtime (unlike the tint ladder,
-  where cross-media value identity forced tokens). Document the scale as a :root
-  comment; enforce with ONE structural pytest (hex-outside-:root scan + font-size
-  set membership, clamp() display sizes exempt) — never a second lint framework.
+- Sanctioned fixed sizes: **{11, 12, 13, 14, 16, 17, 18, 42}** px; clamp() display
+  sizes exempt by pattern. font-size is NEVER set from JS/markup — use a class.
+- **Whisper-clause pins** (exact selector/value/reason entries in the guard; fail
+  loudly on change in EITHER direction): `.axis-t` / `.val-t` / `.anno-t` /
+  `.seg-pct` at 11.5 and `.cat-t` at 12.5 — the chart-geometry tier; `.prov-check`
+  at 11.5 — the held pause's authored whisper (at 12px the badge would merge with
+  `details.prov summary` 12 and `.chip` mono-12, collapsing guard voice into
+  machinery voice). Extending the scale or the pins requires a panel, not a commit.
+- **Raise-only grants permission, not obligation:** standing still needs no
+  evidence; moving chart geometry requires 360/390px collision re-verification, and
+  JS fit gates tied to type width (the gender `w > 46`) move with the size.
+  Collisions fix by staggering rows, never shrinking.
+- **The registry is the test:** the scale and pins live only in the structural
+  pytest — no font-size tokens (sizes never co-vary at runtime, unlike the tint
+  ladder), no parallel prose lists (prose ledgers rot; executable pins don't).
