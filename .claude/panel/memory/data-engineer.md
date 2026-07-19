@@ -190,12 +190,42 @@
   arrived mid-implementation. Counts refreshed this pass (15 checks, 6 SQL entries,
   7 end-state tables) per the standing rule.
 
-## Banked: ledger correction (2026-07-19)
+## Banked: ledger correction (2026-07-19, compacted)
 
-- Verified in-repo, then closed all three stale items: commit 2e47baa ("Tier 2
-  robustness") landed `DATA.meta` + `requirements.lock` (details moved to Working
-  knowledge), and the test_pipeline.py comment nit was fixed same-day. Ledger empty.
-- Lesson: when banking, sweep "Residual open items" against commits that landed AFTER
-  the debate — Tier 2 closed two of mine and I banked stale state anyway. Always
-  verify closure claims in-repo (grep the test/workflow/comment) before writing
-  "CLOSED".
+- All three 2026-07-18 survey items closed in-repo (2e47baa + same-day nit fix).
+  Lesson: sweep "Residual open items" against commits landing AFTER the debate, and
+  verify closure claims in-repo (grep the test/workflow/comment) before writing CLOSED.
+
+## Prep notes: token hygiene + small-type consolidation (2026-07-19)
+
+- Census verified myself (rg `#[0-9a-fA-F]{3,8}` on site/index.html): exactly TWO hex
+  literals outside :root, both in JS — `#cdd8ef` canvas star fill (line 489) and
+  `#fff` SVG gender %-label (line 1131). No hex anywhere in the DATA literal. :root
+  block lines 8–31; the brief is right that the four ledger hexes are already tokens
+  (--tip-bg, --axis, --cyan, --sql-ink present).
+- Exactly THREE JS font-size occurrences: :747 `attrs["font-size"] = 11` (small
+  anno), :1132 `"11.5"` (gender % label), :1374 cssText `font-size:13px` (registry
+  caption). All three sit beside existing class patterns (anno-name, axis-t) — all
+  movable to classes, so every font-size fact can live in `<style>` alone.
+- Guard precedent confirmed: `tests/test_site_provenance.py:103`
+  (`test_site_declares_standards_mode_and_language`) scrapes the HTML offline. The
+  new hygiene guard belongs beside it — ONE pytest test, regex census, no stylelint,
+  no node, no second lint framework.
+- My Q1 line: tokenize BOTH leftovers rather than sanction literals — allow-lists
+  rot (this very brief opened on a stale ledger note). Canvas bridge = one
+  `getComputedStyle(document.documentElement).getPropertyValue()` read at init
+  (runtime, not a build step; NOT per-frame). No hard-coded fallback hex in the JS —
+  that would be a second home. Guard asserts the token exists in :root and the JS
+  references it by token name (structural, offline-checkable without running JS).
+- My Q3 line: kept sub-body steps become :root tokens so the sanctioned scale has
+  ONE home and the test DERIVES the allowed set from :root instead of hard-coding a
+  parallel list. clamp()/display sizes stay literal and out of the scale's scope.
+- Guard implementation gotchas: extract-and-exclude the one-line `const DATA`
+  literal before regexing (its load-bearing one-line format makes this trivial);
+  rgba() literals (lines 13, 52, 224) are OUT of scope this round — hex-only
+  invariant, flag but don't expand; SVG attr font-sizes are bare numbers, not px.
+- Q2 is typography — defer merges to the graphic designer. My demands: 11.5px lives
+  in BOTH CSS (.axis-t/.val-t/.anno-t/.prov-check) and JS (:1132) today, so any
+  merge must sweep JS attrs or it silently misses a home; SVG label sizes are
+  geometry-load-bearing → manual 360/390px re-verify after any raise (collisions
+  are fixed by staggering, never shrinking — settled).
