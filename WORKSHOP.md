@@ -702,7 +702,7 @@ itself:
   who don't write pipeline code (a data steward writing YAML expectations),
   when you need cross-orchestrator portability, or when a catalog of hundreds
   of table-shape assertions outgrows hand-written Python. None of that is
-  true for five tables and thirteen checks.
+  true for a handful of tables and a checks file you can read in one sitting.
 
 The tradeoff, not the tool, is the takeaway: add a data-quality framework
 when its authorship or scale story applies to you — not because a tutorial

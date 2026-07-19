@@ -234,16 +234,26 @@ def character_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Dat
     that computes the story's screen-persistence figures (one-film cameos,
     the six-film trio, the pilots) instead of leaving them page-authoring math.
     """
-    con = duckdb.connect(star_wars_db, read_only=True)
+    con = duckdb.connect(star_wars_db)
 
     df = con.execute("""
         SELECT
             p.name                          AS character_name,
             json_array_length(p.films)      AS film_count,
-            json_array_length(p.starships)  AS starships_flown
+            json_array_length(p.starships)  AS starships_flown,
+            -- BBY positive, ABY negative (none in the current snapshot),
+            -- 'unknown' and anything unparseable become NULL
+            TRY_CAST(regexp_extract(p.birth_year, '^([0-9.]+)(BBY|ABY)$', 1) AS DOUBLE)
+                * CASE WHEN p.birth_year LIKE '%ABY' THEN -1 ELSE 1 END
+                                            AS birth_year_bby
         FROM people p
         ORDER BY p.name
     """).df()
+
+    # Same write-back contract as characters_enriched: the per-character grain
+    # is queryable, so the dashboard's displayed SQL (DATA.sql.ages) runs
+    # against the real table (tests/test_site_sql.py executes it).
+    con.execute("CREATE OR REPLACE TABLE character_stats AS SELECT * FROM df")
 
     con.close()
 

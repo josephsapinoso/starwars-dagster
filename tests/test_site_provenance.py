@@ -20,9 +20,12 @@ import pytest
 from starwars_dagster import defs
 from starwars_dagster.known_facts import (
     EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_OLDEST_BIRTH_BBY,
     EXPECTED_PEOPLE_COUNT,
     EXPECTED_PILOT_COUNT,
+    EXPECTED_UNDATED_BIRTH_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
+    OLDEST_DATED_CHARACTER,
     SIX_FILM_CHARACTERS,
 )
 
@@ -194,6 +197,13 @@ def test_no_payoff_leaks_before_reveal_beat(prov):
             f"max flown = {EXPECTED_MAX_STARSHIPS_FLOWN}",
             f"flown {EXPECTED_MAX_STARSHIPS_FLOWN}",
             "obi-wan",
+        },
+        # the birth registry's payoffs live after every beat (dashboard card),
+        # so its numbers and record holder may never appear on any story rail
+        7: {
+            f"{EXPECTED_UNDATED_BIRTH_COUNT} of {EXPECTED_PEOPLE_COUNT}",
+            f"{EXPECTED_OLDEST_BIRTH_BBY:g}",
+            OLDEST_DATED_CHARACTER.lower(),
         },
     }
     for claim in prov["claims"]:

@@ -66,6 +66,8 @@ ALL_CHECKS = [
     checks_module.character_stats_six_film_trio,
     checks_module.character_stats_pilot_count_baseline,
     checks_module.character_stats_max_flown_baseline,
+    checks_module.character_stats_birth_year_baseline,
+    checks_module.character_stats_birth_year_parse_honesty,
 ]
 
 
@@ -88,26 +90,27 @@ def test_all_eleven_assets_materialize_from_a_clean_directory(full_run):
     assert (cwd / "data" / "star_wars.duckdb").exists()
 
 
-def test_characters_enriched_table_matches_the_returned_frame(full_run):
-    # the write-back must be the SAME data the asset returns — one code path,
-    # so the asset's three checks extend to the warehouse table by construction
+def test_written_back_tables_match_the_returned_frames(full_run):
+    # a write-back must be the SAME data the asset returns — one code path,
+    # so each asset's checks extend to its warehouse table by construction
     import duckdb
     import pandas as pd
 
     result, cwd = full_run
-    df = result.output_for_node("characters_enriched").reset_index(drop=True)
     con = duckdb.connect(str(cwd / "data" / "star_wars.duckdb"), read_only=True)
     try:
-        table = con.execute(
-            "SELECT * FROM characters_enriched ORDER BY character_name"
-        ).df()
+        for node in ["characters_enriched", "character_stats"]:
+            df = result.output_for_node(node)
+            table = con.execute(
+                f"SELECT * FROM {node} ORDER BY character_name"
+            ).df()
+            pd.testing.assert_frame_equal(
+                table.reset_index(drop=True),
+                df.sort_values("character_name").reset_index(drop=True),
+                check_dtype=False,
+            )
     finally:
         con.close()
-    pd.testing.assert_frame_equal(
-        table.reset_index(drop=True),
-        df.sort_values("character_name").reset_index(drop=True),
-        check_dtype=False,
-    )
 
 
 def test_structural_asset_checks_pass_on_well_formed_data(full_run):
@@ -140,6 +143,15 @@ def test_climate_lines_count_characters_and_disclose_the_denominator(full_run):
     assert "have a known homeworld" in report
 
 
+def test_birth_year_parse_honesty_holds_on_any_fixture(full_run):
+    # data-independent invariant: parsed NULLs == raw 'unknown' strings.
+    # Ungated by design — it must hold on synthetic fixtures too, which is
+    # exactly what makes it a parse guard rather than a drift baseline.
+    result, _ = full_run
+    outcomes = {e.check_name: e.passed for e in result.get_asset_check_evaluations()}
+    assert outcomes["character_stats_birth_year_parse_honesty"]
+
+
 def test_warehouse_access_policy_is_encoded_in_code():
     # DuckDB allows many readers OR one writer per file. The multiprocess
     # executor raced transforms on that lock (observed 2026-07-18), so the
@@ -156,13 +168,16 @@ def test_warehouse_access_policy_is_encoded_in_code():
     readers = [
         transforms.film_character_counts,
         transforms.starship_stats,
-        transforms.character_stats,
     ]
     for asset_def in readers:
         src = inspect.getsource(asset_def.op.compute_fn.decorated_fn)
         assert "read_only=True" in src, f"{asset_def.key} must open the warehouse read_only"
-    writer_src = inspect.getsource(transforms.characters_enriched.op.compute_fn.decorated_fn)
-    assert "read_only" not in writer_src  # the one legitimate writer
+    # the two writers persist their grain back into the warehouse (write-back
+    # law: displayed table names must exist); sequential execution serializes them
+    for writer in [transforms.characters_enriched, transforms.character_stats]:
+        src = inspect.getsource(writer.op.compute_fn.decorated_fn)
+        assert "read_only" not in src, f"{writer.key} is a declared writer"
+        assert "CREATE OR REPLACE TABLE" in src, f"{writer.key} must write its grain back"
     assert defs.executor is in_process_executor
 
 
@@ -253,6 +268,7 @@ def test_character_stats_drift_checks_pass_on_the_real_snapshot(full_run):
         "character_stats_pilot_count_baseline",
         "character_stats_max_flown_baseline",
         "characters_enriched_unknown_height_baseline",
+        "character_stats_birth_year_baseline",
     }
     outcomes = {
         e.check_name: e.passed for e in result.get_asset_check_evaluations()

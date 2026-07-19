@@ -28,6 +28,7 @@ import pandas as pd
 from dagster import (
     AssetCheckResult,
     AssetCheckSeverity,
+    AssetIn,
     asset_check,
 )
 
@@ -44,9 +45,11 @@ from starwars_dagster.known_facts import (
     EXPECTED_EPISODE_IDS,
     EXPECTED_FILM_COUNT,
     EXPECTED_MAX_STARSHIPS_FLOWN,
+    EXPECTED_OLDEST_BIRTH_BBY,
     EXPECTED_ONE_FILM_COUNT,
     EXPECTED_PEOPLE_COUNT,
     EXPECTED_PILOT_COUNT,
+    EXPECTED_UNDATED_BIRTH_COUNT,
     EXPECTED_UNKNOWN_HEIGHT_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
     REQUIRED_PEOPLE_KEYS,
@@ -276,4 +279,50 @@ def character_stats_max_flown_baseline(character_stats: pd.DataFrame) -> AssetCh
         passed=max_flown == EXPECTED_MAX_STARSHIPS_FLOWN,
         severity=AssetCheckSeverity.WARN,
         metadata={"max_starships_flown": max_flown, "expected": EXPECTED_MAX_STARSHIPS_FLOWN},
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    description="The undated count and the oldest dated record in the birth "
+    "registry match the verified baselines in known_facts.py. The registry "
+    "card's headline and its oldest-on-file claim depend on them.",
+)
+def character_stats_birth_year_baseline(character_stats: pd.DataFrame) -> AssetCheckResult:
+    undated = int(character_stats["birth_year_bby"].isna().sum())
+    oldest = float(character_stats["birth_year_bby"].max()) if undated < len(character_stats) else None
+    return AssetCheckResult(
+        passed=undated == EXPECTED_UNDATED_BIRTH_COUNT and oldest == EXPECTED_OLDEST_BIRTH_BBY,
+        severity=AssetCheckSeverity.WARN,
+        metadata={
+            "undated": undated,
+            "expected_undated": EXPECTED_UNDATED_BIRTH_COUNT,
+            "oldest_bby": oldest,
+            "expected_oldest_bby": EXPECTED_OLDEST_BIRTH_BBY,
+        },
+    )
+
+
+@asset_check(
+    asset=character_stats,
+    additional_ins={"star_wars_db": AssetIn("star_wars_db")},
+    description="Every null in the parsed birth-year column corresponds to a "
+    "record whose raw field is the literal string 'unknown' — a source format "
+    "change degrades loudly here instead of silently swelling the undated count.",
+)
+def character_stats_birth_year_parse_honesty(
+    character_stats: pd.DataFrame, star_wars_db: str
+) -> AssetCheckResult:
+    parsed_nulls = int(character_stats["birth_year_bby"].isna().sum())
+    con = duckdb.connect(star_wars_db, read_only=True)
+    try:
+        raw_unknowns = con.execute(
+            "SELECT COUNT(*) FROM people WHERE birth_year = 'unknown'"
+        ).fetchone()[0]
+    finally:
+        con.close()
+    return AssetCheckResult(
+        passed=parsed_nulls == raw_unknowns,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"parsed_nulls": parsed_nulls, "raw_unknowns": raw_unknowns},
     )
