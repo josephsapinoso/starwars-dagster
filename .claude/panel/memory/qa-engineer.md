@@ -157,3 +157,27 @@ doing that. And when a guard's severity is WARN, always ask "what asserts green?
 the snapshot-gated pass-assertion pattern is now standard for every new WARN check.
 
 Still OPEN: README screenshot retake, now targeting 13 green checks (desktop UI).
+
+## Prep notes: improvement survey (2026-07-19)
+
+Fresh-eyes repo audit found two real guard holes + one honest-disclosure gap:
+
+1. snapshot.yml verifies only `-k "people_count or six_films or unknown_mass or
+   naboo"` — misses unknown_height, one-film-42, pilots-19/max-5, the WARN
+   green-assertion test, and all five SQL compare tests. Worse: its bot push uses
+   GITHUB_TOKEN, which does NOT trigger ci.yml, so a drifted snapshot can land on
+   main with zero CI run. Fix: full `pytest -v` gate before commit. Cost S.
+2. Multiprocess-executor DuckDB lock race (observed 2026-07-18): three read-only
+   transforms connect read-write (transforms.py:153/188/235); characters_enriched
+   legitimately writes. `materialize()` in tests is in-process, so the suite is
+   structurally BLIND to the deploy-mode failure — a failure mode with no named
+   detector. Guard design: read_only=True on pure readers + serialize the writer;
+   detector = offline `execute_job(reconstructable(...))` under the default
+   executor against fixtures, seen-to-fail first. Cost M.
+3. Site never says WHEN its numbers were verified. SNAPSHOT.json carries a date;
+   a verified-as-of field in DATA, pytest-pinned equal to the fixture date, makes
+   staleness visible and forces republish on refresh. Cost S. Watch the
+   no-narrative-fields law: a date is verifiable, not narrative — route it via
+   known_facts.
+
+WORDS overflow: confirmed guarded (site runtime warn + provenance totals test).
