@@ -176,3 +176,38 @@ commits 1f3cf9e (registry), 4d92cb7 (coda+hues), 7d96df5 (limits), f170379
 three things — the fact, the source quote verified, and the RENDER CONDITION (when
 it appears, when it must vanish). Data-conditional copy is the mechanism that turns
 a gem from decoration into audit; it's now banked in the register-discipline skill.
+
+## Prep notes: token hygiene + raise-only small type (2026-07-19)
+
+Verified in site/index.html today (full-file hex scrape: only #cdd8ef line 489 and
+#fff line 1131 live outside :root — brief confirmed accurate):
+
+- **Gold audit.** `#ffe81f` appears EXACTLY ONCE, at :root line 17, with the law in
+  its comment. But two gold-derived rgba literals leak outside :root:
+  `rgba(255,232,31,.4)` (line 53, cue hover border) and `rgba(255,232,31,.35)`
+  (line 152, .chip.hot border). Both are ceremony (glows), but they are second
+  homes for gold's identity — same drift bug shape as a prose roster beside
+  known_facts. Fix in the file's own idiom: `color-mix(in srgb, var(--gold) 40%,
+  transparent)` — the technique the data palette already uses at line 1093.
+- **Gold guard nuance (critical for DEBATE):** the guard must pin "gold literal
+  (#ffe81f / 255,232,31) appears exactly once, in :root" — NOT "no gold in JS".
+  Line 693 uses `var(--gold)` as the tooltip swatch for six-film characters; that
+  echoes the banked-and-settled `.unit.hot` ceremony spotlight. A naive JS gold ban
+  would relitigate settled law by accident. The series home is provable clean: the
+  `palette` const (line 1093) is color-mix from --s1 saber blue.
+- **Starfield #cdd8ef (Q1):** scenery, not data, not ceremony. Blue-white is
+  correct starlight; it must never become gold or a saber hue. I lean sanctioned
+  literal + comment — a getComputedStyle bridge is machinery built for decoration,
+  the engineering cousin of kitsch. If the panel tokenizes, name it `--star`
+  (its own identity), never overload an ink or saber token.
+- **#fff gender-bar in-segment labels:** register-neutral contrast ink on data
+  bars. No lore stake; designer's call.
+- **Type with lore stakes:** primary-source text sizes — epigraph cite 12px, crawl
+  pre 13px, crawl h4 14px — are all kept steps under the proposed raise-only scale;
+  the verbatim crawls' legibility is untouched. Raise-only is inherently friendly
+  to quoted material. No objection in my lane to the 10.5→11 / 13.5→14 merges.
+- **Font-size tokens (Q3) / guard mechanics (Q4):** engineers' lane. I support one
+  structural pytest in the existing suite; my single ask is that it carry the gold
+  single-home assertion above, turning gold-is-ceremony from banked prose into a
+  mechanical pin. My own stale-note check: nothing of mine touched by this brief
+  is stale; the .unit.hot gold note above remains accurate and settled.
