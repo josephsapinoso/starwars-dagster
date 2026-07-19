@@ -185,9 +185,21 @@ Prep-differently: when I spec a detector, also spec the acceptable POLICY
 alternative (make the failure mode unreachable + pin the policy) — the panel may
 land there, and pre-approving its conditions keeps my ruling intact.
 
-Still OPEN (from 2026-07-19 survey, not in this debate's scope):
-1. snapshot.yml runs a partial `-k` pytest subset and its GITHUB_TOKEN bot push
-   does not trigger ci.yml — a drifted snapshot can land with zero CI. Fix: full
-   pytest gate before commit. Cost S.
-2. Verified-as-of date in DATA, pytest-pinned to the SNAPSHOT.json date (a date is
-   verifiable, not narrative — route via known_facts). Cost S.
+## Ledger closure (2026-07-19, verified in-tree at bank time)
+
+Both survey items formerly listed here as "Still OPEN" were fixed by same-day
+pre-debate commits; I re-verified the tree myself before writing this:
+1. snapshot.yml partial-suite gap — CLOSED by ea840fb: the workflow now runs the
+   FULL suite (`pytest -v`, step "Run the full suite against the fresh snapshot")
+   before the bot commit, with an in-file comment naming that step as the CI for a
+   refreshed snapshot. Seen working live on post-merge refresh commit 8cfa1f0.
+2. Verified-as-of date — CLOSED by 2e47baa: `DATA.meta` ({source, snapshot}) drives
+   the footer freshness line; tests/test_site_data.py::
+   test_meta_matches_the_committed_snapshot pins `meta.snapshot ==
+   SNAPSHOT.json fetched_at[:10]` and `meta.source in snap["source"]`; drift
+   detector warns on missing/malformed meta. Suite green at 54.
+
+Lesson: an open-items ledger is a claim about the tree, and claims about the tree
+get re-verified AT BANK TIME — same-day commits closed both items before my bank
+pass was written, and I carried the stale entries anyway. Grep the fix before
+writing "OPEN".
