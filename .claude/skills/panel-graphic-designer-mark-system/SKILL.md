@@ -19,7 +19,7 @@ justify a permanent seat.
 | Chip | `.chip` ~139 | mono 12px, ink-2, `--void` bg, 1px `--line` border, 5px radius | one Dagster asset |
 | DAG group | `.dag-group` ~135 | 1px **dashed** `--line` border | pipeline layer grouping — dashed = grouping, do not overload |
 | Disclosure | `details.sql, details.prov` ~190–197 | 12px ink-3 summary, .06em tracking, gold `▸/▾` `::before`, `--void` inset body | opt-in depth (SQL + provenance); the ONLY disclosure style |
-| Check-badge rail | `.prov-checks / .prov-check` ~204–206 | mono 11.5px ink-3, ◆/◇ glyph + number-free label; flex-wrap | an asset's full check inventory; ◆ blocking, ◇ drift WARN. 11.5px is a badge-only exception to the 12px floor — do not propagate |
+| Check-badge rail | `.prov-checks / .prov-check` ~204–206 | mono 11.5px ink-3, ◆/◇ glyph + number-free label; flex-wrap | an asset's full check inventory; ◆ blocking, ◇ drift WARN. 11.5px is a Settled whisper pin (authored contrast vs the 12px summary/chip voice) — never propagate, never "fix" |
 | Overflow escape | `.dag { overflow-x: auto }` ~134 | horizontal scroll | wide diagrams scroll; type never shrinks below 12px. Dashboard affordance only — story reveals stack vertically |
 | Gold ring | ring circles on scatter + registry (r≈8.5, `stroke: var(--gold)`, `fill: none`) | thin gold circle around a mark | asserts a SUPERLATIVE — persistent only on true extremes (added 2026-07-19); named non-extremes get labels, never rings |
 | Hue ladder | one palette array: `color-mix(in srgb, var(--s1) N%, var(--panel))`, steps [100, 75, 55, 40, 28] | rank-ordered solid tints of the data hue | ordered categories in ONE hue; the same array feeds SVG fills, HTML legend swatches, and tooltip chips. Second-series tint is the 45% step (films) |
