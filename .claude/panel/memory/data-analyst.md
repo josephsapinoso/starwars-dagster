@@ -189,6 +189,51 @@ single-guard position, enumerate the derivation path's distinct failure modes
 (source drift / parse breakage / join loss / render drift) and check each fires a
 guard alone; say "parsed display number" out loud — it triggers the two-guard law.
 
+## Prep notes: watchlist round (2026-07-19)
+
+Redundancy audit of the stage's data ink (technique now in
+`.claude/skills/panel-data-analyst-channel-redundancy-audit/`):
+
+- **Q4 verdict from my ground: illegible stage type is NOT an honesty problem.**
+  Every null/denominator in stage ink has a readable HTML twin: caps render in
+  `.stage-cap` (unscaled HTML, aria-live) and beat copy carries 66cm/264cm/
+  1-unmeasured, 1358kg/23-of-82/59, Naboo 11/Tatooine 10/21-of-82, 42-of-82,
+  the trio names, 19-of-82, Obi-Wan 5. Stage-only residue: (a) "everywhere
+  else · 61" — hardcoded literal, outside the drift `expect` map, but derivable
+  (82−21) from guarded components; (b) beat-4 mid-column histogram counts —
+  computed live from PEO (`String(cnt)`, index.html:669–671), honest texture.
+  No load-bearing orphans → "accept" is honest; a media bump is a legibility
+  upgrade, argued on ux ground, not mine.
+- **Guard trap if a bump ships:** the hygiene font-size scanner attributes
+  @media-block declarations to the `@media` selector string, so pins never
+  match inside media queries — off-scale bumps (20–22px) fail loudly, but an
+  in-scale bump (18px) for a pinned selector passes SILENTLY with the base
+  11.5 pin green. Same-commit amendment must pin the media value exactly (or
+  fix the parser). Also `.anno-name` is 12px, in-scale, unpinned — never claim
+  the guard holds it still.
+- **Q1: badge whys are rationale, not gated data.** Badge label + ◆/◇ severity
+  are visible to everyone; the title-only why is a verbatim checks.py
+  `description=` projection with numbers interpolated from known_facts (the
+  brief's "number-free" is wrong — sample carries EXPECTED_PEOPLE_COUNT,
+  checks.py:136). Spoiler pin already audits `label + why` per beat
+  (test_site_provenance.py:212), so ANY exposure mechanism inherits spoiler
+  safety — provided it renders k.why verbatim, never a paraphrase (second copy
+  surface). Accept-and-document is honest (legend at index.html:911 discloses
+  the Dagster-UI path); exposure is an a11y-parity upgrade, not a data fix.
+- **Q3: suppression loses convenience, not access** — per-person values in
+  stage tooltips are reachable on touch via the dashboard Chart/Table toggle.
+  Preference: tap-to-pin > accept > suppress (a data channel touch users
+  currently get only by flash is worth pinning, but nothing unique is lost).
+- **Q2 is outside my ground** except evidence honesty: Chromium measured
+  (0px shift, anchoring compensates ≈−180px); Safari behavior is spec-inferred,
+  NOT measured. The decision log must say so; compensating unmeasured behavior
+  risks double-compensation if Safari gains anchoring.
+- Improvement residue: stage anno literals ("not weighed · 23", "Naboo · 11",
+  "Tatooine · 10", "everywhere else · 61", "unmeasured · 1", "Obi-Wan · 5")
+  sit next to locally computed collections (parked/nb/tt/rest lengths) —
+  deriving the strings would upgrade them from warned copy to computed numbers.
+  Offer as a rider if the stage is touched anyway; not a demand.
+
 ## Banked: token hygiene (2026-07-19, decision log + commit a30a5bc)
 
 **Won, and why:**
