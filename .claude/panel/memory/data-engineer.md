@@ -214,3 +214,44 @@
   before proposing it, as I would for any pipeline ordering question.
 - Skill `panel-data-engineer-single-file-hygiene-guard` updated to teach the shipped
   whisper-clause shape, not my losing zero-exception derivation.
+
+## Prep notes: watchlist round (2026-07-19)
+
+Brief claims verified in-repo; nothing has been built yet for Q1–Q4 (candidate shapes
+only — no toggle listener, no scrollBy, no pointerType branch, no media bump exist).
+
+- **Q1 (badge whys):** confirmed `s.title = k.why` at site/index.html:879 is the sole
+  title= in the file; `k.why` is the verbatim check `description=` carried in
+  DATA.provenance and pytest-verified against defs. Contract stance: ANY exposure
+  surface (focus tooltip, aria-describedby, visible disclosure) must render the same
+  k.why string from DATA.provenance — no paraphrase, no truncated variant, no second
+  authored copy (one home per fact). Focusable badges reusing the shared tooltip
+  (tipShow:445/tipHide:465) would match the dashboard's existing focus/blur parity and
+  cost zero new data surface. Whys are number-free by design → spoiler pin unaffected.
+- **Q2 (Safari jump):** no compensation code exists. Chromium is verified fine
+  (scroll anchoring); Safari is UNVERIFIABLE here — no hardware, no CI path, drift
+  detector can't see scrolling. Ungated `scrollBy` would double-compensate on
+  anchoring browsers (breaking the verified-good case to maybe-fix the unverifiable
+  one). Only honest gate if shipped: `CSS.supports("overflow-anchor: auto")` — fire
+  compensation only where anchoring is absent; must never run during user scroll.
+  Starfield-bridge lesson applies: prefer the side whose failure our guards can see.
+- **Q3 (touch flash):** stage tooltip = svg-level pointermove hit-test (770–781) +
+  pointerleave hide (782), riding the ONE shared tooltip. Any tap-to-pin/pointerType
+  logic must live in the shared tipShow/tipHide layer, uniformly (dashboard charts at
+  1078/1128/1202 have their own handlers) — no stage-only tooltip fork, no second
+  tooltip content source. Emulation can't reproduce the flash; spec says it's real.
+- **Q4 (stage type) — the brief underspecifies a ripple:** `.axis-t`/`.anno-t` are
+  NOT stage-only classes — drawAxis uses them on the stage (742) AND six dashboard
+  charts use them at effective 1:1 scale (1059, 1083, 1139–1183, 1199, 1341–1371,
+  1362). A naive `@media` bump on `.axis-t` would resize fit-tuned dashboard ink.
+  Honest shape: scope inside the existing 860px block (line 115) as
+  `.stage .axis-t` / `.anno-name` (anno-name IS stage-only, :97, currently 12px on
+  scale). Guard mechanics verified: the rule parser (split on `}`) sees media-inner
+  rules fine; pin matching is FIRST-fragment-wins (`next(e[0] in selector)`), so a
+  scoped bump needs a more-specific pin (".stage .axis-t", N, reason) inserted BEFORE
+  the general (".axis-t", 11.5) pin — back-assertion then fails loudly both
+  directions for both contexts. 22 would otherwise fail scale-or-pin. Same-commit
+  amendment is mechanically small; the real cost is geometry: ~22px css at scale .45
+  ≈ doubles glyph extents in a 700-wide viewBox with 82 dots + collision-staggered
+  annos — stagger-never-shrink tuning must be re-verified by hand at 360/390 if any
+  bump ships. Guard proves scale membership, not fit.

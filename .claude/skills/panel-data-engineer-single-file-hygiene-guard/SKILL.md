@@ -68,6 +68,20 @@ literals pinned+commented+counted, gold single-home, CSS sizes on-scale-or-pinne
 (with the pin-exists back-assertion), and zero `font-size`/hex-fill in JS or markup
 (JS text must set classes, not styles; delete dead style-setting attrs).
 
+## Amending pins for a media-query bump (raise-only)
+
+A responsive raise of a pinned selector (e.g. mobile-only `@media` block) needs a
+same-commit pin amendment. Mechanics in the shipped guard: the rule parser splits on
+`}` so media-inner rules parse like any other, and pin matching is first-fragment-wins
+(`next(e for e in EXEMPT_SELECTORS if e[0] in selector)`). Therefore:
+
+- Scope the media rule with a MORE SPECIFIC selector (`.stage .axis-t`), and insert
+  its pin BEFORE the general pin — ordering is load-bearing. Both pins then
+  back-assert independently, failing loudly on change in either direction.
+- Check class sharing FIRST: in this repo `.axis-t`/`.anno-t` serve both the scaled
+  stage SVG and 1:1 dashboard charts. An unscoped bump silently resizes fit-tuned
+  ink elsewhere — the census can't tell you that; grep the class's render sites.
+
 ## Gotchas
 
 - `clamp()` display sizes are exempt by pattern, not by pin — scope the size

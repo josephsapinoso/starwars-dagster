@@ -199,3 +199,43 @@ Watch items:
 - Ux's fixed-viewBox stage-legibility observation was noted for a possible FUTURE
   proposal with its own evidence. If it returns, raise-only-grants-permission puts
   the burden on the mover; the geometry pins are not an invitation.
+
+## Prep notes: watchlist round (2026-07-19)
+
+Verified in-source; narrative judgments formed for debate.
+
+- **Q1 (badge whys).** `title=k.why` at site/index.html:879 is the page's only
+  title attr. Whys are VERBATIM check descriptions (test_site_provenance.py:95)
+  — already governed by the description style rule AND already inside the spoiler
+  pin's audited surface (line 212 audits `label + why` per beat). So ANY exposure
+  path is spoiler-safe by construction; no new pin needed. Voice stance: 48
+  focusable badges = ~15 tab stops through the held pause's quietest voice; a
+  visible disclosure triples rail length. Legend already routes honestly to the
+  Dagster UI (settled copy). Lean accept-and-document; if exposed, mechanism is
+  ia/ux's, my constraints: no new visible rail strings, nothing on beat 4 louder
+  than its summary.
+- **Q2 (Safari jump).** Reveal-arc rule 7: opening a reveal must never move the
+  reader. The Safari jump violates it at the exact opt-in moment — so a toggle
+  compensation is position-PRESERVING, not scroll-jacking. But: Chromium already
+  compensates via scroll anchoring, so an unconditional scrollBy would
+  double-compensate and break the verified-good browser; and we cannot verify
+  Safari hardware here. Lean accept-and-watch unless someone brings an
+  anchoring-aware shape; if built: instant, toggle-event-only, never during
+  user scroll.
+- **Q3 (touch flash).** Tooltip is deixis (dot→name), redundant with prose;
+  spine survives its absence. Tap-to-pin is reader-paced (reader shows AND
+  dismisses). Oppose suppress-for-touch — see cross-finding below.
+- **Q4 (stage type).** viewBox 700×620 (line 327); .anno-name 12 (97), .axis-t
+  11.5 (184). CRITICAL: beat 5's annos ARE the witnesses' names (line 693, hot
+  gold), stacked at 20 viewBox-units spacing — a bump to the needed 20–22px makes
+  the three payoff names OVERLAP. The naive css-only fix breaks precisely the
+  payoff beat; stagger-never-shrink means any bump demands stagger rework. Prose
+  carries every payoff name (beat 5 names the trio; beat 6 names Obi-Wan · 5),
+  so annos are deixis, not delivery. Lean accept; burden on the mover includes
+  the 20-unit collision math, per raise-only-grants-permission.
+- **Cross-finding (Q3×Q4).** On mobile today, dot identity reaches readers by NO
+  path (5px annos + no touch tooltip). Acceptable ONLY because prose is the
+  payoff carrier — any "accept" verdict should state that reason. If exactly one
+  targeted fix ships, legible beat-5 witness names is the highest narrative
+  value on the page.
+- Cannot verify: real Safari/iOS behavior; hardware touch event order.

@@ -175,32 +175,57 @@ Decision: `.claude/panel/decisions/2026-07-19-token-hygiene.md`; commit a30a5bc
 rgba leaks → color-mix (lines 53/153); "scenery, not ink" comment at 491; guard
 pins #ffe81f once-in-:root, zero 255,232,31, `var(--gold)` free.
 
-**Won — clean sweep in my lane:**
-- The gold single-home pin shipped EXACTLY as I shaped it: the guard pins
-  byte-patterns, not ceremony, so the line-693 tooltip swatch and `.unit.hot`
-  spotlights were never endangered. Gold-is-ceremony graduated from banked prose
-  to a mechanical assertion — the strongest form a law can take.
-- Q1 split-the-literals carried: gender ink tokenized (with the AA fix), starfield
-  sanctioned+commented. The 3–3 tie broke my way on failure-mode asymmetry: a
-  pinned literal that drifts FAILS the test; a getComputedStyle bridge's
-  init-order risk on the hero canvas has no guard at all. "Machinery built for
-  decoration is the engineering cousin of kitsch" held.
-- Crawl register untouched: 12/13/14 are kept steps; raise-only is inherently
-  friendly to verbatim primary-source text, as prepped.
-- Q3 one-home ruling landed 5–1: no font-size tokens; the executable test is the
-  registry. `.prov-check` 11.5 held 4–2 — I backed the storyteller's
-  authored-contrast case rather than fronting it; theirs was the decisive craft
-  argument (12px merges the guard voice into the machinery voice on the rail).
+Won — clean sweep in my lane: gold single-home pin shipped as I shaped it (pins
+byte-patterns, not ceremony; tooltip swatch and `.unit.hot` never endangered);
+Q1 split-the-literals carried on failure-mode asymmetry ("machinery built for
+decoration is the engineering cousin of kitsch" held); crawl register untouched;
+one-home font ruling 5–1; `.prov-check` 11.5 held — I backed the storyteller's
+authored-contrast case rather than fronting it. Co-authored pattern (third
+straight decision): I name the honesty requirement, someone else builds the
+mechanism — pair early with whoever owns the mechanism. Prep lesson: for any
+single-home fact, audit its DERIVED encodings too (the rgba/color-mix scrape
+found the two leaks); write banked lessons sharp enough to fire as ammunition.
 
-**Co-authored:** my ask was "named allow-list entries with reasons, no silent
-holes"; the storyteller supplied the enforcement shape — exact pins failing loudly
-in EITHER direction (the whisper clause). Third straight decision where I name the
-honesty requirement and someone else builds the mechanism: pair early with
-whoever owns the mechanism.
+## Prep notes: watchlist round (2026-07-19)
 
-**Prep differently next time:** the winning prep move was scraping for DERIVED
-forms of an identity color (rgba/hsl/color-mix), not just the hex — the two leaks
-I alone found let me shape the guard before Q4 opened. Generalize: for any
-single-home fact (color, roster, number), audit its derived encodings too. And
-the tie-breaking asymmetry argument came verbatim from last decision's banked
-lesson — write lessons sharp enough to fire as ammunition.
+Verified in-repo against the brief (all four items are affordance/mechanics
+questions; my lane is what the exposed/illegible/suppressed STRINGS are):
+
+- **Q1 badge whys are register-clean and spoiler-audited already.** `k.why` is a
+  VERBATIM projection of the real Dagster check description
+  (test_site_provenance.py:95–96), machinery register, zero Star Wars content
+  (checks.py descriptions verified). The spoiler pin (:181–223) audits
+  `label + why` per beat over the rendered STRING SET — independent of the
+  affordance. So exposure (focus/aria/visible) adds reach, not spoiler surface,
+  IF AND ONLY IF the same strings render verbatim. Truncation or paraphrase for
+  space = a second home + a misquoted check → my veto trigger.
+- **Brief correction:** whys are NOT number-free — raw_people's why carries "82
+  people" (f-string from known_facts, checks.py:136). Safe: 82 is beat-0's own
+  hook; all later-payoff descriptions avoid numbers by design (spoiler law
+  working as intended). Don't repeat "number-free" in debate.
+- **Legend interaction (Q1):** the settled rail-legend line "full check
+  descriptions live in the Dagster UI" (index.html:911) stays TRUE under
+  focus/aria exposure but reads as misdirection under a VISIBLE disclosure of
+  the same texts. Visible disclosure therefore requires reopening settled copy;
+  focus-parity (matching the dashboard charts' existing focus/blur tooltips)
+  doesn't. That asymmetry is my Q1 lean.
+- **Q3 stakes in my lane:** the stage tooltip (index.html:770–782, shared
+  system) is the ONLY place most of the 82 names surface on the stage — annos
+  name only the extremes. Suppress-for-touch would cut mobile readers' sole
+  access to the census's individuals (incl. Arvel Crynyd's "never measured").
+  Tap-to-pin keeps the names; content is in-universe data narration, register
+  fine either way.
+- **Q4 canon inventory at ~5px effective:** the illegible annos are exactly the
+  earned canon references — "Yoda · 66 cm", "Yarael Poof · 2.64 m", "Jabba ·
+  1,358 kg", the trio's three names (gold, beat 5), "Obi-Wan · 5 starships"
+  (gold). EVERY one also lives legibly in beat copy or caption — beat-5 copy
+  (index.html:305) names the trio in full, so no canon fact is mobile-lost by
+  accepting. But the gold `.anno-name.hot` emphasis at 5px is an unreadable
+  gold smudge: ceremony you can't read is decoration, which argues for a
+  raise-only bump (uniform across stage text — never bump only the hot annos;
+  that would re-rank emphasis). Raise-only grants permission; the mechanism and
+  the guard amendment are the engineers' call.
+- **Q2 (Safari jump):** no lore stake; defer to mechanics. Only settled law I
+  watch: any compensation must not fight the reader's own scrolling.
+- Cannot verify: real-iOS/macOS behavior (jump E2, flash E3) — headless
+  evidence only; spec-based inference stands unconfirmed on hardware.
