@@ -50,8 +50,8 @@
   .hero .dek { color: var(--ink-2); font-size: clamp(15px, 1.6vw, 17px); max-width: 56ch; margin: 26px auto 0; }
   .hero-nav { margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
   .hero-nav .cue { color: var(--ink); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 12px 22px; background: rgba(13,18,32,.6); }
-  .hero-nav .cue:hover { color: var(--gold); border-color: rgba(255,232,31,.4); }
-  .hero-nav .side { color: var(--ink-3); font-size: 12.5px; letter-spacing: .06em; text-decoration: none; }
+  .hero-nav .cue:hover { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 40%, transparent); }
+  .hero-nav .side { color: var(--ink-3); font-size: 13px; letter-spacing: .06em; text-decoration: none; }
   .hero-nav .side:hover { color: var(--ink-2); }
   .hero .down { color: var(--ink-3); font-size: 18px; margin-top: 18px; animation: bob 2s ease-in-out infinite; }
   @keyframes bob { 50% { transform: translateY(5px); } }
@@ -68,16 +68,16 @@
 
   .stage { position: sticky; top: max(12px, calc((100svh - min(86svh, 720px)) / 2)); height: min(86svh, 720px); display: flex; flex-direction: column; justify-content: center; gap: 10px; min-width: 0; }
   .stage svg { display: block; width: 100%; height: auto; max-height: calc(100% - 34px); }
-  .stage-cap { margin: 0; text-align: center; color: var(--ink-3); font-size: 12.5px; letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+  .stage-cap { margin: 0; text-align: center; color: var(--ink-3); font-size: 13px; letter-spacing: .05em; font-variant-numeric: tabular-nums; }
 
   .steps { min-width: 0; }
   .step { min-height: min(102svh, 880px); display: flex; align-items: center; }
   .step-inner { background: var(--panel); border: 1px solid var(--edge); border-radius: 12px; padding: 24px 26px; max-width: 44ch; opacity: .45; transition: opacity .4s ease; }
   .step.active .step-inner { opacity: 1; }
-  .step .kicker { display: block; color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .28em; font-size: 12.5px; font-weight: 600; margin: 0 0 10px; }
+  .step .kicker { display: block; color: var(--gold); font-family: var(--disp); text-transform: uppercase; letter-spacing: .28em; font-size: 13px; font-weight: 600; margin: 0 0 10px; }
   .step p { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.65; }
   .step p + p { margin-top: 12px; }
-  .step .aside { color: var(--ink-3); font-size: 13.5px; }
+  .step .aside { color: var(--ink-3); font-size: 14px; }
   .step a { color: var(--gold); text-decoration: none; }
   .step a:hover { text-decoration: underline; }
   .step-fig { display: none; margin: 18px 0 0; }
@@ -95,6 +95,7 @@
   @keyframes annoIn { from { opacity: 0; } }
   .anno-line { stroke: var(--ink-3); stroke-width: 1; }
   .anno-name { fill: var(--ink-2); font-size: 12px; }
+  .seg-pct { font-size: 11.5px; font-weight: 600; }
   .anno-name.hot { fill: var(--gold); font-weight: 600; }
   @media (prefers-reduced-motion: reduce) {
     .unit, .unit circle { transition: none; }
@@ -145,17 +146,17 @@
   /* lineage strip */
   .dag { display: flex; align-items: stretch; gap: 10px; overflow-x: auto; padding: 18px; background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; }
   .dag-group { border: 1px dashed var(--line); border-radius: 8px; padding: 10px 12px; min-width: max-content; }
-  .dag-group .g-label { color: var(--ink-3); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; }
+  .dag-group .g-label { color: var(--ink-3); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; }
   .dag-chips { display: flex; flex-direction: column; gap: 5px; }
   .dag-chips.row { flex-direction: row; align-items: center; }
   .chip { font-family: var(--mono); font-size: 12px; color: var(--ink-2); background: var(--void); border: 1px solid var(--line); border-radius: 5px; padding: 4px 9px; white-space: nowrap; }
-  .chip.hot { color: var(--gold); border-color: rgba(255,232,31,.35); }
+  .chip.hot { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 35%, transparent); }
   .dag-arrow { align-self: center; color: var(--ink-3); font-size: 18px; flex: none; }
 
   /* KPI row */
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 24px; }
   .kpi { background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; padding: 18px 18px 15px; }
-  .kpi .k-label { color: var(--ink-3); font-size: 12.5px; letter-spacing: .04em; }
+  .kpi .k-label { color: var(--ink-3); font-size: 13px; letter-spacing: .04em; }
   .kpi .k-value { font-size: 42px; font-weight: 650; line-height: 1.1; margin: 2px 0 0; }
   .kpi .k-sub { color: var(--ink-3); font-size: 12px; margin-top: 2px; }
 
@@ -167,14 +168,14 @@
   @media (max-width: 860px) { .span7, .span5, .span6 { grid-column: span 12; } }
 
   .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-  .card-head h3 { margin: 0; font-family: var(--disp); text-transform: uppercase; letter-spacing: .05em; font-size: 16.5px; font-weight: 600; }
+  .card-head h3 { margin: 0; font-family: var(--disp); text-transform: uppercase; letter-spacing: .05em; font-size: 17px; font-weight: 600; }
   .card-head .sub { color: var(--ink-3); font-size: 13px; margin-top: 3px; }
   .toggle { display: flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; flex: none; }
   .toggle button { background: none; border: none; color: var(--ink-3); font: 500 12px var(--body); padding: 5px 11px; cursor: pointer; }
   .toggle button[aria-pressed="true"] { background: var(--panel-2); color: var(--ink); }
 
   .legend { display: flex; gap: 16px; flex-wrap: wrap; }
-  .legend .li { display: flex; align-items: center; gap: 7px; color: var(--ink-2); font-size: 12.5px; }
+  .legend .li { display: flex; align-items: center; gap: 7px; color: var(--ink-2); font-size: 13px; }
   .legend .sw { width: 11px; height: 11px; border-radius: 3px; }
 
   .viz { min-height: 40px; }
@@ -192,6 +193,7 @@
 
   /* table view */
   .tbl-wrap { overflow-x: auto; }
+  .viz-note { margin: 8px 0 0; font-size: 13px; color: var(--ink-3); }
   table.dv { border-collapse: collapse; width: 100%; font-size: 13px; }
   table.dv th { text-align: left; color: var(--ink-3); font-weight: 500; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
   table.dv td { padding: 6px 12px 6px 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
@@ -216,12 +218,12 @@
   .prov-checks { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 3px 0 3px 14px; }
   .prov-check { color: var(--ink-3); font-size: 11.5px; font-family: var(--mono); }
   .prov-check b { color: var(--ink-2); font-weight: 600; }
-  .prov-note { color: var(--ink-3); font-size: 12.5px; margin: 8px 0 10px; line-height: 1.55; overflow-wrap: anywhere; }
+  .prov-note { color: var(--ink-3); font-size: 13px; margin: 8px 0 10px; line-height: 1.55; overflow-wrap: anywhere; }
   .prov-legend { color: var(--ink-3); font-size: 11px; letter-spacing: .04em; margin: 0 0 10px; }
 
   /* tooltip */
   #tip { position: fixed; z-index: 50; pointer-events: none; background: var(--tip-bg); border: 1px solid var(--edge);
-         border-radius: 8px; padding: 9px 12px; font-size: 12.5px; box-shadow: 0 8px 28px rgba(0,0,0,.55);
+         border-radius: 8px; padding: 9px 12px; font-size: 13px; box-shadow: 0 8px 28px rgba(0,0,0,.55);
          opacity: 0; transition: opacity .12s; max-width: 280px; }
   #tip.on { opacity: 1; }
   #tip .t-title { color: var(--ink); font-weight: 600; margin-bottom: 3px; }
@@ -486,7 +488,7 @@ function tipHide() { tip.classList.remove("on"); }
     for (const s of stars) {
       const tw = reduced ? .8 : .55 + .45*Math.sin(t*s.s*8 + s.p);
       cx.globalAlpha = tw * .9;
-      cx.fillStyle = "#cdd8ef";
+      cx.fillStyle = "#cdd8ef"; // scenery, not ink — sanctioned off-token literal (decision 2026-07-19)
       cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 7); cx.fill();
       if (!reduced) { s.x -= s.s*W*.04; if (s.x < 0) s.x = W; }
     }
@@ -590,7 +592,7 @@ function tipHide() { tip.classList.remove("on"); }
       annos: [
         {x: pos(yoda).x + 10, y: pos(yoda).y - 12, anchor: "start", text: "Yoda · 66 cm"},
         {x: pos(poof).x - 10, y: pos(poof).y - 12, anchor: "end", text: "Yarael Poof · 2.64 m"},
-        {x: M.l + 24, y: VH - 12, anchor: "start", text: "unmeasured · 1", small: true},
+        {x: M.l + 24, y: VH - 12, anchor: "start", text: "unmeasured · 1"},
       ],
       cap: "Sorted by height · 66–264 cm · 1 unmeasured",
       tip: p => [{color: "var(--s1)", value: p.height == null ? "—" : p.height + " cm", label: p.height == null ? "never measured" : "tall"}],
@@ -624,7 +626,7 @@ function tipHide() { tip.classList.remove("on"); }
       ]),
       annos: [
         {x: jab.x - 12, y: jab.y - 14, anchor: "end", text: "Jabba · 1,358 kg", hot: true},
-        {x: M.l + 30, y: VH - 54, anchor: "start", text: "not weighed · 23", small: true},
+        {x: M.l + 30, y: VH - 54, anchor: "start", text: "not weighed · 23"},
       ],
       cap: "Mass, log scale · 59 weighed, 23 not",
       tip: p => [{color: "var(--s1)", value: p.mass == null ? "—" : fmt(p.mass) + " kg", label: p.mass == null ? "no mass on file" : "mass"}],
@@ -647,7 +649,7 @@ function tipHide() { tip.classList.remove("on"); }
       annos: [
         {x: nbC.x, y: nbC.y - 62, anchor: "middle", text: "Naboo · 11"},
         {x: ttC.x, y: ttC.y - 62, anchor: "middle", text: "Tatooine · 10"},
-        {x: M.l + iw / 2, y: M.t + ih * .66 - 28, anchor: "middle", text: "everywhere else · 61", small: true},
+        {x: M.l + iw / 2, y: M.t + ih * .66 - 28, anchor: "middle", text: "everywhere else · 61"},
       ],
       cap: "Grouped by homeworld · Naboo 11 · Tatooine 10",
       tip: p => [{color: "var(--s1)", value: p.homeworld || "—", label: "homeworld"}],
@@ -714,7 +716,7 @@ function tipHide() { tip.classList.remove("on"); }
     return {
       dots: PEO.map(p => ({...pos.get(p.name), s: .72, k: "base"})),
       axis: [],
-      annos: [{x: M.l + iw / 2, y: M.t + ih * .3 + 6 * 26 + 34, anchor: "middle", text: "82 rows · materialized ↓", small: true}],
+      annos: [{x: M.l + iw / 2, y: M.t + ih * .3 + 6 * 26 + 34, anchor: "middle", text: "82 rows · materialized ↓"}],
       cap: "The census, filed — dashboard below",
       tip: p => [{color: "var(--s1)", value: p.films, label: p.films === 1 ? "film on file" : "films on file"}],
     };
@@ -744,7 +746,6 @@ function tipHide() { tip.classList.remove("on"); }
     const g = el("g", {class: "stage-anno"}, layer);
     for (const a of annos) {
       const attrs = {x: a.x, y: a.y, "text-anchor": a.anchor, class: "anno-name" + (a.hot ? " hot" : "")};
-      if (a.small) attrs["font-size"] = 11;
       el("text", attrs, g).textContent = a.text;
     }
   }
@@ -1128,8 +1129,10 @@ function ticks(max, n=4) {
       g.addEventListener("pointerleave", tipHide); g.addEventListener("blur", tipHide);
       // in-segment % label only when it fits
       if (w > 46) {
-        el("text", {x: x + w/2, y: y0 + bh/2 + 4, "text-anchor": "middle", fill: "#fff",
-          "font-size": "11.5", "font-weight": "600"}, svg).textContent = Math.round(100*c.n/total) + "%";
+        // ink adapts to its ground: full-strength s1 takes dark ink, tinted steps take light
+        el("text", {x: x + w/2, y: y0 + bh/2 + 4, "text-anchor": "middle",
+          fill: i === 0 ? "var(--void)" : "var(--ink)", class: "seg-pct"}, svg)
+          .textContent = Math.round(100*c.n/total) + "%";
       }
       x += w + 2;
     });
@@ -1370,8 +1373,7 @@ function ticks(max, n=4) {
     // only while the record still agrees with the claim being quoted
     if (oldest.name === "Yoda" && oldest.bby === 896) {
       const cap = document.createElement("p");
-      cap.className = "sub";
-      cap.style.cssText = "margin:8px 0 0;font-size:13px;color:var(--ink-3)";
+      cap.className = "viz-note";
       cap.textContent = `Oldest of the ${dated.length} dated: Yoda, filed at 896 BBY — his own count, nine hundred years, checks out.`;
       viz.appendChild(cap);
     }

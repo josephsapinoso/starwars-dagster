@@ -19,7 +19,7 @@ justify a permanent seat.
 | Chip | `.chip` ~139 | mono 12px, ink-2, `--void` bg, 1px `--line` border, 5px radius | one Dagster asset |
 | DAG group | `.dag-group` ~135 | 1px **dashed** `--line` border | pipeline layer grouping — dashed = grouping, do not overload |
 | Disclosure | `details.sql, details.prov` ~190–197 | 12px ink-3 summary, .06em tracking, gold `▸/▾` `::before`, `--void` inset body | opt-in depth (SQL + provenance); the ONLY disclosure style |
-| Check-badge rail | `.prov-checks / .prov-check` ~204–206 | mono 11.5px ink-3, ◆/◇ glyph + number-free label; flex-wrap | an asset's full check inventory; ◆ blocking, ◇ drift WARN. 11.5px is a badge-only exception to the 12px floor — do not propagate |
+| Check-badge rail | `.prov-checks / .prov-check` ~204–206 | mono 11.5px ink-3, ◆/◇ glyph + number-free label; flex-wrap | an asset's full check inventory; ◆ blocking, ◇ drift WARN. 11.5px is a Settled whisper pin (authored contrast vs the 12px summary/chip voice) — never propagate, never "fix" |
 | Overflow escape | `.dag { overflow-x: auto }` ~134 | horizontal scroll | wide diagrams scroll; type never shrinks below 12px. Dashboard affordance only — story reveals stack vertically |
 | Gold ring | ring circles on scatter + registry (r≈8.5, `stroke: var(--gold)`, `fill: none`) | thin gold circle around a mark | asserts a SUPERLATIVE — persistent only on true extremes (added 2026-07-19); named non-extremes get labels, never rings |
 | Hue ladder | one palette array: `color-mix(in srgb, var(--s1) N%, var(--panel))`, steps [100, 75, 55, 40, 28] | rank-ordered solid tints of the data hue | ordered categories in ONE hue; the same array feeds SVG fills, HTML legend swatches, and tooltip chips. Second-series tint is the 45% step (films) |
@@ -63,3 +63,42 @@ justify a permanent seat.
     label renders as wrapping HTML below the figure — SVG `<text>` clips at narrow
     widths (proven at 390px). Two or more annotations on one strip get staggered
     rows on collision; type never shrinks as the fix.
+
+## Color-token consumption across media (banked 2026-07-19)
+
+- **Data-ink** hex literals belong ONLY in the `:root` token block — including
+  ceremony/one-use colors (--cyan, --tip-bg, --axis are precedent).
+- **Scenery is not ink:** decorative paints (the aria-hidden starfield canvas,
+  #cdd8ef) may stay literals — but only as a guard-pinned entry: exactly one
+  occurrence, carrying its required "scenery, not ink" comment. A pin that drifts
+  FAILS the test, so the allow-list cannot rot. No getComputedStyle bridge for
+  decoration (init-order risk on the hero canvas); bridges are for data ink only,
+  ONCE at init, never per frame.
+- **Gold's one home:** the #ffe81f literal appears exactly once, in :root; alpha
+  ceremony derives via `color-mix(in srgb, var(--gold) N%, transparent)` — the
+  rgba(255,232,31,…) triplet is banned. `var(--gold)` itself is free everywhere.
+- **SVG presentation attributes** (`fill=`, `stroke=`) DO accept `var(--token)`
+  directly — no bridge; prefer a class when the style repeats.
+- **Ink adapts to its ground:** on-mark labels (`.seg-pct` pattern) choose ink per
+  computed ground from the SAME array that paints the ground (`--void` on full s1,
+  `--ink` on tints), every rendered pair ≥4.5:1 verified computationally; the
+  fallback is dropping the on-mark label (legend/table carry the data) — never a
+  new hex, never one ink that fails somewhere.
+
+## Type-scale law (banked 2026-07-19; guard: tests/test_site_style_hygiene.py)
+
+- Sanctioned fixed sizes: **{11, 12, 13, 14, 16, 17, 18, 42}** px; clamp() display
+  sizes exempt by pattern. font-size is NEVER set from JS/markup — use a class.
+- **Whisper-clause pins** (exact selector/value/reason entries in the guard; fail
+  loudly on change in EITHER direction): `.axis-t` / `.val-t` / `.anno-t` /
+  `.seg-pct` at 11.5 and `.cat-t` at 12.5 — the chart-geometry tier; `.prov-check`
+  at 11.5 — the held pause's authored whisper (at 12px the badge would merge with
+  `details.prov summary` 12 and `.chip` mono-12, collapsing guard voice into
+  machinery voice). Extending the scale or the pins requires a panel, not a commit.
+- **Raise-only grants permission, not obligation:** standing still needs no
+  evidence; moving chart geometry requires 360/390px collision re-verification, and
+  JS fit gates tied to type width (the gender `w > 46`) move with the size.
+  Collisions fix by staggering rows, never shrinking.
+- **The registry is the test:** the scale and pins live only in the structural
+  pytest — no font-size tokens (sizes never co-vary at runtime, unlike the tint
+  ladder), no parallel prose lists (prose ledgers rot; executable pins don't).

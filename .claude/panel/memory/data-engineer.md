@@ -83,6 +83,21 @@
   panel.)
 - WORKSHOP.md is on the permanent count-ripple checklist; teaching prose states
   counts count-free unless the count is the lesson. (Birth-registry panel.)
+- **Whisper clause (token-hygiene panel, 2026-07-19):** every sanctioned style
+  exception is an exact (selector, value, reason) pin in the guard, failing loudly on
+  change in EITHER direction and printing its reason. Unexplained holes are theater;
+  pinned exceptions are law.
+- **Scenery is not ink:** decorative paints (aria-hidden canvas) may stay literals with
+  a required sanction comment, counted exactly once; data ink must be tokenized. No
+  runtime bridges for decoration.
+- **Ink adapts to its ground:** on-mark labels choose ink per computed ground from the
+  same array that drives the ground; every rendered pair ≥4.5:1, verified
+  computationally; never a single ink that fails somewhere, never a new hex.
+- **The style registry is the test:** the sanctioned type scale's one machine-readable
+  home is the structural pytest (`tests/test_site_style_hygiene.py`) — no `--fs-*`
+  tokens, no parallel lists. (I lost this 5–1; it is law.)
+- **Raise-only grants permission, not obligation:** standing still needs no evidence;
+  moving chart geometry does. `.prov-check` stays 11.5 (Settled; four roles hold it).
 
 ## Working knowledge
 
@@ -118,84 +133,84 @@
   `json_array_length()` plus `birth_year_bby` via
   `TRY_CAST(regexp_extract(...'^([0-9.]+)(BBY|ABY)$'...)) * CASE WHEN ... ABY THEN -1`
   (transforms.py:246); CSV side effect; feeds `galaxy_report`.
-- Residual open items: NONE as of 2026-07-19 — the 2026-07-18 survey items (lock
-  race, snapshot identity, env pinning) are all closed; see the two bullets below
-  and Banked: ledger correction.
-- Snapshot identity is reader-visible (commit 2e47baa): `DATA.meta =
-  {"source":"swapi.info","snapshot":<date>}`; the footer freshness line renders only
-  from DATA.meta; `tests/test_site_data.py:68`
-  `test_meta_matches_the_committed_snapshot` pins it to SNAPSHOT.json's `fetched_at`;
-  the runtime drift detector warns on missing/malformed meta.
-- Env reproducibility (same commit): `requirements.lock` (uv pip compile) pins
-  transitives; both workflows install with `-c requirements.lock` (ci.yml:20,
-  snapshot.yml:27); pyproject ranges stay authoritative for humans — my recommended
-  shape. Local installs without `-c` may drift, but CI/snapshot runs are
-  reconstructible from the repo, which was the claim that mattered. Closed.
+- Residual open items: NONE as of 2026-07-19 (lock race, snapshot identity, env
+  pinning all closed).
+- Snapshot identity is reader-visible (2e47baa): `DATA.meta` carries
+  source+snapshot date; footer renders only from it; `tests/test_site_data.py:68`
+  pins it to SNAPSHOT.json's `fetched_at`; drift detector warns on malformed meta.
+- Env reproducibility (same commit): `requirements.lock` pins transitives; both
+  workflows install with `-c requirements.lock`; pyproject ranges stay authoritative
+  for humans. CI/snapshot runs are reconstructible from the repo. Closed.
+- Style guard: `tests/test_site_style_hygiene.py` (a30a5bc) — five tests: hex-in-
+  :root census, sanctioned-literal pins, gold single-home, CSS scale-or-pin, and
+  no style literals in JS/markup. Scale constant `SANCTIONED_SCALE`
+  {11,12,13,14,16,17,18,42}; six `EXEMPT_SELECTORS` pins; one sanctioned literal
+  (`#cdd8ef`). Any new size/color fact must land through this file.
 
-## Banked: pipeline-reveal (2026-07-18, compacted)
+## Banked: 2026-07-18 panels (pipeline-reveal, character_stats, cleanup — compacted)
 
-- Won the provenance data contract (schema adopted nearly verbatim); lost only the
-  rendering technology (HTML chips beat my mini-SVG). Lesson: propose the data
-  contract firmly, hold the rendering technology loosely. Second lesson: the brief's
-  beat→asset map was partly false and the analyst caught it — trace each displayed
-  number to its producing query before designing the contract that encodes it.
-
-## Banked: per-character transform landed (2026-07-18, 082d9c9, compacted)
-
-- The bank worked as a spec: `character_stats` + four WARN checks built straight from
-  banked acceptance criteria; known_facts needed zero changes. Latent-bug lesson:
-  spelled-out counts and word-lists are hidden duplicate facts (the "nine" overflow) —
-  grep for prose-encoded numerals whenever a count changes, and refresh my own
+- Propose the data contract firmly, hold the rendering technology loosely (won the
+  provenance schema, lost chips-vs-SVG). Trace each displayed number to its
+  producing query before designing the contract that encodes it.
+- The bank works as a spec: character_stats + its WARN checks built straight from
+  banked acceptance criteria. Spelled-out counts and word-lists are hidden duplicate
+  facts — grep for prose-encoded numerals on any count change, and refresh my own
   lineage/count bullets in the same banking pass.
+- Executing the artifact under test beats arguing about it (the 3-of-5-live-lies
+  audit landed the executed-SQL law in my shape). One-home-per-fact is a stronger
+  frame than spoiler-hygiene; lead with it. State ordering implications of any
+  write-back myself; grep WORKSHOP for exercise collisions near teaching modules.
 
-## Banked: post-landing cleanup (2026-07-18, c0b97e0 + 2aa845e, compacted)
+## Banked: birth registry + polish (2026-07-19, 1f3cf9e…f170379, compacted)
 
-- Executed-SQL law landed in exactly my shape after the 3-of-5-live-lies audit —
-  executing the artifact under test beats arguing about it (technique in the
-  provenance-contract skill). One-home-per-fact is a stronger frame than
-  spoiler-hygiene; lead with it. QA supplied conditions I should have specified
-  (same-df parity, the tables_populated ordering argument) — state ordering
-  implications of any write-back myself, and grep WORKSHOP for exercise collisions
-  before recommending coverage near the teaching modules.
+- Won the column spec verbatim and the 7–1 failure-mode separation (both now
+  Settled); ABY-synthetic demand landed (tests/test_transforms.py:168). Lost the
+  coda digits-pin objection 5–3 — absence pins guard an exemption's PREMISE, not its
+  wording (Settled). Executed-SQL law paid rent mid-implementation: `DATA.sql.ages`
+  named a table with no write-back and the ungated execute layer caught it →
+  `character_stats` became the second declared writer. Lesson: a new DATA.sql
+  entry's table-existence/write-back question is part of the card spec at design
+  time. Spec a parsed column's guard PAIR and write-back status in the same breath.
+- Ghost-server lesson: a listening port is not evidence of the code you think it
+  is — kill the process TREE, verify port ownership (`ss -ltnp`), fetch a canary
+  string before screenshots.
 
-## Banked: birth registry + polish (2026-07-19, commits 1f3cf9e / 4d92cb7 / 7d96df5 / f170379)
+## Banked: ledger correction (2026-07-19, compacted)
 
-- **Won:** column spec landed verbatim (one `birth_year_bby DOUBLE`, sign-safe parse,
-  no raw duplicate); two-check failure-mode separation carried 7–1 and is now LAW;
-  my ABY-synthetic demand landed as `test_birth_year_parse_covers_every_format_branch`
-  (tests/test_transforms.py:168); Q4 no-history bullet shipped and "unpinned env" was
-  dropped per my call.
-- **Lost:** the coda digits-pin objection (5–3). QA's frame was right — the pin guards
-  the exemption's PREMISE (the coda stays number/name-free), not its content; my
-  "theater" charge attacked wording-pinning, which nobody proposed. Absence assertions
-  are honest guards; promoted to Settled.
-- **Executed-SQL law paid rent mid-implementation:** `DATA.sql.ages` named
-  `character_stats` — a table that did not exist in the warehouse (the asset had no
-  write-back). The ungated execute layer caught it before landing, exactly the failure
-  it was built for. Resolution per the write-back law: `character_stats` became the
-  SECOND declared writer; the parity test extended to both writers; the access-policy
-  test now enumerates two writers with in-process sequential execution serializing
-  them. Lesson: a new DATA.sql entry's table-existence question is part of the card
-  spec — decide the write-back at design time, don't let the test discover it.
-- **QA nit — RESOLVED same day (2026-07-19):** test_pipeline.py's access-policy
-  header comment now reads "every writer is declared below (write-back law)"
-  (line ~159); verified in-repo, and QA's memory records the fix. Hand-off complete.
-- **Reproducibility ghost story:** the first screenshot pass photographed YESTERDAY'S
-  orphaned webserver, still serving a deleted instance through open file handles. A
-  listening port is not evidence of the code you think it is. Technique: kill the
-  process TREE (not just the pid), verify port ownership (`ss -ltnp` / `lsof -i`),
-  and fetch a canary string from the new build before shooting.
-- **Prep differently:** when a debate adds a parsed column, spec its guard PAIR and
-  its warehouse write-back status in the same breath — both were mine to own and one
-  arrived mid-implementation. Counts refreshed this pass (15 checks, 6 SQL entries,
-  7 end-state tables) per the standing rule.
+- Sweep "Residual open items" against commits landing AFTER the debate and verify
+  closure claims in-repo (grep the test/workflow/comment) before writing CLOSED.
 
-## Banked: ledger correction (2026-07-19)
+## Banked: token hygiene + style guard (2026-07-19, a30a5bc)
 
-- Verified in-repo, then closed all three stale items: commit 2e47baa ("Tier 2
-  robustness") landed `DATA.meta` + `requirements.lock` (details moved to Working
-  knowledge), and the test_pipeline.py comment nit was fixed same-day. Ledger empty.
-- Lesson: when banking, sweep "Residual open items" against commits that landed AFTER
-  the debate — Tier 2 closed two of mine and I banked stale state anyway. Always
-  verify closure claims in-repo (grep the test/workflow/comment) before writing
-  "CLOSED".
+- **Won — the mechanics:** all three JS font-size sites resolved my way (gender
+  %-labels are class `.seg-pct`, registry caption is a class, dead 11px attr :747
+  deleted — zero JS font-sizes remain); no-fallback-hex held; DATA-line exclusion is
+  the guard's first move and asserts it FOUND the line (exclusion is load-bearing);
+  seen-to-fail ran at eight planted violations before landing. The guard is one
+  offline pytest (`tests/test_site_style_hygiene.py`), CSS+JS scan, no lint framework.
+- **Lost Q3 (5–1, no --fs-* tokens):** my rot objection was answered STRUCTURALLY —
+  the registry lives in an executable test that fails when the file drifts, unlike
+  the prose ledgers that rotted. Minting CSS variables to feed a test is the tail
+  wagging the stylesheet. Lesson: my "one home for the fact" doctrine is satisfied by
+  ANY machine-checked home; a test constant beats a token layer when nothing at
+  runtime consumes the tokens. Distinguish "second registry" (rots) from "second
+  home a test derives from" (can't rot) before objecting.
+- **Lost the starfield bridge (3–3, broken against me):** `#cdd8ef` stays a pinned
+  literal with a required "scenery, not ink" comment, counted exactly once. The
+  storyteller's exact-pin shape answers allow-list rot (a drifting pin FAILS), while
+  nothing answers a getComputedStyle init-order risk on the hero canvas. Lesson:
+  when both sides' failure modes are real, the side whose failure the guard can
+  catch wins; my bridge's failure (blank canvas on init race) is unguardable offline.
+- `.prov-check` 11.5 stood on my own don't-relitigate line — four roles held Settled
+  law and the craft argument (12px merges badge voice into chip/summary voice on the
+  held-pause rail). Six whisper pins shipped: .axis-t/.val-t/.anno-t/.seg-pct/
+  .prov-check at 11.5, .cat-t 12.5. Gold: byte-pattern pinned exactly once in :root,
+  rgba leaks now color-mix derivations, `var(--gold)` explicitly free.
+- **Prep differently:** I championed the exact-pin instinct ("no silent holes") but
+  the storyteller SHAPED it into the winning clause — next time convert my own
+  objection into the mechanism (pins that fail both directions) instead of demanding
+  the exception not exist. Also: my census was right and cheap; machine-census-first
+  keeps paying — but I should have stress-tested my own bridge for init-order risk
+  before proposing it, as I would for any pipeline ordering question.
+- Skill `panel-data-engineer-single-file-hygiene-guard` updated to teach the shipped
+  whisper-clause shape, not my losing zero-exception derivation.

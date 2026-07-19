@@ -61,6 +61,30 @@
 - Captions longer than a label render as wrapping HTML below the figure, never SVG
   `<text>` — SVG text clips at narrow widths (registry testimony line clipped at
   390px). (Birth-registry panel, 2026-07-19.)
+- **Sub-body type scale is settled** (token-hygiene panel, 2026-07-19): fixed sizes are
+  integers {11, 12, 13, 14} + 16 body · 17 card-h3 · 18 glyphs · 42 KPI; clamp()
+  display sizes exempt. Half-pixels survive only as whisper-clause pins: .axis-t /
+  .val-t / .anno-t / .seg-pct at 11.5 and .cat-t at 12.5 (chart-geometry tier),
+  .prov-check at 11.5 (the held pause's authored whisper).
+- **The whisper clause:** every sanctioned style exception is an exact
+  (selector, value, reason) pin in `tests/test_site_style_hygiene.py` that fails
+  loudly on change in EITHER direction. Unexplained holes are theater; pinned
+  exceptions are law.
+- **The style registry is the test:** the sanctioned scale + pins have ONE
+  machine-readable home, the structural pytest — no font-size tokens, no parallel
+  lists. font-size is never set from JS/markup; use a class (guard-enforced).
+- **Raise-only grants permission, not obligation:** standing still needs no evidence;
+  moving chart geometry does (360/390 collision re-verify, fit gates move with type).
+- **Scenery is not ink:** decorative paints (the aria-hidden starfield canvas,
+  #cdd8ef) may stay literals — named, "scenery, not ink"-commented, counted exactly
+  once by the guard. Data ink must consume tokens. No runtime bridges for decoration.
+- **Ink adapts to its ground:** on-mark labels choose ink per computed ground from the
+  SAME array that paints the ground (`--void` on full s1, `--ink` on tints), every
+  rendered pair ≥4.5:1 verified computationally; the fallback is dropping the on-mark
+  label (legend/table carry the data) — never a new hex.
+- **Gold's one home:** the #ffe81f literal appears exactly once, in :root; alpha
+  ceremony derives via `color-mix(in srgb, var(--gold) N%, transparent)` — the
+  rgba(255,232,31,…) triplet is banned; `var(--gold)` itself is free everywhere.
 
 ## Working knowledge
 
@@ -108,92 +132,72 @@ with ZERO new mark types; `.hot` gold seat unchanged (`galaxy_report` only) — 
 reuse-first outcome the chip law was written for. Vertical-budget watch RESOLVED:
 headless 390x844 / 360x740 pass — reveals grow downward, stage cap holds; floor rules
 (never shrink type, never touch the stage) remain the fix path on regression.
-## Prep notes: post-landing cleanup (compacted 2026-07-18)
+## Banked: post-landing cleanup (2026-07-18, compacted)
 
-Superseded by the Banked section below. Surviving facts worth keeping:
-- Rail CSS lives at site/index.html:204–207; `.prov-check` is 11.5px mono — a
-  pre-existing badge-only exception below the 12px floor; do not propagate it to any
-  other mark, and never shrink it further.
-- Title-attribute `why` tooltips remain hover-only with no touch affordance; the
-  legend fix removed the false promise but not the gap. Standing watch, not mine alone.
-- The guard-honesty caveat lines on beats 4–6 self-removed when claims became direct
-  and check-guarded — generated copy worked in both directions, no hand edits.
-- Beat-7 word-list overflow ("undefined checks") was caught by the drift guard —
-  generated type failing loudly beats silent fabrication.
+Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0, 2aa845e.
+Lost Q1 (guard+blocking filtered rail) to the coverage-understatement objection:
+character_stats carries ZERO blocking checks, so my rule degenerated to empty rails.
+The remedy (re-authored strings + standing spoiler pin) delivered every demand I
+actually hold: renderer untouched, ONE uniform rule per beat, no narrative fields.
+Lessons: (1) when strings are generated AND test-pinned, fixing strings IS systemic —
+don't solve content-layer honesty with renderer layout; (2) run any filter rule's
+degenerate case against every asset's real check inventory by severity first.
+Won Q2/Q3: SQL truth with zero visual delta (no "verified" mark, unanimous);
+denominator clause on chart 5; one ◇ where characters_enriched appears while
+galaxy_report stays honestly check-free — a disclosed gap beats a phantom badge.
+Watch update: `.prov-check` 11.5 is no longer a retire-on-raise exception — it is a
+Settled whisper pin (see Settled; 2026-07-19 bank). Title-attribute `why` tooltips
+remain hover-only with no touch affordance (standing watch, not mine alone). Generated copy self-corrects in both
+directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
 
-## Banked: post-landing cleanup (2026-07-18)
+## Banked: birth registry + hue enforcement (2026-07-19, compacted)
 
-Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0 (SQL truth),
-2aa845e (spoiler fix + height check).
+Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e, 4d92cb7,
+f170379 (screenshots at 15 checks — README-retake CLOSED). Q3 adopted in full;
+registry card shipped as specced with zero new mark types; amber deleted; gold rings
+on the three true extremes only (Vader label-only). Gold-ring, solid-tint-ladder, and
+HTML-caption laws all promoted to Settled. Lessons kept: when the goal is identity
+across media, spec the computed VALUE, not the rendering trick (ladder landed as
+color-mix, not my fill-opacity spec — the stronger form of my own must-have); label
+collisions fix by staggered rows; test SVG text longer than a name at 360–390 before
+speccing it as SVG. CORRECTION absorbed: the four "off-token" survey hexes were
+already tokenized in 1123757 (--tip-bg, --axis, --cyan, --sql-ink). Rail-mass watch
+CLOSED: 360px with 15 checks — no horizontal scroll, chips 125–180px in a 244px
+rail, 6-row max stack, summaries ≥44px.
 
-**Lost (Q1), and why it's the right loss:** my guard+blocking filtered rail fell to
-the coverage-understatement objection — character_stats carries ZERO blocking checks,
-so under my rule the final beats would render near-empty rails forever, visually
-understating real coverage. Re-authoring won 5–3–1 on the one-home law (the trio
-description hand-listed a roster whose single source is known_facts.py — a drift bug
-independent of spoilers). But the remedy delivers every demand I actually hold:
-renderer untouched, ONE rule on every beat, no per-beat conditionals, no narrative
-fields in provenance; my whack-a-mole objection is answered structurally by the
-standing spoiler pin (term sets derived from known_facts, seen-to-fail before merge).
-Two lessons banked: (1) I proposed a renderer-layer fix for a content-layer problem —
-when strings are generated AND pinned by a test, fixing the strings IS systemic;
-filtering the renderer was solving honesty with layout. (2) Before proposing any
-filter rule, run its degenerate case against every asset's actual inventory — one
-all-WARN asset collapsed "guard+blocking" into an empty rail.
+## Banked: token hygiene + style guard (2026-07-19)
 
-**Won (Q2/Q3):** SQL truth landed with zero visual delta — existing `details.sql`
-treatment, no new "verified" mark, unanimous; chart 5's subtitle gained its
-denominator clause (data-analyst's point, but it's the on-chart-denominator law
-paying out). Q3(a) landed clean: one ◇ badge where characters_enriched appears,
-WORDS extended through "thirteen" in the same commit, galaxy_report stays check-free
-— a disclosed gap beats a phantom badge.
+Decision log `2026-07-19-token-hygiene.md`; commit a30a5bc (site/index.html +
+tests/test_site_style_hygiene.py). My standing proposal, landed.
 
-**Rail-mass watch (open, visual):** uniform rail means beats 1–3 now show four
-characters_enriched badges (up one) and beat 1 additionally carries the
-height-baseline ◇. Labels are number-free and short, and the rail flex-wraps, so I
-expect the 360px budget holds — but nobody has re-eyeballed the densest rails since
-the count went to 13. Next site-touching prep: headless pass at 360×740 counting
-wrapped rail lines; flag any rail exceeding ~2 lines.
+**Won:** the CSS integer collapse exactly as specced (10.5→11, 12.5→13, 13.5→14,
+16.5→17); dead 11px JS attr deleted; gold rgba leaks → color-mix idiom; Q3
+no-font-size-tokens carried 5–1 with my registry-is-the-test framing adopted
+verbatim; Q4 guard scans CSS AND JS (analyst's veto reinforced this), strips the
+one-line DATA literal first, ships same-commit, seen-to-fail before landing. Gender
+`#fff` died AND the AA failure was fixed in the same move via per-rank ink from the
+tint-ladder array — ink-adapts-to-its-ground is the tint law's natural sequel.
 
-**Prep differently next time:** enumerate each asset's checks BY SEVERITY before
-designing any rail/badge rule, and test the rule against both the sparsest and the
-densest asset; state which layer (renderer vs strings) a fix belongs to as part of
-the proposal, not as an afterthought.
+**Lost, and rightly:**
+- `.prov-check`→12 (4–2). I proposed retiring a Settled exception inside a hygiene
+  pass — relitigation by the back door. The storyteller's craft argument was correct
+  ON MY OWN TERMS: `details.prov summary` is 12 and `.chip` is mono 12, so at 12px
+  the guard voice merges into the machinery voice on the rail the held pause depends
+  on. The 11.5 whisper is authored contrast, not disease.
+- Chart-lettering raises (3–2): exempted as a pinned geometry tier. My raise carried
+  an unfunded verification burden (collisions, clipping, the w>46 gate); raise-only
+  grants permission, not obligation — standing still needs no evidence.
+- Zero sanctioned literals: the exact-pin shape answers my "allow-lists rot"
+  objection (a drifted pin FAILS the test), while my canvas bridge had an unanswered
+  init-order risk on the hero canvas. Scenery-is-not-ink is a better cut than my
+  absolutism — the guard still counts and comments the literal.
 
-## Banked: birth registry + hue enforcement (2026-07-19)
-
-Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e (registry
-card), 4d92cb7 (coda + hue enforcement), f170379 (screenshots at 15 checks — the
-long-standing README-retake open item is CLOSED).
-
-**Won — Q3 adopted in full, registry card shipped as specced.** Amber deleted;
-persistent gold rings on the three true extremes with Vader label-only; hyper s2→s1;
-films at 45% tint; gender ladder with the legend converting to matching swatches
-(names + counts summing to 82 stay visible). Registry card: part-to-whole bar with
-absence as faint tint, log dot strip, two anno-t labels, Yoda's single gold ring, BBY
-gloss printed. Zero new mark types across three commits. Gold-ring-means-extreme is
-now banked law (promoted to Settled). The coda shipped ornament-free —
-whitespace-is-pacing held without my needing to argue it.
-
-**Implementation deltas to keep:**
-- The ladder landed as `color-mix(in srgb, var(--s1) N%, var(--panel))` SOLID steps,
-  not my raw fill-opacity spec — a stronger form of my own must-have ("ladder
-  identical in bar, legend, tooltips"): fill-opacity can't cross into HTML legend/chip
-  backgrounds; one palette array now feeds all three media with identical strings.
-  Verified in source (~1092–1127). Same lesson as the chip debate: when the goal is
-  identity across media, specify the computed VALUE, not the rendering trick.
-- Two anno-t labels collided on the dot strip; the fix was staggered rows, not
-  smaller type — the floor rules worked as the designed fix path.
-- The testimony caption clipped as SVG text at 390px and became wrapping HTML below
-  the strip — promoted to the Settled caption law.
-
-**Prep differently next time:** spec tints as "identical color values across SVG and
-HTML," letting implementation choose the mechanism; test any SVG text longer than a
-name at 360–390px before speccing it as SVG; plan label collisions (stagger rows) for
-any strip carrying two or more annotations.
-
-**Still open (from the survey, not adjudicated):** off-token hex colors (`#0a0f1c`
-tip bg, `#2a3550` .baseline, `#4bd5ee` hero, `#9fd0ff` SQL ink) and the ~9-size
-small-type scale — token hygiene + raise-only consolidation remain future proposals.
-Rail-mass watch continues at 15 checks (re-eyeball densest rails at 360px next
-site-touching prep).
+**Prep differently next time:**
+1. Distinguish disease from authored exception before proposing a collapse — a
+   half-pixel with a craft rationale and a Settled seat is not hygiene debt.
+2. When my objection to an allow-list is "it rots," first check whether an
+   executable exact pin removes the rot before rejecting the list outright.
+3. Cost my own riders: a raise needing two-viewport collision re-verification is not
+   free; if I can't fund the evidence, don't spend the votes.
+4. The ledger rotted twice (four-hexes, prov-check) — keep verifying every ledger
+   claim against source in PREP; this time the correction saved my credibility.

@@ -87,6 +87,20 @@
 - **WORKSHOP.md is on the count-ripple checklist;** teaching prose states counts
   count-free unless the count is the lesson. Q4 "Limits, by design" bullets are
   number-free by law.
+- **Token hygiene law (2026-07-19, a30a5bc):** *Whisper clause* — every sanctioned
+  style exception is an exact (selector, value, reason) pin in
+  `test_site_style_hygiene.py`, failing loudly on change in EITHER direction.
+  *Scenery is not ink* — decorative paints (aria-hidden canvas `#cdd8ef`) may stay
+  literals with a required sanction comment; data ink is tokenized; no runtime
+  bridges for decoration. *Ink adapts to its ground* — on-mark labels pick ink per
+  computed ground from the SAME array that drives the ground; every rendered pair
+  ≥4.5:1, verified computationally; never a new hex. *The registry is the test* —
+  the sanctioned type scale's one machine-readable home is the structural pytest;
+  no font-size tokens. *Raise-only grants permission, not obligation* — the 11.5
+  data-ink stratum (.axis-t/.val-t/.anno-t/.seg-pct with its `w > 46` gate, plus
+  the .prov-check badge) stands still without evidence; MOVING it needs
+  collision/clipping/gate evidence. Gold literal exactly once, in :root,
+  `var(--gold)` free.
 
 ## Working knowledge
 
@@ -153,52 +167,59 @@ three open items from this round were closed by the post-landing cleanup.
 
 ## Banked: post-landing cleanup (2026-07-18, c0b97e0 + 2aa845e) — compacted
 
-Won: number-free check labels shipped verbatim; the spoiler pin exceeded my guard
-candidate (numbers AND names, derived from known_facts, all beats); my compare-layer
-demand became law (test_site_sql.py asserts result sets equal DATA-derived chart
-rows); recodes/tiebreaks moved INTO the SQL; unverified count-comments are a pinned
-banned class; the height-null WARN check landed as specced with all count ripples in
-one commit. Decisive lesson: my spoiler framing was correct but the writer's DRIFT
-framing carried the room — frame string bugs as data-integrity bugs first.
-Lost/adjusted: galaxy_report zero-checks is deliberate design (I hedged where my own
-skill had the firm answer — promote skill guidance to verdicts); the engineer's
-write-back (make `FROM characters_enriched` TRUE) beat my fix-the-strings scope —
-when displayed SQL names a missing table, ask whether the table SHOULD exist; my
-anti-rail-filtering win rode a concrete counterexample ("character_stats has zero
-blocking checks, so final beats would understate forever"), not abstractions.
-Prep-differently: run read-only DuckDB against the fixture in prep and quote outputs;
-"cannot verify offline" cost the final 10% of an argument already won on paper.
+Won: number-free labels, spoiler pin (numbers AND names, from known_facts), the
+compare layer (test_site_sql.py: result sets equal DATA-derived chart rows),
+recodes/tiebreaks INTO the SQL, count-comments banned class. Lessons: frame string
+bugs as data-integrity bugs first (writer's DRIFT framing carried my correct
+point); when displayed SQL names a missing table, ask whether the table SHOULD
+exist (engineer's write-back beat my fix-the-strings scope); wins ride concrete
+counterexamples, not abstractions; run read-only DuckDB against the fixture in prep
+and quote outputs — "cannot verify offline" costs the last 10% of a won argument.
 
-## Banked: birth registry + polish (2026-07-19, commits 1f3cf9e/4d92cb7/7d96df5/f170379)
+## Banked: birth registry + polish (2026-07-19, 1f3cf9e…f170379) — compacted
 
-**Won:** card shape shipped nearly verbatim — "39 of 82" headline, "43 of 82 dated"
-denominators, youngest-dated Wicket line, every count computed from DATA in JS with
-zero numeric literals; drift detector gained undated=39 / oldestBby=896;
-DATA.sql.ages executed + compared with the positive-BBY pin; the Vader ruling is law
-(labeled, unringed — held against annotation creep); gender legend kept name+count
-summing to 82 riding the designer's opacity ladder; coda digit-pin won as I framed
-its half (absence assertion; wording-pin rightly dropped per QA); Q4 bullets shipped
-number-free as demanded.
+Won: card shape shipped nearly verbatim (39-of-82 headline, 43-of-82 dated, zero
+numeric literals — all counts from DATA); drift detector grew undated/oldestBby;
+Vader ruling, coda digit-pin (absence half), number-free Q4 all held. Lost 7–1 on
+one-check economy, and the loss IS the lesson: "39 undated" and "39 unparsed" are
+different claims wearing the same digits — parse-honesty is data-independent and
+separates "data moved" from "parser broke." Economy arguments only beat redundancy
+arguments when the two guards would fail for the SAME reason. Before defending any
+single-guard position, enumerate the derivation path's distinct failure modes
+(source drift / parse breakage / join loss / render drift) and check each fires a
+guard alone; say "parsed display number" out loud — it triggers the two-guard law.
 
-**Lost — and the loss is the lesson:** one-check economy, 7–1. I argued a single
-baseline check was sufficient; the room's failure-mode argument was better ON MY OWN
-TERMS: the baseline compares a count against a constant, but if the source format
-changes, the parser nulls everything, "undated" swells to absorb the breakage, and —
-because 39 could still match by coincidence during partial breakage, or the failure
-reads as drift when it's a bug — the badge asserts a number whose MEANING changed.
-Parse-honesty (each null traces to a literal 'unknown' raw string) is data-
-independent and separates "the data moved" from "the parser broke." That IS
-denominator honesty: "39 undated" and "39 unparsed" are different claims wearing the
-same digits. I optimized check count (economy) over failure semantics; my own
-coverage-theater instinct misfired against a check that carries real information.
-Rule of thumb banked: economy arguments only beat redundancy arguments when the two
-guards would fail for the SAME reason.
+## Banked: token hygiene (2026-07-19, decision log + commit a30a5bc)
 
-**Prep differently:** before defending a single-guard position, enumerate the
-distinct failure modes of the value's derivation path (source drift / parse
-breakage / join loss / render drift) and check each has a guard that fires alone.
-Had I run that enumeration in prep, I'd have proposed the second check myself —
-qa-engineer and hiring-manager took the point that was natively mine (badge-glows-
-while-lying is MY guard-honesty law). Also: when a number passes through a parse,
-say "parsed display number" in my verdict explicitly — that phrase triggers the
-two-guard law now settled above.
+**Won, and why:**
+- **Hard veto CARRIED — the guard scans JS** (`test_no_style_literals_outside_the_style_block`);
+  the four JS residues gone or pinned. What carried it: prep enumerated the residues
+  with line numbers and showed a `<style>`-only scraper misses ALL of them —
+  "coverage theater" with a concrete inventory beats it as an abstraction.
+- **11.5 data-ink-stratum hold WON (3–2);** `w > 46` gate untouched because
+  `.seg-pct` stays 11.5, and the pin's reason string NAMES the gate — my dependency
+  argument, verbatim. Winning frame was evidence-burden, not taste: the designer's
+  integer collapse died on unfunded verification cost.
+- **Starfield allow-list + required comment shipped verbatim**
+  (`test_sanctioned_literals_are_pinned_and_commented`; line-491 comment cites the
+  decision); init-order-risk-for-zero-data-payoff beat the bridge. But the
+  storyteller's (selector, value, reason) triple is the DURABLE form of my
+  allow-list — the fails-in-both-directions pin is what kills rot. Default shape now.
+- **No font-size tokens (5–1)** — executable test beats prose ledgers AND beats
+  minting variables to feed a test. **Gold exactly once** landed as byte-pattern
+  pins with `var(--gold)` explicitly free (line-693 ceremony safe).
+
+**Where the room beat me — gender label:** I said "tokenize the #fff"; ux showed it
+fails AA (~3.6:1) and the orchestrator's contrast math proved NO single ink passes
+both labeled segments. Landed: per-rank ink from the ladder index that drives the
+segment color (`--void` rank 1, `--ink` tinted ranks), every rendered pair verified
+≥4.5:1 computationally, pre-authorized fallback = drop in-segment % (legend + table
+carry the data). Labels stayed; no false-claim risk. Lesson: I audited the label as
+data ink but never checked its contrast — an unreadable denominator is an
+undisclosed denominator. Legibility of data ink is inside my remit.
+
+**Prep differently:** run the contrast math myself on any ink I touch (same rigor as
+running DuckDB on the fixture); when proposing an exemption, spec it as a
+both-directions pin from the start, not a comment; when I hold a position on a
+dependency (the 46px gate), get the dependency named IN the pin's reason string —
+that is what makes the hold self-enforcing after I leave the room.
