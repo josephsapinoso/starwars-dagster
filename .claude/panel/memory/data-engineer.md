@@ -118,11 +118,19 @@
   `json_array_length()` plus `birth_year_bby` via
   `TRY_CAST(regexp_extract(...'^([0-9.]+)(BBY|ABY)$'...)) * CASE WHEN ... ABY THEN -1`
   (transforms.py:246); CSV side effect; feeds `galaxy_report`.
-- Residual open items (compacted from the 2026-07-18 survey): snapshot identity is
-  still invisible to readers — SNAPSHOT.json records `fetched_at` but DATA has no
-  meta subtree. pyproject ranges still float; "unpinned env" was dropped from the
-  README limits section at my own recommendation (an improvement candidate, not a
-  README claim). The DuckDB lock race is CLOSED (access-policy law, Settled).
+- Residual open items: NONE as of 2026-07-19 — the 2026-07-18 survey items (lock
+  race, snapshot identity, env pinning) are all closed; see the two bullets below
+  and Banked: ledger correction.
+- Snapshot identity is reader-visible (commit 2e47baa): `DATA.meta =
+  {"source":"swapi.info","snapshot":<date>}`; the footer freshness line renders only
+  from DATA.meta; `tests/test_site_data.py:68`
+  `test_meta_matches_the_committed_snapshot` pins it to SNAPSHOT.json's `fetched_at`;
+  the runtime drift detector warns on missing/malformed meta.
+- Env reproducibility (same commit): `requirements.lock` (uv pip compile) pins
+  transitives; both workflows install with `-c requirements.lock` (ci.yml:20,
+  snapshot.yml:27); pyproject ranges stay authoritative for humans — my recommended
+  shape. Local installs without `-c` may drift, but CI/snapshot runs are
+  reconstructible from the repo, which was the claim that mattered. Closed.
 
 ## Banked: pipeline-reveal (2026-07-18, compacted)
 
@@ -169,9 +177,9 @@
   test now enumerates two writers with in-process sequential execution serializing
   them. Lesson: a new DATA.sql entry's table-existence question is part of the card
   spec — decide the write-back at design time, don't let the test discover it.
-- **Nit to hand QA next round (not mine to edit):** test_pipeline.py:158–160's header
-  comment still says "exactly one writer exists" while the body asserts two writers —
-  stale comment inside the very test that pins the policy.
+- **QA nit — RESOLVED same day (2026-07-19):** test_pipeline.py's access-policy
+  header comment now reads "every writer is declared below (write-back law)"
+  (line ~159); verified in-repo, and QA's memory records the fix. Hand-off complete.
 - **Reproducibility ghost story:** the first screenshot pass photographed YESTERDAY'S
   orphaned webserver, still serving a deleted instance through open file handles. A
   listening port is not evidence of the code you think it is. Technique: kill the
@@ -181,3 +189,13 @@
   its warehouse write-back status in the same breath — both were mine to own and one
   arrived mid-implementation. Counts refreshed this pass (15 checks, 6 SQL entries,
   7 end-state tables) per the standing rule.
+
+## Banked: ledger correction (2026-07-19)
+
+- Verified in-repo, then closed all three stale items: commit 2e47baa ("Tier 2
+  robustness") landed `DATA.meta` + `requirements.lock` (details moved to Working
+  knowledge), and the test_pipeline.py comment nit was fixed same-day. Ledger empty.
+- Lesson: when banking, sweep "Residual open items" against commits that landed AFTER
+  the debate — Tier 2 closed two of mine and I banked stale state anyway. Always
+  verify closure claims in-repo (grep the test/workflow/comment) before writing
+  "CLOSED".
