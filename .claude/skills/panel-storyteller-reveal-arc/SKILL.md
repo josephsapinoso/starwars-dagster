@@ -37,7 +37,16 @@ narrative arc the reader opts into. Judge it as story.
    the joke past its welcome. One arc, told once, closed once.
 
 7. **Opt-in preserves reader pacing by definition** — but only if opening a reveal never
-   moves the stage, advances a beat, or changes what unopened readers see.
+   moves the stage, advances a beat, or changes what unopened readers see. Corollary
+   (adjudicated 2026-07-19): where a browser lacks scroll anchoring, a centered
+   disclosure opening moves the reader ~180px at the exact opt-in moment — the PLATFORM
+   violates this rule, not a fix for it. The sanctioned repair is anchoring restoration:
+   capture the summary's viewport top on activation, scroll by the MEASURED delta on
+   toggle, synchronous and instant — so where the browser already anchors the delta is
+   0 and the fix no-ops. Measured-delta or nothing; animated or assumed-delta variants
+   are scroll-jacking. When ruling on this, hold your conditions AND draw the verdict
+   they imply: if you can name the exact shape that would flip you, that shape is your
+   proposal — "accept unless someone builds it right" forfeits authorship of the gate.
 
 8. **Blast-radius rule for shared machinery.** When reveals render metadata from a
    shared source (a lineage chain, a check registry, a glossary), a string's blast
@@ -96,3 +105,18 @@ narrative arc the reader opts into. Judge it as story.
     two uses and a tic at three. Prep discipline: when the deliverable is words,
     draft the FINAL copy before debate; verbatim adoption is only possible if the
     exact text is on the table.
+
+13. **Deixis tooltips: tap-to-pin, reader-owned dismissal.** (Shipped 2026-07-19,
+    fdd3178.) A hover tooltip that names data marks is deixis, not delivery — the
+    spine must survive its absence (prose/captions carry every payoff). But when it
+    is the ONLY surface naming most of a story's cast, the conceit is load-bearing
+    and no input modality may be cut off from it: suppress-for-touch is the wrong
+    fix. Shape: a touch tap (which fires pointermove per spec) shows AND pins;
+    touch pointerleave does not hide; dismissal is the reader's own next tap
+    (hit-test miss) or their own scroll — never a timer, because a timer is the
+    page taking back what the reader asked for. One grammar across story stage and
+    dashboards, no forked layer. Companion norms from the same round: an accepted
+    limitation enters the log WITH its reopening tripwire (a shrug is not a
+    verdict); decisions resting on unreachable hardware label measured facts and
+    inferences separately; and exposure changes reach, not content — widening a
+    verified string's audience renders the same string verbatim from its one home.

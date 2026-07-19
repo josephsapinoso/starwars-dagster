@@ -10,12 +10,25 @@ A nearest-mark hit-test on svg `pointermove` + hide on `pointerleave` produces a
 show-then-hide FLASH on a real touch tap (spec sequence: over/enter/move → down/up
 → out/leave), but headless touch emulation fires NO pointermove — the bug is
 invisible to Playwright/Chromium taps, so reason from the pointerevents spec, not
-from failed repro. Fix ladder: (1) suppress for touch — one guard,
-`if (e.pointerType === "touch") { hide(); return; }` — honest when the tooltip is
-enrichment and a canonical non-hover home (table/legend/copy) carries the data;
-(2) tap-to-pin only if the content has no other home — it costs a pin state,
-explicit dismissal design (next tap, scroll, beat change), and risks eating scroll
-gestures. Never leave the flash: a glitch is worse than a clean absence.
+from failed repro; verify handler logic by dispatching the spec sequence
+synthetically. Never leave the flash: a glitch is worse than a clean absence.
+
+Choosing the fix — audit content at the FINEST grain the tooltip exposes, not the
+grain the charts summarize (banked 2026-07-19: I wrongly called a census tooltip
+"enrichment" because aggregates existed below; it was the only surface naming most
+of the 82 individuals — the census-conceit veto):
+1. **Tap-to-pin** whenever the tooltip is a modality-exclusive surface (any content
+   with no non-touch-hostile home). Shipped shape (commit fdd3178, site ~465–469,
+   799–802), ~4 lines because dismissal reuses existing paths: on show, set a pin
+   flag when `e.pointerType === "touch"`; in `pointerleave`, skip hide for touch;
+   dismissal is the reader's own next tap (the hit-test miss branch already calls
+   hide) or their own scroll (a passive scroll listener calls EXPLICIT hide when
+   pinned — the stale-state must-have), never a timer. Mouse/keyboard paths stay
+   byte-identical, including scroll survival of unpinned tooltips.
+2. **Suppress for touch** (`if (e.pointerType === "touch") { hide(); return; }`)
+   only when the finest-grain audit proves every tooltip fact has a canonical
+   non-hover home — and expect a veto if any grain is exclusive.
+Cost the pin shape in the actual codebase before pricing it prohibitive.
 
 Derived from site/index.html during the token-hygiene prep (2026-07-19).
 

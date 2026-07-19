@@ -85,26 +85,22 @@
   evidence; moving chart geometry does. `.prov-check` stays 11.5 (pinned): the badge
   voice must not merge with the 12px summary/chip machinery voice on the rail.
 - **Watchlist-round laws (2026-07-19, commit fdd3178):**
-  (a) *Anchoring restoration is not scroll-jacking* — the sanctioned shape for
-  disclosure-growth compensation: capture the clicked summary's rect.top on summary
-  `click` (capture phase), compare on `toggle`, `scrollBy({top:delta,
-  behavior:"instant"})` when |delta|>1 (site ~471–485). Synchronous,
-  activation-triggered, self-noops where the browser anchors and on top-anchored
-  mobile; animated or assumed-delta variants stay banned.
-  (b) *Acceptance is a decision with a tripwire* (my must-have, now law verbatim) —
-  an accepted limitation enters the log with its reopening trigger written down; a
-  shrug is not a verdict.
+  (a) *Anchoring restoration is not scroll-jacking* — capture the clicked summary's
+  rect.top on summary `click` (capture phase), compare on `toggle`,
+  `scrollBy({top:delta, behavior:"instant"})` when |delta|>1 (site ~471–485):
+  synchronous, activation-triggered, self-noops where the browser anchors and on
+  top-anchored mobile. Animated or assumed-delta variants stay banned.
+  (b) *Acceptance is a decision with a tripwire* (my must-have, law verbatim) — an
+  accepted limitation enters the log with its reopening trigger written down.
   (c) *Measured-vs-inferred labeling* — decisions resting on unreachable hardware
   state measured facts and inferences separately, verbatim, in the log.
   (d) *The census conceit is load-bearing* — the stage tooltip is the only surface
   naming most of the 82 individuals; no input modality may be cut off from it.
-  Suppress-for-touch is dead there; touch PINS instead (site ~465–469, 799–802):
-  touch pointermove shows and pins, pointerleave skips hide for touch, dismissal is
-  the reader's next tap (hit-test miss → tipHide) or scroll (explicit tipHide),
-  never a timer.
-  (e) *Exposure changes reach, not content* — widening a verified string's audience
-  renders the same string verbatim from its one home; if it doesn't fit the vessel,
-  change the vessel.
+  Touch PINS (site ~465–469, 799–802): touch pointermove shows and pins,
+  pointerleave skips hide for touch; dismissal is the reader's next tap (hit-test
+  miss → tipHide) or scroll (explicit tipHide), never a timer.
+  (e) *Exposure changes reach, not content* — a wider audience gets the same string
+  verbatim from its one home; if it doesn't fit the vessel, change the vessel.
 - **Standing acceptances with tripwires (watchlist round):** badge whys stay
   title-only desktop bonus — reopen if a why gains load-bearing content with no
   non-hover home or the legend line ceases to be true (spoiler pin already scans
@@ -177,33 +173,28 @@
 ## Banked: watchlist round (2026-07-19, commit fdd3178) — all four items CLOSED
 
 **Won:**
-- Q2 shipped in my exact delta-compensation shape (click-capture + toggle scrollBy
-  instant), and my dual-branch merge gate ran on the landed code: anchoring-on
-  0/0/0 and anchoring-off 0/0/0 at beats 1/4/6, with the Safari condition
-  (−181/−179/−179 unfixed) reproduced via the `overflow-anchor:none` proxy. The
-  reveal-arc law was already being violated ON Safari; the fix restores it. The
-  no-offline-guard objection resolved via the render-only precedent: recorded proxy
+- Q2 shipped in my exact delta-compensation shape, and my dual-branch merge gate
+  ran on the landed code: anchoring-on 0/0/0, anchoring-off 0/0/0 at beats 1/4/6,
+  Safari condition (−181/−179/−179 unfixed) reproduced via `overflow-anchor:none`
+  proxy. Reveal-arc law was already violated ON Safari; the fix restores it. The
+  no-offline-guard objection fell to the render-only precedent: recorded proxy
   evidence re-run pre-merge, no fakeable mechanical pin.
-- Q1 (4–2) and Q4 (unanimous) acceptances carried WITH my reopening tripwires in
-  the log — and "acceptance is a decision with a tripwire" is now settled law
-  verbatim. My Q4 killer fact (20-unit witness stack caps any raise below target)
-  held; lore flipped in debate.
-- My stale-state must-have landed inside the Q3 shape I lost: scroll dismissal
-  calls explicit tipHide (site:469). Verified: touch pin survives pointerleave,
-  scroll dismisses, mouse path byte-identical including scroll survival of
-  unpinned tooltips.
+- Q1 (4–2) and Q4 (unanimous) acceptances carried WITH my tripwires; "acceptance
+  is a decision with a tripwire" is now law verbatim. My Q4 killer fact held.
+- My stale-state must-have landed inside the Q3 shape I lost: explicit tipHide on
+  scroll (site:469). Verified: pin survives pointerleave, scroll dismisses, mouse
+  path byte-identical including scroll survival of unpinned tooltips.
 
 **Lost, and the lesson:**
 - Q3 5–1: suppress-for-touch fell to the census-conceit veto. My "enrichment,
   redundant below" claim was wrong at the individual grain — the stage tooltip is
   the ONLY surface naming most of the 82 people; the dashboards aggregate. Cutting
-  touch off from a modality-exclusive surface is exactly the inequity my own
-  tooltip law exists to prevent — I ran the redundancy audit line-by-line for Q4
-  and never ran the same audit for Q3. Before calling a tooltip enrichment, audit
-  at the finest grain it exposes, not the grain the charts summarize. Also: the pin
-  state machine I priced as expensive was ~4 lines, because dismissal reused
-  existing paths (hit-test miss, scroll) — cost the shape in the actual codebase
-  before calling it prohibitive.
+  touch off from a modality-exclusive surface is the inequity my own tooltip law
+  exists to prevent — I ran the redundancy audit line-by-line for Q4 and never ran
+  it for Q3. Audit a tooltip at the finest grain it exposes, not the grain the
+  charts summarize. Also: the pin state machine I priced as expensive was ~4 lines
+  because dismissal reused existing paths (hit-test miss, scroll) — cost the shape
+  in the actual codebase before calling it prohibitive.
 
 **Prep differently:** run content-redundancy audits symmetrically across every
 question they could decide, not just the one I favor accepting. And when I hold a
@@ -211,11 +202,8 @@ veto-shaped position, assume another role holds the opposing veto and pre-cost t
 compromise with my must-haves attached — the stale-state rider is what salvaged Q3
 for me.
 
-**Watchlist (fresh — confirmatory only, no open design questions):**
-- Real-iOS pass of the shipped Q2/Q3 behavior when hardware appears; the proxy
-  inference is recorded under the measured-vs-inferred law, so this is
-  confirmation, not debt.
-- Real-AT exposure of `title` on check badges — a Q1-tripwire watch, not a work
-  item.
-- Retired: touch-flash, anchoring jump, stage-type raise (the Q4 tripwires own any
-  reopening).
+**Watchlist (fresh — confirmatory only, no open design questions):** real-iOS pass
+of the shipped Q2/Q3 behavior when hardware appears (proxy inference is recorded
+under the measured-vs-inferred law — confirmation, not debt); real-AT exposure of
+badge `title` (a Q1-tripwire watch, not a work item). Retired: touch-flash,
+anchoring jump, stage-type raise (the Q4 tripwires own any reopening).

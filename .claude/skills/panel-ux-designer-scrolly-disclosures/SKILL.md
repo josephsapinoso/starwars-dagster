@@ -16,18 +16,23 @@ pipeline-reveal prep (2026-07-17).
   opening a details re-centers the card, shifting its top UP by half the reveal
   height — motion under the pointer. Mitigate: keep reveals compact, place the
   details at the card bottom, and verify browser scroll anchoring on a real device.
-- Verified 2026-07-19 (headless Chromium): browser scroll anchoring absorbs the
-  half-height shift entirely (scrollY auto-compensates ≈−half-growth; clicked
-  summary moves 0px). Safari/WebKit has NO scroll anchoring (no `overflow-anchor`
-  support) → the summary jumps there. Browser-neutral fix pattern, no UA sniffing:
-  record the clicked summary's `getBoundingClientRect().top` in the summary `click`
-  handler (fires before the default toggle), compare it on the `toggle` event, and
-  `scrollBy(0, delta)` when |delta| > ~1px. Self-noops wherever anchoring already
-  compensated and on top-anchored mobile stations; runs once, instantly, only in
-  response to the user's own activation — anchoring restoration, not scroll-jacking
-  (never smooth-scroll it). Verify both branches headlessly: Playwright's WebKit
-  engine genuinely lacks scroll anchoring, so the jump and the fix are both
-  reproducible without Apple hardware.
+- Chromium's scroll anchoring absorbs the half-height shift entirely (clicked
+  summary moves 0px); Safari/WebKit has NO scroll anchoring → the summary jumps
+  ~180px there. **Settled, shipped fix (banked 2026-07-19, commit fdd3178,
+  site/index.html ~471–485) — "anchoring restoration is not scroll-jacking":**
+  browser-neutral delta compensation, no UA sniffing. A document-level capture
+  `click` listener matches `e.target.closest("details.prov summary, details.sql
+  summary")` and stores `{ summaryEl, top: rect.top }`; the `toggle` listener
+  (capture, since toggle doesn't bubble in all engines) checks
+  `e.target.contains(storedSummary)`, measures the new rect.top, clears the stored
+  anchor, and `scrollBy({top: delta, behavior: "instant"})` when |delta| > 1.
+  Self-noops wherever the browser already anchors and on top-anchored mobile
+  stations; runs once, synchronously, only on the reader's own activation. Animated
+  or assumed-delta variants are banned. Verification without Apple hardware: inject
+  `overflow-anchor:none` on the scroller in Chromium to reproduce the WebKit branch
+  — run the 2×2 matrix (anchoring on/off × fix on/off) expecting 0 / −half-growth /
+  0 / 0, and re-run it on the landed code as the merge gate; record measured facts
+  and real-Safari inference separately (measured-vs-inferred law).
 - Never shrink the sticky stage to make room; the station min-height is a minimum —
   a grown step just adds reader-paced scroll distance. IO center-crossing steppers
   are height-agnostic, so nothing else needs to change.

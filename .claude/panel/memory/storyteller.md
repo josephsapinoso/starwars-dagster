@@ -89,12 +89,12 @@
   tokens, no parallel lists.
 - **Anchoring restoration is not scroll-jacking** (2026-07-19): a synchronous,
   activation-triggered, MEASURED-delta scroll correction that no-ops where the browser
-  already anchors is the sanctioned shape for disclosure-growth compensation; animated
-  or assumed-delta variants stay banned. Reveal-arc law ("opening a reveal never moves
-  the reader") is violated by anchoring-less Safari, not by this fix.
-- **Measured-vs-inferred labeling** (2026-07-19): any decision resting on unreachable
-  hardware states its measured facts and its inferences separately, verbatim, in the
-  log. The honest proxy is named as a proxy.
+  already anchors is the sanctioned disclosure-growth shape; animated or assumed-delta
+  variants stay banned. "Opening a reveal never moves the reader" is violated by
+  anchoring-less Safari, not by this fix.
+- **Measured-vs-inferred labeling** (2026-07-19): decisions resting on unreachable
+  hardware state measured facts and inferences separately, verbatim, in the log; the
+  honest proxy is named as a proxy.
 - **Acceptance is a decision with a tripwire** (2026-07-19): an accepted limitation
   enters the log with its reopening trigger written down; a shrug is not a verdict.
   Live: Q1 — a why gains load-bearing content with no non-hover home, or the legend
@@ -121,11 +121,10 @@
 - The arc is a census-archive conceit: measurement → absence → origins → persistence →
   handoff to the "records office" (dashboard), now closed by the coda's loop back to
   the hook. Additions must serve this spine or a deliberate second read-through.
-- The witnesses payoff must not leak early. Leak history: 2026-07-17 PASS; 2026-07-18
-  FAIL (four forward leaks via shared chains; fixed in 2aa845e with invariant-subject
-  labels — "all-six set" / "pilot census" / "flight record" / "mass baseline"). The
-  audit lives on as the standing spoiler pin test; manual re-audit only for payoff
-  *concepts* the pin cannot derive from known_facts.
+- The witnesses payoff must not leak early. Leak history: 2026-07-18 FAIL, four
+  forward leaks fixed in 2aa845e with invariant-subject labels ("all-six set",
+  "flight record", …). The standing spoiler pin carries the audit; manual re-audit
+  only for payoff *concepts* the pin cannot derive from known_facts.
 - The held pause is beat 4 (the cameos). Any affordance inside the pause must be the
   quietest voice on the page.
 - Reveal micro-story structure: claim → machinery (vertical chip chain, one gold
@@ -133,14 +132,14 @@
   the NOTE.check template. A bare chain is a diagram, not a beat.
 - `raw_people` opens every chain, so the census's best-guarded numbers recur in all
   six reveals — the structural reason beat 0 could stay clean.
-- Pipeline carries 15 checks (4 blocking, 11 warn) after the registry's two WARN
-  checks (birth-year baseline + parse-honesty). Beats 1 and 4–6 are `guard.kind:
-  "check"`; every pytest→check flip has re-projected honesty lines with zero hand
-  edits (three data points for generated-over-bespoke).
-- Birth registry (2026-07-19): `#card-registry` in the dashboard's Census section —
-  part-to-whole bar (39 undated as faint tint) + dot strip, Yoda gold-ringed (the
-  ring means "extreme"), Jabba labeled, BBY gloss printed not tooltipped. Coda at
-  site/index.html ~395–398; Yoda conditional line ~1371–1375.
+- Pipeline carries 15 checks (4 blocking, 11 warn). Beats 1 and 4–6 are `guard.kind:
+  "check"`; every pytest→check flip re-projected honesty lines with zero hand edits.
+- Birth registry (2026-07-19): `#card-registry`, dashboard Census section — bar (39
+  undated as tint) + dot strip, Yoda gold-ringed, Jabba labeled, BBY gloss printed.
+  Coda ~395–398; Yoda conditional line ~1371–1375.
+- Touch tooltip pin + reveal delta compensation (fdd3178): tipPinned/tipHide
+  ~465–485 and ~796–802; the stage tooltip is now mobile's real-pixel dot-identity
+  channel (bonus, not Q4's justification).
 - Dashboard lineage strip is the epilogue's establishing shot; per-card mini-DAGs were
   rejected unanimously — telling the gag eight ways.
 
@@ -184,41 +183,34 @@ dissolves the objection before picking a side. Ux's fixed-viewBox legibility wat
 returned as watchlist Q4 and died on the collision math — raise-only-grants-permission
 worked exactly as banked.
 
-## Banked: watchlist round (2026-07-19, decision log 2026-07-19-watchlist-round.md; fdd3178)
+## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178)
 
 Three wins, one instructive loss.
 
-- **Q3 won 5–1**: build-only tap-to-pin, and my reader-owned-dismissal must-have
-  shipped exactly — pin on touch pointermove, touch pointerleave does not hide,
-  dismissal is the reader's next tap or own scroll, never a timer (verified on
-  fdd3178: tipPinned at index.html:799, leave-guard :802, scroll dismiss :469).
-  Suppress-for-touch died on lore's census-conceit veto — the ally I predicted.
-- **Q1 won 4–2** on my voice-load math: 48 tab stops, ~15 crossing the held pause,
-  quoted in the adjudication as the carrying cost argument. Hover `title=` stays a
-  desktop bonus; the legend line is the honest non-hover contract.
-- **Q4 unanimous** with my narrative warrant IN the log verbatim ("prose and captions
-  are the payoff carriers; annos are deixis") and the beat-5 collision math as standing
-  veto ground. The analyst's channel audit supplied the measured half of my claim —
-  redundancy proven, not asserted. Condition honored: the Q3 pin is a bonus, not the
-  justification.
-- **Q2 LOST (ship 3–2–1)** — and rightly. My three must-have conditions were met in
-  full (toggle-event-only, instant, proven non-double-compensating: 0/−180/0/0 in both
-  anchoring states on the landed code), and the adjudication turned my own law around:
-  rule 7 is violated ON Safari today, not by the fix. My error was framing: I held the
-  right conditions and the wrong verdict. "Accept-and-watch unless someone brings the
-  anchoring-aware shape" should have been "ship IF these three measured conditions
-  pass" — the same gate, but with authorship. When I can name the exact shape that
-  would flip me, that shape IS my proposal; leaning accept and waiting for someone
-  else to draft it forfeits the win to whoever does.
+- **Q3 won 5–1**: build-only tap-to-pin; my reader-owned-dismissal must-have shipped
+  exactly — pin on touch pointermove, touch pointerleave does not hide, dismissal is
+  the reader's next tap or own scroll, never a timer (verified on fdd3178: pin at
+  index.html:799, leave-guard :802, scroll dismiss :469). Suppress-for-touch died on
+  lore's census-conceit veto, the ally I predicted.
+- **Q1 won 4–2** on my voice-load math — 48 tab stops, ~15 crossing the held pause —
+  quoted as the carrying cost argument. `title=` stays a desktop bonus; the legend
+  line is the honest non-hover contract.
+- **Q4 unanimous**, my warrant in the log verbatim ("prose and captions are the payoff
+  carriers; annos are deixis") plus the beat-5 collision math as standing veto ground.
+  The analyst's channel audit supplied the measured half — redundancy proven, not
+  asserted; the Q3 pin is a bonus, not the justification.
+- **Q2 LOST (ship 3–2–1)** — rightly. My three conditions were met in full
+  (toggle-event-only, instant, non-double-compensating: 0/−180/0/0 in both anchoring
+  states on landed code), and the adjudication turned my own law around: rule 7 is
+  violated ON Safari today, not by the fix. Right conditions, wrong verdict —
+  "accept-and-watch unless someone brings the anchoring-aware shape" should have been
+  "ship IF these measured conditions pass." When I can name the exact shape that
+  would flip me, that shape IS my proposal; waiting for someone else to draft it
+  forfeits the win to whoever does.
 
-Prep differently: draft the flip-condition as the proposal (the Q2 lesson — the
-mechanism-agnostic sibling of "draft the final copy"). Keep authoring cross-question
-findings: the Q3×Q4 cross-finding became Q4's warrant and made Q3 the redemption —
-the interaction between two questions was worth more than either answer alone.
-Cannot-verify honesty paid off: my "cannot verify Safari hardware" line became the
-round's measured-vs-inferred law rather than a weakness.
-
-Watch: the ux watchlist is now empty — future rounds start from fresh evidence, not
-carryover items. Both tripwires (Q1/Q4) are logged; if either trips, the reopening
-burden includes the logged hazards (shared `.axis-t` selectors, @media-blind scanner,
-8-state anchor-geometry cost).
+Prep differently: draft the flip-condition as the proposal (the mechanism-agnostic
+sibling of "draft the final copy"). Keep authoring cross-question findings — Q3×Q4
+became Q4's warrant and Q3's redemption. Cannot-verify honesty paid off: my Safari
+line became the round's measured-vs-inferred law, not a weakness. The ux watchlist is
+now empty; the Q1/Q4 tripwires and hazards (shared `.axis-t`, @media-blind scanner,
+8-state anchor-geometry cost) live in the log.

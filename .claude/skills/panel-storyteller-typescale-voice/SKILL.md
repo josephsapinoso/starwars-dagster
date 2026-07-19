@@ -78,7 +78,11 @@ Judge every merge by whether the VOICE survives, not whether the pixel survives.
    rework, not a typography change — and if the colliding labels are a payoff
    beat's names, the naive fix breaks the exact moment it meant to save. Bring
    this math to the debate; "raise-only" grants permission only to moves that
-   survive it.
+   survive it. (Vindicated 2026-07-19: the stage-type raise was accepted
+   unanimously on exactly this math plus a channel-redundancy audit — "prose and
+   captions are the payoff carriers; annos are deixis." The strongest acceptance
+   warrant is redundancy proven by audit, not resignation; pair the collision
+   math with a per-claim readable-twin inventory.)
 
 11. **Scenery colors are not tokens.** A one-use paint inside a canvas (starfield,
    texture) that no other element will ever consume gains nothing from the token
