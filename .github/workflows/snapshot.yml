@@ -1,8 +1,9 @@
-name: Refresh SWAPI fixture snapshot
+name: Refresh fixture snapshots
 
-# Fetches a dated snapshot of swapi.info into tests/fixtures/swapi/ and
-# commits it back to the branch it ran on. Exists because some dev
-# environments can't reach swapi.info directly.
+# Fetches dated snapshots of BOTH sources (swapi.info → tests/fixtures/swapi/,
+# akabab → tests/fixtures/akabab/) and commits them back to the branch it ran
+# on. One run refreshes the pair so cross-source baselines stay coherent.
+# Exists because some dev environments can't reach the sources directly.
 # workflow_dispatch only registers once this file is on the default branch,
 # so it also fires on pushes that touch the workflow itself.
 on:
@@ -36,8 +37,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/fixtures/swapi
+          git add tests/fixtures/swapi tests/fixtures/akabab
           git diff --cached --quiet && echo "No changes" || {
-            git commit -m "Freeze dated SWAPI fixture snapshot (via snapshot workflow)"
+            git commit -m "Freeze dated fixture snapshots, both sources (via snapshot workflow)"
             git push
           }
