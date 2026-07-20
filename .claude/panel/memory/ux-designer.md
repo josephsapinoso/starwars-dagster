@@ -69,7 +69,13 @@
   (designer's law); named non-extremes get labels, never rings.
 - **SVG text doesn't wrap:** any caption that can clip at 390px becomes wrapping HTML
   outside the SVG (testimony caption precedent, 2026-07-19); no horizontal overflow at
-  390/360 is the verification bar.
+  390/360 is the verification bar. (akabab coverage stat-block also wraps as HTML, 2026-07-20.)
+- **Second-source surface is a dashboard card, never a story beat** (akabab panel,
+  2026-07-20): the census spine is one archive (8 steps, "n/8", BUILDERS.length=8 —
+  untouched); the second source is a second *reading* of it, a `#dash` card that renders
+  once (flat-parity free), uses opt-in `details.sql` (content never gated), carries no
+  per-card badge (DAG strip is the lineage surface). No ranked faction chart — canon-scope
+  trap; saga-safe coverage COUNTS only.
 - **Token hygiene laws (2026-07-19):** (a) *Whisper clause* — every sanctioned style
   exception is an exact (selector, value, reason) pin in `test_site_style_hygiene`,
   failing loudly on change in either direction; unexplained holes are theater.
@@ -132,6 +138,38 @@
   a visually-hidden h2 and each beat kicker is a real `<h3>` — the heading outline gap
   from my survey is closed. Protect these; they are easy to lose in a rewrite.
 
+## Banked: akabab site surfacing (2026-07-20)
+
+**Won (my whole thesis carried, unanimous):**
+- Placement is a **dashboard card, never a scroll beat** — the `#card-biographies` card
+  slots into `#dash` after `#card-registry`. My prep cost-accounting (BUILDERS.length=8
+  auto-derives the "n/8" counter at site:784; a 9th beat ripples to ~7 co-landing edits
+  incl. the expensive 8→9-state anchor-geometry re-verification) was the decisive frame:
+  a beat was ruled "unearned." **The census spine stays 100% untouched.**
+- **Flat-embed parity free** — the card renders ONCE, needs no `enterFlat()` figure
+  builder, reuses the shared `details.sql` disclosure (≥44px summary, downward growth,
+  no anchor-restoration issue in the dashboard flow). Verified as filed.
+- **Content never gated** — the SQL disclosure is opt-in `details`; every coverage number
+  prints in the card body itself, not behind a reveal. Held verbatim.
+- The coda's pre-authored "second reading" hook was confirmed as the card's referent
+  (storyteller's copy lands there) — my prep flagged it; the storyteller owned the frame.
+
+**Newly settled (promoted to law):**
+- The site's second-source surface is a dashboard card, never a story beat — one archive
+  (8 steps, "n/8"); the second source is a second *reading* of it. **Now in my Settled.**
+- The coverage **stat-block wraps as HTML, not SVG** — same rule as my testimony-caption
+  precedent; no clip at 360/390.
+- No ranked faction chart on a six-film site (canon-scope trap; saga-safe COUNTS only) —
+  a lore/analyst-owned law I now enforce on any future "just rank it" ask.
+- Card numbers render from per-row `DATA.people[].bio`; no per-card check badge (a badge
+  needs a claim entry — the DAG strip is the lineage surface, registry-card precedent I
+  already banked).
+
+**Prep differently:** my cost-accounting was the highest-yield artifact of the round —
+lead with file:line ripple counts, they end the placement debate before it starts. I had
+no objections to raise because the frame was mine; next time, still pre-cost the opposing
+veto's compromise (habit from the watchlist lesson) even when I expect to win.
+
 ## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
 
 - Won: vertical chip chain (260px budget); beats 1–6 with beat-0 clean; legend
@@ -170,40 +208,16 @@
   360); stage svg is fixed 700×620 viewBox (scaled text). Rail at 360: chips one
   per row in a 244px rail, summaries 46–64px. Gender label gate `w > 46` untouched.
 
-## Banked: watchlist round (2026-07-19, commit fdd3178) — all four items CLOSED
+## Banked: watchlist round (2026-07-19, commit fdd3178, compacted) — all four CLOSED
 
-**Won:**
-- Q2 shipped in my exact delta-compensation shape, and my dual-branch merge gate
-  ran on the landed code: anchoring-on 0/0/0, anchoring-off 0/0/0 at beats 1/4/6,
-  Safari condition (−181/−179/−179 unfixed) reproduced via `overflow-anchor:none`
-  proxy. Reveal-arc law was already violated ON Safari; the fix restores it. The
-  no-offline-guard objection fell to the render-only precedent: recorded proxy
-  evidence re-run pre-merge, no fakeable mechanical pin.
-- Q1 (4–2) and Q4 (unanimous) acceptances carried WITH my tripwires; "acceptance
-  is a decision with a tripwire" is now law verbatim. My Q4 killer fact held.
-- My stale-state must-have landed inside the Q3 shape I lost: explicit tipHide on
-  scroll (site:469). Verified: pin survives pointerleave, scroll dismisses, mouse
-  path byte-identical including scroll survival of unpinned tooltips.
-
-**Lost, and the lesson:**
-- Q3 5–1: suppress-for-touch fell to the census-conceit veto. My "enrichment,
-  redundant below" claim was wrong at the individual grain — the stage tooltip is
-  the ONLY surface naming most of the 82 people; the dashboards aggregate. Cutting
-  touch off from a modality-exclusive surface is the inequity my own tooltip law
-  exists to prevent — I ran the redundancy audit line-by-line for Q4 and never ran
-  it for Q3. Audit a tooltip at the finest grain it exposes, not the grain the
-  charts summarize. Also: the pin state machine I priced as expensive was ~4 lines
-  because dismissal reused existing paths (hit-test miss, scroll) — cost the shape
-  in the actual codebase before calling it prohibitive.
-
-**Prep differently:** run content-redundancy audits symmetrically across every
-question they could decide, not just the one I favor accepting. And when I hold a
-veto-shaped position, assume another role holds the opposing veto and pre-cost the
-compromise with my must-haves attached — the stale-state rider is what salvaged Q3
-for me.
-
-**Watchlist (fresh — confirmatory only, no open design questions):** real-iOS pass
-of the shipped Q2/Q3 behavior when hardware appears (proxy inference is recorded
-under the measured-vs-inferred law — confirmation, not debt); real-AT exposure of
-badge `title` (a Q1-tripwire watch, not a work item). Retired: touch-flash,
-anchoring jump, stage-type raise (the Q4 tripwires own any reopening).
+- Won: Q2 shipped my exact delta-compensation shape (dual-branch gate re-run on landed
+  code: anchoring-on 0/0/0, Safari −181/−179/−179 via `overflow-anchor:none` proxy);
+  Q1/Q4 acceptances carried with my tripwires; stale-state must-have landed as explicit
+  tipHide on scroll (site:469).
+- Lost (Q3 5–1): suppress-for-touch fell to the census-conceit veto — my "redundant
+  below" claim was wrong at individual grain (stage tooltip is the ONLY surface naming
+  most of the 82). Lessons: audit a tooltip at the FINEST grain it exposes; cost the
+  shape in the actual codebase before calling it prohibitive; when I hold a veto, pre-cost
+  the opposing veto's compromise with my must-haves attached.
+- Watchlist (confirmatory only): real-iOS pass of Q2/Q3 and real-AT badge-`title`
+  exposure when hardware/AT appears (recorded under measured-vs-inferred; not debt).

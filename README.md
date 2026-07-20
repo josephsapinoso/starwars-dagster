@@ -110,7 +110,10 @@ and degrades to per-step figures inside auto-height embeds. The scroll story rea
 unit chart of 82 dots (height, mass, homeworlds, film appearances, pilots), then hands off to
 a dashboard carrying the Dagster lineage strip and the DuckDB SQL behind every chart — every
 displayed string is executed against the fixture-built warehouse by the offline test suite,
-so the SQL a reader opens is SQL that provably runs.
+so the SQL a reader opens is SQL that provably runs. A closing **"second reading"** panel
+surfaces the akabab enrichment as on-file coverage — 82 of 82 census characters matched to a
+curated profile, 47 with a death on file — every figure carrying its denominator and framed
+as "on file," never as canon.
 
 ## How this was built
 

@@ -21,6 +21,7 @@ import pytest
 REPO = Path(__file__).resolve().parent.parent
 SITE = REPO / "site" / "index.html"
 SNAPSHOT = REPO / "tests" / "fixtures" / "swapi" / "SNAPSHOT.json"
+AKABAB_SNAPSHOT = REPO / "tests" / "fixtures" / "akabab" / "SNAPSHOT.json"
 
 
 @pytest.fixture(scope="module")
@@ -66,9 +67,43 @@ def test_species_members_divergence_is_the_known_swapi_quirk(data):
 
 
 def test_meta_matches_the_committed_snapshot(data):
+    # meta is dual-source now: an array the footer + freshness line project from,
+    # each entry's ref pinned to its own committed snapshot marker (the two
+    # sources refresh together but are identified independently)
     snap = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
-    assert data["meta"]["snapshot"] == snap["fetched_at"][:10]
-    assert data["meta"]["source"] in snap["source"]
+    akabab_snap = json.loads(AKABAB_SNAPSHOT.read_text(encoding="utf-8"))
+    meta = data["meta"]
+    assert meta["snapshot"] == snap["fetched_at"][:10]
+    sources = {s["name"]: s for s in meta["sources"]}
+    assert set(sources) == {"SWAPI", "akabab"}
+    assert sources["SWAPI"]["ref"] in snap["source"]
+    assert sources["akabab"]["ref"] in akabab_snap["source"]
+
+
+def test_biography_coverage_is_internally_consistent(data):
+    # the "second reading" card renders every number from DATA.people[].bio; this
+    # is the pytest twin of the runtime second-reading drift detector. matched and
+    # deaths on file are pipeline-guarded (pinned to known_facts); affiliation /
+    # masters / apprentices are render-computed with NO asset check, so this pin
+    # is their only guard against the card copy silently diverging from the data.
+    from starwars_dagster.known_facts import (
+        EXPECTED_DEATHS_ON_FILE,
+        EXPECTED_PROFILE_MATCH_COUNT,
+    )
+
+    bios = [p["bio"] for p in data["people"] if p.get("bio")]
+    matched = len(bios)
+    assert matched == EXPECTED_PROFILE_MATCH_COUNT
+    assert sum(1 for b in bios if b["diedOnFile"]) == EXPECTED_DEATHS_ON_FILE
+    # every matched row carries the affiliations field → field-present == matched
+    assert sum(1 for b in bios if b["aff"] is not None) == matched
+    # render-computed coverage the card's "on file" ladder shows, pinned to DATA
+    affiliated = sum(1 for b in bios if (b["aff"] or 0) > 0)
+    masters = sum(1 for b in bios if (b["masters"] or 0) > 0)
+    apprentices = sum(1 for b in bios if (b["appr"] or 0) > 0)
+    assert (affiliated, masters, apprentices) == (75, 14, 12)
+    # died years never surface in DATA — only presence is kept (signed-year law)
+    assert all(set(b) == {"diedOnFile", "aff", "masters", "appr"} for b in bios)
 
 
 def test_words_renderer_covers_every_spelled_count(data):

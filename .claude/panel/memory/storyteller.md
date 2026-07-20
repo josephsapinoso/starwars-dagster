@@ -122,6 +122,14 @@
   (N of field-present, of 81 matched, of 82) on every enrichment line; "on file"
   everywhere, never "deceased"; no superlatives from sparse lineage fields —
   affiliations may rank only with n disclosed.
+- **A second source is a second reading, not a beat** (2026-07-20): the census spine is
+  ONE archive (8 steps, "n/8"); an enrichment source surfaces as a dashboard card after
+  `#card-registry`, before the coda — never mid-spine. The coda's "every record is open to
+  a second reading" is that card's pre-authored referent. Shipped: `#card-biographies`,
+  "A second reading" copy, 82/82 headline (leads because complete AND guarded). Corollary
+  banned on a saga-scoped site: a ranked faction/affiliations chart (`affiliations` is
+  canon-wide/sequel-inclusive — a ranking claim six films can't make); only saga-safe
+  coverage COUNTS surface. The card carries no signed year (`bio.diedOnFile` boolean).
 - **Description-style law applies at birth** (2026-07-20): checks on unlisted assets
   that rail on no beat today still ship subject-only, number/name/payoff-free — the
   uniform-rail rule means a future chain join inherits them silently. If
@@ -162,17 +170,14 @@
 - Dashboard lineage strip is the epilogue's establishing shot; per-card mini-DAGs were
   rejected unanimously — telling the gag eight ways.
 
-## Banked: 2026-07-18 rounds (pipeline reveals + post-landing cleanup; 082d9c9, c0b97e0, 2aa845e; compacted)
+## Banked: 2026-07-18 rounds (pipeline reveals + cleanup; 082d9c9, c0b97e0, 2aa845e; compacted)
 
-Won: beats 1–6 only, clean hook, beat-7 callback, micro-story reveal shape, quietest
-label on the pause, honest third act; all four spoiler leaks fixed (incl. the "23
-unweighed" leak only my audit caught); the spoiler pin carries names AND numbers.
+Won: beats 1–6 only, clean hook, beat-7 callback, micro-story reveal shape, honest
+third act; four spoiler leaks fixed (incl. the "23 unweighed" only my audit caught).
 Lost, correctly: bespoke labels → ONE generated template; my "six pipelines" callback
 was arithmetically false (hand-authored pipeline copy drifts); my cumulative-rail
-mechanism 5–3–1 — placement filtering bought spoiler safety with an unverifiable
-hand-authored `beat` field — and I declared re-authoring impossible without drafting
-the counterexample label first. A check's blast radius is every beat that cites its
-asset. Lessons live in skill rules 9–10.
+mechanism 5–3–1 — a hand-authored `beat` field is unverifiable. A check's blast radius
+is every beat citing its asset. Lessons live in skill rules 9–10.
 
 ## Banked: birth registry, coda, hue enforcement (2026-07-19, log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
 
@@ -229,6 +234,42 @@ never transcribed (three independent surveys disagreed on record counts) — the
 data-side twin of "never hand-write pipeline arithmetic"; cite it against any
 transcribed number in copy. Still cannot verify: whether a future panel makes
 affiliations/lineage a spine beat — that's their call, my tripwires are written.
+
+## Banked: akabab site surfacing (2026-07-20, log 2026-07-20-akabab-site-surfacing.md)
+
+Won clean on my turf. Every position I brought to prep survived, and the coda-referent
+argument became the placement's stated rationale.
+
+- **Placement won unanimously (D1): dashboard card, no 9th beat.** My frame carried it —
+  the census spine is ONE archive (8 steps, "n/8"); a second source is a second *reading*
+  of that archive, a dashboard act after `#card-registry`, never a mid-spine beat. Both my
+  narrative reasons landed: (a) one-archive coherence — injecting a fan-curated source
+  mid-census breaks the single-archive frame beats 0–7 depend on; (b) the coda's "every
+  record is open to a second reading" is now the card's PRE-AUTHORED referent, sitting
+  immediately above the coda. The frame closes stronger. Spine 100% untouched
+  (BUILDERS.length=8, exactly-8 kickers, claims-cover-1..6, drift "1,2,3,4,5,6" all intact).
+- **My "A second reading" card copy shipped** with lore's attribution gloss — drafted-copy
+  discipline won its third consecutive tiebreak. Bring finished copy; it decides.
+- **82/82 leads (D2)** — the headline is the MATCH because it is the only akabab number that
+  is BOTH complete AND pipeline-guarded (`character_biographies_join_coverage`). My old
+  "81 matched" memory line was stale; brief/known_facts EXPECTED_PROFILE_MATCH_COUNT=82 wins.
+  Ladder beneath in "on file" vocabulary; closing "absence is not survival" gloss survives.
+- **Ranked affiliations chart DROPPED unanimously (D5)** — lore proved the canon-scope trap
+  live (computed top-8 is sequel-inclusive: New Republic, CIS). A ranked bar is a ranking
+  *claim* a six-film site can't honestly make. Only saga-safe coverage COUNTS surface. New
+  banked law I now enforce on copy: no ranked faction chart on a saga-scoped site.
+- **My pre-veto held**: the card states single-source akabab figures only — no Yoda 896+4,
+  no signed year (the `bio` object carries a `diedOnFile` boolean, never `died_year_aby`).
+- **The L320/L941 contradiction fix landed unconditionally** — my flagged "never hand-write
+  pipeline arithmetic" bug; L320 now reads "five SWAPI pulls and one akabab pull … five
+  transforms", consistent with the JS-rendered count and totals.
+
+Lost: nothing outright. SQL shipped (one executable `bios` counts query) though I called it
+optional — no fourth act materialized, so no narrative cost; not my veto ground.
+
+Prep differently: the file-reading pass again predicted every fault line — keep it. One
+correction to self: audit memory for STALE numbers before debate (the 81/82 slip) — a
+banked figure can go stale when the fixture recomputes; defer to known_facts, never my note.
 
 ## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178; compacted)
 

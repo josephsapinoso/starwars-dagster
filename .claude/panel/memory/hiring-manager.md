@@ -81,25 +81,16 @@
 ## Banked: 2026-07-17/18 rounds (pipeline reveal, transform, cleanup — compacted)
 
 Verdicts: `2026-07-18-pipeline-reveal.md`, `-per-character-transform-landed.md`,
-`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0` then
-`2aa845e`). Durable lessons (outcomes live in Settled):
-- Commit history reads well (coherent boundaries, PR merges #1–#5); README points at
-  it, never restates it.
-- Verify a brief's claimed lineage before building a pitch on it; primary
-  verification (execute displayed code claims, grep `FROM` clauses against the real
-  `CREATE TABLE` list) converts opinion into evidence.
-- 2026 loops screen for judgment over AI output; "judgment made visible" is the
-  pitch frame; first-impression defects beat feature arguments.
-- Q3 fulcrum: a check earns its place iff it guards a number/artifact someone
-  consumes; galaxy_report stays check-free by design, gap disclosed. Coverage-theater
-  veto held three times and became the best interview narrative.
-- **Truth-then-tell sequencing:** when a public claim is false, commit 1 makes it
-  TRUE with a message naming the defect; commit 2 does the storytelling. Never
-  interleave.
-- State the signal requirement, let story roles find placement; bring concrete
-  wording proposals for badge/severity ground rather than ceding it.
-- Repo-root hygiene scan every round: a stray bootstrap script once quietly
-  reintroduced the "self-study" framing the README rewrite removed.
+`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0`, `2aa845e`).
+Durable lessons (outcomes live in Settled):
+- Verify a brief's claimed lineage before pitching on it; primary verification
+  (execute code claims, grep `FROM` vs real `CREATE TABLE`) converts opinion to evidence.
+- 2026 loops screen judgment over AI output; "judgment made visible" is the pitch frame;
+  first-impression defects beat feature arguments. **Truth-then-tell:** commit 1 makes a
+  false public claim TRUE (message names the defect); commit 2 tells the story. Never interleave.
+- Coverage-theater veto held 3× and became the best interview narrative; state the signal
+  requirement, let story roles place it, but bring concrete badge/wording proposals. Repo-root
+  hygiene scan every round (a stray bootstrap once reintroduced the "self-study" framing).
 
 ## Banked: birth registry, coda, hues, limits (2026-07-19)
 
@@ -208,3 +199,46 @@ pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count it
   in the same commit as any DATA-rendered count it must spell.
 
 Cannot verify (standing): off-platform artifact link preview.
+
+## Banked: akabab site surfacing (2026-07-20)
+
+Verdict: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`. Surfacing decided
+unanimously on the big axes; my surfacing prep is folded here (superseded).
+
+Won (my positions carried):
+- **Multi-source join is now legible in a 90-second scan** — exactly my signal argument.
+  It surfaces three ways, no story beat: the two akabab chips join the DAG strip
+  (six raw / five transforms), a `#card-biographies` coverage card lands after
+  `#card-registry`, and the footer renders "Sources: SWAPI · akabab" from
+  `DATA.meta.sources[]`. The strongest banked interview answer stopped being invisible.
+- **No 9th beat — dashboard card only. Unanimous.** My "reads as churn without cause"
+  frame (the Option-C argument reused) held: a beat would break four settled pins
+  (exactly-8 kickers, claims-cover-1..6, drift "1,2,3,4,5,6", L941 "six numbers") to
+  carry aggregate-grade enrichment that never touches census grain. Spine stays
+  byte-stable (BUILDERS.length=8).
+- **Executable SQL kept — non-negotiable held.** One `bios` string in `DATA.sql`
+  returns coverage COUNTS only (never `died_year_aby` values), executed against the
+  warehouse fixture with `FakeAkababResource`. No dashboard chart without an executed
+  query survives another round intact.
+- **Contradiction fixed truth-first** (L320 "four transforms" vs L941 "five") —
+  unconditional, first-impression-defect discipline, independent of the surfacing verdict.
+- **Headline "82 of 82 matched"** — my pick: complete AND pipeline-guarded, one line a
+  reader grasps. Ranked affiliations chart DROPPED (canon-scope trap), which I backed.
+
+Lost/ceded: nothing of mine. The screenshot-retake reflex I always demand did NOT fire
+this round — the DAG screenshot was already at 13/20 from the akabab-second-source
+landing, so the chips it depicts were already present; no retake needed. Noted so I
+don't reflexively demand a retake when the count-bearing visual is already current.
+
+New settled constraints (added to Settled block below where load-bearing): the
+second-source site surface is a dashboard card, never a beat; no ranked faction chart on
+a six-film-scoped site (coverage counts only); a per-card number relies on the DAG strip
+for lineage (no fabricated card-level badge); the DAG chip set is pinned to real Dagster
+keys.
+
+Would prep differently: check whether a count-bearing visual is ALREADY current before
+demanding a retake — the reflex is right but this round it would have been noise. Next
+surfacing-type panel, arrive knowing which screenshots already reflect the pending counts.
+
+Cannot verify (standing): off-platform artifact link preview; script-derived fixture
+counts (carried as unverified until freeze).

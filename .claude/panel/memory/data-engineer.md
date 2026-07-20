@@ -127,8 +127,20 @@
   per feature is qa's ceiling. Akabab deaths are "on file" vocabulary everywhere —
   never "deceased", never saga-scoped or canon-complete claims.
 - **Cross-source derived figures are quoted-testimony territory** (SWAPI birth × akabab
-  death arithmetic, e.g. Yoda 896+4=900): pre-vetoed off all surfaces until a surfacing
-  panel rules.
+  death arithmetic, e.g. Yoda 896+4=900): pre-vetoed off all surfaces (surfacing panel
+  left them sealed — coverage COUNTS only).
+- **akabab surfacing law (surfacing panel, 2026-07-20):** the second source surfaces as a
+  dashboard card (`#card-biographies` after `#card-registry`), never a story beat — the
+  census spine stays 8 steps / "n/8" / BUILDERS.length=8. Coverage renders from per-row
+  `DATA.people[].bio` (nested object or null), never an aggregate blob; `bio` carries
+  `diedOnFile: bool` — NO signed year (I proposed `diedAby|null`; adjudicated to the boolean).
+  The displayed `bios` SQL returns coverage COUNTS (matched/deaths_on_file/affiliated), never
+  `died_year_aby` values; the test_site_sql warehouse fixture materializes both akabab assets
+  via `FakeAkababResource()`. A ranked affiliations chart is BANNED (`affiliations` is
+  canon-wide/sequel-inclusive; a ranked bar is a claim a six-film site can't make). Dashboard
+  cards carry no check badge (a badge needs a claims[] entry); lineage lives on the DAG strip.
+  The DAG strip chip set is PINNED to the real Dagster asset keys (I wanted a full render; the
+  adjudication was PIN — a guard asserts chips == real defs).
 - **Alias governance:** curated dict in known_facts BRIDGES the join, never mutates
   as-filed records (`character_name` keeps SWAPI's spelling, typo and all);
   canon-direction comment per entry; injectivity + every-alias-load-bearing pytest
@@ -257,6 +269,46 @@
   guard shape). Ask "can the runtime measure this itself?" and check banked precedent
   before objecting "we can't verify this." Won Q3 5–1 (tap-to-pin, shared layer only,
   no fork); Q4 accept unanimous — hazards kept in Working knowledge.
+
+## Banked: akabab site surfacing (2026-07-20)
+
+The surfacing panel adopted my whole data-shape contract; I lost one adjudication and one
+data-type call, both to sharper versions of my own principles.
+
+Won:
+- DASHBOARD CARD, not a 9th beat — unanimous. My going-in Q1 blast-radius argument
+  (8-step/"n/8"/exactly-8-kicker/claims-1..6/"six of its numbers" pins) was the record.
+  `#card-biographies` after `#card-registry`; BUILDERS.length stays 8, spine 100% untouched.
+- Per-row derivability — unanimous. akabab numbers render from `DATA.people[].bio`, never an
+  aggregate blob (aggregate isn't drift-recomputable → violates the derivable-from-JSON law).
+- Executable `bios` SQL — YES, my verification-driven framing held: a table named in
+  `DATA.sql` must exist in the warehouse, so `FakeAkababResource()` materializes
+  `raw_character_profiles`+`character_biographies` in the test_site_sql fixture. The query
+  returns coverage COUNTS only (matched/deaths_on_file/affiliated) — never `died_year_aby`
+  VALUES, dodging both the ABY-sign display and the pre-vetoed 896+4 derivation.
+- Both akabab assets into `DATA.provenance.assets` (verbatim `why`, exact check sets,
+  chain-checks 13→18 ≤20); `DATA.meta` becomes `sources[]`, footer projects it — my Q6.
+- No per-card badge — a badge needs a claim entry (beats-1–6 machinery); dashboard cards
+  state denominatored numbers and lean on the DAG strip for lineage (registry-card precedent).
+
+Lost / adjudicated against me:
+- `bio` carries `diedOnFile: bool`, NOT my proposed `diedAby|null`. Claude ruled the boolean
+  so no signed ABY year ever enters the page (honors signed-year + quoted-testimony laws);
+  deaths-on-file stays presence-derivable. A cleaner read of my own convention law — I was
+  about to leak the sign I spent last panel walling out.
+- DAG strip: I wanted a full RENDER from real defs; qa offered "or pin the chip set"; the
+  adjudication was PIN. Chips stay HTML, a new guard asserts the chip set == real Dagster
+  asset keys, aria-label corrected to six raw / five transforms. Same guarantee, less churn.
+  Noted: my render instinct over-built; a pin catches the exact silent-contradiction failure.
+- Ranked affiliations chart DROPPED (unanimous, lore-led) — I'd already conceded it in prep;
+  `affiliations` is canon-wide/sequel-inclusive, a ranked bar is a claim a six-film site
+  can't make. Coverage COUNT (75/82 affiliated) carries the fact saga-safe.
+
+Prep differently: I brought the derivability crux and the SQL-fixture cost as evidence, which
+won them outright — the pattern from last panel (name the mechanism, own the cost) held. But
+I under-thought the data-TYPE inside my own contract: proposing `diedAby|null` contradicted
+my own just-banked signed-year law. Next time, run each new field past my own Settled section
+before proposing it — the type is as load-bearing as the shape.
 
 ## Banked: akabab second source (2026-07-20)
 

@@ -41,6 +41,16 @@ filed; copy attributes claims to the profiles, never to "canon." This is the
 quoted-testimony rule extended to whole datasets: audit against canon where a gem
 depends on it, but render only what's on file.
 
+## Surfacing check: a ranked list can smuggle in an un-disclosed frame
+
+When a sparse enrichment field is surfaced as a ranked chart (top-N affiliations,
+masters, etc.), the frame audit from §1 must travel WITH it. A `value_counts()` over a
+canon-wide field (akabab `affiliations`: Luke → "New Republic", "Resistance") will
+display beyond-saga faction names next to saga names with no visible seam. The honest
+render discloses BOTH the denominator (n of matched) AND the frame ("as filed,
+canon-wide — not saga-scoped"), or the chart is cut. The single strong number to lead
+with is the JOIN itself (matched of census), not a sparse superlative.
+
 ## Bonus check: does new data upgrade an old gem?
 
 A field arriving in a second source can turn quoted testimony into derivable data
