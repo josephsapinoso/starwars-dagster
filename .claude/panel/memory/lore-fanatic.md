@@ -149,6 +149,41 @@
   "Wookie", "Neimodian", R4-P17 (astromech filed Human/female). Honest angle is
   in-universe "as filed": record the error, never silently correct canon.
 
+## Prep notes: akabab second source (2026-07-20)
+
+Verified against the live akabab all.json (external fetch) + repo files in the brief:
+
+- **Ratts spelling: AKABAB IS CANON-CORRECT.** Canon is "Ratts Tyerell"; SWAPI's
+  "Ratts Tyerel" is the clerical error. The alias therefore maps a CORRECT spelling
+  onto our as-filed misspelling — fine for the join key (the census files under its
+  own records), but the known_facts alias entry must carry a comment stating which
+  side is canon. Ratts joins the clerical-errors watch roster.
+- **Akabab is SWAPI-derived:** it reproduces SWAPI's typos verbatim ("Ayla Secura",
+  "Beru Whitesun lars") — that's WHY 81/82 exact-match. Ratts is the one typo akabab
+  fixed. Treat akabab values as "as filed by the profile source", never as canon
+  authority (e.g. Han born -29 vs current canon ~32 BBY).
+- **`died` exceeds the six-film scope AND lags canon:** Luke died 34 (Ahch-To, Ep VIII),
+  Han died 34 (Starkiller Base, Ep VII) — sequel facts; Leia has NO death record
+  (pre-TROS vintage). So a "deceased count" is neither six-saga-scoped nor canon-
+  complete: it is "deaths on file." Any report/site claim must say so. No Legends
+  contamination found (Chewbacca has no `died`; Vector Prime excluded).
+- **In-saga gems on file:** Obi-Wan died 0 ("death star, alderaan system"), Anakin 4
+  ("death star ii, endor system"), Padmé -19 ("polis massa (2 days after empire
+  day)"), Ratts -32 (tatooine, Boonta Eve). **Yoda died 4 → 896+4=900 becomes
+  DERIVABLE data**, upgrading the registry's quoted-testimony Yoda gem candidate —
+  flag for the site-surfacing panel; its render condition would change.
+- **Affiliations are canon-wide** (Luke: "New Republic", "Resistance"); `masters`
+  strings carry parentheticals ("Qui-Gon Jinn (informal Jedi Master)") — counts are
+  safe, rendering names verbatim needs care.
+- Repo verified: galaxy_report is data-narrating register with a legacy quote-joke
+  closer ("May the Force be with your data pipeline." — predates the two-register
+  law; off-site; not this brief's scope). New checks attach to assets UNLISTED in
+  site provenance, so their strings won't hit story rails until surfacing — spoiler
+  audit re-runs then; new known_facts constants will enter derived term sets.
+- Signed-year convention: akabab born/died are negative=BBY, positive=ABY. Our
+  settled BBY law governs DISPLAY, not storage; a column holding signed years is
+  fine while nothing renders "-896" or bare ABY on the site.
+
 ## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
 
 Won: "six pipelines" killed as false; computed-callback wording, register
