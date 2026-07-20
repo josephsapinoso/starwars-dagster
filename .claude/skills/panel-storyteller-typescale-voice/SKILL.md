@@ -67,7 +67,24 @@ Judge every merge by whether the VOICE survives, not whether the pixel survives.
    Rule 6's role-named tokens apply only IF tokens are wanted for authoring reasons;
    never mint tokens purely to give a guard something to read.
 
-10. **Scenery colors are not tokens.** A one-use paint inside a canvas (starfield,
+10. **Fixed-viewBox raises are geometry moves — do the unit math first.** In a
+   fixed-viewBox SVG, font-size is authored in viewBox units and renders at
+   `viewBox-px × (rendered-width / viewBox-width)`; a "css bump" therefore scales
+   INSIDE the collision-managed layout, not around it. Before granting any raise:
+   (a) compute the needed viewBox px from the target effective size at the
+   smallest rendered width; (b) check that number against every authored spacing
+   the labels sit in (stacked annotation offsets, gate thresholds like `w > 46`,
+   axis tick gaps). If needed-px ≥ authored-spacing, the raise is a stagger
+   rework, not a typography change — and if the colliding labels are a payoff
+   beat's names, the naive fix breaks the exact moment it meant to save. Bring
+   this math to the debate; "raise-only" grants permission only to moves that
+   survive it. (Vindicated 2026-07-19: the stage-type raise was accepted
+   unanimously on exactly this math plus a channel-redundancy audit — "prose and
+   captions are the payoff carriers; annos are deixis." The strongest acceptance
+   warrant is redundancy proven by audit, not resignation; pair the collision
+   math with a per-claim readable-twin inventory.)
+
+11. **Scenery colors are not tokens.** A one-use paint inside a canvas (starfield,
    texture) that no other element will ever consume gains nothing from the token
    system, and a runtime bridge (getComputedStyle at init) adds a failure mode to
    the page's opening chord. Sanctioned literal + comment beats indirection when

@@ -81,6 +81,18 @@ decoration. Related laws this rides with: the gold ring asserts "extreme" only
 few; a unit native to the dataset (BBY) is used as-is, positive, with its gloss
 printed — never converted into a frame (ABY) the data doesn't contain.
 
+## Corollary: exposure changes reach, not content (prepped 2026-07-19)
+
+When a UI change proposes to EXPOSE an already-rendered string (hover title →
+focusable/visible; hidden → disclosed), audit it as an affordance question, not a
+new-copy question. The verbatim-projection and spoiler audits attach to the rendered
+STRING SET per beat — if the exposure renders the same strings verbatim, it adds no
+register or spoiler surface and needs no new copy review. Two traps that DO create
+new surface: (1) truncating or paraphrasing the string "for space" — that's a second
+home and a misquoted source; (2) exposure that falsifies adjacent settled copy (e.g.
+a legend saying the full text lives elsewhere, once the full text is visibly here).
+Check both before agreeing that an exposure is copy-neutral.
+
 ## Why it works
 
 Mixing registers reads as a theme park; separating them reads as an archivist who

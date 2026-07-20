@@ -85,6 +85,25 @@
 - **Gold's one home:** the #ffe81f literal appears exactly once, in :root; alpha
   ceremony derives via `color-mix(in srgb, var(--gold) N%, transparent)` — the
   rgba(255,232,31,…) triplet is banned; `var(--gold)` itself is free everywhere.
+- **Anchoring restoration is not scroll-jacking** (watchlist round, 2026-07-19): the
+  sanctioned shape for disclosure-growth compensation is a synchronous,
+  activation-triggered, MEASURED-delta `scrollBy` that no-ops where the browser
+  anchors (proxy-verified 0/−180/0/0). Animated or assumed-delta variants stay banned;
+  a synchronous restoration cannot read as motion, so it is invisible by construction.
+- **Tap-to-pin is the touch analog of focus-pin, not a fork:** one shared tooltip,
+  pointerType branch ONLY in the stage handlers; touch tap pins, dismissal is the
+  reader's own next tap or scroll — never a timer, zero new marks or styles.
+- **The census conceit is load-bearing:** the stage tooltip is the only surface
+  naming most of the 82 individuals; no input modality may be cut off from it.
+  Suppress-for-touch is permanently off the table.
+- **Exposure changes reach, not content:** widening a verified string's audience
+  renders the SAME string verbatim from its one home; if it doesn't fit the vessel
+  (prose in the readout tooltip), change the vessel — never the string, never the mark.
+- **Measured-vs-inferred labeling:** any decision resting on unreachable hardware
+  states measured facts and inferences separately, verbatim, in the log.
+- **Acceptance is a decision with a tripwire:** accepted limitations (Q1 hover-only
+  whys; Q4 5px stage type) enter the log with written reopening triggers — Q4 reopens
+  if any anno ever carries content absent from caption/copy.
 
 ## Working knowledge
 
@@ -114,90 +133,89 @@
   beat 4 (held pause) gets the quietest variant "The paper trail." — identical
   placement/size everywhere.
 
-## Banked: pipeline-reveal (2026-07-18, compacted)
+## Banked: pipeline-reveal + per-character (2026-07-18, compacted)
 
-Won: chip reuse (adjudication upgraded my SVG-imitation plan to real HTML `.chip`
-elements — the stronger form of my own principle: propose *using* the existing CSS,
-not imitating it); monochrome ◆/◇ badges (severity from `spec.blocking`, mark can't
-lie); shared disclosure selector; no per-card mini-DAGs. Lost: horizontal chain with
-overflow-x — at ~260px it hides the terminal node (the payoff) behind a scroll.
-Banked distinction: overflow-x is a dashboard affordance, never a story affordance.
-Lessons: measure content budget before proposing an axis; treat a spec's stated
-technology ("SVG diagram") as a guess to challenge, not a constraint.
+Won: real HTML `.chip` reuse (propose *using* existing CSS, not imitating it);
+monochrome ◆/◇; shared disclosure selector; no per-card mini-DAGs. Lost: horizontal
+chain — at ~260px overflow-x hides the payoff node (dashboard affordance, never
+story). Commit 082d9c9 landed beats 4–6 with ZERO new mark types; vertical-budget
+watch resolved at 390/360. Lessons: measure content budget before proposing an axis;
+treat a spec's stated technology as a guess to challenge.
 
-## Banked: per-character transform landed (2026-07-18, compacted)
-
-Commit `082d9c9`: beats 4–6 render the three-chip vertical chain + four-badge ◇ rail
-with ZERO new mark types; `.hot` gold seat unchanged (`galaxy_report` only) — the
-reuse-first outcome the chip law was written for. Vertical-budget watch RESOLVED:
-headless 390x844 / 360x740 pass — reveals grow downward, stage cap holds; floor rules
-(never shrink type, never touch the stage) remain the fix path on regression.
 ## Banked: post-landing cleanup (2026-07-18, compacted)
 
-Decision log `2026-07-18-post-landing-cleanup.md`; commits c0b97e0, 2aa845e.
-Lost Q1 (guard+blocking filtered rail) to the coverage-understatement objection:
-character_stats carries ZERO blocking checks, so my rule degenerated to empty rails.
-The remedy (re-authored strings + standing spoiler pin) delivered every demand I
-actually hold: renderer untouched, ONE uniform rule per beat, no narrative fields.
-Lessons: (1) when strings are generated AND test-pinned, fixing strings IS systemic —
-don't solve content-layer honesty with renderer layout; (2) run any filter rule's
-degenerate case against every asset's real check inventory by severity first.
-Won Q2/Q3: SQL truth with zero visual delta (no "verified" mark, unanimous);
-denominator clause on chart 5; one ◇ where characters_enriched appears while
-galaxy_report stays honestly check-free — a disclosed gap beats a phantom badge.
-Watch update: `.prov-check` 11.5 is no longer a retire-on-raise exception — it is a
-Settled whisper pin (see Settled; 2026-07-19 bank). Title-attribute `why` tooltips
-remain hover-only with no touch affordance (standing watch, not mine alone). Generated copy self-corrects in both
-directions: beat 4–6 caveats self-removed; beat-7 overflow failed loudly.
+Log `2026-07-18-post-landing-cleanup.md`; c0b97e0, 2aa845e. Lost Q1 (filtered rail):
+character_stats has zero blocking checks, so my rule degenerated to empty rails; the
+string-level remedy delivered everything I hold (renderer untouched, one uniform
+rule, no narrative fields). Lessons: generated + test-pinned strings mean fixing
+strings IS systemic; always run a filter rule's degenerate case against real check
+inventories by severity. Won: SQL truth with zero visual delta; denominator clause;
+disclosed check-gap beats a phantom badge. Generated copy self-corrects both ways.
 
 ## Banked: birth registry + hue enforcement (2026-07-19, compacted)
 
-Decision log `2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e, 4d92cb7,
-f170379 (screenshots at 15 checks — README-retake CLOSED). Q3 adopted in full;
-registry card shipped as specced with zero new mark types; amber deleted; gold rings
-on the three true extremes only (Vader label-only). Gold-ring, solid-tint-ladder, and
-HTML-caption laws all promoted to Settled. Lessons kept: when the goal is identity
-across media, spec the computed VALUE, not the rendering trick (ladder landed as
-color-mix, not my fill-opacity spec — the stronger form of my own must-have); label
-collisions fix by staggered rows; test SVG text longer than a name at 360–390 before
-speccing it as SVG. CORRECTION absorbed: the four "off-token" survey hexes were
-already tokenized in 1123757 (--tip-bg, --axis, --cyan, --sql-ink). Rail-mass watch
-CLOSED: 360px with 15 checks — no horizontal scroll, chips 125–180px in a 244px
-rail, 6-row max stack, summaries ≥44px.
+Log `2026-07-19-birth-registry-and-polish.md`; 1f3cf9e, 4d92cb7, f170379. Registry
+shipped with zero new mark types; amber deleted; gold rings on the three true
+extremes only. Gold-ring, tint-ladder, HTML-caption laws promoted to Settled.
+Lessons: for cross-media identity, spec the computed VALUE, not the rendering trick
+(color-mix beat my fill-opacity spec); collisions fix by staggered rows; test SVG
+text longer than a name at 360–390 first. Correction absorbed: the four "off-token"
+hexes were already tokenized (1123757). Rail-mass watch closed at 360px/15 checks.
 
-## Banked: token hygiene + style guard (2026-07-19)
+## Banked: token hygiene + style guard (2026-07-19, compacted)
 
-Decision log `2026-07-19-token-hygiene.md`; commit a30a5bc (site/index.html +
-tests/test_site_style_hygiene.py). My standing proposal, landed.
+Log `2026-07-19-token-hygiene.md`; commit a30a5bc. My standing proposal, landed:
+integer collapse as specced; dead JS attr gone; gold rgba → color-mix; Q3
+no-font-size-tokens 5–1 with registry-is-the-test adopted verbatim; guard scans
+CSS+JS, strips the DATA literal, ships same-commit, seen-to-fail. Gender `#fff`
+died and AA was fixed in one move (per-rank ink from the ladder array). Lost,
+rightly: `.prov-check`→12 (retiring a Settled exception inside a hygiene pass is
+back-door relitigation — 11.5 is authored contrast vs the 12px machinery voice);
+chart-lettering raises (unfunded verification burden → raise-only law); zero
+sanctioned literals (exact pins can't rot; my canvas bridge had init-order risk).
+Lessons: distinguish disease from authored exception; check whether an executable
+pin fixes an allow-list before rejecting it; cost my own riders; verify every
+ledger claim against source in PREP — the ledger rotted twice.
 
-**Won:** the CSS integer collapse exactly as specced (10.5→11, 12.5→13, 13.5→14,
-16.5→17); dead 11px JS attr deleted; gold rgba leaks → color-mix idiom; Q3
-no-font-size-tokens carried 5–1 with my registry-is-the-test framing adopted
-verbatim; Q4 guard scans CSS AND JS (analyst's veto reinforced this), strips the
-one-line DATA literal first, ships same-commit, seen-to-fail before landing. Gender
-`#fff` died AND the AA failure was fixed in the same move via per-rank ink from the
-tint-ladder array — ink-adapts-to-its-ground is the tint law's natural sequel.
+## Banked: watchlist round (2026-07-19)
 
-**Lost, and rightly:**
-- `.prov-check`→12 (4–2). I proposed retiring a Settled exception inside a hygiene
-  pass — relitigation by the back door. The storyteller's craft argument was correct
-  ON MY OWN TERMS: `details.prov summary` is 12 and `.chip` is mono 12, so at 12px
-  the guard voice merges into the machinery voice on the rail the held pause depends
-  on. The 11.5 whisper is authored contrast, not disease.
-- Chart-lettering raises (3–2): exempted as a pinned geometry tier. My raise carried
-  an unfunded verification burden (collisions, clipping, the w>46 gate); raise-only
-  grants permission, not obligation — standing still needs no evidence.
-- Zero sanctioned literals: the exact-pin shape answers my "allow-lists rot"
-  objection (a drifted pin FAILS the test), while my canvas bridge had an unanswered
-  init-order risk on the hero canvas. Scenery-is-not-ink is a better cut than my
-  absolutism — the guard still counts and comments the literal.
+Decision log `2026-07-19-watchlist-round.md`; commit fdd3178. All four watch items
+closed; prep notes compacted into Settled + the skill.
 
-**Prep differently next time:**
-1. Distinguish disease from authored exception before proposing a collapse — a
-   half-pixel with a craft rationale and a Settled seat is not hygiene debt.
-2. When my objection to an allow-list is "it rots," first check whether an
-   executable exact pin removes the rot before rejecting the list outright.
-3. Cost my own riders: a raise needing two-viewport collision re-verification is not
-   free; if I can't fund the evidence, don't spend the votes.
-4. The ledger rotted twice (four-hexes, prov-check) — keep verifying every ledger
-   claim against source in PREP; this time the correction saved my credibility.
+**Won:**
+- Q2 ship, 3–2–1. My argument — "a synchronous scrollBy cannot read as motion" —
+  named the shape; the analyst's evidence gate made it land: the orchestrator's
+  `overflow-anchor:none` proxy measured 0/−180/0/0 across all four states. The
+  landed form (capture summary top on click, restore measured delta on toggle,
+  site/index.html:471–485) is BETTER than my "just compensate" instinct because the
+  measured delta self-corrects: where the browser anchors, it no-ops. Now Settled as
+  "anchoring restoration is not scroll-jacking."
+- Q3 tap-to-pin, 5–1 — my "analog, not a fork" framing carried and shaped the
+  implementation exactly: shared tip module, `tipPinned` flag, pointerType branch
+  only in the stage handlers (799–802), scroll/tap dismissal, zero new marks.
+- Q1 accept, 4–2 — my every-exposure-shape-breaks-a-law walk (48 tab stops, nested
+  details vs one-disclosure law, prose-in-readout fork) was cited in adjudication;
+  the settled legend line stands as the honest contract. Tripwire recorded.
+- Q4 accept, unanimous — my unfundable-raise costing (viewBox-unit blowup, anchor
+  geometry across 8 states, @media-blind guard parser) was part of the kill; the
+  8px-effective ceiling (beat 5's 20-unit witness stack) made the raise IMPOSSIBLE
+  below target, not merely expensive.
+
+**Lost, and rightly:** my Q3/Q4 coupling — "the pinned tooltip substitutes for the
+illegible annos" — was demoted to bonus channel. The analyst's redundancy audit is
+the actual warrant: zero load-bearing orphans at 5px; every stage claim has a
+real-pixel twin in `.stage-cap` or 16px beat copy. Correct on my own terms: an
+acceptance that leans on a brand-new affordance is fragile (remove the pin, lose the
+warrant); an acceptance grounded in the EXISTING system stands alone. Never make a
+new mark or behavior load-bearing for a limitation you're accepting.
+
+**Prep differently:**
+1. Pair aesthetic verdicts with a measurement plan — "cannot read as motion" was
+   right, but the four-state proxy matrix is what closed the vote. Propose the
+   experiment, not just the judgment.
+2. When arguing two questions are coupled, state which direction the dependency
+   runs and whether each verdict survives alone — the panel will decouple them, so
+   do it first.
+3. Redundancy audits (does a real-pixel twin exist for every scaled claim?) are a
+   reusable acceptance test for any SVG-legibility complaint — run one in prep
+   before proposing compensation.

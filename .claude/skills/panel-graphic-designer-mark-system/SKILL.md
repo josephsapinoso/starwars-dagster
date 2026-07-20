@@ -64,6 +64,47 @@ justify a permanent seat.
     widths (proven at 390px). Two or more annotations on one strip get staggered
     rows on collision; type never shrinks as the fix.
 
+## The shared tooltip is a data readout (verified 2026-07-19)
+
+`tipShow(evt, title, rows)` (~445–465) is the ONE tooltip: title + rows of
+{color chip, value, label}. Its grammar is a data readout, not a prose container —
+proposals to pour paragraph-length text (e.g. 113–213-char check `why` strings) into
+it fork the mark even though `r.color` is optional. Its complete persistence family
+(all one mark, landed fdd3178):
+- **hover-follow** — pointermove shows, pointerleave hides (mouse);
+- **focus-pin** — keyboard focus pins at screen center until blur (dashboard marks);
+- **touch-pin** — the touch analog of focus-pin: a real tap's pointermove shows AND
+  sets `tipPinned` (`e.pointerType === "touch"`); pointerleave ignores touch; the
+  module-level scroll listener and any hit-test miss call `tipHide`. Dismissal is
+  always the reader's own act (next tap or scroll), NEVER a timer. The pointerType
+  branch lives only in the stage handlers (~799–802) — the shared module gains one
+  flag, zero new marks or styles.
+Because the tooltip is real-pixel HTML, it is immune to SVG viewBox scaling: on
+small screens it carries a scaled figure's readout at full legibility — but as a
+BONUS channel only. Never make the pin load-bearing for accepting scaled-type
+illegibility; the warrant must be redundancy in the existing system (a real-pixel
+twin in caption/prose for every claim). The census conceit is settled law: the stage
+tooltip is the only surface naming most of the 82 individuals, so no input modality
+may be cut off from it — suppress-for-touch is banned.
+
+## SVG type audits: effective size, not CSS size (technique, 2026-07-19)
+
+For text inside a scaled `viewBox`, what the eye gets is
+`effective px = css px × (rendered width / viewBox width)`. The 700-wide stage
+renders 312px @360 viewport → ×.45: `.axis-t` 11.5 → 5.1px, `.anno-name` 12 →
+5.3px. Before proposing a compensating media bump, cost it honestly:
+1. The needed css value is huge in viewBox units (≈20–22px for ~9–10 effective at
+   ×.45) — authored anchor offsets (±10–16 units, tuned to 12px text) and label
+   widths (~210 units for a 19-char name at 22px) break across every figure state;
+   raise-only law makes that collision re-verification YOUR burden.
+2. The style-hygiene guard's parser is not media-query-aware (splits on `}`,
+   partitions on first `{` — the inner selector of `@media { .sel { … } }` is
+   lost), so a media bump is a parser amendment, not a pin row; and the
+   no-font-size-tokens law forbids the variable shortcut.
+3. Audit duplication first: HTML captions (`.stage-cap` 13px) and beat prose render
+   at REAL pixels and may already carry every anno payoff — if so, the scaled SVG
+   text is reinforcement, and the real-pixel tooltip is the interactive substitute.
+
 ## Color-token consumption across media (banked 2026-07-19)
 
 - **Data-ink** hex literals belong ONLY in the `:root` token block — including

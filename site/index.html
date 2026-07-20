@@ -462,7 +462,27 @@ function tipMove(evt) {
   if (y + h > innerHeight - 8) y = evt.clientY - h - pad;
   tip.style.left = x + "px"; tip.style.top = y + "px";
 }
-function tipHide() { tip.classList.remove("on"); }
+function tipHide() { tip.classList.remove("on"); tipPinned = false; }
+/* touch pins the tooltip (a tap's pointermove shows it; its pointerleave must not
+   take it away) — dismissal is the reader's own next tap or scroll, never a timer */
+let tipPinned = false;
+addEventListener("scroll", () => { if (tipPinned) tipHide(); }, { passive: true });
+
+/* Safari has no scroll anchoring: a centered reveal opening shifts the clicked
+   summary ~180px under the pointer. Restore the measured delta on toggle — where
+   the browser anchors (Chromium), the measured delta is 0 and this no-ops.
+   Synchronous and activation-triggered: anchoring restoration, not scroll-jacking. */
+let revealAnchor = null;
+document.addEventListener("click", e => {
+  const s = e.target.closest("details.prov summary, details.sql summary");
+  if (s) revealAnchor = { s, top: s.getBoundingClientRect().top };
+}, true);
+document.addEventListener("toggle", e => {
+  if (!revealAnchor || !e.target.contains(revealAnchor.s)) return;
+  const d = revealAnchor.s.getBoundingClientRect().top - revealAnchor.top;
+  revealAnchor = null;
+  if (Math.abs(d) > 1) scrollBy({ top: d, behavior: "instant" });
+}, true);
 
 /* ── hero canvas: ambient starfield (nothing auto-plays, nothing gates) ── */
 (function starfield() {
@@ -776,10 +796,10 @@ function tipHide() { tip.classList.remove("on"); }
       const dd = (d.x - mx) ** 2 + (d.y - my) ** 2;
       if (dd < bd) { bd = dd; best = idx; }
     });
-    if (best >= 0) tipShow(e, PEO[best].name, st.tip(PEO[best]));
+    if (best >= 0) { tipShow(e, PEO[best].name, st.tip(PEO[best])); tipPinned = e.pointerType === "touch"; }
     else tipHide();
   });
-  svg.addEventListener("pointerleave", tipHide);
+  svg.addEventListener("pointerleave", e => { if (e.pointerType !== "touch") tipHide(); });
 
   /* ── stepper: IntersectionObserver on the card crossing viewport center ── */
   const steps = [...document.querySelectorAll(".step")];

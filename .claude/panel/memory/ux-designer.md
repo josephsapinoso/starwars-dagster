@@ -84,6 +84,31 @@
   lists. (e) *Raise-only grants permission, not obligation* — standing still needs no
   evidence; moving chart geometry does. `.prov-check` stays 11.5 (pinned): the badge
   voice must not merge with the 12px summary/chip machinery voice on the rail.
+- **Watchlist-round laws (2026-07-19, commit fdd3178):**
+  (a) *Anchoring restoration is not scroll-jacking* — capture the clicked summary's
+  rect.top on summary `click` (capture phase), compare on `toggle`,
+  `scrollBy({top:delta, behavior:"instant"})` when |delta|>1 (site ~471–485):
+  synchronous, activation-triggered, self-noops where the browser anchors and on
+  top-anchored mobile. Animated or assumed-delta variants stay banned.
+  (b) *Acceptance is a decision with a tripwire* (my must-have, law verbatim) — an
+  accepted limitation enters the log with its reopening trigger written down.
+  (c) *Measured-vs-inferred labeling* — decisions resting on unreachable hardware
+  state measured facts and inferences separately, verbatim, in the log.
+  (d) *The census conceit is load-bearing* — the stage tooltip is the only surface
+  naming most of the 82 individuals; no input modality may be cut off from it.
+  Touch PINS (site ~465–469, 799–802): touch pointermove shows and pins,
+  pointerleave skips hide for touch; dismissal is the reader's next tap (hit-test
+  miss → tipHide) or scroll (explicit tipHide), never a timer.
+  (e) *Exposure changes reach, not content* — a wider audience gets the same string
+  verbatim from its one home; if it doesn't fit the vessel, change the vessel.
+- **Standing acceptances with tripwires (watchlist round):** badge whys stay
+  title-only desktop bonus — reopen if a why gains load-bearing content with no
+  non-hover home or the legend line ceases to be true (spoiler pin already scans
+  label+why; whys are verbatim spec.description projections, so the Dagster-UI
+  home is genuine). Stage SVG type stays (~5.1px eff @360) — redundancy-warranted;
+  a css raise is IMPOSSIBLE below target (20-unit witness stack caps ~8px eff);
+  reopen if any anno carries content not in copy/caption; a viewBox rework must
+  arrive with the 8-state anchor-geometry re-verification costed.
 
 ## Working knowledge
 
@@ -96,102 +121,89 @@
   ship new components static-first so there is nothing to gate.
 - Native `<details>/<summary>` is the accessibility-cheapest disclosure; touch targets
   ≥44px on summaries/toggles at 360px width; step cards ~44ch.
-- Desktop steps are center-flex (`align-items:center`, min-height min(102svh,880px)):
-  content growth re-centers the card and can shift a clicked summary UP. Mobile
-  stations are top-anchored, growth is downward. Mitigation: expandables live at the
-  bottom of `.step-inner`; real-device scroll-anchoring check still open.
-- Stepper is height-agnostic (IO at rootMargin -45%); station min-heights are minimums
-  — grown steps just add reader-paced scroll. Never shrink the stage to make room.
+- Desktop steps are center-flex (min-height min(102svh,880px)): reveal growth shifts
+  the clicked summary UP where the browser lacks scroll anchoring — now compensated
+  by the settled delta-restoration shape. Mobile stations are top-anchored, growth
+  downward. Stepper is height-agnostic (IO at rootMargin -45%); station min-heights
+  are minimums; never shrink the stage to make room.
 - Width budget: at 360px viewport ≈260px of card content; page body never scrolls
   horizontally, only dedicated containers (`.dag` strip) may `overflow-x:auto`.
 - Baseline hygiene shipped 2026-07-19: doctype + `<html lang="en">` present; story has
   a visually-hidden h2 and each beat kicker is a real `<h3>` — the heading outline gap
   from my survey is closed. Protect these; they are easy to lose in a rewrite.
 
-## Banked: pipeline-reveal (2026-07-18, compacted)
+## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
 
-- Won: vertical HTML `.chip` chain over horizontal SVG (my ~260px budget argument);
-  beats 1–6 only with beat-0 kept clean — the orchestrator satisfied the
-  hiring-manager *structurally* (raw_people heads every chain). Lesson: when resisting
-  an extra affordance, show where the underlying need is already served.
-- Lost/lesson: I spec'd ARIA for an SVG mini-DAG that never existed — interrogate
-  whether plain HTML can render the artifact before designing the ARIA for a graphic.
-- Prep lesson: measure a prototype at 260px before debate; read severity semantics
-  myself instead of inheriting the brief's beat→asset map (it was partly false).
-
-## Banked: post-landing cleanup (2026-07-18, compacted)
-
-- Won: legend rider verbatim (no "hover ..." promises); my touch-surface analysis
-  (label IS the whole touch/keyboard experience) was cited by both camps and shaped
-  the winning spoiler-free labels. A precise surface analysis steers outcomes even
-  when the headline proposal loses.
-- Lost: cumulative beat-indexed rail (5–3–1) — a hand-authored `beat` field is
-  unverifiable narrative metadata; re-authoring strings bought uniformity AND spoiler
-  safety. Lesson: cost the string fix before any renderer fix; draft exact
-  replacement strings during prep. Riders on other roles' proposals evaporate with
-  them — spend debate words on my own proposal's survivable parts.
+- Won: vertical chip chain (260px budget); beats 1–6 with beat-0 clean; legend
+  rider verbatim; touch-surface analysis shaped the winning labels.
+- Lessons: show where a resisted affordance's need is already served; render plain
+  HTML before designing ARIA for a graphic; measure at 260px before debate; verify
+  the brief's claims myself; cost string fixes before renderer fixes; riders on
+  other roles' proposals evaporate with them.
 
 ## Banked: birth registry, coda, hue enforcement (2026-07-19, compacted)
 
-- Won: coda mechanics shipped exactly as filed (promoted to Settled as the
-  fragment-navigation pattern); no-tooltip-content law survived its first offensive
-  test (BBY gloss prints in the subtitle); keyboard parity landed wider than my ask
-  (all six renderers, not just registry dots — the improvement-survey scatter gap
-  closed); sliver protection via legend conversion; testimony-caption clipping caught
-  in-flight → "SVG text doesn't wrap" rule.
-- Lost, rightly: I called the coda digits-pin theater. QA's distinction stands —
-  pinning a PROPERTY (stays number-free, the premise of its detector exemption) is an
-  honest absence assertion; pinning WORDING would be theater. Before objecting to a
-  guard, name the exact property it asserts; my own guard-honesty law WANTS such pins.
-- Prep lesson (my highest-yield yet): the fresh-eyes improvement survey doubling as
-  prep — file:line findings became shipped fixes without spending debate capital.
-  Keep auditing the artifact between debates and file findings with line numbers.
+- Won: coda mechanics shipped as filed (promoted to Settled); no-tooltip-content law
+  survived its first offensive test (BBY gloss in the subtitle); keyboard parity
+  landed wider than my ask (all six renderers); legend conversion for slivers;
+  "SVG text doesn't wrap" rule from the in-flight testimony-caption catch.
+- Lost, rightly: I called the coda digits-pin theater; pinning a PROPERTY is an
+  honest absence assertion (pinning wording would be theater). Before objecting to a
+  guard, name the exact property it asserts.
+- Prep lesson (highest-yield yet): the fresh-eyes artifact survey doubling as prep —
+  file:line findings became shipped fixes without spending debate capital.
 
-## Banked: token hygiene + raise-only type (2026-07-19, commit a30a5bc)
+## Banked: token hygiene + raise-only type (2026-07-19, a30a5bc, compacted)
+
+- Won: AA fix shipped better than my remedy — per-rank `.seg-pct` ink from the same
+  ladder index that drives segment color (no single ink passed both grounds).
+  Lesson: run the contrast pair for EVERY ground, not the worst one I checked. Dead
+  11px attr deleted; the JS-scan guard requirement was pure prep yield; 360/390
+  re-verified pre-merge.
+- Lost: `.prov-check` 11.5→12 (4–2) — the exception is load-bearing craft (voice
+  separation), and the whisper clause pins it loud and testable, answering my real
+  objection (unauditable holes) better than erasing it. Chart-lettering raises
+  exempted as a pinned geometry tier (evidence burden real and unfunded).
+- Prep differently: cost my own remedies with the rigor I cost others'; before
+  retiring a settled exception, check whether it is craft, not debt.
+- Durable: six dashboard charts measure `viz.clientWidth` (true CSS px, verify at
+  360); stage svg is fixed 700×620 viewBox (scaled text). Rail at 360: chips one
+  per row in a 244px rail, summaries 46–64px. Gender label gate `w > 46` untouched.
+
+## Banked: watchlist round (2026-07-19, commit fdd3178) — all four items CLOSED
 
 **Won:**
-- AA-fix-ships-this-pass carried, and got BETTER than my proposal. My prep found the
-  live defect (white 11.5px on --s1 ≈3.6:1) and I said "white at 12px is not on the
-  menu" — correct. But my remedy (single dark ink) was refined by the orchestrator's
-  math: NO single ink passes both labeled segments (--void ≈5.5:1 on full s1 but
-  ≈3.7:1 on the 75% tint; --ink ≈4.8:1 on the tint but fails full s1). Landed:
-  `.seg-pct` class with per-rank ink from the same ladder index that drives segment
-  color (site ~98, ~1131–35). Lesson: when proposing an ink, run the contrast pair
-  for EVERY ground it can sit on, not the worst one I happened to check.
-- Dead 11px attr deleted with its inert small flags — the JS-attr-precedence find was
-  pure prep yield. JS-scan requirement shipped in the guard (shared must-have with
-  the analyst; a JS-blind guard would have missed all four literal residues).
-- Headless 360/390 re-verify ran pre-merge: no overflow, kickers fit, rails wrap,
-  seg-pct inks confirmed rendering var(--void)/var(--ink), zero drift warnings.
+- Q2 shipped in my exact delta-compensation shape, and my dual-branch merge gate
+  ran on the landed code: anchoring-on 0/0/0, anchoring-off 0/0/0 at beats 1/4/6,
+  Safari condition (−181/−179/−179 unfixed) reproduced via `overflow-anchor:none`
+  proxy. Reveal-arc law was already violated ON Safari; the fix restores it. The
+  no-offline-guard objection fell to the render-only precedent: recorded proxy
+  evidence re-run pre-merge, no fakeable mechanical pin.
+- Q1 (4–2) and Q4 (unanimous) acceptances carried WITH my tripwires; "acceptance
+  is a decision with a tripwire" is now law verbatim. My Q4 killer fact held.
+- My stale-state must-have landed inside the Q3 shape I lost: explicit tipHide on
+  scroll (site:469). Verified: pin survives pointerleave, scroll dismisses, mouse
+  path byte-identical including scroll survival of unpinned tooltips.
 
-**Lost:**
-- `.prov-check` 11.5→12 (4–2). The storyteller's craft argument beat my
-  retire-the-exception tidiness: summary is 12 and chips are mono 12, so a 12px badge
-  merges the guard voice into the machinery voice on the held pause's rail. The
-  whisper clause converts the exception from a hole into a pinned law, which answers
-  my real objection (unauditable exemptions) better than erasing it. Lesson: my
-  target was the HOLE, not the size — when a pin can make an exception loud and
-  testable, retiring it buys nothing.
-- Chart-lettering raises (3–2): exempted as a pinned geometry tier. Fair — the
-  collision/gate evidence burden was real and unfunded, and raise-only grants
-  permission, not obligation. My fixed-viewBox stage-legibility find (stage text
-  renders ×~0.69 on the 480px mobile stage; 12px ≈ 8.2px effective) is logged as a
-  possible FUTURE proposal needing its own evidence. → Watchlist.
+**Lost, and the lesson:**
+- Q3 5–1: suppress-for-touch fell to the census-conceit veto. My "enrichment,
+  redundant below" claim was wrong at the individual grain — the stage tooltip is
+  the ONLY surface naming most of the 82 people; the dashboards aggregate. Cutting
+  touch off from a modality-exclusive surface is the inequity my own tooltip law
+  exists to prevent — I ran the redundancy audit line-by-line for Q4 and never ran
+  it for Q3. Audit a tooltip at the finest grain it exposes, not the grain the
+  charts summarize. Also: the pin state machine I priced as expensive was ~4 lines
+  because dismissal reused existing paths (hit-test miss, scroll) — cost the shape
+  in the actual codebase before calling it prohibitive.
 
-**Prep differently:** cost my own remedies with the same rigor I cost others' — the
-adaptive-ink refinement was one contrast multiplication away from being MY proposal.
-And when defending a raise that retires a settled exception, check first whether the
-exception is load-bearing craft (voice separation) rather than accumulated debt.
+**Prep differently:** run content-redundancy audits symmetrically across every
+question they could decide, not just the one I favor accepting. And when I hold a
+veto-shaped position, assume another role holds the opposing veto and pre-cost the
+compromise with my must-haves attached — the stale-state rider is what salvaged Q3
+for me.
 
-**Durable working knowledge kept:** six dashboard charts measure `viz.clientWidth`
-(true CSS px, verify at 360); stage svg is fixed 700×620 viewBox (scaled text). Rail
-density at 360 verified: chips wrap one per row inside a 244px rail, summaries
-46–64px ≥44px target; sole cosmetic note is mid-word overflow-wrap of the long check
-ref "character_stats_one_film_baseline" — acceptable, revisit only if user-facing
-prose starts breaking. Gender label gate `w > 46` untouched (label size stayed 11.5).
-
-**Watchlist (carried + new):** real-device AT exposure of `title` on check badges;
-desktop center-flex scroll-anchoring jump on reveal open; stage-dot tooltip flash on
-touch tap; NEW — stage viewBox legibility raise (own evidence pass: viewBox-relative
-collision check, mobile effective-size table, before/after at 480px stage cap) if I
-choose to fund it.
+**Watchlist (fresh — confirmatory only, no open design questions):** real-iOS pass
+of the shipped Q2/Q3 behavior when hardware appears (proxy inference is recorded
+under the measured-vs-inferred law — confirmation, not debt); real-AT exposure of
+badge `title` (a Q1-tripwire watch, not a work item). Retired: touch-flash,
+anchoring jump, stage-type raise (the Q4 tripwires own any reopening).

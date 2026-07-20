@@ -5,6 +5,31 @@ description: UX rules for typography and color inside SVG charts — presentatio
 
 # Type and color inside SVG charts
 
+## 0. Svg-level pointermove tooltips flash on real touch (and hide in emulation)
+A nearest-mark hit-test on svg `pointermove` + hide on `pointerleave` produces a
+show-then-hide FLASH on a real touch tap (spec sequence: over/enter/move → down/up
+→ out/leave), but headless touch emulation fires NO pointermove — the bug is
+invisible to Playwright/Chromium taps, so reason from the pointerevents spec, not
+from failed repro; verify handler logic by dispatching the spec sequence
+synthetically. Never leave the flash: a glitch is worse than a clean absence.
+
+Choosing the fix — audit content at the FINEST grain the tooltip exposes, not the
+grain the charts summarize (banked 2026-07-19: I wrongly called a census tooltip
+"enrichment" because aggregates existed below; it was the only surface naming most
+of the 82 individuals — the census-conceit veto):
+1. **Tap-to-pin** whenever the tooltip is a modality-exclusive surface (any content
+   with no non-touch-hostile home). Shipped shape (commit fdd3178, site ~465–469,
+   799–802), ~4 lines because dismissal reuses existing paths: on show, set a pin
+   flag when `e.pointerType === "touch"`; in `pointerleave`, skip hide for touch;
+   dismissal is the reader's own next tap (the hit-test miss branch already calls
+   hide) or their own scroll (a passive scroll listener calls EXPLICIT hide when
+   pinned — the stale-state must-have), never a timer. Mouse/keyboard paths stay
+   byte-identical, including scroll survival of unpinned tooltips.
+2. **Suppress for touch** (`if (e.pointerType === "touch") { hide(); return; }`)
+   only when the finest-grain audit proves every tooltip fact has a canonical
+   non-hover home — and expect a veto if any grain is exclusive.
+Cost the pin shape in the actual codebase before pricing it prohibitive.
+
 Derived from site/index.html during the token-hygiene prep (2026-07-19).
 
 ## 1. Presentation attributes lose to ALL CSS
@@ -21,6 +46,18 @@ tokens; attributes are the drift vector no stylesheet review ever sees.
   width-INDEPENDENT (everything scales together — check once, any width), but
   *effective* rendered size = declared × (rendered/viewBox width). A "12px" label
   can really be ~8px on a phone; raising declared size is a mobile legibility win.
+  **Ceiling check before proposing any raise:** authored annotation geometry caps
+  the declared size — find the minimum stacked-label spacing in viewBox units
+  (e.g. names stacked `(i-1)*20` apart cap font at ≲18) and hand-tuned `x±10/y-12`
+  offsets tuned to the old size. Compute `ceiling × min(rendered/viewBox)`: if
+  that is still below the legibility floor (~9–10px effective), a font bump
+  CANNOT deliver — the honest options are a viewBox rework or documented
+  acceptance backed by verified content redundancy (every annotation fact also
+  printed in HTML copy/captions). Also check selector sharing: a class used in
+  BOTH regimes (`.axis-t` on the stage AND measured-px dashboard charts) must be
+  scoped per fixed-viewBox context — including flat-mode clones of the chart,
+  which usually live outside the main svg's id — or the bump inflates already
+  legible text.
 - **Measured width** (`viz.clientWidth`, viewBox rebuilt per render): font-size is
   true CSS px. Legibility is constant, but collisions and fit gates (e.g. "label
   only when segment > 46px") are worst at 360px — that's where you re-verify.

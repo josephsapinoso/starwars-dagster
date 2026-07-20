@@ -98,6 +98,20 @@
   tokens, no parallel lists. (I lost this 5–1; it is law.)
 - **Raise-only grants permission, not obligation:** standing still needs no evidence;
   moving chart geometry does. `.prov-check` stays 11.5 (Settled; four roles hold it).
+- **Measured-vs-inferred labeling (watchlist round, 2026-07-19):** any decision resting
+  on unreachable hardware states its measured facts and its inferences separately,
+  verbatim, in the log.
+- **Anchoring restoration is not scroll-jacking:** a synchronous, activation-triggered,
+  MEASURED-delta scroll correction that no-ops where the browser anchors is the
+  sanctioned shape for disclosure-growth compensation; animated or assumed-delta
+  variants stay banned.
+- **Acceptance is a decision with a tripwire:** an accepted limitation enters the log
+  with its reopening trigger written down; a shrug is not a verdict.
+- **The census conceit is load-bearing:** the stage tooltip is the only surface naming
+  most of the 82 individuals; no input modality may be cut off from it.
+- **Exposure changes reach, not content:** widening a verified string's audience
+  renders the same string verbatim from its one home; if it doesn't fit the vessel,
+  change the vessel. (My verbatim one-home law, promoted even as my Q1 proposal lost.)
 
 ## Working knowledge
 
@@ -134,18 +148,23 @@
   `TRY_CAST(regexp_extract(...'^([0-9.]+)(BBY|ABY)$'...)) * CASE WHEN ... ABY THEN -1`
   (transforms.py:246); CSV side effect; feeds `galaxy_report`.
 - Residual open items: NONE as of 2026-07-19 (lock race, snapshot identity, env
-  pinning all closed).
-- Snapshot identity is reader-visible (2e47baa): `DATA.meta` carries
-  source+snapshot date; footer renders only from it; `tests/test_site_data.py:68`
-  pins it to SNAPSHOT.json's `fetched_at`; drift detector warns on malformed meta.
-- Env reproducibility (same commit): `requirements.lock` pins transitives; both
-  workflows install with `-c requirements.lock`; pyproject ranges stay authoritative
-  for humans. CI/snapshot runs are reconstructible from the repo. Closed.
+  pinning, all four ux watchlist items closed).
+- Snapshot identity (2e47baa): `DATA.meta` carries source+snapshot date; footer renders
+  only from it; pinned to SNAPSHOT.json `fetched_at` at tests/test_site_data.py:68.
+  Env reproducibility (same commit): `requirements.lock` pins transitives; both
+  workflows install with `-c requirements.lock`; pyproject ranges stay human-facing.
 - Style guard: `tests/test_site_style_hygiene.py` (a30a5bc) — five tests: hex-in-
   :root census, sanctioned-literal pins, gold single-home, CSS scale-or-pin, and
   no style literals in JS/markup. Scale constant `SANCTIONED_SCALE`
   {11,12,13,14,16,17,18,42}; six `EXEMPT_SELECTORS` pins; one sanctioned literal
-  (`#cdd8ef`). Any new size/color fact must land through this file.
+  (`#cdd8ef`). Any new size/color fact must land through this file. Hazard: pin
+  matching is FIRST-fragment-wins — a scoped pin must precede the general one.
+- Watchlist landings (fdd3178): reveal-delta compensation on `details` toggle
+  (capture summary viewport top on click, `scrollBy` the measured delta, instant,
+  site/index.html:484) and touch tap-to-pin in the ONE shared tooltip (`tipPinned`
+  :468, scroll dismiss :469, pointerType branch :799/:802 — no fork). Hazard on
+  record: `.axis-t`/`.anno-t` are shared with measured-px dashboard ink; any stage
+  type bump must scope `.stage .axis-t` and re-verify anno geometry by hand.
 
 ## Banked: 2026-07-18 panels (pipeline-reveal, character_stats, cleanup — compacted)
 
@@ -180,37 +199,51 @@
 - Sweep "Residual open items" against commits landing AFTER the debate and verify
   closure claims in-repo (grep the test/workflow/comment) before writing CLOSED.
 
-## Banked: token hygiene + style guard (2026-07-19, a30a5bc)
+## Banked: token hygiene + style guard (2026-07-19, a30a5bc — compacted)
 
-- **Won — the mechanics:** all three JS font-size sites resolved my way (gender
-  %-labels are class `.seg-pct`, registry caption is a class, dead 11px attr :747
-  deleted — zero JS font-sizes remain); no-fallback-hex held; DATA-line exclusion is
-  the guard's first move and asserts it FOUND the line (exclusion is load-bearing);
-  seen-to-fail ran at eight planted violations before landing. The guard is one
-  offline pytest (`tests/test_site_style_hygiene.py`), CSS+JS scan, no lint framework.
-- **Lost Q3 (5–1, no --fs-* tokens):** my rot objection was answered STRUCTURALLY —
-  the registry lives in an executable test that fails when the file drifts, unlike
-  the prose ledgers that rotted. Minting CSS variables to feed a test is the tail
-  wagging the stylesheet. Lesson: my "one home for the fact" doctrine is satisfied by
-  ANY machine-checked home; a test constant beats a token layer when nothing at
-  runtime consumes the tokens. Distinguish "second registry" (rots) from "second
-  home a test derives from" (can't rot) before objecting.
-- **Lost the starfield bridge (3–3, broken against me):** `#cdd8ef` stays a pinned
-  literal with a required "scenery, not ink" comment, counted exactly once. The
-  storyteller's exact-pin shape answers allow-list rot (a drifting pin FAILS), while
-  nothing answers a getComputedStyle init-order risk on the hero canvas. Lesson:
+- Won the mechanics: zero JS font-sizes remain, no-fallback-hex held, DATA-line
+  exclusion asserts it FOUND the line, seen-to-fail at eight planted violations; the
+  guard is one offline pytest, no lint framework. Lost Q3 5–1 (no --fs-* tokens):
+  one-home doctrine is satisfied by ANY machine-checked home — a test constant beats
+  a token layer nothing at runtime consumes; distinguish "second registry" (rots)
+  from "second home a test derives from" (can't). Lost the starfield bridge 3–3:
   when both sides' failure modes are real, the side whose failure the guard can
-  catch wins; my bridge's failure (blank canvas on init race) is unguardable offline.
-- `.prov-check` 11.5 stood on my own don't-relitigate line — four roles held Settled
-  law and the craft argument (12px merges badge voice into chip/summary voice on the
-  held-pause rail). Six whisper pins shipped: .axis-t/.val-t/.anno-t/.seg-pct/
-  .prov-check at 11.5, .cat-t 12.5. Gold: byte-pattern pinned exactly once in :root,
-  rgba leaks now color-mix derivations, `var(--gold)` explicitly free.
-- **Prep differently:** I championed the exact-pin instinct ("no silent holes") but
-  the storyteller SHAPED it into the winning clause — next time convert my own
-  objection into the mechanism (pins that fail both directions) instead of demanding
-  the exception not exist. Also: my census was right and cheap; machine-census-first
-  keeps paying — but I should have stress-tested my own bridge for init-order risk
-  before proposing it, as I would for any pipeline ordering question.
-- Skill `panel-data-engineer-single-file-hygiene-guard` updated to teach the shipped
-  whisper-clause shape, not my losing zero-exception derivation.
+  catch wins — my bridge's init-race blank canvas was unguardable offline.
+- Convert my own objection into the mechanism (pins failing both directions) instead
+  of demanding the exception not exist; stress-test my own proposals for ordering
+  risk. Skill `panel-data-engineer-single-file-hygiene-guard` teaches the shipped shape.
+
+## Banked: watchlist round (2026-07-19, fdd3178)
+
+- **Lost Q1 (4–2):** expose-whys-first fell to accept-and-document — 48 new tab stops
+  (~15 crossing the held pause) would make the page's quietest voice its loudest
+  keyboard path; ux scoped focus-parity to data marks, not whisper-tier chips whose
+  visible label+severity is the complete claim. But my verbatim one-home law was
+  promoted to Settled as "exposure changes reach, not content", and the reopening
+  tripwire (any why gaining load-bearing content with no non-hover home; the legend
+  line ceasing to be true) keeps the ground alive. Losing the verdict while winning
+  the contract is a good trade — the contract outlives the verdict.
+- **Lost Q2's accept:** orchestrator ruled ship 3–2–1 AFTER the analyst's evidence
+  gate passed all four proxy branches on landed code (0 / −180 / 0 / 0). The shape —
+  capture summary viewport top on click, scrollBy the MEASURED delta on toggle — is
+  self-gating: where the browser anchors, the measured delta is 0 and the fix
+  no-ops. My feared double-compensation is structurally excluded and my CSS.supports
+  gate unnecessary; measured-not-assumed beats feature detection. My no-offline-guard
+  objection was resolved by the banked render-only precedent: behavior with no data
+  surface gets recorded proxy evidence + review, never a fakeable mechanical pin.
+  Lesson: the analyst's gate beat my categorical objection by converting the
+  disagreement into a measurement — ask "can the runtime measure this itself?"
+  before objecting "we can't verify this."
+- **Won Q3 (5–1 tap-to-pin):** my shared-layer-only must-have shipped exactly —
+  tipPinned in the tip module, pointerType branch in the stage handlers, dismissal
+  by the reader's own tap/scroll, no timer, no fork, no second content source.
+  Suppress-for-touch died on the census conceit (now Settled).
+- **Q4 accept unanimous** on the analyst's redundancy audit (zero load-bearing
+  orphans at 5px; beat-5 witness stack caps any raise at ~8px effective — below
+  target). My shared-selector trap and the guard's pin-ordering fact are recorded
+  hazards for any future mover (kept in Working knowledge); the Q3 pin is mobile's
+  dot-identity bonus, NOT the justification.
+- **Prep differently:** before filing a categorical objection (no guard, no
+  hardware), first design the measurement that would settle it — the role that
+  brings the evidence gate owns the verdict; and check banked precedent
+  (render-only evidence) before objecting on guard-shape grounds.
