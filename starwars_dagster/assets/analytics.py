@@ -10,10 +10,13 @@ Key Dagster concept — asset metadata:
 
 Asset lineage here:
   characters_enriched ───┐
-  film_character_counts ─┼──► galaxy_report (Markdown file)
-  starship_stats ────────┤
-  character_stats ───────┘
+  film_character_counts ─┤
+  starship_stats ────────┼──► galaxy_report (Markdown file)
+  character_stats ───────┤
+  character_biographies ─┘
 """
+
+import json
 
 import pathlib
 import pandas as pd
@@ -33,9 +36,10 @@ def galaxy_report(
     film_character_counts: pd.DataFrame,
     starship_stats: pd.DataFrame,
     character_stats: pd.DataFrame,
+    character_biographies: pd.DataFrame,
 ) -> str:
     """
-    Assembles a Markdown report from the four transform assets.
+    Assembles a Markdown report from the five transform assets.
 
     This is your 'presentation layer' — what a stakeholder or analyst would
     consume. In a real pipeline you might push this to Slack, email, or Notion.
@@ -83,6 +87,34 @@ def galaxy_report(
         character_stats.nlargest(1, "starships_flown")[["character_name", "starships_flown"]]
         .to_dict("records")
     )
+
+    # ── Second-source enrichment (akabab profiles) ────────────────────────────
+    # Nested-denominator law (panel, 2026-07-20): every number from this sparse
+    # enrichment join names BOTH the matched denominator and the field-present
+    # denominator. "On file" vocabulary throughout — the source records
+    # sequel-era deaths and lags canon, so presence is the only honest claim.
+    matched = character_biographies[character_biographies["profile_id"].notna()]
+    matched_count = len(matched)
+    aff_present = int(matched["affiliation_count"].notna().sum())
+    aff_nonzero = int((matched["affiliation_count"] > 0).sum())
+    affiliation_counts = (
+        pd.Series(
+            [
+                name
+                for cell in matched["affiliations"].dropna()
+                for name in json.loads(cell)
+            ]
+        )
+        .value_counts()
+        .head(10)
+        .rename_axis("affiliation")
+        .reset_index(name="characters")
+        if aff_nonzero
+        else pd.DataFrame(columns=["affiliation", "characters"])
+    )
+    masters_on_file = int((matched["master_count"] > 0).sum())
+    apprentices_on_file = int((matched["apprentice_count"] > 0).sum())
+    deaths_on_file = int(matched["died_year_aby"].notna().sum())
 
     # ── Best hyperdrive ships ─────────────────────────────────────────────────
     best_ships = (
@@ -144,6 +176,31 @@ def galaxy_report(
             f"- Most starships flown: **{r['character_name']}** ({r['starships_flown']})"
             for r in top_pilot
         ),
+        "",
+        "---",
+        "",
+        "## 🤝 Affiliations & Apprenticeships",
+        "",
+        f"*{matched_count} of {total_characters} census characters matched to a curated "
+        "profile (akabab dataset — fan-curated, MIT); per-field coverage noted per table.*",
+        "",
+        "### Top Affiliations",
+        "",
+        f"*Among the {matched_count} matched, {aff_present} carry an affiliations list "
+        f"and {aff_nonzero} list at least one.*",
+        "",
+        df_to_md(affiliation_counts),
+        "",
+        "### Apprenticeships",
+        "",
+        f"- **{masters_on_file} of {matched_count}** matched profiles have a master on file",
+        f"- **{apprentices_on_file} of {matched_count}** matched profiles have an apprentice on file",
+        "",
+        "### Deaths on File",
+        "",
+        f"- **{deaths_on_file} of {matched_count}** matched profiles record a death",
+        "",
+        "*'On file' means the curated source records it — absence is not survival.*",
         "",
         "---",
         "",

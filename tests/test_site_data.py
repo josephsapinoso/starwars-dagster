@@ -69,3 +69,20 @@ def test_meta_matches_the_committed_snapshot(data):
     snap = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
     assert data["meta"]["snapshot"] == snap["fetched_at"][:10]
     assert data["meta"]["source"] in snap["source"]
+
+
+def test_words_renderer_covers_every_spelled_count(data):
+    # The provenance closer spells pipeline counts as words (WORDS[n]). A count
+    # that outgrows the lookup table renders "undefined checks" with only a
+    # console.warn to show for it — so the table must cover every count DATA
+    # can ask it to spell. Caught nearly happening when checks went 15 → 20.
+    html = SITE.read_text(encoding="utf-8")
+    m = re.search(r"const WORDS = \[([^\]]*)\];", html)
+    assert m, "WORDS lookup table missing from the provenance renderer"
+    words = [w.strip().strip('"') for w in m.group(1).split(",")]
+    totals = data["provenance"]["totals"]
+    for key in ("assets", "transforms", "checks"):
+        assert totals[key] < len(words), (
+            f"WORDS stops at {words[-1]!r} but totals.{key}={totals[key]} — "
+            "grow the array in the same commit as the count"
+        )
