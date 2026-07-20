@@ -176,6 +176,46 @@
   deriving the strings would upgrade warned copy to computed numbers — offer as a
   rider whenever the stage is touched, not a demand.
 
+## Prep notes: second data source — akabab enrichment (2026-07-20)
+
+Brief: pipeline gains akabab/starwars-api (static MIT JSON, ~87 records) enriching the
+SAME cast. Site surfacing DEFERRED; this round only ratifies pipeline shape + the totals
+triple (11/4/15 → 13/5/20 at site/index.html:413, pinned by test_site_provenance.py:242).
+Read: brief, checks.py (15 checks), transforms.py (join/grain patterns), known_facts.py.
+
+**My load-bearing concerns (data-honesty, in priority order):**
+1. **Denominators are the whole game here.** Any galaxy_report/future-site number off this
+   source has TWO nested denominators: matched (81 of 82) AND field-present (sparse). A
+   "top affiliation / N deceased / N masters" claim must read as "N of {matched-and-present}
+   of 82" on-page, never a bare count. This is my 23-of-82 law applied to a join.
+2. **Tiny lineage denominators = superlative trap.** masters ~11–15/87, apprentices
+   ~12–13/87. A "lineage leaderboard" built on ~a dozen records cannot carry a superlative;
+   disclose n hard or don't rank. Death (`died`) sparsity is the other one.
+3. **Freeze against reality, not the brief.** My live WebFetch of all.json returned 88
+   records / died 28 / masters 11 / apprentices 13 / mass 79 — sharply different from the
+   brief's 87 / 47 / 15 / 12 / 64. Fast-model counts over a big JSON are unreliable, so I
+   trust NEITHER: EXPECTED_PROFILE_COUNT / EXPECTED_DECEASED_COUNT / EXPECTED_PROFILE_MATCH_COUNT
+   must be frozen at the plan's commit-4 "freeze reality" step against the real snapshot
+   fixture, computed by code, and every baseline check reads them from known_facts. Do not
+   let a survey number become a displayed number.
+4. **Grain guard must fire ALONE on fan-out.** character_biographies_grain check (rows ==
+   people count AND character_name unique) is correct and load-bearing: a duplicate akabab
+   name (Anakin/Vader-style collisions exist) LEFT-JOINing could fan 82 → >82 and silently
+   inflate every downstream count. Confirm it's BLOCKING and independent of the coverage
+   check. This is join-loss's twin — inflation, not loss — and earns its own guard.
+5. **Deceased count is a candidate two-guard number (Q3).** If galaxy_report displays a
+   deceased count now, it's a "presence-parsed display number": needs a drift baseline AND
+   the join-coverage guard, because "N deceased" can silently mean "N whose died field we
+   still parse" if akabab reshapes born/died. My failure-mode law says enumerate first. But
+   if the number is NOT surfaced yet (site deferred), grain+coverage suffice — do not add a
+   baseline guarding a denominator behind no displayed claim (that's guard-for-guard's-sake,
+   the inverse of coverage theater). My lean: hold death_registry until surfacing unless the
+   galaxy_report section ships a deceased number THIS round.
+
+Cannot verify offline: exact akabab record count / field sparsity / deceased-among-matched
+count (live fetch unreliable, no fixture yet); the true unmatched-name set beyond the brief's
+stated Ratts Tyerel(l) miss.
+
 ## Banked: earlier rounds (2026-07-18) — lessons only
 
 - Pipeline-reveal: lead with grain-correctness, not the diagram; keep a losing
