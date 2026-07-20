@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Luke Skywalker",
+    "height": 1.72,
+    "mass": 73,
+    "gender": "male",
+    "homeworld": "tatooine",
+    "wiki": "http://starwars.wikia.com/wiki/Luke_Skywalker",
+    "image": "https://example.invalid/luke.jpg",
+    "born": -19,
+    "bornLocation": "polis massa",
+    "died": 34,
+    "diedLocation": "ahch-to",
+    "species": "human",
+    "hairColor": "blond",
+    "eyeColor": "blue",
+    "skinColor": "light",
+    "cybernetics": "Prosthetic right hand",
+    "affiliations": [
+      "Alliance to Restore the Republic",
+      "Red Squadron",
+      "Jedi Order"
+    ],
+    "masters": ["Obi-Wan Kenobi", "Yoda"],
+    "apprentices": ["Leia Organa", "Ben Solo (along with a dozen other Jedi apprentices)"]
+  },
+  {
+    "id": 4,
+    "name": "Beru Whitesun Lars",
+    "gender": "female",
+    "homeworld": "tatooine",
+    "wiki": "http://starwars.wikia.com/wiki/Beru_Whitesun_Lars",
+    "image": "https://example.invalid/beru.jpg",
+    "died": 0,
+    "diedLocation": "tatooine",
+    "species": "human",
+    "affiliations": ["Lars family"]
+  },
+  {
+    "id": 7,
+    "name": "Ratts Tyerell",
+    "gender": "male",
+    "homeworld": "aleen",
+    "wiki": "http://starwars.wikia.com/wiki/Ratts_Tyerell",
+    "image": "https://example.invalid/ratts.jpg",
+    "died": -32,
+    "diedLocation": "tatooine",
+    "species": "aleena",
+    "affiliations": []
+  },
+  {
+    "id": 20,
+    "name": "Greedo"
+  },
+  {
+    "id": 2,
+    "name": "C-3PO",
+    "gender": "male",
+    "homeworld": "tatooine",
+    "wiki": "http://starwars.wikia.com/wiki/C-3PO",
+    "image": "https://example.invalid/c3po.jpg",
+    "species": "droid",
+    "affiliations": [],
+    "masters": [],
+    "apprentices": []
+  },
+  {
+    "id": 88,
+    "name": "Rey",
+    "gender": "female",
+    "wiki": "http://starwars.wikia.com/wiki/Rey",
+    "image": "https://example.invalid/rey.jpg",
+    "born": 15,
+    "species": "human",
+    "affiliations": ["Resistance", "Jedi Order"],
+    "masters": ["Luke Skywalker", "Leia Organa"]
+  }
+]
