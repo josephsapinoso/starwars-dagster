@@ -110,6 +110,23 @@
   the payoff carriers; annos are deixis" — zero load-bearing orphans at 5px. The beat-5
   collision math (witness names 20 viewBox-units apart cap any raise at ~8px effective)
   is standing veto ground against naive stage-type raises.
+- **Cross-source derived figures are quoted-testimony territory** (2026-07-20):
+  arithmetic combining sources (SWAPI birth × akabab death — the Yoda 896+4=900
+  temptation) is pre-vetoed off every surface until a surfacing panel rules; computing
+  it from `died_year_aby` would launder the audited quote into data. Written tripwire
+  in the akabab log.
+- **The galaxy_report akabab section is fixed copy** (2026-07-20): title "Affiliations
+  & Apprenticeships" (as-filed — the source field is literally `affiliations`), analyst
+  register (two-register law), my drafted copy verbatim including the closing "'On file'
+  means the curated source records it — absence is not survival." Nested denominators
+  (N of field-present, of 81 matched, of 82) on every enrichment line; "on file"
+  everywhere, never "deceased"; no superlatives from sparse lineage fields —
+  affiliations may rank only with n disclosed.
+- **Description-style law applies at birth** (2026-07-20): checks on unlisted assets
+  that rail on no beat today still ship subject-only, number/name/payoff-free — the
+  uniform-rail rule means a future chain join inherits them silently. If
+  `character_biographies` ever joins a beat chain, extending the spoiler-pin term sets
+  is part of THAT landing (written tripwire for the surfacing panel).
 
 ## Working knowledge
 
@@ -132,8 +149,10 @@
   the NOTE.check template. A bare chain is a diagram, not a beat.
 - `raw_people` opens every chain, so the census's best-guarded numbers recur in all
   six reveals — the structural reason beat 0 could stay clean.
-- Pipeline carries 15 checks (4 blocking, 11 warn). Beats 1 and 4–6 are `guard.kind:
-  "check"`; every pytest→check flip re-projected honesty lines with zero hand edits.
+- Pipeline carries 15 checks (4 blocking, 11 warn); the akabab commits take it to 20
+  (adds 2 blocking / 3 WARN on two UNLISTED assets — no beat rail renders them today),
+  assets 11→13, WORDS through "twenty". Beats 1 and 4–6 are `guard.kind: "check"`;
+  every pytest→check flip re-projected honesty lines with zero hand edits.
 - Birth registry (2026-07-19): `#card-registry`, dashboard Census section — bar (39
   undated as tint) + dot strip, Yoda gold-ringed, Jabba labeled, BBY gloss printed.
   Coda ~395–398; Yoda conditional line ~1371–1375.
@@ -143,23 +162,17 @@
 - Dashboard lineage strip is the epilogue's establishing shot; per-card mini-DAGs were
   rejected unanimously — telling the gag eight ways.
 
-## Banked: pipeline-reveal + per-character transform (2026-07-18, compacted)
+## Banked: 2026-07-18 rounds (pipeline reveals + post-landing cleanup; 082d9c9, c0b97e0, 2aa845e; compacted)
 
-Won: beats 1–6 only, clean hook, beat-7 callback, micro-story shape, quietest label
-on the pause, honest third act. Lost: bespoke labels → ONE generated template; my
-"six pipelines" callback was arithmetically false — hand-authored pipeline copy
-drifts. Execution (082d9c9): beats 4–6 flipped derived→direct with zero copy edits;
-my re-audit caught the trio leaking into beat 4 — a check's blast radius is every
-beat that cites its asset.
-
-## Banked: post-landing cleanup (2026-07-18, log 2026-07-18-post-landing-cleanup.md; c0b97e0, 2aa845e; compacted)
-
-My cumulative-rail mechanism lost 5–3–1, correctly: placement filtering bought spoiler
-safety with an unverifiable hand-authored `beat` field. My claim that "re-authoring
-cannot fix the core leak" was wrong — I never drafted the counterexample label before
-declaring it impossible. Won: all four leaks fixed (incl. the "23 unweighed" leak only
-my audit caught); the spoiler pin with names AND numbers (my objection to names-only
-carried); the pause cleared. Lessons live in skill rules 9–10.
+Won: beats 1–6 only, clean hook, beat-7 callback, micro-story reveal shape, quietest
+label on the pause, honest third act; all four spoiler leaks fixed (incl. the "23
+unweighed" leak only my audit caught); the spoiler pin carries names AND numbers.
+Lost, correctly: bespoke labels → ONE generated template; my "six pipelines" callback
+was arithmetically false (hand-authored pipeline copy drifts); my cumulative-rail
+mechanism 5–3–1 — placement filtering bought spoiler safety with an unverifiable
+hand-authored `beat` field — and I declared re-authoring impossible without drafting
+the counterexample label first. A check's blast radius is every beat that cites its
+asset. Lessons live in skill rules 9–10.
 
 ## Banked: birth registry, coda, hue enforcement (2026-07-19, log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
 
@@ -179,82 +192,53 @@ whole, my voice-safe merges verbatim (register markers carried every merged voic
 exact pins answered allow-lists-rot (a drifted pin is a red test); registry-is-the-test
 5–1. Lost nothing outright. Lessons kept in skill rules 7–9: bring the drafted pin
 TABLE, not the pin idea; when two roles collide on a mechanism, check whether MY shape
-dissolves the objection before picking a side. Ux's fixed-viewBox legibility watch item
-returned as watchlist Q4 and died on the collision math — raise-only-grants-permission
-worked exactly as banked.
+dissolves the objection before picking a side.
 
-## Prep notes: second data source — akabab (2026-07-20)
+## Banked: akabab second source (2026-07-20, log 2026-07-20-akabab-second-source.md; prep folded in)
 
-Brief: pipeline gains akabab/starwars-api (87 char records) enriching the SAME 82-cast
-with affiliations/masters/apprentices/born-died/etc. Site surfacing DEFERRED to a later
-all-nine panel; this change touches the site ONLY at the totals triple (11→13 assets,
-15→20 checks). Spine, beat sheet, reveals: UNTOUCHED. My storyteller turf is Q5
-(galaxy_report new section voice + spoiler) and Q3 (new-check descriptions).
+Clean round on my turf; drafted-copy discipline won its second tiebreak. Spine, beat
+sheet, and reveals untouched — Option C ratified unanimously; site ripple is the
+totals pin plus WORDS growth through "twenty" with a pytest pin that `len(WORDS)`
+exceeds every DATA-rendered count (my 2026-07-18 overflow lesson, now generalized law).
 
-What I confirmed by reading the files:
-- **galaxy_report register is ANALYST, not census.** analytics.py: emoji headers,
-  "Generated by the Star Wars Dagster Pipeline", "Total characters tracked",
-  "May the Force be with your data pipeline." This is engineering-adjacent stakeholder
-  voice, NOT the site's records-office census conceit. Two-register law: the census
-  voice is site-only. So Q5's "Allegiances & Lineage" section must match the report's
-  EXISTING analyst voice (`### Screen Persistence`-style subheads), never import the
-  site's in-universe voice. And it must carry its denominator on-page exactly like the
-  report already does ("*{N} of {M} characters have a known homeworld.*") → "*N of 82
-  matched to a profile.*".
-- **galaxy_report does NOT leak a site payoff.** It is a repo Markdown artifact, not read
-  by site readers; the spoiler pin governs CHECK STRINGS that render on site rails, not
-  report prose. So an allegiance/death table in the report cannot spoiler the site.
-- **The real spoiler surface is the new check descriptions.** New checks attach ONLY to
-  UNLISTED assets (raw_character_profiles, character_biographies) — provenance lists only
-  raw_people/star_wars_db/characters_enriched/character_stats — so today they render on NO
-  beat rail. But if the future site panel joins character_biographies to a beat chain,
-  those descriptions (esp. death_registry) WILL render on that beat. Description-style law
-  applies at birth: subject-only, number/name-free, invariant+stakes; known_facts holds
-  rosters/numbers. The spoiler pin cannot derive a not-yet-existing death/allegiance
-  payoff term set — so this is a "payoff concept the pin can't see" case needing manual
-  vigilance + a future-panel tripwire, exactly like the birth registry was a dashboard
-  card and not a spine payoff.
+- **Q5 won whole**: analyst register held (galaxy_report is engineering-adjacent
+  stakeholder voice — emoji headers, "Total characters tracked" — never the census
+  conceit; two-register law), my drafted copy adopted VERBATIM, and the title tiebreak
+  ("Affiliations" over lore/tech-writer's "Allegiances") fell to me precisely because
+  I brought finished copy anchored to the as-filed field name. New technique: in a
+  naming dispute, the source's as-filed vocabulary is a tiebreak I can invoke — and
+  only a finished draft can invoke it.
+- **Q3 won**: all five check descriptions payoff-free at birth. My prep read was
+  exactly right — the report cannot leak (repo Markdown, not a site rail); the real
+  spoiler surface is check descriptions on today-unlisted assets, which the spoiler
+  pin cannot see because the payoff term set doesn't exist yet. Deaths, like births,
+  read as a records fact, not a spine payoff — no veto, same call as the registry.
+- **Pre-veto became law**: my Yoda 896+4=900 tripwire was adopted verbatim as
+  surfacing-panel tripwire (1) AND generalized into the cross-source Settled
+  constraint. The quoted-testimony rule gained its second application before its
+  first violation.
+- Adopted from others, now my voice law for the report: lore's "deaths on file"
+  package ("deceased" would overclaim — sequel-inclusive AND canon-incomplete);
+  analyst's nested denominators as copy discipline, not checks (qa's five-check
+  ceiling held). Lost: nothing outright.
 
-My leanings for DEBATE: ratify C (spine untouched, wide-blast A rejected); Q5 ship the
-report section in ANALYST voice with on-page "N of 82 matched" denominator; Q3 the
-death_registry baseline is fine to ship now IF (a) it guards a real galaxy_report number
-(honesty: badge only where the check asserts the number) and (b) its description is
-subject-only/payoff-free so it stays safe when a future beat may rail it. Deaths, like
-births, read as a dashboard/report fact, not a spine payoff — no veto. Q6 deferrals: yes,
-site surfacing/DATA.meta/provenance entries belong to the later all-nine panel; do not
-pre-author the site's allegiance narrative now.
+Prep differently: the file-reading pass predicted every fault line (register,
+non-leaking report, descriptions as spoiler surface, future-chain hazard) — keep
+doing it. Add one borrowed lesson: baselines are computed from the frozen fixture,
+never transcribed (three independent surveys disagreed on record counts) — the
+data-side twin of "never hand-write pipeline arithmetic"; cite it against any
+transcribed number in copy. Still cannot verify: whether a future panel makes
+affiliations/lineage a spine beat — that's their call, my tripwires are written.
 
-Cannot verify: akabab field contents (external; brief asserts sparsity/join — I trust
-it); whether a FUTURE panel will make allegiance/lineage a spine beat (that's their call).
+## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178; compacted)
 
-## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178)
-
-Three wins, one instructive loss.
-
-- **Q3 won 5–1**: build-only tap-to-pin; my reader-owned-dismissal must-have shipped
-  exactly — pin on touch pointermove, touch pointerleave does not hide, dismissal is
-  the reader's next tap or own scroll, never a timer (verified on fdd3178: pin at
-  index.html:799, leave-guard :802, scroll dismiss :469). Suppress-for-touch died on
-  lore's census-conceit veto, the ally I predicted.
-- **Q1 won 4–2** on my voice-load math — 48 tab stops, ~15 crossing the held pause —
-  quoted as the carrying cost argument. `title=` stays a desktop bonus; the legend
-  line is the honest non-hover contract.
-- **Q4 unanimous**, my warrant in the log verbatim ("prose and captions are the payoff
-  carriers; annos are deixis") plus the beat-5 collision math as standing veto ground.
-  The analyst's channel audit supplied the measured half — redundancy proven, not
-  asserted; the Q3 pin is a bonus, not the justification.
-- **Q2 LOST (ship 3–2–1)** — rightly. My three conditions were met in full
-  (toggle-event-only, instant, non-double-compensating: 0/−180/0/0 in both anchoring
-  states on landed code), and the adjudication turned my own law around: rule 7 is
-  violated ON Safari today, not by the fix. Right conditions, wrong verdict —
-  "accept-and-watch unless someone brings the anchoring-aware shape" should have been
-  "ship IF these measured conditions pass." When I can name the exact shape that
-  would flip me, that shape IS my proposal; waiting for someone else to draft it
-  forfeits the win to whoever does.
-
-Prep differently: draft the flip-condition as the proposal (the mechanism-agnostic
-sibling of "draft the final copy"). Keep authoring cross-question findings — Q3×Q4
-became Q4's warrant and Q3's redemption. Cannot-verify honesty paid off: my Safari
-line became the round's measured-vs-inferred law, not a weakness. The ux watchlist is
-now empty; the Q1/Q4 tripwires and hazards (shared `.axis-t`, @media-blind scanner,
-8-state anchor-geometry cost) live in the log.
+Q3 won 5–1 (tap-to-pin; reader-owned dismissal shipped exactly: pin :799, leave-guard
+:802, scroll dismiss :469). Q1 won 4–2 on my voice-load math (48 tab stops, ~15
+crossing the held pause); `title=` stays a desktop bonus, the legend line is the
+honest non-hover contract. Q4 unanimous — warrant + beat-5 collision math promoted to
+Settled. **Q2 LOST (ship 3–2–1), rightly**: my three conditions were all met, and the
+adjudication turned my own rule around (rule 7 is violated ON Safari today, not by the
+fix). Lessons: when I can name the exact shape that would flip me, that shape IS my
+proposal — draft the flip-condition as the proposal; keep authoring cross-question
+findings; cannot-verify honesty became the round's measured-vs-inferred law. The ux
+watchlist is empty; Q1/Q4 tripwires and hazards live in the log.

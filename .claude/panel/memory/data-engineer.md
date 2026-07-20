@@ -112,6 +112,32 @@
 - **Exposure changes reach, not content:** widening a verified string's audience
   renders the same string verbatim from its one home; if it doesn't fit the vessel,
   change the vessel. (My verbatim one-home law, promoted even as my Q1 proposal lost.)
+- **Second-source join shape (akabab panel, 2026-07-20, unanimous):** enrichment joins
+  live in a 02_transformed transform (`character_biographies`, declared writer #3);
+  `star_wars_db` stays byte-identical, `EXPECTED_DB_TABLES` stays 5, `tables_populated`
+  untouched; coverage misses are check metadata, not new raw tables. Separate
+  `AkababResource` (the `.json` URL shape makes subclassing a lie); the blocking shape
+  contract is exactly `{id,name}` — the schema is polymorphic by kind.
+- **Signed-year columns name their convention in the column name** (`_bby`/`_aby`);
+  never a bare year column — akabab is ABY-positive, `birth_year_bby` is BBY-positive,
+  so a bare `died` would smuggle the opposite sign into the same warehouse. Column is
+  `died_year_aby`; no sign-convention check — naming plus pytest suffice.
+- **Enrichment numbers carry nested denominators** (N of field-present of 81 matched of
+  82) as report-copy discipline computed from data — not per-field checks; five checks
+  per feature is qa's ceiling. Akabab deaths are "on file" vocabulary everywhere —
+  never "deceased", never saga-scoped or canon-complete claims.
+- **Cross-source derived figures are quoted-testimony territory** (SWAPI birth × akabab
+  death arithmetic, e.g. Yoda 896+4=900): pre-vetoed off all surfaces until a surfacing
+  panel rules.
+- **Alias governance:** curated dict in known_facts BRIDGES the join, never mutates
+  as-filed records (`character_name` keeps SWAPI's spelling, typo and all);
+  canon-direction comment per entry; injectivity + every-alias-load-bearing pytest
+  ungated, resolution-vs-fixtures assertions dual-snapshot-gated; no fuzzy matching,
+  ever.
+- **The site WORDS number-renderer is a guard surface:** it grows, with its pytest pin
+  (`len(WORDS)` exceeds every DATA-rendered count), in the same commit as any count it
+  must spell. Baselines are computed by script from the frozen fixture, never
+  transcribed — three independent akabab surveys disagreed (87/88 records; died 47/28).
 
 ## Working knowledge
 
@@ -159,6 +185,22 @@
   {11,12,13,14,16,17,18,42}; six `EXEMPT_SELECTORS` pins; one sanctioned literal
   (`#cdd8ef`). Any new size/color fact must land through this file. Hazard: pin
   matching is FIRST-fragment-wins — a scoped pin must precede the general one.
+- Akabab landing hazards (implementation pending, four commits): ids 1..88
+  NON-contiguous (17 absent) — count + shape only, never id-as-ordinal; droids carry
+  dateCreated/dateDestroyed instead of born/died; years ABY-positive (Luke born:-19,
+  died:34); masters/apprentices are prose-contaminated display strings ("Ben Solo
+  (along with a dozen apprentices)") — JSON-string + count columns, never join keys.
+- Akabab ripple on landing: totals pin 13 assets / 5 transforms / 20 checks;
+  test_pipeline.py:155 reader/writer lists + write-back parity loop gain
+  `character_biographies` (writer #3) same commit; DB ends a full run with EIGHT
+  tables. Provenance :76 pins check sets only for LISTED assets; spoiler pin (:181)
+  scans only claim-chain checks — new check strings go unscanned until surfacing;
+  write them number/roster-free anyway.
+- Akabab snapshot plumbing: snapshot.yml `git add`s only tests/fixtures/swapi (widen);
+  akabab gets its OWN tests/fixtures/akabab/SNAPSHOT.json (test_site_data.py:68-71
+  substring-pins the swapi marker — never merge markers). First alias: SWAPI "Ratts
+  Tyerel" (people.json:1066) ↔ akabab "Ratts Tyerell" (id 47). Baselines re-derived
+  by script from the frozen fixture at commit 4, never transcribed.
 - Watchlist landings (fdd3178): reveal-delta compensation on `details` toggle
   (capture summary viewport top on click, `scrollBy` the measured delta, instant,
   site/index.html:484) and touch tap-to-pin in the ONE shared tooltip (`tipPinned`
@@ -180,116 +222,62 @@
   frame than spoiler-hygiene; lead with it. State ordering implications of any
   write-back myself; grep WORKSHOP for exercise collisions near teaching modules.
 
-## Banked: birth registry + polish (2026-07-19, 1f3cf9e…f170379, compacted)
+## Banked: birth registry + polish + ledger correction (2026-07-19, compacted)
 
-- Won the column spec verbatim and the 7–1 failure-mode separation (both now
-  Settled); ABY-synthetic demand landed (tests/test_transforms.py:168). Lost the
-  coda digits-pin objection 5–3 — absence pins guard an exemption's PREMISE, not its
-  wording (Settled). Executed-SQL law paid rent mid-implementation: `DATA.sql.ages`
-  named a table with no write-back and the ungated execute layer caught it →
-  `character_stats` became the second declared writer. Lesson: a new DATA.sql
-  entry's table-existence/write-back question is part of the card spec at design
-  time. Spec a parsed column's guard PAIR and write-back status in the same breath.
-- Ghost-server lesson: a listening port is not evidence of the code you think it
-  is — kill the process TREE, verify port ownership (`ss -ltnp`), fetch a canary
-  string before screenshots.
-
-## Banked: ledger correction (2026-07-19, compacted)
-
-- Sweep "Residual open items" against commits landing AFTER the debate and verify
-  closure claims in-repo (grep the test/workflow/comment) before writing CLOSED.
+- Won the column spec verbatim and the 7–1 failure-mode separation (both Settled);
+  lost the coda digits-pin 5–3 — absence pins guard an exemption's PREMISE, not its
+  wording. Executed-SQL law paid rent: `DATA.sql.ages` named a table with no
+  write-back and the ungated execute layer caught it → `character_stats` became
+  writer #2. Lesson: a new DATA.sql entry's table-existence/write-back question is
+  part of the card spec at design time; spec a parsed column's guard PAIR and
+  write-back status in the same breath.
+- Ghost-server: a listening port is not evidence of the code you think it is — kill
+  the process TREE, verify port ownership, fetch a canary before screenshots. Ledger
+  hygiene: verify closure claims in-repo (grep the test/workflow) before writing
+  CLOSED; sweep "Residual open items" against post-debate commits.
 
 ## Banked: token hygiene + style guard (2026-07-19, a30a5bc — compacted)
 
-- Won the mechanics: zero JS font-sizes remain, no-fallback-hex held, DATA-line
-  exclusion asserts it FOUND the line, seen-to-fail at eight planted violations; the
-  guard is one offline pytest, no lint framework. Lost Q3 5–1 (no --fs-* tokens):
-  one-home doctrine is satisfied by ANY machine-checked home — a test constant beats
-  a token layer nothing at runtime consumes; distinguish "second registry" (rots)
-  from "second home a test derives from" (can't). Lost the starfield bridge 3–3:
-  when both sides' failure modes are real, the side whose failure the guard can
-  catch wins — my bridge's init-race blank canvas was unguardable offline.
-- Convert my own objection into the mechanism (pins failing both directions) instead
-  of demanding the exception not exist; stress-test my own proposals for ordering
-  risk. Skill `panel-data-engineer-single-file-hygiene-guard` teaches the shipped shape.
+- Won the mechanics (one offline pytest, no lint framework, seen-to-fail at eight
+  planted violations). Lost Q3 5–1: one-home doctrine is satisfied by ANY
+  machine-checked home — a test constant beats a token layer nothing consumes at
+  runtime; distinguish "second registry" (rots) from "second home a test derives
+  from" (can't). Lost the starfield bridge 3–3: the side whose failure the guard can
+  catch wins. Convert my objection into the mechanism (pins failing both directions)
+  instead of demanding the exception not exist. Skill:
+  `panel-data-engineer-single-file-hygiene-guard`.
 
-## Prep notes: akabab second source (2026-07-20)
+## Banked: watchlist round (2026-07-19, fdd3178 — compacted)
 
-Verified live today (WebFetch, akabab.github.io + github.com/akabab/starwars-api):
-- all.json: 87 records; ids run 1..88 NON-contiguous (17 absent) — never check id
-  contiguity or use id as ordinal; count + shape only. All 87 carry `name`. MIT license
-  confirmed on the repo. Endpoint shape is `{base}/all.json` (also `/id/{id}.json`), so
-  `fetch(endpoint) → f"{base_url}/{endpoint}.json"`; a SEPARATE ConfigurableResource,
-  not a SWAPIResource subclass (URL suffix differs, and subclassing would lie).
-- Schema is POLYMORPHIC by kind: droids carry dateCreated/dateDestroyed/creator/
-  manufacturer INSTEAD of born/died. `{id,name}` is the only universal contract —
-  the blocking shape check is right at exactly that, no more.
-- SIGN TRAP: akabab years are ABY-positive (Luke born:-19 = 19 BBY, died:34 = 34 ABY);
-  our `birth_year_bby` is BBY-positive. A raw `died` column copied as-is carries the
-  OPPOSITE sign convention from birth_year_bby in the same warehouse. One convention
-  per warehouse: normalize at transform time (synthetics-tested sign flip) or name the
-  column unambiguously (e.g. died_year_aby) — never a bare `died`.
-- Prose contamination: apprentices holds "Ben Solo (along with a dozen apprentices)" —
-  lineage lists are display strings, not join keys. JSON-string + count columns yes;
-  joining/exploding on them, never.
+- Lost Q1 4–2 (expose-whys-first), but my verbatim one-home law was promoted to
+  Settled as "exposure changes reach, not content" — losing the verdict while winning
+  the contract is a good trade; the contract outlives the verdict. Lost Q2's accept:
+  the analyst's MEASURED-delta gate beat my categorical no-guard objection (where the
+  browser anchors, the delta is 0 and the fix no-ops; render-only precedent covers the
+  guard shape). Ask "can the runtime measure this itself?" and check banked precedent
+  before objecting "we can't verify this." Won Q3 5–1 (tap-to-pin, shared layer only,
+  no fork); Q4 accept unanimous — hazards kept in Working knowledge.
 
-Verified in-repo:
-- test_site_provenance.py:242 totals math confirmed: assets=all keys, transforms=
-  group 02_transformed minus star_wars_db (so character_biographies MUST be
-  02_transformed to make 5), checks=all specs. :76 pins check sets only for LISTED
-  provenance assets — new checks on unlisted assets are invisible to it. The spoiler
-  pin (:181) scans only claim-chain assets' checks, so new check strings go unscanned
-  until site surfacing — write them number/roster-free anyway; they enter scope later.
-- test_pipeline.py:155 access policy hardcodes reader/writer lists: character_biographies
-  (CREATE OR REPLACE TABLE) becomes writer #3 → same commit must update that test AND
-  the test_written_back_tables_match_the_returned_frames parity loop. EXPECTED_DB_TABLES
-  stays five; tables_populated untouched; DB ends a full run with EIGHT tables.
-- Snapshot plumbing: snapshot.yml only `git add tests/fixtures/swapi` — must widen;
-  snapshot_fixtures.py is SWAPI-only. Akabab marker must be its OWN
-  tests/fixtures/akabab/SNAPSHOT.json — test_site_data.py:68-71 substring-pins the
-  swapi marker's source/fetched_at shape, so never merge markers.
-- fixtures/swapi/people.json:1066 "Ratts Tyerel" confirmed vs akabab "Ratts Tyerell"
-  (id 47) — the alias map earns its first entry. Governance mechanism: a pytest
-  dead-alias detector — every alias source must exist in the akabab fixture and every
-  target in people, gated on both snapshot markers.
-- Reachability: akabab.github.io WAS reachable from this dev container via the agent
-  proxy today; the snapshot workflow remains the sanctioned freeze path regardless.
+## Banked: akabab second source (2026-07-20)
 
-Cannot verify cheaply: the exact 81/82 match count and died=47/87 sparsity (trusting
-the brief's 2026-07-19 fixture audit; re-derive during implementation); whether akabab
-has duplicate name strings (the blocking grain check covers fan-out regardless).
-
-## Banked: watchlist round (2026-07-19, fdd3178)
-
-- **Lost Q1 (4–2):** expose-whys-first fell to accept-and-document — 48 new tab stops
-  (~15 crossing the held pause) would make the page's quietest voice its loudest
-  keyboard path; ux scoped focus-parity to data marks, not whisper-tier chips whose
-  visible label+severity is the complete claim. But my verbatim one-home law was
-  promoted to Settled as "exposure changes reach, not content", and the reopening
-  tripwire (any why gaining load-bearing content with no non-hover home; the legend
-  line ceasing to be true) keeps the ground alive. Losing the verdict while winning
-  the contract is a good trade — the contract outlives the verdict.
-- **Lost Q2's accept:** orchestrator ruled ship 3–2–1 AFTER the analyst's evidence
-  gate passed all four proxy branches on landed code (0 / −180 / 0 / 0). The shape —
-  capture summary viewport top on click, scrollBy the MEASURED delta on toggle — is
-  self-gating: where the browser anchors, the measured delta is 0 and the fix
-  no-ops. My feared double-compensation is structurally excluded and my CSS.supports
-  gate unnecessary; measured-not-assumed beats feature detection. My no-offline-guard
-  objection was resolved by the banked render-only precedent: behavior with no data
-  surface gets recorded proxy evidence + review, never a fakeable mechanical pin.
-  Lesson: the analyst's gate beat my categorical objection by converting the
-  disagreement into a measurement — ask "can the runtime measure this itself?"
-  before objecting "we can't verify this."
-- **Won Q3 (5–1 tap-to-pin):** my shared-layer-only must-have shipped exactly —
-  tipPinned in the tip module, pointerType branch in the stage handlers, dismissal
-  by the reader's own tap/scroll, no timer, no fork, no second content source.
-  Suppress-for-touch died on the census conceit (now Settled).
-- **Q4 accept unanimous** on the analyst's redundancy audit (zero load-bearing
-  orphans at 5px; beat-5 witness stack caps any raise at ~8px effective — below
-  target). My shared-selector trap and the guard's pin-ordering fact are recorded
-  hazards for any future mover (kept in Working knowledge); the Q3 pin is mobile's
-  dot-identity bonus, NOT the justification.
-- **Prep differently:** before filing a categorical objection (no guard, no
-  hardware), first design the measurement that would settle it — the role that
-  brings the evidence gate owns the verdict; and check banked precedent
-  (render-only evidence) before objecting on guard-shape grounds.
+- Won every contested point by naming mechanisms, not objections. The `died_year_aby`
+  veto: a bare `died` would smuggle ABY-positive years into a warehouse whose
+  `birth_year_bby` is BBY-positive — the column NAME carries the convention, no
+  runtime check needed (hiring-manager independently seconded naming-over-check).
+  Separate `AkababResource` over subclassing: the `{base}/all.json` URL shape makes
+  inheritance a lie — live-fetching the endpoint in prep made that unanswerable.
+  Blocking contract exactly `{id,name}`: the polymorphic droid schema I verified in
+  prep killed any richer shape check before qa had to. Alias-bridges-never-mutates
+  beat lore's "correct the canon into the records" framing because it satisfied both
+  laws at once: records stay as-filed, lore keeps the canon-direction comment.
+  Reusable frame: give the other role's requirement a home that doesn't touch the data.
+- Nothing major lost: my writer-#3 access-policy ripple and separate-SNAPSHOT.json
+  amendments were adopted verbatim. The section title went to storyteller's drafted
+  copy on the as-filed tiebreak (the source field is literally `affiliations`) — my
+  own kind of argument, applied to a title I had no stake in. Good law.
+- Prep differently: the live fetch of the real source was the highest-value hour —
+  id non-contiguity, schema polymorphism, and the sign trap all came from reading
+  actual records, not docs. But I trusted the brief's 81/82 and died=47 counts rather
+  than deriving them; three surveys then disagreed (87/88; 47/28), which is what
+  forced the compute-not-transcribe baseline rule. Next time run the counting script
+  IN prep and bring numbers as evidence, not trust.

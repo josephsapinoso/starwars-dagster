@@ -71,54 +71,35 @@
   test_site_sql.py), and now "how do you tell drift from breakage?" (two-check
   registry design) and "what breaks at 10x?" (Limits, by design). Every new feature
   should either answer a new question or sharpen an existing answer.
-- No standing weak signals: screenshot item CLOSED at 15 green checks (f170379);
-  dead portfolio link and the ps1 bootstrap script are gone. Counts: 15 checks.
+- No standing weak signals: dead portfolio link and the ps1 bootstrap script are
+  gone. Counts move 11→13 assets / 15→20 checks when akabab lands; screenshot item
+  REOPENS at that ripple (retake reflex).
 - The 90-second scan path to design for: recruiter opens README on a phone → headline
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
 
-## Prep notes + Banked: pipeline-reveal & transform landing (2026-07-17/18, compacted)
+## Banked: 2026-07-17/18 rounds (pipeline reveal, transform, cleanup — compacted)
 
-Verdicts: `2026-07-18-pipeline-reveal.md`, `2026-07-18-per-character-transform-landed.md`.
-Durable lessons (outcomes live in Settled):
-- Commit history reads well (coherent boundaries, panel-workflow commits `9e9db1c`,
-  `3a82146`, PR merges #1–#5); README need only point at it, not restate it.
-- Verify a brief's claimed lineage before building the pitch on it (the beat→asset
-  map was partly false; data-analyst caught it).
+Verdicts: `2026-07-18-pipeline-reveal.md`, `-per-character-transform-landed.md`,
+`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0` then
+`2aa845e`). Durable lessons (outcomes live in Settled):
+- Commit history reads well (coherent boundaries, PR merges #1–#5); README points at
+  it, never restates it.
+- Verify a brief's claimed lineage before building a pitch on it; primary
+  verification (execute displayed code claims, grep `FROM` clauses against the real
+  `CREATE TABLE` list) converts opinion into evidence.
 - 2026 loops screen for judgment over AI output; "judgment made visible" is the
-  durable pitch frame; human-as-adjudicator framing for `.claude/` is settled.
-- First-impression defects beat feature arguments (truncated-README catch).
-- State the signal requirement, let story roles find placement (beat-0 loss, met
-  structurally); coverage-theater veto held twice and became the best interview
-  narrative ("label honestly first, upgrade later").
-- Bring concrete wording proposals for badge/severity ground rather than ceding it.
-
-## Prep notes + Banked: post-landing cleanup (2026-07-18, compacted)
-
-Verdict: `2026-07-18-post-landing-cleanup.md`; commits `c0b97e0` (SQL truth) then
-`2aa845e` (spoiler re-author + pin + height check). Won every axis. Durable lessons:
-- Audit method that found the SQL lie: read the transform's actual `CREATE TABLE`
-  list, grep every displayed `FROM` clause against it; always execute displayed code
-  claims during prep. Primary verification converts opinion into evidence.
+  pitch frame; first-impression defects beat feature arguments.
 - Q3 fulcrum: a check earns its place iff it guards a number/artifact someone
-  consumes (height-null qualified; galaxy_report did not — also pre-solved WORKSHOP
-  Exercise 8). Third consecutive coverage-theater win; galaxy_report stays check-free
-  by design, gap disclosed.
-- **Truth-then-tell sequencing (reusable principle):** when a public claim is false,
-  commit 1 makes it TRUE with a message naming the defect; commit 2 does the
-  storytelling. Never interleave — the honesty arc only earns credit when the fix is
-  separable and self-describing.
-- tests/test_site_sql.py is the "displayed SQL cannot rot" answer; framing veto is
-  law (see Settled).
-
-Cannot verify (still): artifact-side render of the grown DATA literal.
-
-## Prep notes: improvement survey (2026-07-19, compacted after banking)
-
-All three findings shipped (dead portfolio link → HTML-comment slot; ps1 bootstrap
-script deleted; Limits section landed — see Banked below). Reusable method: scan the
-repo ROOT for stray personal files every round — a one-time bootstrap script had
-quietly reintroduced the "self-study" framing the README rewrite removed.
+  consumes; galaxy_report stays check-free by design, gap disclosed. Coverage-theater
+  veto held three times and became the best interview narrative.
+- **Truth-then-tell sequencing:** when a public claim is false, commit 1 makes it
+  TRUE with a message naming the defect; commit 2 does the storytelling. Never
+  interleave.
+- State the signal requirement, let story roles find placement; bring concrete
+  wording proposals for badge/severity ground rather than ceding it.
+- Repo-root hygiene scan every round: a stray bootstrap script once quietly
+  reintroduced the "self-study" framing the README rewrite removed.
 
 ## Banked: birth registry, coda, hues, limits (2026-07-19)
 
@@ -161,50 +142,69 @@ Open items I track: (1) watch that future copy never frames write-backs as
 site-serving (framing law); (2) Limits section must stay true — if any bullet's
 forcing trigger fires (e.g., partitions land), the bullet updates in the same commit.
 
-## Prep notes: akabab second source (2026-07-20)
+## Banked: akabab second source (2026-07-20)
 
-External facts verified (github.com/akabab/starwars-api): MIT confirmed; ~11 commits
-total, effectively unmaintained static JSON on GitHub Pages; wiki/image fields point at
-Wookieepedia-derived fan curation; the README itself warns "some properties may not be
-provided." Consequences for the debate:
-- "Drift" on akabab is near-impossible (static file); the real risk is the host
-  vanishing. The honest doc framing is "curated fan dataset, effectively frozen;
-  treated like any external API" — committed fixtures + blocking shape check already
-  answer "what if the Pages site dies?"; docs should say so in one clause.
-- Attribution honesty is an interview probe: Stack/docs must name it as fan-curated
-  MIT data, distinct in trust level from SWAPI. Never imply it is official canon data.
+Verdict: `.claude/panel/decisions/2026-07-20-akabab-second-source.md`. Option C
+ratified unanimously; my prep notes for this round are folded here (superseded).
 
-Positions formed (repo verified against checks.py, known_facts.py,
-test_site_provenance.py:76/:242, README, WORKSHOP:328/:493, snapshot_fixtures.py):
-- Q1: back Option C. Option A's ripple through the pinned "five tables" strings would
-  read in history as churn without cause; C keeps star_wars_db byte-identical and the
-  write-back CREATE OR REPLACE TABLE character_biographies still closes the warehouse
-  gap (framing law satisfied — queryable grain, pipeline merits).
-- New interview question this feature answers (my signal test — it passes): "how do
-  you join a second, dirtier source without fuzzy matching, and account for coverage
-  honestly?" Curated PROFILE_NAME_ALIASES in known_facts + no-fuzzy-matching is the
-  senior-reading answer; demand ONE sentence of why-not-fuzzy in docs. Also makes
-  WORKSHOP:493's "swap the resource" claim demonstrated, not asserted.
-- Failure-mode separation law applies to the JOIN: coverage baseline (data moved)
-  needs a data-independent honesty companion — every PROFILE_NAME_ALIASES entry must
-  resolve against the payload (dead aliases rot silently). Cheapest home: a pytest
-  assertion against fixtures, not a sixth check (coverage-theater law).
-- Q3: death-registry WARN earns its place iff galaxy_report actually prints the
-  deceased count (check-guards-a-consumed-number fulcrum). If the report section
-  drops it, the check waits.
-- Spoiler exposure: new assets are provenance-UNLISTED, so their check strings do NOT
-  render on site rails today — safe now; re-audit at the surfacing panel. Keep
-  descriptions subject-only/number-free anyway (pre-drafted wording in hand).
-- MY CATCH this round: the brief's ripple list omits SCREENSHOTS. README:16 lineage
-  graph shows 11 assets/15 checks; retake at 13 assets/20 green checks in the ripple
-  commit (retake-after-ripple reflex). Also README Architecture diagram/table, :48,
-  :157 "five SWAPI pulls" context, :160, and Stack attribution all move in the atomic
-  feature commit — feature+guard+ripple, one commit, per law.
-- Commit plan (4 commits) is coherent; no false public claim exists, so
-  truth-then-tell ordering isn't triggered. Commit 4 ("freeze reality") must state in
-  its message that synthetic fixtures became a dated real snapshot; the fixtures
-  README must label the synthetic period honestly until then.
+Won:
+- **Option C** with my exact history argument: Option A's ripple through the pinned
+  "five tables" strings would read as churn without cause; C keeps star_wars_db
+  byte-identical and the write-back still closes a warehouse gap (framing law holds).
+- **Alias governance is the failure-mode-separation law applied to a join**: coverage
+  WARN check = data moved; ungated pytest (injectivity + every-alias-load-bearing) =
+  the bridge itself rotted. My "one pytest, not a sixth check" home won — qa's
+  five-check ceiling and my coverage-theater law pointed the same way. Amendment I
+  accepted: alias-resolution-against-fixtures assertions are dual-snapshot-gated
+  (they depend on payload contents), while injectivity/load-bearing stay ungated.
+- **No sign-convention asset check** — naming (`died_year_aby`) plus pytest suffices;
+  the engineer's column-rename veto delivered the same safety cheaper. Pattern: when
+  a naming convention can encode the invariant, prefer it over a runtime check.
+- **Docs ripple + screenshot retake in the feature commit.** MY CATCH: the brief's
+  ripple list omitted screenshots (README:16 shows 11 assets/15 checks; retake at
+  13/20). Retake-after-ripple is now a written tripwire in the decision log itself.
+- **Q3 fulcrum held via the analyst's symmetry rule** (same principle, her phrasing):
+  the report prints deaths-on-file, so its drift guard ships in the same commit.
+- Interview-signal test passed: the feature answers "how do you join a second,
+  dirtier source without fuzzy matching and account for coverage honestly?" — one
+  why-not-fuzzy sentence lands in docs; WORKSHOP:493's "swap the resource" claim
+  becomes demonstrated, not asserted.
 
-Cannot verify: akabab's exact 87-record count and per-field sparsity (brief's numbers;
-GitHub README doesn't state totals) — trust the orchestrator's 2026-07-19 fixture-join
-verification. Still cannot verify off-platform artifact link preview.
+Lost/ceded (both rightly):
+- **Section title**: storyteller's "Affiliations & Apprenticeships" beat the
+  alternatives on the as-filed tiebreak (source field is literally `affiliations`).
+  Copy is story ground; I own whether it reads honest, not what it says.
+- **Vocabulary**: lore's "deaths on file" package beat plain "deceased" — attribution
+  honesty (fan-curated, sequel-inclusive AND canon-incomplete) was my probe, but
+  lore's wording answers it better than my prep framing ("curated fan dataset,
+  effectively frozen") which survives only in the Stack attribution line.
+
+Would prep differently: baselines-by-script (three independent surveys disagreed —
+87/88 records, died 47/28) proves I should never carry transcribed counts into
+debate as facts; next time, state per-source numbers as "unverified, demand script
+derivation at freeze." My prep correctly flagged I couldn't verify the 87.
+
+Watch items: (1) commit 4's message must name the synthetic→real fixture transition;
+fixtures README labels the synthetic period until then. (2) At the surfacing panel:
+re-audit spoiler exposure of the five new check strings, extend spoiler-pin term
+sets if character_biographies joins a beat chain, and hold the Yoda-derivation
+pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count item.
+
+## Settled additions (2026-07-20, akabab panel — do not relitigate)
+
+- Enrichment-join numbers always carry nested denominators (matched AND
+  field-present); this is report-copy discipline computed from data, not new checks.
+- Signed-year columns name their convention in the column name (`_bby`/`_aby`); no
+  bare year columns in the warehouse.
+- Cross-source derived figures (SWAPI birth × akabab death arithmetic) are
+  quoted-testimony territory — pre-vetoed off all surfaces pending a surfacing panel.
+- Name aliases between sources: curated dict in known_facts with canon-direction
+  comments, injectivity + load-bearing pytest, no fuzzy matching ever; aliases bridge
+  joins, they never mutate as-filed records.
+- Akabab "died" data is "on file" vocabulary everywhere; never "deceased", never
+  canon-complete claims. Akabab is attributed as fan-curated MIT SWAPI-derived data,
+  never canon authority.
+- The site WORDS number-renderer is a guard surface: it grows (with its pytest pin)
+  in the same commit as any DATA-rendered count it must spell.
+
+Cannot verify (standing): off-platform artifact link preview.

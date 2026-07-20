@@ -54,7 +54,10 @@
   dialogue, canon, anything the repo didn't compute — may be AUDITED in copy but never
   rendered as site-derived data; derived numbers come only from DATA. The Yoda "900"
   precedent: 896 BBY is the derived number; 900 appears only as testimony being
-  checked against it. (Birth-registry panel, 2026-07-19.)
+  checked against it. (Birth-registry panel, 2026-07-19.) **Extension (akabab panel,
+  2026-07-20):** cross-source derived figures (SWAPI birth × akabab death arithmetic,
+  e.g. Yoda 896+4=900) are pre-vetoed off ALL surfaces until a surfacing panel rules —
+  computing the derivation would launder the audit into data.
 - **WORKSHOP.md is on the permanent count-ripple checklist**, and teaching prose
   states counts count-free unless the count IS the lesson ("a checks file you can
   read in one sitting", WORKSHOP:705). Any copy encoding a count is a drift surface.
@@ -69,185 +72,142 @@
   exact wording is theater. Failure-mode separation: a parsed displayed number gets
   BOTH a drift baseline and a parse-honesty invariant — "data moved" and "parser
   broke" must fail differently. (Birth-registry panel, 2026-07-19.)
+- **"On file" vocabulary is copy law (akabab panel, 2026-07-20):** akabab
+  death/lineage data is "deaths on file" / "on file" everywhere — never "deceased",
+  never saga-scoped or canon-complete claims; the report closes with "'On file' means
+  the curated source records it — absence is not survival." Akabab is attributed as
+  fan-curated + SWAPI-derived, never as canon authority.
+- **Nested denominators (akabab panel, 2026-07-20):** every enrichment-join number
+  carries matched AND field-present denominators (N of field-present of 81 matched
+  of 82). This is report-copy discipline computed from the data, NOT new checks. No
+  superlatives from sparse lineage fields; ranking only with n disclosed.
+- **Alias governance (akabab panel, 2026-07-20):** curated dict in known_facts,
+  canon-direction comment per entry; aliases bridge joins, they never mutate as-filed
+  records; no fuzzy matching, and the docs carry exactly ONE why-not-fuzzy sentence.
+- **Signed-year columns name their convention in the column name** (`_bby`/`_aby`);
+  no bare year columns — the name is the documentation. (akabab panel, 2026-07-20.)
+- The site WORDS number-renderer is a guard surface: it grows (with its pytest pin
+  that `len(WORDS)` exceeds every DATA-rendered count) in the same commit as any
+  count it must spell. (akabab panel, 2026-07-20 — carve-out from the surfacing
+  deferral, won by me + qa.)
+- **As-filed tiebreak (naming law, learned the hard way):** when a surface is named
+  after a source field, the field's literal name wins over a synonym I prefer
+  ("Affiliations" beat "Allegiances" because the source field is `affiliations`);
+  and drafted copy adopted verbatim beats after-the-fact title edits.
+  (akabab panel, 2026-07-20.)
 
 ## Working knowledge
 
-- Doc inventory: README.md (being fully rewritten per the settled order above — old
-  tail was truncated mid-word with an unclosed code fence); WORKSHOP.md (769-line,
-  15-section beginner tutorial with its own audience and integrity — stays a linked
-  teaching appendix, never folded into README); tests/fixtures/swapi/README.md
-  (fixture provenance); CLAUDE.md (process rules for the AI collaborator, not
-  reader-facing).
+- Doc inventory: README.md; WORKSHOP.md (769-line, 15-section beginner tutorial with
+  its own audience and integrity — linked teaching appendix, never folded into
+  README); tests/fixtures/swapi/README.md (fixture provenance; pattern = synthetic
+  disclaimer → awkward-cases list → "not the real dataset, banked tests skip" →
+  refresh command — the akabab fixture README mirrors it + MIT attribution);
+  CLAUDE.md (process rules for the AI collaborator, not reader-facing).
 - Explanation homes to link, not rewrite: tests-vs-checks philosophy (README testing
-  bullet + WORKSHOP **Module 8** — section heading "## 12. Module 8 — Testing & Asset
-  Checks", anchor `#12-module-8--testing--asset-checks`; I previously misfiled this as
-  module 9), snapshot rationale (workflow comments + fixtures README), severity
-  discipline (checks.py docstring + `description=` strings).
-- Site voice anchors (site/index.html): SQL reveal summary "Show the DuckDB SQL"
-  (verb + named payoff, set once in `makeCard`); two-word beat kickers ("The
-  census" … "The handoff", lines ~239–292); lineage-strip heading "The pipeline
-  that made this page" with a one-line why note. New microcopy rhymes with these.
-- Reveal implementation is HTML `.chip` elements (not SVG), so text is natively
-  accessible; `aria-label` is generated from the same provenance data — no separate
-  hand-written accessible-name strings to drift.
-- Ground truth (updated 2026-07-19, commits 1f3cf9e/4d92cb7/7d96df5/f170379):
-  11 assets / 4 transforms / 15 checks (4 blocking, 11 warn) — 14th/15th are the
-  registry's WARN pair (birth-date baseline + parse-honesty). `birth_year_bby`
-  column; registry card in the Census section; six SQL strings in DATA, all
-  executed + compared offline; WORDS through "fifteen" (index.html:842); coda after
-  the last grid with a digits-pin. README: Limits section at 117–137; screenshots
-  retaken at 15 green checks (f170379). "How this was built" carries TWO past-tense
-  honesty beats: hand-derived numbers, then the three-of-five false SQL strings.
+  bullet + WORKSHOP Module 8, anchor `#12-module-8--testing--asset-checks`),
+  snapshot rationale (workflow comments + fixtures README), severity discipline
+  (checks.py docstring + `description=` strings), tooling why-nots (WORKSHOP
+  Module 10 sole home — verified 2026-07-20 it can carry the weight).
+- Site voice anchors (site/index.html): SQL reveal summary "Show the DuckDB SQL";
+  two-word beat kickers; lineage-strip heading "The pipeline that made this page".
+  galaxy_report house style: topical-noun headings, italic on-page denominators,
+  bullet counts, machinery voice with light flavor.
+- Ground truth (2026-07-19 commits, PRE-akabab landing): 11 assets / 4 transforms /
+  15 checks (4 blocking, 11 warn); `birth_year_bby`; six executed SQL strings;
+  WORDS through "fifteen" (index.html:863); README Limits at 117–137; screenshots
+  at 15 green (f170379). Akabab landing will ripple to 13/5/20 — see banked plan.
+- Jargon-introduction duty (mine): first mention of "akabab" in README and WORKSHOP
+  gets the gloss "akabab/starwars-api, a community-maintained static JSON dataset
+  (MIT, GitHub Pages)". Proper-noun jargon earns its place by being introduced.
+- "Lineage" is reserved vocabulary in this repo (Dagster asset lineage: lineage
+  strip, direct lineage, README screenshot) — never reuse it for family-tree /
+  master-apprentice content. Veto upheld 2026-07-20.
 - Known stray others should fix (not mine to touch): QA's skill file
   `panel-qa-engineer-provenance-verification/SKILL.md:32` still says "13 checks".
+- Skill: `.claude/skills/panel-technical-writer-count-ripple/SKILL.md` — the
+  count-ripple checklist as a reusable procedure, incl. the word-renderer step.
 
-## Banked: pipeline-reveal + transform landing (2026-07-18, compacted)
+## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
 
-- Wins now promoted to Settled: single-source rationale (checks.py `description=`,
-  pytest-verified verbatim), generated labels from one template, README order,
-  WORKSHOP as linked appendix. Lesson kept: I supply the mechanism (generate,
-  don't hand-write); voice is a shared decision — lore's "paper trail" beat my
-  number-filled label draft.
-- "Regenerate, don't patch" held when the transform landed (082d9c9): provenance
-  data flipped beats 4–6 to direct and all counts moved with it. Superseded claims
-  either update or become explicit PAST-tense history — never linger as present
-  tense (the "How this was built" honesty-arc pattern).
-- Copy that encodes a count is a drift surface (beat-7 WORDS overflow, hardcoded
-  "three transforms"); captions that name-not-enumerate survive data changes.
-- Prep lesson: before drafting explanation systems, check whether the thing being
-  explained is true — the analyst falsified the brief's beat→asset map once.
+- Wins promoted to Settled above: single-source rationale, generated labels, README
+  order, WORKSHOP as appendix, description style rule, displayed-SQL-is-executed-SQL.
+- One-home law won Q1 (5–3–1) as an ENGINEERING invariant, not style: a hand-listed
+  roster in a check description was a third home that would make the Dagster UI lie.
+  Argue it as architecture, it adjudicates architecture.
+- Exercise-8 collision precedent: docs are a guard surface — grep WORKSHOP exercises
+  before endorsing any new repo feature; shipped code can pre-solve a tutorial.
+- Superseded claims update or become explicit PAST-tense history (the "How this was
+  built" honesty-arc genre, now two confession beats); copy that encodes a count is
+  a drift surface — name, don't enumerate.
+- Pre-draft copy for the branch you expect to win, gated on the fix: both my Q2
+  drafts shipped near-verbatim and made "same commit" frictionless.
 
-## Banked: post-landing cleanup (2026-07-18, commits c0b97e0 + 2aa845e)
+## Banked: birth registry + coda + limits (2026-07-19, compacted)
 
-- **WON Q1, and the one-home law was the DECISIVE argument (5–3–1):** the trio
-  description hand-listing C-3PO/R2-D2/Obi-Wan wasn't primarily a spoiler — it was a
-  THIRD home for a roster whose single source is known_facts.py, a drift bug that
-  would make the Dagster UI lie if the snapshot changed. The decision log cites this
-  as what settled re-authoring over the cumulative rail. Reach lesson: the one-home
-  law is not a docs-hygiene rule; it adjudicates ARCHITECTURE questions (which
-  renderer, which data fields exist). Argue it as an engineering invariant, not a
-  style preference.
-- **My description style rule is now banked law and lives in code:** checks.py's
-  module docstring carries it verbatim ("descriptions state the INVARIANT and its
-  STAKES; run metadata carries the particulars; rosters and numbers live only in
-  known_facts.py"). This is my authorship rule for every future check string — and
-  proof that the best home for a writing rule can be a docstring the writers of new
-  checks cannot avoid reading. My trio description shipped near-verbatim (checks.py
-  ~240: "matches the verified snapshot in known_facts.py... the story's late payoff
-  leans on this exact set — if it shifts, that beat is wrong, not just stale").
-- **Same-commit doc must-haves all landed:** README:92–94 strengthened honestly
-  ("every displayed string is executed against the fixture-built warehouse... SQL
-  that provably runs"); honesty arc gained the second-false-claim sentence (108–111)
-  — the past-tense-confession pattern now has two instances and is officially a
-  genre, not a one-off; WORKSHOP Module 4 gained exactly ONE write-back sentence
-  (line 367, "One deliberate exception to the pattern...") — Layer-3 framing and
-  diagram untouched, tutorial integrity held.
-- **Exercise-8 collision is a reusable precedent: docs are a guard surface.** My
-  prep grep found that the proposed galaxy_report check IS WORKSHOP Exercise 8;
-  QA retracted their weak-yes on that basis and Q3(b) went disclose-only
-  unanimously. Technique to keep: before endorsing any new repo feature, grep
-  WORKSHOP exercises for collisions — shipped code can silently pre-solve a
-  tutorial. Teaching integrity vetoes features, not just phrasings.
-- **Count-ripple discipline held:** 12→13 landed atomically (README 48 + tree
-  comment 134, provenance totals, WORDS through "thirteen") BEFORE any screenshot
-  retake — truth-then-tell sequencing worked as designed.
-- Prep differently next time: my Q2 prep pre-drafted both the strengthened README
-  clause and the WORKSHOP one-liner conditional on the fix landing — both shipped
-  near-verbatim. Drafting copy for the branch you expect to win, gated on the fix,
-  is cheap and makes "same commit" frictionless. Do it again.
+- Won Q4 whole (Limits placement + Module-10 handoff) on CONTINUITY with the honesty
+  genre; won the WORKSHOP:705 count-free retirement — second live exercise of the
+  docs-as-guard-surface grep.
+- QA's failure-mode separation (7–1) shapes my copy: "the data moved" and "the
+  parser broke" are different sentences, so their guards fail differently.
+- The style rule in checks.py's docstring worked on authors I never briefed — both
+  registry descriptions arrived subject-only. Writing rules belong where writers
+  can't avoid them.
+- When a verdict promotes a doc to sole-home status, immediately re-verify it can
+  carry the weight (done for Module 10, 2026-07-20 — resolved, off the watch list).
 
-## Banked: birth registry + coda + limits (2026-07-19; decision
-`2026-07-19-birth-registry-and-polish.md`; commits 1f3cf9e/4d92cb7/7d96df5/f170379)
+## Banked: akabab second source (2026-07-20; decision
+`2026-07-20-akabab-second-source.md`; implementation pending, four commits)
 
-- **Won Q4 whole:** my placement (between "How this was built" and "Learn Dagster")
-  and closing Module-10 link adopted, with the hiring-manager's bullet shape
-  (limit → why fine now → forcing trigger). What won was CONTINUITY — the section
-  extends the honesty genre the arc established, then hands off to Module 10
-  instead of duplicating the tooling why-nots.
-- **Won the WORKSHOP:705 catch:** "five tables and thirteen checks" retired
-  count-free in the same commit ("a checks file you can read in one sitting");
-  WORKSHOP joined the permanent count-ripple checklist as banked law. Second real
-  exercise of the docs-as-guard-surface skill — the prep grep found a live drift
-  surface before it lied in public.
-- **No stake lost:** the one-vs-two-check fight wasn't mine; QA's failure-mode
-  separation won 7–1 and shapes my copy anyway — "the data moved" and "the parser
-  broke" are different sentences, so the guards that catch them must be too.
-- Description discipline held WITHOUT me: both registry check descriptions arrived
-  subject-only, 39/43/896/Yoda in known_facts only — the style rule living in
-  checks.py's docstring did its job on authors I never briefed.
-- Quoted-testimony rule banked (storyteller's framing; the docs version is mine to
-  own): audit external claims in words, never render them as derived data.
-- 13→15 ripple verified post-landing: README:48 + :160, WORKSHOP:705, WORDS through
-  "fifteen" (index.html:842), screenshots at 15 green (f170379). One stray outside
-  the ripple's reader-facing scope: QA's provenance-verification skill still says
-  "13 checks" — flagged upward; each role owns its own memory/skill drift.
-- Prep differently: my survey flagged Module 10's Great-Expectations stub as a
-  mislabeled duplicate; the verdict then made Module 10 the SOLE home of the
-  tooling why-nots. When a verdict promotes a doc to sole-home status, immediately
-  re-check that the doc can carry the weight — don't wait for the next survey.
-
-## Prep notes: second source — akabab character API (2026-07-20)
-
-- **Brief gap found (must-have for debate): the WORDS array.** index.html:863 tops out
-  at "fifteen". The required totals bump (checks 15→20) makes `WORDS[P.totals.checks]`
-  undefined — the beat-7 handoff sentence (:941) would literally render "undefined
-  checks". Only the runtime detector (:881, console.warn "totals outgrew the
-  number-word list") catches it; NO pytest pin exists (grepped tests/ for WORDS —
-  nothing). So the site touch is the totals triple PLUS WORDS through "twenty", same
-  commit; and I'll ask QA for an offline pin that WORDS covers totals — this is the
-  banked beat-7 overflow bug recurring on schedule.
-- **README ripple beyond the brief's :48/:157/:160:** the ASCII architecture diagram
-  (:42–46) draws ONE source — a second source that isn't in it makes the landing
-  diagram lie; :23 "SWAPI is someone else's dataset" generalizes fine (akabab is too —
-  the severity philosophy needs no rewrite, maybe a plural); group table :52–54; :79
-  exact-value-tests list (gains akabab facts when its snapshot lands); Stack list;
-  project tree (:145+) gains akabab_resource.py, fixtures/akabab/, new test files.
-- **WORKSHOP surfaces verified:** :299 "The five raw assets all follow the same
-  pattern" drifts if the new raw asset lands in ingestion.py — count-free rewrite or
-  place the paragraph so "the same pattern" is the claim, not "five". :338 "all five
-  raw lists" stays TRUE under Option C — a genuine docs argument FOR C over A. Module 2
-  resources-dict snippet (:269–276) has a `...` that absorbs the new key; sentence
-  :278 stays true. Exercise 3 (:328, vehicles) stays un-pre-solved: akabab is not a
-  SWAPI endpoint, different resource, different pattern-flavor. :493 takes exactly one
-  demonstrated-claim sentence.
-- **Module 10 watch item RESOLVED:** the GE/Soda section (WORKSHOP:690–709) now argues
-  cost, when-a-framework-earns-it, and "the tradeoff, not the tool, is the takeaway".
-  It can carry sole-home weight. Removed from watch list.
-- **Q5 register check:** galaxy_report's house style = topical-noun headings, italic
-  on-page denominators ("*N of 82 …*"), bullet counts, machinery voice with light
-  flavor. "Allegiances & Lineage" fits the shape BUT "Lineage" is a jargon collision:
-  everywhere else in this repo "lineage" means Dagster asset lineage ("lineage strip",
-  "direct lineage", the README screenshot). One word, two meanings, same repo — rename
-  (e.g. "Allegiances & Apprenticeships"). Spoiler pin scope verified
-  (test_site_provenance.py:181–223): term sets derive from known_facts and scan check
-  label+why on rails; new checks attach to UNLISTED assets so they don't render yet,
-  but write them spoiler-safe and subject-only NOW — they're future rail candidates.
-- **Fixture README pattern:** tests/fixtures/swapi/README.md = synthetic disclaimer →
-  awkward-cases list → "not the real dataset, banked tests skip" → refresh command.
-  The akabab README mirrors it + MIT attribution; its awkward cases to name: field
-  sparsity (masters 15/87), the Ratts Tyerell/Tyerel name mismatch, sequel-era records
-  with no SWAPI match.
-- **Q2 naming:** raw_character_profiles / character_biographies fit the existing
-  families (raw_*, character_stats sibling); distinct words for distinct grains read
-  well on the lineage graph. Resource key "akabab" parallels "swapi", but the FIRST
-  mention in README and WORKSHOP must gloss it — "akabab/starwars-api, a
-  community-maintained static JSON dataset (MIT, GitHub Pages)" — proper-noun jargon
-  earns its place by being introduced.
-- Cannot verify offline: live akabab payload shape/counts (brief's 87/15/12/47/6
-  figures and the 81-of-82 join are the orchestrator's 2026-07-19 verification, taken
-  on trust); whether akabab's GitHub Pages hosting is stable enough for the snapshot
-  workflow (not my call — QA/data-engineer).
-- Skill created: `.claude/skills/panel-technical-writer-count-ripple/SKILL.md` — the
-  count-ripple checklist as a reusable procedure (includes the word-renderer step this
-  prep proved necessary a second time).
+- **Won the WORDS carve-out (with qa), my prep's biggest find:** grep proved NO
+  pytest pin existed on WORDS coverage — only the runtime console.warn. The verdict
+  classifies WORDS growth as totals-pin ripple, not deferred surfacing: it grows
+  through "twenty" in the feature commit with a new pytest pin. Second recurrence of
+  the beat-7 overflow bug; the count-ripple skill earned its keep. Promoted to
+  Settled.
+- **Won the docs argument FOR Option C:** WORKSHOP:338 ("all five raw lists") and
+  the "5 tables loaded" line stay literally TRUE under the transform-join; under
+  Option A they'd both drift. Docs truth adjudicated an architecture question again
+  — same muscle as the one-home law. Option C ratified unanimously.
+- **Won the lineage-collision veto:** no "Lineage" in the section title; the word
+  stays reserved for Dagster lineage. Lore independently proposed the same rename —
+  vocabulary vetoes land easier with a co-sponsor.
+- **Lost the title word, instructively:** my "Allegiances & Apprenticeships" fell to
+  storyteller's "Affiliations & Apprenticeships" on the as-filed tiebreak — the
+  source field is literally `affiliations`, and drafted-copy discipline adopts
+  verbatim. My veto was satisfied either way, but I proposed a synonym where the
+  schema had already chosen the word. Banked as the as-filed naming law.
+- **My README-ripple inventory adopted whole into commit 2:** ASCII architecture
+  diagram gains the second source (a one-source diagram would make the landing page
+  lie), :79 exact-value-tests list, tree comments, Stack attribution ("fan-curated,
+  MIT, effectively frozen; SWAPI-derived — reproduces SWAPI's spellings"),
+  WORKSHOP:299 rewritten count-free. Ripple-inventory prep is now my standard move.
+- **Adopted from others, now mine to enforce in copy:** lore's "on file" vocabulary
+  package; analyst's nested denominators (as copy discipline — qa's five-check
+  ceiling beat per-field baselines); engineer's aliases-bridge-never-mutate framing
+  with lore's canon-direction comments; storyteller's Yoda-derivation pre-veto
+  (folded into my quoted-testimony rule). All promoted to Settled.
+- **Baselines are computed, never transcribed** — three independent surveys of
+  akabab disagreed (87/88 records; died 47/28). Docs corollary: never quote a
+  brief's figures as facts; wait for the frozen fixture, then let the script speak.
+- Prep differently next time: (1) read the source SCHEMA's own field names before
+  proposing any user-facing title — the as-filed word usually wins; (2) when a
+  storyteller announces drafted-copy discipline, propose edits INTO their draft
+  during debate rather than parallel titles after.
 
 ## Open watch items (mine)
 
+- Akabab landing ripple (when commits land): totals 15→20 everywhere on the
+  count-ripple checklist; WORDS through "twenty" + pin; first-mention akabab gloss
+  in README and WORKSHOP; akabab fixture README on the swapi pattern (awkward cases:
+  masters ~15/87 sparsity, Ratts Tyerell/Tyerel, sequel-era unmatched); WORKSHOP:493
+  gains one demonstrated-claim sentence; new check descriptions subject-only and
+  spoiler-safe NOW — they attach to unlisted assets but are future rail candidates.
+- Surfacing-panel tripwires I co-own: Yoda 896+4=900 stays pre-vetoed; if
+  character_biographies joins a beat chain, spoiler-pin term sets extend in the same
+  landing; screenshot retake whenever a visual shows check/asset counts.
 - Two-reader test for check strings: every description serves the Dagster operator
-  AND the site hover reader; names/numbers surface per-run in metadata — exactly
-  where an operator looks. Held for the registry pair; keep testing on every new
-  check.
-- Honesty-arc length: the SQL-truth sentence is the SECOND confession beat. A THIRD
-  is the trigger to restructure "How this was built" from a growing chronological
-  list into a pattern statement (the process keeps catching false claims — name the
-  pattern once, then list episodes tersely).
+  AND the site hover reader; names/numbers surface per-run in metadata. Keep testing
+  on every new check.
+- Honesty-arc length: a THIRD confession beat triggers restructuring "How this was
+  built" from chronology into a pattern statement plus terse episodes.

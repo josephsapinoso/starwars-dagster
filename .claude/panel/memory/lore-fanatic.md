@@ -115,6 +115,33 @@
   activation-triggered, measured-delta scroll correction that no-ops where the
   browser already anchors is the sanctioned disclosure-compensation shape;
   animated or assumed-delta variants remain banned.
+- **On-file vocabulary law (akabab, 2026-07-20):** akabab death data is
+  sequel-inclusive AND canon-incomplete (Luke/Han on file from the sequels; Leia
+  absent — pre-TROS vintage), so every surface says "deaths on file" / "on file",
+  never "deceased", never saga-scoped or canon-complete claims. Closer line:
+  "'On file' means the curated source records it — absence is not survival."
+- **Aliases bridge joins, never repair records (akabab):** curated dict in
+  known_facts; `character_name` keeps SWAPI's as-filed spelling. Each entry's
+  comment states the canon direction (akabab "Ratts Tyerell" is canon; SWAPI holds
+  the typo). Injectivity + load-bearing pytest ungated; no fuzzy matching, ever.
+- **Cross-source derived figures are quoted testimony (akabab):** SWAPI-birth ×
+  akabab-death arithmetic — the Yoda 896+4=900 gem — is pre-vetoed off all
+  surfaces; computing it from `died_year_aby` would launder the audited quote into
+  data. Only a surfacing panel may unseal it; written tripwire in the log.
+- **Signed-year columns name their convention (akabab):** `_bby` / `_aby` suffixes,
+  no bare year columns in the warehouse. Storage may hold signed years; the
+  settled BBY *display* law is untouched.
+- **Nested denominators (akabab):** every enrichment-join number carries matched
+  AND field-present denominators — report-copy discipline computed from data, not
+  new checks. No superlatives from sparse lineage fields; affiliations rank only
+  with n disclosed.
+- **Akabab is never canon authority:** attributed as fan-curated, MIT, effectively
+  frozen, SWAPI-derived (it reproduces SWAPI's typos — that's why 81/82
+  exact-match). Its values are "as filed by the profile source", not canon (e.g.
+  Han born -29 vs current canon ~32 BBY).
+- **"Affiliations & Apprenticeships" is the section title:** as-filed field name
+  (`affiliations`) plus drafted-copy discipline beat my "Allegiances"; don't
+  re-propose.
 
 ## Working knowledge
 
@@ -141,48 +168,28 @@
   Executor's bridge in RotJ) — earned if ever named on the page.
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
+- Akabab durable facts (verified against live all.json, 2026-07-20): in-saga deaths
+  on file — Obi-Wan 0 ABY (Death Star), Anakin 4 (Death Star II), Yoda 4, Padmé -19
+  ("polis massa, 2 days after empire day"), Ratts -32 (Boonta Eve). Affiliations
+  are canon-wide (Luke: "New Republic", "Resistance"); `masters` strings carry
+  parentheticals ("Qui-Gon Jinn (informal Jedi Master)") — counts safe, verbatim
+  names need care. No Legends contamination (Chewbacca has no `died`).
+- Check counts go 15→20 (blocking 4→6, warn 11→14) when the akabab commits land;
+  the five new checks attach to assets UNLISTED in site provenance, so their
+  strings hit no story rail until surfacing — spoiler audit re-runs then, and the
+  new known_facts constants enter the derived term sets at that landing.
 
 ## Open watch items
 
 - STILL OPEN: SWAPI quirks republished verbatim — candidate "clerical errors"
   disclosure (roster in known_facts): "Beru Whitesun lars", "Ayla Secura",
-  "Wookie", "Neimodian", R4-P17 (astromech filed Human/female). Honest angle is
-  in-universe "as filed": record the error, never silently correct canon.
-
-## Prep notes: akabab second source (2026-07-20)
-
-Verified against the live akabab all.json (external fetch) + repo files in the brief:
-
-- **Ratts spelling: AKABAB IS CANON-CORRECT.** Canon is "Ratts Tyerell"; SWAPI's
-  "Ratts Tyerel" is the clerical error. The alias therefore maps a CORRECT spelling
-  onto our as-filed misspelling — fine for the join key (the census files under its
-  own records), but the known_facts alias entry must carry a comment stating which
-  side is canon. Ratts joins the clerical-errors watch roster.
-- **Akabab is SWAPI-derived:** it reproduces SWAPI's typos verbatim ("Ayla Secura",
-  "Beru Whitesun lars") — that's WHY 81/82 exact-match. Ratts is the one typo akabab
-  fixed. Treat akabab values as "as filed by the profile source", never as canon
-  authority (e.g. Han born -29 vs current canon ~32 BBY).
-- **`died` exceeds the six-film scope AND lags canon:** Luke died 34 (Ahch-To, Ep VIII),
-  Han died 34 (Starkiller Base, Ep VII) — sequel facts; Leia has NO death record
-  (pre-TROS vintage). So a "deceased count" is neither six-saga-scoped nor canon-
-  complete: it is "deaths on file." Any report/site claim must say so. No Legends
-  contamination found (Chewbacca has no `died`; Vector Prime excluded).
-- **In-saga gems on file:** Obi-Wan died 0 ("death star, alderaan system"), Anakin 4
-  ("death star ii, endor system"), Padmé -19 ("polis massa (2 days after empire
-  day)"), Ratts -32 (tatooine, Boonta Eve). **Yoda died 4 → 896+4=900 becomes
-  DERIVABLE data**, upgrading the registry's quoted-testimony Yoda gem candidate —
-  flag for the site-surfacing panel; its render condition would change.
-- **Affiliations are canon-wide** (Luke: "New Republic", "Resistance"); `masters`
-  strings carry parentheticals ("Qui-Gon Jinn (informal Jedi Master)") — counts are
-  safe, rendering names verbatim needs care.
-- Repo verified: galaxy_report is data-narrating register with a legacy quote-joke
-  closer ("May the Force be with your data pipeline." — predates the two-register
-  law; off-site; not this brief's scope). New checks attach to assets UNLISTED in
-  site provenance, so their strings won't hit story rails until surfacing — spoiler
-  audit re-runs then; new known_facts constants will enter derived term sets.
-- Signed-year convention: akabab born/died are negative=BBY, positive=ABY. Our
-  settled BBY law governs DISPLAY, not storage; a column holding signed years is
-  fine while nothing renders "-896" or bare ABY on the site.
+  "Wookie", "Neimodian", R4-P17 (astromech filed Human/female), and now "Ratts
+  Tyerel" (the one typo akabab fixed). Honest angle is in-universe "as filed":
+  record the error, never silently correct canon.
+- STILL OPEN: galaxy_report's legacy closer ("May the Force be with your data
+  pipeline.") predates the two-register law — off-site, out of the akabab brief's
+  scope, but it's a quote-joke in machinery register. Raise at the next report or
+  surfacing round.
 
 ## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
 
@@ -213,35 +220,48 @@ cousin of kitsch"); one-home font ruling 5–1; `.prov-check` 11.5 held. Lessons
 pair early with whoever owns the mechanism (I name the honesty requirement,
 they build it); for any single-home fact, audit its DERIVED encodings too.
 
-## Banked: watchlist round (2026-07-19)
+## Banked: watchlist round (2026-07-19, compacted)
 
-Decision: `.claude/panel/decisions/2026-07-19-watchlist-round.md`; commit
-fdd3178. Verified landed in site/index.html: `tipPinned = e.pointerType ===
-"touch"` (line 799), touch-exempt pointerleave (802), scroll dismissal (469),
-measured-delta instant scrollBy (484).
+Decision: `2026-07-19-watchlist-round.md`; commit fdd3178 (tap-to-pin landed:
+lines 799/802/469/484). Won: suppress-for-touch veto 5–1; census conceit law
+in my framing (stage tooltip = the 82's only roll-call; Arvel Crynyd reachable
+by every modality); Q4 flip quoted in adjudication. Lost Q1 4–2 softly —
+"fallback: accept" was pre-named, both conditions banked (legend line stays
+true; verbatim-or-nothing became law). Lessons: rank fallbacks explicitly;
+audit channel redundancy before defending legibility; bring counted
+interruptions across the held pause; pre-sort evidence measured vs inferred.
+Durable: badge whys are verbatim Dagster descriptions, not number-free —
+raw_people's "82" is safe as beat-0's own hook; hover `title=` stays a
+desktop bonus with no non-hover twin, by decision.
 
-Won: suppress-for-touch VETO carried Q3 5–1; the census conceit is now law in
-my exact framing — the stage tooltip as the 82's only roll-call surface, Arvel
-Crynyd's "never measured" reachable by every input modality. My Q4 debate flip
-was quoted in the adjudication ("a raise that can't reach legibility is churn
-wearing honesty's clothes"); flipping early, once the 8px cap and redundancy
-audit landed, bought more than defending a doomed raise.
+## Banked: akabab second source (2026-07-20)
 
-Lost: Q1, 4–2 — accept-and-document won on voice load (48 tab stops, ~15
-crossing the held pause: the quietest voice must not become the loudest
-keyboard path). A soft loss: accept was my stated fallback, and both my
-conditions entered the log — legend line 911 stays true; verbatim-or-nothing
-became the settled exposure-changes-reach-not-content law. The tripwire holds
-my ground without the affordance.
+Decision: `2026-07-20-akabab-second-source.md`. Option C unanimous —
+star_wars_db byte-identical, transform-join `character_biographies`, five
+checks, site untouched beyond the totals-pin ripple.
 
-Prep differently: (1) rank fallbacks explicitly in debate — naming "fallback:
-accept" made losing Q1 nearly costless and still banked my conditions;
-(2) audit channel redundancy BEFORE defending legibility — where every canon
-fact has a legible twin in copy/caption, acceptance IS the lore-safe verdict;
-(3) count interruptions crossing the held pause — bring the number; (4) arrive
-with evidence pre-sorted into measured vs inferred — that labeling is now law.
+Won: the deaths-on-file package adopted unopposed — check
+`character_biographies_deaths_on_file_baseline`, constant
+`EXPECTED_DEATHS_ON_FILE`, all report copy on-file-worded, closer line
+verbatim; my per-record death audit (Luke/Han sequel deaths, Leia absent)
+supplied the proof it rests on. Canon-direction comments on every alias entry
+are law. My attribution language entered README near-verbatim ("fan-curated,
+MIT, effectively frozen; SWAPI-derived — reproduces SWAPI's spellings"). My
+prep flag that Yoda 896+4=900 becomes *derivable* matured into the written
+pre-veto tripwire — the quoted-testimony rule extended, not weakened.
 
-Durable prep facts: badge whys are verbatim Dagster descriptions (machinery
-register; spoiler pin audits label+why); NOT number-free — raw_people's why
-carries "82", safe as beat-0's own hook. Hover `title=` stays a desktop bonus
-with no non-hover twin, by decision.
+Lost, both instructively: (1) section title — storyteller's "Affiliations &
+Apprenticeships" beat my "Allegiances" on the as-filed tiebreak, my own
+principle applied against me: the source field is literally `affiliations`,
+and drafted copy beats a proposed title. (2) Alias framing — engineer's "the
+alias bridges the join" beat my canon-repair framing; right outcome (records
+stay as filed) and my comment requirement survived intact.
+
+Prep differently: (1) fetching the live source per-record paid for the round —
+three transcribed surveys disagreed (87/88 records; died 47/28), so bring
+computed facts, never counted ones; baselines are now script-computed from the
+frozen fixture for the same reason. (2) If I care about a title or a line of
+copy, DRAFT it verbatim in debate — proposals lose to drafted copy. (3) Check
+the as-filed field name before proposing display vocabulary. (4) When a
+settled rule of mine gains a new threat vector (testimony becoming derivable),
+file the tripwire myself — storyteller filed this one first.
