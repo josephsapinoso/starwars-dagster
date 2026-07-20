@@ -142,6 +142,26 @@
 - **"Affiliations & Apprenticeships" is the section title:** as-filed field name
   (`affiliations`) plus drafted-copy discipline beat my "Allegiances"; don't
   re-propose.
+- **A ranked affiliations/faction chart is BANNED on the six-film site (akabab
+  surfacing, 2026-07-20):** `affiliations` is canon-wide/sequel-inclusive (the
+  computed top-8 includes New Republic 11, CIS 11), so a ranked bar is a ranking
+  *claim* a saga-scoped site cannot honestly make. Only saga-safe COVERAGE COUNTS
+  surface (75 of 82 affiliated, denominatored). Unanimous; do not re-propose.
+- **The second source is a dashboard CARD, never a story beat (akabab
+  surfacing):** the census spine is one archive — eight steps, "n/8", exactly-8
+  kickers — all untouched (BUILDERS.length=8). `#card-biographies` sits after
+  `#card-registry`, a second *reading* of the census, headline **82 of 82
+  matched** (the only akabab number both complete AND pipeline-guarded). Ladder
+  beneath, every number nested-denominatored, "on file" vocabulary. No 9th beat.
+- **akabab attribution shipped verbatim (akabab surfacing):** fan-curated, MIT,
+  SWAPI-derived, effectively frozen — NEVER canon authority. "On file" / "absence
+  is not survival" shipped verbatim. The 896+4=900 derivation stays SEALED off all
+  surfaces; the displayed `bios` SQL returns coverage COUNTS, never `died_year_aby`
+  values; the per-row `bio` object carries a `diedOnFile` boolean, no signed year.
+- **A dashboard card carries no live check badge (akabab surfacing):** a badge
+  needs a claim entry (beats-1–6 machinery); cards state numbers with denominators
+  and lean on the DAG strip for lineage. The DAG chip set is now a guarded surface,
+  pinned to the real Dagster asset keys.
 
 ## Working knowledge
 
@@ -168,16 +188,16 @@
   Executor's bridge in RotJ) — earned if ever named on the page.
 - Kitsch veto list for machinery visuals: no Aurebesh in diagrams, no Imperial/Rebel
   iconography as badges, no "these aren't the rows you're looking for".
-- Akabab durable facts (verified against live all.json, 2026-07-20): in-saga deaths
-  on file — Obi-Wan 0 ABY (Death Star), Anakin 4 (Death Star II), Yoda 4, Padmé -19
-  ("polis massa, 2 days after empire day"), Ratts -32 (Boonta Eve). Affiliations
-  are canon-wide (Luke: "New Republic", "Resistance"); `masters` strings carry
-  parentheticals ("Qui-Gon Jinn (informal Jedi Master)") — counts safe, verbatim
-  names need care. No Legends contamination (Chewbacca has no `died`).
-- Check counts go 15→20 (blocking 4→6, warn 11→14) when the akabab commits land;
-  the five new checks attach to assets UNLISTED in site provenance, so their
-  strings hit no story rail until surfacing — spoiler audit re-runs then, and the
-  new known_facts constants enter the derived term sets at that landing.
+- Akabab durable facts (verified live all.json, 2026-07-20): coverage on the frozen
+  fixture — 82/82 matched, 47/82 deaths on file, 75/82 affiliated, 14 masters, 12
+  apprentices. `affiliations` is canon-wide/sequel-inclusive (Luke: "New Republic",
+  "Resistance") → the ranked-chart ban. `masters` strings carry parentheticals
+  ("Qui-Gon Jinn (informal Jedi Master)") — counts safe, verbatim names need care.
+  No Legends contamination (Chewbacca has no `died`). Death year VALUES stay sealed.
+- Check counts: 15→20 total (blocking 4→6, warn 11→14) with akabab landed; totals
+  pin stays 13/5/20. The surfacing card carries no live badge, so its checks
+  (`character_biographies_join_coverage` 82/82, `_deaths_on_file_baseline` 47/82,
+  both WARN) guard the numbers without hitting the 8-step story rail.
 
 ## Open watch items
 
@@ -234,75 +254,42 @@ Durable: badge whys are verbatim Dagster descriptions, not number-free —
 raw_people's "82" is safe as beat-0's own hook; hover `title=` stays a
 desktop bonus with no non-hover twin, by decision.
 
-## Prep notes: akabab SURFACING (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20)
 
-Verified on-file today (site L413 DATA, analytics.py:91-203, known_facts:64-86, decision log):
-- Baselines LOCKED: `EXPECTED_PROFILE_MATCH_COUNT=82` (alias bridges the one typo → ALL
-  82 census chars match), `EXPECTED_DEATHS_ON_FILE=47`, `EXPECTED_PROFILE_COUNT=87`.
-  The report's "Affiliations & Apprenticeships" (L182) is my copy pattern: matched-count
-  outer denom, field-present inner, "on file", closer "absence is not survival."
-- **Q1 (my lead): dashboard-only card, NOT a 9th beat.** The census spine is complete
-  (measured/weighed/located/counted → the six-film trio → pilots → handoff). Re-opening
-  the settled 8-step / "n/8" / exactly-8-kickers law ripples the "eight steps" heading,
-  the counter, `test_story_has_a_real_heading_outline`, beat numbering, drift `claims
-  "1..6"`, handoff "six of its numbers" — a huge cost, and a sparse enrichment join has
-  NO payoff that rivals "Ben counts." Spine untouched; card mirrors the report section.
-- **Q2 headline = 82 of 82 matched.** That is the one genuinely strong (non-sparse)
-  number and it earns the alias story. Deaths on file 47 of 82. Masters/apprentices/
-  affiliations: counts with nested denominators, n disclosed, NO superlatives.
-- **Ranked-affiliation trap (new):** `affiliations` is CANON-WIDE and sequel-inclusive
-  (Luke: "New Republic","Resistance"). A top-affiliations chart surfaces beyond-saga
-  faction names — it needs the SAME frame disclosure as deaths ("as filed, canon-wide",
-  not saga-scoped), or cut it. Do not let a ranked list smuggle in an un-disclosed frame.
-- **Q3:** "on file"/"as filed" confirmed; no "deceased"; alias akabab-canon→SWAPI-typo;
-  attribute fan-curated/MIT/effectively-frozen/SWAPI-derived-spellings, NEVER canon
-  authority. Pre-vetoed derivation stays sealed: NO `died_year_aby`×`birth_year_bby`
-  arithmetic on any surface; the Yoda 896+4=900 gem stays quoted-testimony, off as data.
-- **Q4:** a card is a NEW claim surface → its number gets a guard. Matched count →
-  `character_biographies_join_coverage`; deaths → `character_biographies_deaths_on_file_baseline`.
-  A dashboard card is not a story beat, so it need not touch the 8-step rail — but if any
-  akabab number lands in a beat's chain, the spoiler-pin term sets extend that commit.
-- **Live contradiction to flag (honesty, my lane):** beat-7 prose (L320) + DAG aria-labels
-  (L343) still say "four transforms" / "four transform assets"; JS provenance renders
-  "five" (L941, totals.transforms=5). Surfacing forces beat-7 + DAG chips + aria true:
-  01 gains `raw_character_profiles` (a 6th raw pull, akabab not SWAPI — "five raw SWAPI
-  pulls" stays literally true; it's a sixth, fan-curated pull), 02 gains
-  `character_biographies` (→ five transforms). The number must be computed, single-homed.
-- **Q6 footer:** "Source: SWAPI" → dual-source, akabab credited as secondary/fan-curated/
-  non-canon; `DATA.meta.source` grows to hold both. Watch: footer "May the Force be with
-  your data pipeline" is a quote-joke in machinery register (my open watch item) — Q6 now
-  touches the footer, so it's in scope to raise.
-- Cannot verify without the others: exact SQL-fixture wiring cost (engineers/qa);
-  whether graphic/ux want the card as chart vs prose (their lane). I defer on mechanism.
+Decision: `2026-07-20-akabab-site-surfacing.md`. Near-sweep in my lane.
 
-## Banked: akabab second source (2026-07-20)
+Won: my ranked-affiliation trap became the unanimous D5 veto — the computed top-8
+(New Republic 11, CIS 11) proved the canon-scope trap was live, so the ranked bar
+is banned and only saga-safe coverage counts (75/82) surface. My Q1 dashboard-card-
+not-a-9th-beat framing carried unanimous (D1): spine untouched at BUILDERS.length=8.
+"82 of 82 matched" headline (D2) — the one number both complete and guarded. "On
+file" / "absence is not survival" shipped verbatim; my fan-curated/MIT/SWAPI-derived/
+never-canon attribution held. The 896+4 pre-veto held under pressure: the `bios` SQL
+returns COUNTS, the `bio` object holds a `diedOnFile` boolean — no `died_year_aby`
+value ever reaches the page. My L320/L941 contradiction flag drove the unconditional
+fix ("five SWAPI pulls and one akabab pull … five transforms").
 
-Decision: `2026-07-20-akabab-second-source.md`. Option C unanimous —
-star_wars_db byte-identical, transform-join `character_biographies`, five
-checks, site untouched beyond the totals-pin ripple.
+Lost nothing of substance. Adjacent rulings I didn't own but should note: Claude ruled
+PIN over render for the DAG chip set (a guarded surface now), and boolean `diedOnFile`
+over the engineer's `diedAby|null` — both tightened my honesty laws further than I'd
+asked.
 
-Won: the deaths-on-file package adopted unopposed — check
-`character_biographies_deaths_on_file_baseline`, constant
-`EXPECTED_DEATHS_ON_FILE`, all report copy on-file-worded, closer line
-verbatim; my per-record death audit (Luke/Han sequel deaths, Leia absent)
-supplied the proof it rests on. Canon-direction comments on every alias entry
-are law. My attribution language entered README near-verbatim ("fan-curated,
-MIT, effectively frozen; SWAPI-derived — reproduces SWAPI's spellings"). My
-prep flag that Yoda 896+4=900 becomes *derivable* matured into the written
-pre-veto tripwire — the quoted-testimony rule extended, not weakened.
+Prep differently: (1) I flagged the ranked-affiliation trap in *prep* as "disclose the
+frame or cut" — the panel went straight to cut. Trust the harder line sooner when a
+claim's scope can't be honestly narrowed. (2) Draft the card copy verbatim next time;
+the storyteller's "A second reading" stat-block led because it was drafted, and my role
+was reduced to an attribution gloss on it. Bring the whole block, not just the vocabulary.
 
-Lost, both instructively: (1) section title — storyteller's "Affiliations &
-Apprenticeships" beat my "Allegiances" on the as-filed tiebreak, my own
-principle applied against me: the source field is literally `affiliations`,
-and drafted copy beats a proposed title. (2) Alias framing — engineer's "the
-alias bridges the join" beat my canon-repair framing; right outcome (records
-stay as filed) and my comment requirement survived intact.
+## Banked: akabab second source (2026-07-20, compacted)
 
-Prep differently: (1) fetching the live source per-record paid for the round —
-three transcribed surveys disagreed (87/88 records; died 47/28), so bring
-computed facts, never counted ones; baselines are now script-computed from the
-frozen fixture for the same reason. (2) If I care about a title or a line of
-copy, DRAFT it verbatim in debate — proposals lose to drafted copy. (3) Check
-the as-filed field name before proposing display vocabulary. (4) When a
-settled rule of mine gains a new threat vector (testimony becoming derivable),
-file the tripwire myself — storyteller filed this one first.
+Decision: `2026-07-20-akabab-second-source.md`. Option C unanimous. Won: the
+deaths-on-file package unopposed (my per-record audit — Luke/Han sequel deaths,
+Leia absent — proved it); alias canon-direction comments law; my attribution
+language near-verbatim in README; my 896+4-becomes-derivable flag became the
+written pre-veto tripwire. Lost instructively: "Affiliations & Apprenticeships"
+beat my "Allegiances" (my own as-filed principle + drafted copy against me);
+alias framing went to engineer's "bridges the join" (my comment requirement
+survived). Lessons: bring COMPUTED facts not counted ones (three transcribed
+surveys disagreed 87/88, 47/28 — baselines now script-computed from the frozen
+fixture); DRAFT copy I care about; check the as-filed field name first; file my
+own tripwire when a settled rule gains a new threat vector.

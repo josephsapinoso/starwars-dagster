@@ -195,55 +195,61 @@
   storyteller announces drafted-copy discipline, propose edits INTO their draft
   during debate rather than parallel titles after.
 
-## Prep notes: akabab SURFACING panel (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20; decision
+`2026-07-20-akabab-site-surfacing.md`; implementation pending)
 
-Count-ripple map for surfacing akabab ON THE SITE (verified file:line today):
+- **My whole prep landed, near-verbatim.** The L320/L941 four-vs-five-transforms
+  contradiction I flagged as highest-priority-fix-regardless is fixed unconditionally;
+  my exact rewrite ("five SWAPI pulls and one akabab pull … five transforms") ships.
+  Drafted-copy-gated-on-the-fix discipline paid a fourth time.
+- **README "The website" gains the second-source clause — my one-home ruling held.**
+  The site's own "what the website shows" paragraph was the last single-source holdout
+  (diagram/table/tree already surfaced akabab from the pipeline landing). It now NAMES
+  the site's second-source panel (the `#card-biographies` card) and LINKS to the
+  pipeline akabab — describe the surface here, don't re-explain the join.
+- **Footer + freshness line are projections, not prose — provenance-projection law
+  extended to `DATA.meta`.** `DATA.meta` becomes `{sources:[{name,url,snapshot}],
+  snapshot}`; footer and freshness render "SWAPI · akabab" FROM the array. No
+  hand-typed source string survives. Same muscle as the provenance-strings law.
+- **Dashboard card, not a beat — my Q1 lean won unanimous.** The census spine stays
+  8 steps / "n/8" / "six of its numbers" untouched; the second source is a second
+  *reading* on a dashboard, not a 9th archive step. Re-opening settled geometry was
+  not earned by an aggregate-grade join. Zero story-count ripple, as prepped.
+- **Zero WORKSHOP ripple confirmed and banked as law:** it is a pipeline tutorial, not
+  a site walkthrough; "five SWAPI endpoints / five raw lists" stay literally true
+  (akabab is a separate pull). Docs-as-guard grep, third clean exercise.
+- **New site-specific laws I now enforce in copy** (promoted to Settled below): the
+  second source is a card not a beat; no ranked faction chart on a six-film site
+  (canon-scope trap — only saga-safe coverage COUNTS surface); the akabab SQL string
+  returns coverage counts, never `died_year_aby` values; `bio` carries a `diedOnFile`
+  boolean, no signed year; a dashboard card states denominatored numbers and relies
+  on the DAG strip for lineage — no fabricated card-level badge.
+- Prep differently next time: I mapped every ripple but under-specified the DATA SHAPE
+  (per-row `bio` vs aggregate blob) — the analyst/engineer/qa owned that call and it
+  drove my copy's derivability. When a copy claim ("82 of 82 renders from data") depends
+  on a data shape, propose the shape in prep so the number's home is settled with the words.
 
-- **LIVE CONTRADICTION to fix regardless of any Q (highest priority):** site L320
-  STATIC handoff prose says "five raw SWAPI pulls, one DuckDB warehouse, **four
-  transforms**, one report"; the JS callback L941 renders `${WORDS[P.totals.transforms]}`
-  = "**five** transforms" (totals already 13/5/20). The shipped page contradicts itself.
-  Fix: the enumerated machinery sentence must move to five transforms AND account for
-  the akabab pull. My lean: make it count-accurate + source-honest ("five SWAPI pulls
-  and one akabab pull ... five transforms") rather than count-free — this sentence is a
-  machinery inventory where the counts are the point, and it's the natural place to first
-  name the second source on the story spine.
-- **Footer L406 + DATA.meta (Q6):** "Source: SWAPI" only; `DATA.meta={source:"swapi.info"}`
-  single-valued. Dual-source footer needed. Meta shape: prefer `sources: [swapi, akabab]`
-  array over a second scalar key, so the footer renders from data (provenance-projection
-  law) not a hand-typed string.
-- **README "The website" L105-113 (the ripple the brief names):** this is the ONLY
-  reader-facing description of what the SITE shows, and it is still single-source framed
-  (census dims + "Dagster lineage strip and the DuckDB SQL"). README architecture diagram
-  (L43-62), group table (L54), tree (L172) ALREADY surface akabab — from the pipeline
-  landing — so the landing page's own "what the site shows" paragraph will be the last
-  single-source holdout. If the site surfaces akabab, this paragraph gains one clause
-  naming the second-source card/figure. One home: describe the site's akabab surface here,
-  link don't re-explain the pipeline akabab (that's L58-62).
-- **L941 "six of its numbers" + heading "eight steps" + "n/8" counter + drift
-  claims "1..6":** these ripple ONLY IF Q1 adds a NEW BEAT. A dashboard-only card leaves
-  the entire beat-count spine untouched → zero story-count ripple. From the count-drift
-  lane, dashboard-only is dramatically cheaper and honors settled 8-step law. My Q1 lean:
-  **dashboard-only card**, no new beat; re-opening settled geometry is NOT earned by an
-  enrichment join whose honest home is a dashboard section beside the SQL.
-- **Q5 new SQL chart:** README L128 "three of the five SQL strings [historically] didn't
-  run" is PAST-tense + count-free present ("Now every displayed string ... is executed"),
-  so a 6th executable SQL string does NOT falsify it. Safe. Six SQL strings would ripple
-  the site SQL_KEYS/fixture (qa/engineer lane), not my prose.
-- **WORKSHOP:** grep confirms it is a PIPELINE tutorial, not a site walkthrough — no beat
-  counts to ripple. :305 "Five ... The sixth" and :500 AkababResource already absorbed the
-  akabab pull; :335/:345 "five SWAPI endpoints / five raw lists" stay literally true (five
-  SWAPI, akabab is separate). No WORKSHOP site-count ripple from surfacing.
-- First-mention akabab gloss: README Stack (L100-101) and L58-62 already gloss it; the site
-  itself has NO gloss yet — a surfaced akabab card/footer is akabab's first site mention and
-  must carry the "fan-curated, MIT, SWAPI-derived spellings, not canon authority" attribution.
+## Settled additions (akabab site surfacing, 2026-07-20)
+
+- The site's second-source surface is a dashboard card (`#card-biographies`, after
+  `#card-registry`), never a story beat. The census spine is one archive; the second
+  source is a second reading of it.
+- No ranked faction/affiliations chart on a saga-scoped site — `affiliations` is
+  canon-wide/sequel-inclusive; only saga-safe coverage COUNTS may surface (75/82
+  affiliated, not a top-8 bar).
+- Footer + freshness line render from `DATA.meta.sources[]`; no hand-typed source
+  string. akabab's first SITE mention (card/footer) carries the fan-curated/MIT/
+  SWAPI-derived-spellings/not-canon-authority attribution.
+- Dashboard cards state denominatored numbers and rely on the DAG strip for lineage —
+  no card-level check badge (a badge needs a claim entry, i.e. the beats-1–6 machinery).
 
 ## Open watch items (mine)
 
-- Akabab PIPELINE landing has shipped (totals 13/5/20; README diagram/table/tree +
-  Stack gloss all surfaced akabab already). REMAINING for the SURFACING landing: the
-  site itself (footer, DATA.meta, handoff L320 contradiction, README "The website"
-  paragraph) — see Prep notes above.
+- Akabab PIPELINE landing shipped (13/5/20; README diagram/table/tree + Stack gloss).
+  SURFACING landing is now DECIDED (see Banked above), implementation pending: verify
+  in the PR that L320 contradiction is fixed, README "The website" names the card +
+  links (not re-explains) the pipeline join, and footer/freshness render from
+  `DATA.meta.sources[]` (no hand-typed source string).
 - Surfacing-panel tripwires I co-own: Yoda 896+4=900 stays pre-vetoed; if
   character_biographies joins a beat chain, spoiler-pin term sets extend in the same
   landing; screenshot retake whenever a visual shows check/asset counts.

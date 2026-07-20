@@ -108,6 +108,24 @@
 - Cross-source derived figures (SWAPI birth × akabab death arithmetic, e.g. Yoda
   896+4=900) are quoted-testimony territory: pre-vetoed off all surfaces until a
   surfacing panel rules. (2026-07-20.)
+- akabab surfaces as a `#card-biographies` dashboard card, NEVER a story beat: the
+  census spine stays 8 steps / "n/8" (BUILDERS.length=8 untouched); the second source
+  is a second READING, a dashboard act. Card carries NO check badge (a badge needs a
+  claim entry; beats 1–6 machinery). Totals stay 13/5/20. (Surfacing panel, 2026-07-20.)
+- akabab card numbers render from per-row `DATA.people[].bio` (nested object or null),
+  never an aggregate blob; `bio` carries `diedOnFile` boolean — no signed year value
+  ever enters the page. matched (82/82) & deaths-on-file (47/82) are drift-recomputable
+  from `bio` AND pinned to known_facts by pytest; 75/14/12 are render-computed copy
+  whose ONLY guard is the drift detector, explicitly labeled uncheckable, no badge.
+  (Surfacing panel, 2026-07-20.)
+- A ranked affiliations/faction chart is BANNED on the six-film site: `affiliations` is
+  canon-wide/sequel-inclusive, so a ranked bar is a ranking claim the site can't
+  honestly make. Only saga-safe coverage COUNTS surface. (Surfacing panel, 2026-07-20.)
+- A displayed akabab SQL string returns coverage COUNTS only, never `died_year_aby`
+  VALUES (dodges ABY-sign display + the pre-vetoed derivation). (Surfacing, 2026-07-20.)
+- The DAG-strip chip set is a GUARDED surface: a new pytest pins the chip set to the
+  real Dagster asset keys (chips stay HTML, ruled PIN not full render — same guarantee,
+  less churn), so it can never silently contradict totals again. (Surfacing, 2026-07-20.)
 - The site WORDS number-renderer is a guard surface: it grows (through "twenty")
   with a pytest pin (`len(WORDS)` exceeds every DATA-rendered count) in the same
   commit as any count it must spell. (2026-07-20.)
@@ -157,70 +175,6 @@
   tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
   declared-writers list (THIRD writer) same commit.
 
-## Prep notes: akabab SURFACING panel (2026-07-20)
-
-Read every assertion in test_site_provenance.py + test_site_sql.py + conftest
-warehouse fixture + the two site drift blocks. Exact break-map by option:
-
-DASHBOARD CARD (mirror `#card-registry`, L1333 `registryChart`) touches the
-FEWEST guards — the birth registry is the precedent: a `span12` card, numbers
-computed from inline DATA.people at render, `{sql: DATA.sql.ages}` disclosure,
-guarded by the census drift detector (L536 `expect`) + ages SQL execute/compare,
-NO provenance-claim, NO live check badge, "on file"/"as filed" vocab already
-there. A card does NOT touch: `test_story_has_a_real_heading_outline` (==8
-kickers), `test_claims_cover_exactly_beats_one_through_six` ([1..6]), drift
-`beats !== "1,2,3,4,5,6"` (L867), the L941 hardcoded "six of its numbers"
-literal, or `test_beats_four_through_six...`. This is my recommendation.
-
-NEW BEAT ripples ALL of the above + reopens Settled 8-step/"n/8" geometry:
-kicker count 8→9, claims-cover set, drift beats-string, and the L941 literal
-"six"→"seven" (hand-typed, UNGUARDED — should become `WORDS[P.claims.length]`).
-Append, never insert before beat 4, or `test_beats_four_through_six` shifts.
-
-Guards a card/beat MUST extend regardless:
-- If akabab numbers render, they join a drift detector (census `expect` L549 or
-  provenance edition) recomputed from inline JSON → the per-char death-on-file
-  flag + match flag must live in DATA (derivable), not just an aggregate.
-- Spoiler: add `payoff_terms[8]` in test_no_payoff_leaks (L186) keyed off
-  known_facts EXPECTED_DEATHS_ON_FILE / EXPECTED_PROFILE_MATCH_COUNT so 47/82
-  can never appear on rails 1..6 (belt-and-suspenders; matches birth-registry
-  `payoff_terms[7]`). Only needed as a hard rail-scan break if character_bios
-  joins a CLAIM chain.
-- SQL chart (Q5): add key to `SQL_KEYS` (L41) AND DATA.sql (else
-  `test_data_sql_has_exactly_the_chart_entries` fails); the `warehouse` fixture
-  (L58) must add `raw_character_profiles, character_biographies` to the
-  materialize list AND `"akabab": FakeAkababResource()` to resources — else the
-  UNGATED execute test fails on a missing table (the exact character_stats/ages
-  history). character_biographies is a declared writer already. Gated compare
-  test recomputes rows from DATA-derived arrays; if `died_year_aby` (ABY-
-  positive) is displayed, pin `all(r>0)` like `ages`. Gate on BOTH markers.
-- Listing raw_character_profiles / character_biographies in
-  DATA.provenance.assets (for a provenance reveal) triggers
-  test_provenance_assets_edges_and_checks_are_real: deps exact, ALL their checks
-  listed, blocking verbatim, `why` == checks.py description verbatim, label ≤20.
-  Safe — they're not in any claim chain, so their strings never hit a rail.
-
-UNGUARDED HAND-COPY GAP (flag loudly): the DAG strip chips + aria-label
-(L343-367, "five raw ... four transform") and beat-7 static prose (L320) are
-hardcoded HTML with NO pytest pin — they already CONTRADICT totals 13/5/20 and
-the JS provenance sentence. Surfacing is the moment to fix them; the honest fix
-is to RENDER the strip from DATA.provenance.assets (or add a pin that the strip
-chip set == provenance asset keys). Proposing that pin is the guard that should
-land with surfacing. totals stay 13/5/20 (site-only surfacing adds no Dagster
-objects); WORDS through "twenty" suffices (no new checks/beat count > 20).
-
-Q4 ruling: a live pytest-verified check BADGE requires the claims machinery
-(test_claims_are_honest), which requires a claim entry, which today is beats 1-6
-only. Birth registry surfaces WITHOUT a claim badge — guarded by SQL + drift.
-Akabab card should follow: number honesty = drift recompute + SQL execute/
-compare; pipeline existence disclosed via the (newly-rendered) DAG strip. Name
-guard refs `character_biographies_join_coverage` / `_deaths_on_file_baseline`
-as pipeline disclosure, not per-number live badges, unless we open a card-claim.
-
-Cannot verify without live run: the actual verbatim `description=` strings of
-the 5 akabab checks (needed for the `why`-verbatim assertion if provenance-
-listed) — read checks.py at implementation. Everything else is banked/derivable.
-
 ## Banked: earlier panels (2026-07-18/19, compacted)
 
 Pipeline-reveal + character_stats: provenance/SQL/spoiler laws above shipped as
@@ -233,34 +187,64 @@ alternative and its conditions. Ledger closure: snapshot.yml runs the FULL suite
 before the bot commit; DATA.meta freshness pinned; re-verify open items AT BANK TIME
 before writing "OPEN".
 
-## Banked: akabab second source (2026-07-20)
+## Banked: akabab second source (2026-07-20, compacted)
 
-Decision log: `.claude/panel/decisions/2026-07-20-akabab-second-source.md`.
+Log: `.claude/panel/decisions/2026-07-20-akabab-second-source.md`. Won the slate:
+five-checks ceiling held vs per-field baselines; seen-to-fail matrix = plan item 5;
+WORDS-overflow carve-out; ungated alias-injectivity/load-bearing pytest; no-prose-grep;
+Q3 (key-presence ≠ parse, one WARN, two-guard law dormant). Lost correctly:
+`EXPECTED_DECEASED_COUNT` → lore's `EXPECTED_DEATHS_ON_FILE` — identifier names
+(checks/constants/columns) are CLAIM SURFACE; vocabulary honesty is now part of my
+definition of verified. Vindicated: computed-not-transcribed baselines (three surveys
+of the same JSON disagreed). Lessons: verify SHAPE not exact counts from live fetches;
+run my proposed NAMES past vocabulary roles in prep; the pre-veto tripwire (Yoda
+derivation) is a reusable guard genre.
 
-Won nearly the whole slate: five-checks ceiling HELD against the analyst's per-field
-baselines (she conceded the mechanism, kept nested denominators as report-copy
-convention — the right trade); my seen-to-fail acceptance matrix adopted verbatim as
-plan item 5; the WORDS-overflow carve-out won jointly with technical-writer (it is
-totals-pin ripple, not surfacing); ungated alias-injectivity + load-bearing pytest
-ratified with engineer's better framing (aliases bridge the join, never repair
-records); no-prose-grep-pins held (README counts stay a human checklist); Q3 ruling
-adopted exactly (key-presence ≠ parse, one WARN guard, two-guard law dormant).
+## Banked: akabab site surfacing (2026-07-20)
 
-Lost, correctly: my constant name `EXPECTED_DECEASED_COUNT` fell to lore's
-`EXPECTED_DEATHS_ON_FILE` package. The lesson generalizes: identifier names (checks,
-constants, columns) are CLAIM SURFACE — "deceased" overclaims canon-completeness the
-same way a wrong badge overclaims verification. Same force renamed `died` →
-`died_year_aby`. Vocabulary honesty is part of my definition of verified now.
+Decision log: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`.
 
-Vindicated condition: baselines computed-not-transcribed became plan item 6 after
-three independent surveys of the same live JSON disagreed (my WebFetch summarizer
-said died=30; brief said 47; a third said 28). A number nobody can transcribe twice
-identically is a number only a script may bank.
+The whole guard slate shipped as I specced it. The card-not-beat break-map (my
+prep recommendation) was adopted unanimously as D1 — the birth-registry precedent
+held: a dashboard card touches none of the exactly-8-kickers / claims-cover-1..6 /
+drift-beats-string / L941-"six" pins, so the spine stays 100% untouched. The
+checked-vs-uncheckable HONESTY SPLIT is now banked law (D2 + "Checked-vs-uncheckable"
+adjudication): matched 82/82 and deaths-on-file 47/82 are drift-recomputable from
+per-row `bio` AND pinned to known_facts; 75/14/12 (affiliated/masters/apprentices)
+are render-computed copy discipline whose ONLY guard is the drift detector, and the
+card carries NO badge so it never implies a live check on any of them. My Q4 ruling
+(a badge needs a claim entry → no per-card badge; DAG strip is the lineage surface)
+was adopted verbatim.
 
-Prep differently next time: (1) summarizer-derived counts from live fetches are
-unreliable evidence — don't burn prep verifying a brief's exact counts; instead
-verify the SHAPE and make computed-at-freeze a condition from the start. (2) Run my
-proposed check/constant/column NAMES past the vocabulary roles' likely objections
-during prep, so my slate survives adjudication intact. (3) The pre-veto tripwire
-(Yoda derivation) is a new guard genre — a written constraint for a FUTURE panel;
-cheap, and it moves spoiler/testimony law forward in time. Use it again.
+Won: `FakeAkababResource` in the warehouse fixture the moment akabab SQL ships +
+`bios` in SQL_KEYS + gated compare — the exact character_stats/ages history I flagged
+in prep, taken as plan item 5. My DAG-strip guard proposal became D4 — and here I
+was OVERRULED toward the cheaper option in my own favor: engineer wanted a full
+render from DATA.provenance.assets, I offered "render OR pin the chip-set," Claude
+ruled PIN. Same guarantee (chip set == real Dagster asset keys, can never silently
+contradict totals again), less churn. Totals stay 13/5/20 unanimously; WORDS through
+"twenty" suffices (site-only surfacing adds no Dagster objects). The unconditional
+L320/L941 contradiction fix (six raw / five transforms) landed truth-first.
+
+Lost, correctly / refined: on per-row shape I wanted a flag and engineer wanted
+`diedAby|null`; Claude ruled the boolean `diedOnFile` — MY side, and the sharper
+line: no signed ABY year value ever enters the page (honors signed-year +
+quoted-testimony laws) while deaths-on-file stays presence-derivable. The ranked
+affiliations chart I was neutral on got DROPPED (D5, lore-led) — a new banked
+site law: no ranked faction chart on a six-film site because `affiliations` is
+canon-wide/sequel-inclusive; only saga-safe coverage counts surface. The `bios`
+SQL returns COUNTS not `died_year_aby` values — my "counts, not values" instinct
+became an explicit constraint.
+
+Verbatim-description gap I flagged in prep (the 5 akabab checks' `description=`
+strings, needed for the provenance `why`-verbatim assertion) still resolves only at
+implementation — read checks.py then; D4 confirms the existing real-defs assertion
+validates them, so no new mechanism, just the values.
+
+Prep differently next time: my prep break-map WAS the adjudication skeleton — arriving
+with the exact guard-by-guard ripple map (which pins a card touches vs a beat) is what
+made the card win on the first pass. Keep doing that. One miss: I framed the DAG-strip
+guard as "render OR pin" and Claude picked pin — offering the cheaper alternative
+alongside the detector (the birth-registry lock-race lesson) worked AGAIN, so make it
+standard: whenever I spec a detector, name the lower-churn policy variant and its
+equivalent-guarantee condition in the same breath.

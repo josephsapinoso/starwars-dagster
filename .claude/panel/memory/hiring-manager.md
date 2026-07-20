@@ -200,45 +200,45 @@ pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count it
 
 Cannot verify (standing): off-platform artifact link preview.
 
-## Prep notes: akabab SURFACING panel (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20)
 
-Reviewed the scan surfaces (site/index.html:259-367,404-413), the akabab decision log, and
-README "The website" (:105-113) / DAG screenshot ref (:16 → screenshots/dagster_asset_lineage.png).
-State: the pipeline wires akabab but the SITE surfaces NONE of it. Everything a scanner sees
-is single-source; totals.assets=13 already say "13 assets" while the DAG strip shows only 5+4.
-Plus a live contradiction: beat-7 static prose (L320) says "four transforms", JS provenance (L941)
-"five transforms" — a first-impression defect to fix truth-first regardless of the surfacing verdict.
+Verdict: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`. Surfacing decided
+unanimously on the big axes; my surfacing prep is folded here (superseded).
 
-My going-in positions (bring as concrete proposals, not a menu):
-- **Signal value is high.** The strongest banked interview answer — "join a second, dirtier source
-  without fuzzy matching AND account for coverage honestly" — is currently INVISIBLE to a 90-sec scan.
-  Surfacing it converts done pipeline work into visible signal. Multi-source join + honest nested
-  denominators reads as senior judgment; leaving it buried is wasted signal.
-- **Q1 placement: dashboard section, NOT a new scroll beat.** The census arc is a single-source
-  SWAPI narrative; enrichment is a DIFFERENT provenance and belongs where provenance reveals already
-  live (the dashboard). A 9th beat re-opens hard-won settled geometry (8-step / "n/8" / exactly-8
-  kickers / drift claims "1..6" / handoff "six numbers") — that ripple reads as churn without cause,
-  the exact argument that won Option C last round. Technical readers look for pipeline sophistication
-  in the DAG strip + dashboard, not the story spine. Keep the spine byte-stable.
-- **Highest-leverage, lowest-churn surfacing = the architecture visual + footer.** Adding the two
-  akabab chips to the DAG strip (01 raw_character_profiles, 02 character_biographies) makes "two
-  sources feed one warehouse" legible in the FIRST architecture visual — and that visual is the
-  README screenshot (:16), the single most-scanned image. Dual-source footer ("Sources: SWAPI +
-  akabab", DATA.meta → array/second source) tells a scanner there are two sources instantly.
-- **Q2 headline number: "82 of 82 matched"** — the alias bridge closing the one as-filed typo IS the
-  join-governance story a reader can grasp in one line; "47 deaths on file (of 82 matched)" second.
-  Nested denominators on every figure; no superlatives from sparse fields (masters ~15).
-- **README ripple (my ground):** "The website" para (:105-113) currently says single-source
-  ("82 dots… SWAPI"); it must gain one honest clause that a second, fan-curated MIT source enriches
-  the cast — without overclaiming canon. Keep it to the why (multi-source, coverage-honest), not a
-  feature list. The DAG-strip aria-label ("five raw… four transform") is count-bearing prose — ripple it.
-- **Screenshot-retake reflex (my standing catch):** ANY count-bearing visual changes here — the DAG
-  strip gains chips (5→6 raw shown, 4→5 transforms), so screenshots/dagster_asset_lineage.png (README:16)
-  gets retaken IN the surfacing commit. Briefs habitually omit this; it is on my tripwire list from the
-  akabab decision log (watch item 3). If a dashboard SQL chart lands, retake that too.
-- Honor pre-vetoes: no cross-source derived figures (Yoda 896+4=900); "on file" vocabulary, never
-  "deceased"; akabab = fan-curated MIT SWAPI-derived, never canon authority. If character_biographies
-  joins a beat chain (it should NOT, per my Q1 stance), spoiler-pin term sets extend in the same landing.
+Won (my positions carried):
+- **Multi-source join is now legible in a 90-second scan** — exactly my signal argument.
+  It surfaces three ways, no story beat: the two akabab chips join the DAG strip
+  (six raw / five transforms), a `#card-biographies` coverage card lands after
+  `#card-registry`, and the footer renders "Sources: SWAPI · akabab" from
+  `DATA.meta.sources[]`. The strongest banked interview answer stopped being invisible.
+- **No 9th beat — dashboard card only. Unanimous.** My "reads as churn without cause"
+  frame (the Option-C argument reused) held: a beat would break four settled pins
+  (exactly-8 kickers, claims-cover-1..6, drift "1,2,3,4,5,6", L941 "six numbers") to
+  carry aggregate-grade enrichment that never touches census grain. Spine stays
+  byte-stable (BUILDERS.length=8).
+- **Executable SQL kept — non-negotiable held.** One `bios` string in `DATA.sql`
+  returns coverage COUNTS only (never `died_year_aby` values), executed against the
+  warehouse fixture with `FakeAkababResource`. No dashboard chart without an executed
+  query survives another round intact.
+- **Contradiction fixed truth-first** (L320 "four transforms" vs L941 "five") —
+  unconditional, first-impression-defect discipline, independent of the surfacing verdict.
+- **Headline "82 of 82 matched"** — my pick: complete AND pipeline-guarded, one line a
+  reader grasps. Ranked affiliations chart DROPPED (canon-scope trap), which I backed.
 
-Still cannot verify: the artifact link preview; the real fixture counts (baselines are script-derived
-at freeze — I carry them as unverified, per last round's lesson).
+Lost/ceded: nothing of mine. The screenshot-retake reflex I always demand did NOT fire
+this round — the DAG screenshot was already at 13/20 from the akabab-second-source
+landing, so the chips it depicts were already present; no retake needed. Noted so I
+don't reflexively demand a retake when the count-bearing visual is already current.
+
+New settled constraints (added to Settled block below where load-bearing): the
+second-source site surface is a dashboard card, never a beat; no ranked faction chart on
+a six-film-scoped site (coverage counts only); a per-card number relies on the DAG strip
+for lineage (no fabricated card-level badge); the DAG chip set is pinned to real Dagster
+keys.
+
+Would prep differently: check whether a count-bearing visual is ALREADY current before
+demanding a retake — the reflex is right but this round it would have been noise. Next
+surfacing-type panel, arrive knowing which screenshots already reflect the pending counts.
+
+Cannot verify (standing): off-platform artifact link preview; script-derived fixture
+counts (carried as unverified until freeze).

@@ -104,6 +104,27 @@
 - **Acceptance is a decision with a tripwire:** accepted limitations (Q1 hover-only
   whys; Q4 5px stage type) enter the log with written reopening triggers — Q4 reopens
   if any anno ever carries content absent from caption/copy.
+- **The second source is a card, not a beat** (akabab surfacing, 2026-07-20): the census
+  spine is one archive — 8 steps, "n/8", exactly-8 kickers. Second-source enrichment
+  surfaces as a `#card-biographies` dashboard card (after `#card-registry`, before the
+  coda), never a 9th beat. A beat would re-open settled geometry to carry aggregate-grade
+  data that never touches census grain. BUILDERS.length=8 stays untouched.
+- **akabab DAG chips stay monochrome** (akabab surfacing, 2026-07-20): adding
+  `raw_character_profiles` (01: 5→6) and `character_biographies` (02: 4→5) is pure `.chip`
+  reuse. A source/provenance hue is a new data-color seat and a status-that-is-not-a-series
+  — banned. Provenance attribution lives in TEXT (footer sources[], prov-note, caption),
+  never a chip color. The one `.hot` gold seat stays galaxy_report; akabab earns no gold.
+  The DAG strip chip set is now a guarded surface, pinned to the real Dagster asset keys.
+- **No ranked faction chart on a six-film site** (akabab surfacing, 2026-07-20):
+  `affiliations` is canon-wide/sequel-inclusive, so a ranked bar is a ranking *claim* the
+  saga scope can't honestly make. Only saga-safe coverage COUNTS surface (75/82 affiliated).
+  A sparse-list superlative that would tempt a gold ring is vetoed — "on file" ≠ "complete".
+- **Second-source coverage = one `.kpi`, no per-card badge** (akabab surfacing,
+  2026-07-20): headline "82 of 82 matched" in the sanctioned `.kpi` treatment; the ladder
+  (47/82 deaths on file, 75/82 affiliated, 14 masters, 12 apprentices) all nested-
+  denominatored, "on file" voice. A dashboard card states numbers with denominators and
+  relies on the DAG strip for lineage — NO fabricated card-level ◆/◇ live status (a badge
+  needs a claim, i.e. the beats-1–6 machinery). Numbers render from `DATA.people[].bio`.
 
 ## Working knowledge
 
@@ -133,44 +154,32 @@
   beat 4 (held pause) gets the quietest variant "The paper trail." — identical
   placement/size everywhere.
 
-## Prep notes: akabab surfacing (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20)
 
-Brief: surface the wired-but-invisible second source (raw_character_profiles,
-character_biographies). My lane: does a new surface (card / DAG chip / beat) fragment the
-mark system, the one-hue law, gold-only rule, color/type budget. Verified against source:
+Log `2026-07-20-akabab-site-surfacing.md`; all nine, unanimous on D1/D2/D5. Every
+plank of my verdict carried and became settled law (folded into Settled above): dashboard
+card not a beat (D1), coverage stat-block not a ranked chart (D2/D5), monochrome akabab
+chips (no source hue), one `.kpi` headline, no per-card badge, gold stays galaxy_report.
 
-- **DAG chips are source-agnostic and monochrome (ink-2, `--void` bg, `--line` border).**
-  Adding `raw_character_profiles` to 01 (5→6 chips) and `character_biographies` to 02 (4→5)
-  is pure `.chip` reuse — ZERO new marks. RESIST any instinct to color/tint akabab chips to
-  mark provenance: a source distinction would be a new data-color seat (violates one-hue)
-  and a status-that-is-not-a-series. Attribution belongs in TEXT (footer, prov-note, card
-  caption), never in a chip hue. The `.hot` gold seat stays exactly one per chain
-  (galaxy_report); akabab earns no gold. `aria-label` string updates with the counts.
-- **Headline number → `.kpi` treatment** (`.kpi`/`.k-value` 42px, sanctioned scale integer;
-  `.k-label` 13, `.k-sub` 12). A dashboard-only akabab stat card is the lowest-fragmentation
-  home: it reuses the existing `.kpis` grid / `.card span*` grid. No new component.
-- **"on file" is ALREADY the site's voice** — tooltips render "film on file", "no mass on
-  file", "82 rows, on file" (L267, L594, L652). So the mandated vocabulary needs no new
-  style and reads as continuity, not a bolt-on. Confirm "on file" / "as filed"; never
-  "deceased".
-- **Nested denominators render as wrapping HTML caption below the figure** (banked caption
-  law) — never SVG `<text>`. 47-of-82-matched / field-present split lives in `.prov-note`
-  (13px) or a `.k-sub`, never on-chart clipping.
-- **Provenance reveal = `details.prov`** (shared disclosure selector, gold ▸/▾, ink-3 12px
-  summary, `.prov-check` 11.5 rail, legend "◆ blocking · ◇ drift"). A dashboard akabab card
-  gets its own `details.prov` exactly like the others — no per-card mini-DAG (banked).
-  Check badges stay monochrome ◆/◇; the 5 akabab checks slot into the SAME rail grammar.
-- **No superlatives → no gold rings.** Sparse akabab list fields (affiliations/masters/
-  apprentices) yield no verified extreme; ranked lists would need a superlative the data
-  can't honestly assert. Gold ring stays reserved for the three true extremes. If any death
-  "oldest/most" claim tempts a ring, veto — "on file" is not "complete".
+**Won, cleanly:** the panel adopted my mark-system reasoning verbatim — a provenance color
+is a data seat that breaks one-hue; a ranked bar is a ranking *claim* a six-film site can't
+make; a card badge needs a claim the card doesn't own. The lore-fanatic's canon-scope
+argument (top-8 pulls in sequel-era New Republic/CIS) supplied the concrete WHY behind my
+"sparse fields yield no honest superlative" instinct — my rule and their evidence converged
+on the same veto. The beat-7 "four/five transforms" contradiction was ruled a copy-truth
+fix (not my lane), as I flagged.
 
-Design verdict forming (for DEBATE): **dashboard-only surface, no new beat.** A new beat
-re-opens settled 8-step/"n/8"/exactly-8-kicker geometry and buys nothing visual the mark
-system doesn't already give a card. The live beat-7 contradiction ("four transforms" static
-L320 vs "five transforms" rendered L941) is a copy-truth fix, not a mark question — but the
-count that renders must match provenance. No new skill: mark-system skill already covers
-chip reuse, status-not-a-series, no-per-card-DAG, caption-wraps-HTML, gold-ring-is-extreme.
+**Adjacent rulings I didn't drive but must respect:** DAG chips stay HTML but PINNED to real
+defs (Claude ruled pin over full render — same guarantee, less churn); `bio` carries a
+`diedOnFile` boolean, never a signed ABY year (honors signed-year + quoted-testimony laws);
+one executable `bios` SQL returns COUNTS only.
+
+**Prep differently next time:** I costed the beat-geometry breakage (four pins) in prep and
+it was decisive — keep leading with "which settled pins does this re-open." But I under-used
+the canon-scope frame; the lore role got there first on the ranked-chart kill. When a
+proposed chart ranks a canon-wide field on a saga-scoped site, name the scope trap myself in
+prep, not just the mark-multiplication cost. No skill update — mark-system skill already
+covers chip reuse, status-not-a-series, no-per-card-DAG/badge, gold-ring-is-extreme.
 
 ## Banked: pipeline-reveal + per-character (2026-07-18, compacted)
 

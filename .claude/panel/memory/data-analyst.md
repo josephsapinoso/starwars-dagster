@@ -156,6 +156,18 @@
 - **The WORDS number-renderer is a guard surface (2026-07-20):** it grows (with its
   pytest pin — `len(WORDS)` exceeds every DATA-rendered count) in the same commit
   as any count it must spell.
+- **Akabab site surfacing is settled (2026-07-20, surfacing panel):** second source
+  is a dashboard `#card-biographies` card, NEVER a beat (spine stays BUILDERS.length=8,
+  "n/8"). akabab numbers render from per-row `DATA.people[].bio` (nested object or null),
+  never an aggregate blob; `bio` carries `diedOnFile` **boolean**, not the signed
+  `died_year_aby` — no signed year reaches the page. Displayed `bios` SQL returns coverage
+  COUNTS only, never year values. Checked-vs-uncheckable: 82/82 & 47/82 are WARN-guarded +
+  known_facts-pinned; 75/14/12 are render-computed with the **drift detector as their only
+  guard** and the card carries NO badge (a badge needs a claim entry). A ranked affiliations
+  chart is BANNED (canon-wide/sequel-inclusive → a ranking claim a six-film site can't make);
+  only saga-safe coverage COUNTS surface. DAG chip set is a guarded surface (pinned to real
+  defs). Field-present vs non-zero both stated on-chart ("75 of 82 affiliated, 82 carry the
+  field"). Cross-source arithmetic (896+4) stays off all surfaces.
 
 ## Working knowledge
 
@@ -208,46 +220,10 @@
   cross-foot drift checks (planets.residents vs people.homeworld, etc.). Stage anno
   literals ("not weighed · 23", "Obi-Wan · 5", …) could be derived from the adjacent
   computed collections — offer as a rider whenever the stage is touched.
-- Surfacing-panel tripwires on record (akabab log): Yoda 896+4=900 pre-vetoed; if
-  `character_biographies` joins a beat chain, spoiler-pin term sets extend in that
-  landing; `DATA.meta` dual-source format, provenance entries, image field, and
-  signed-year display all deferred — do not build ahead of the panel.
-
-## Prep notes: akabab SURFACING panel (2026-07-20)
-
-Verified in-repo (file:line):
-- `known_facts.py:67-76`: EXPECTED_PROFILE_COUNT=**87**, EXPECTED_PROFILE_MATCH_COUNT=**82**,
-  EXPECTED_DEATHS_ON_FILE=**47**. Only these three enrichment figures are frozen constants.
-- `analytics.py:96-117`: matched=`profile_id.notna()`; matched_count=82. Report computes
-  `aff_present`(count.notna), `aff_nonzero`(count>0), `masters_on_file`(master_count>0),
-  `apprentices_on_file`(apprentice_count>0), `deaths_on_file`(died_year_aby.notna).
-  These four affiliation/lineage figures have **NO frozen baseline and NO check** — pure
-  render-computed copy discipline. Field-present (notna, field exists) vs non-zero (>0, lists
-  ≥1) are two DIFFERENT denominators; report says "Among the 82 matched, {aff_present} carry
-  an affiliations list and {aff_nonzero} list at least one." Closer verbatim (`analytics.py:203`):
-  "'On file' means the curated source records it — absence is not survival."
-- Site drift detector (`index.html:536-573`) recomputes only census fields from `PEO`
-  (DATA.people); `expect` object hardcodes {total,noMass,...oldestBby}. NO akabab field is in
-  DATA.people yet. To surface ANY akabab number derivably, its per-char field must land in the
-  inline JSON and the detector's `stats`/`expect` must grow (drift-detector-grows law).
-
-My rulings for debate:
-- **Single honest headline = 82 of 82 census characters matched to a curated profile.** Clean
-  complete denominator, frozen constant, guarded (blocking shape + WARN count/coverage). It is
-  the ONE superlative-free "every one of them" claim the data proves. Deaths = **47 of 82**
-  as the secondary figure (frozen, WARN-guarded, "on file" worded).
-- **Affiliations/masters/apprentices: render-computed, no baseline, sparse.** Nested denom
-  mandatory (present vs non-zero of 82 matched of 82). Masters/apprentices are tiny-n — NO
-  ranked leaderboard, NO superlative; state as counts. Affiliations may rank top-N ONLY with
-  aff_nonzero disclosed on-chart. These are the enrichment-denominators skill's superlative gate.
-- If any akabab number surfaces on the SITE, its per-char field enters DATA.people and the drift
-  detector grows a stats/expect pair for it (baselines 82/47 come from known_facts; the four
-  sparse counts recompute from DATA with zero literals, registry-card style). Cross-source
-  DERIVED figures stay pre-vetoed off all surfaces.
-
-Cannot verify offline (didn't run fixture): exact values of aff_present, aff_nonzero,
-masters_on_file, apprentices_on_file — not frozen, would need pipeline run. Memory notes
-masters ~15. Treat any specific N for these as unverified until computed at freeze.
+- Surfacing panel RULED (2026-07-20): akabab is a card not a beat, so no beat-chain
+  spoiler-pin extension; `DATA.meta` → `sources[]` array; provenance gains the two akabab
+  assets; signed-year display rejected (boolean flag instead); 896+4 stays vetoed. See
+  the Settled "Akabab site surfacing" line; nothing here is deferred anymore.
 
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 
@@ -269,45 +245,34 @@ masters ~15. Treat any specific N for these as unverified until computed at free
   stage tooltip was the only identity channel — ask what claim dies if a channel
   dies. Put "bonus, not justification" separations in writing before synthesis.
 
-## Banked: akabab second source (2026-07-20)
+## Banked: akabab second source (2026-07-20) — compacted
 
-**Won, and why:**
-- **Option C ratified unanimously** — my verdict, including my recorded evidence
-  condition for ever revisiting Option A (displayed-SQL need only).
-- **Nested-denominator convention adopted** and embedded verbatim in storyteller's
-  drafted report copy, including the closing "absence is not survival" line; my
-  sparse-field superlative trap landed as law (no lineage superlatives; rank only
-  with n disclosed).
-- **Symmetry rule decided Q3:** the report prints the deaths-on-file number, so its
-  drift guard lands in the same commit — my conditional ("ship the check only if
-  the number surfaces this round") resolved TRUE and became the adjudication's
-  stated warrant.
-- **Frozen-fixture baselines won and were immediately vindicated:** my prep's
-  distrust of fast-model JSON counts (my fetch said 88/died-28 vs the brief's
-  87/died-47) became final-plan item 6 — three disagreeing surveys cited as proof
-  that transcription is not a baseline method. Flagging my OWN evidence as
-  unreliable bought credibility and won the mechanism.
-- **Grain-fires-alone** made qa's seen-to-fail acceptance matrix (duplicate-name
-  fan-out demo before merge).
+Won: Option C unanimous (with my displayed-SQL revisit condition); nested-denominator
+convention + sparse-field superlative trap adopted as law; Q3 symmetry rule (report prints
+it → drift guard same commit) resolved TRUE; frozen-fixture baselines vindicated (my own
+88/died-28 fetch cited as one more unreliable survey — flagging my evidence bought the win);
+grain-fires-alone → qa's seen-to-fail matrix. Lost/conceded: per-field baseline checks to
+qa's five-check ceiling (kept the convention, conceded the mechanism — that trade won
+unanimity); two-guard law narrowed (deaths-on-file is presence, not a parse); "deceased" →
+"deaths on file" (lore caught the both-directions overclaim — I policed denominators, not the
+noun). Prep lesson: draft ready-to-ship copy not conventions; list my own count as an
+unreliable survey up front; audit count-word completeness claims alongside the numbers.
 
-**Lost / conceded, and why:**
-- **Per-field baseline checks lost to qa's five-check ceiling.** Right call: the
-  denominators are copy discipline computed from data at render time; a check per
-  sparse field is guard-for-guard's-sake. I conceded the mechanism, kept the
-  convention — the concession is what got the convention adopted unanimously.
-- **Two-guard law scope narrowed (correctly):** deaths-on-file is key-presence,
-  not a parse — one guard suffices. Banked as a scope boundary on the law itself.
-- **"Deceased" → "deaths on file":** lore caught that akabab deaths are
-  sequel-inclusive AND canon-incomplete, so "deceased" overclaims in BOTH
-  directions. I policed denominators but not the noun — vocabulary is part of the
-  claim's honesty surface.
+## Banked: akabab site surfacing (2026-07-20)
 
-**Prep differently next time:**
-- Draft my denominator lines as ready-to-ship copy, not conventions — storyteller's
-  verbatim drafted copy won the section-title tiebreak on as-filed grounds; drafted
-  artifacts beat described intentions.
-- For any new source: put the freeze-by-script step and the survey-distrust
-  statement in my first prep note, with my own count listed as one more unreliable
-  survey.
-- Audit nouns and vocabulary alongside numbers: ask what a count-word claims about
-  completeness ("deceased" vs "on file"), not just whether the count is right.
+(Full constraints promoted to the Settled "Akabab site surfacing" line.)
+
+**Won:** per-row `bio` in DATA.people over an aggregate blob (blobs aren't drift-recomputable —
+my prep ruling became final-plan items 1–2/4); nested denominators + field-present-vs-non-zero
+as visible on-chart copy, not just report discipline; my checked-vs-uncheckable split ruled in
+verbatim (82/82 & 47/82 WARN+known_facts-pinned; 75/14/12 render-computed, drift detector their
+ONLY guard, NO card badge); ranked affiliations chart DROPPED unanimous (top-8's sequel-era
+New Republic/CIS proved the canon-scope trap live); `bios` SQL returns COUNTS only.
+
+**Key ruling I flagged the shape for:** Claude took `diedOnFile` **boolean** over engineer's
+`diedAby|null` — no signed year reaches the page while deaths-on-file stays presence-derivable.
+No badge without a claim entry resolved the badge question with zero debate.
+
+**Prep differently:** I hedged the 4 sparse counts as "unverified until freeze" (right instinct)
+but should have run the freeze to bring actual 75/14/12, not "masters ~15" — drafted numbers
+beat hedged ones at synthesis. Lead with "no badge without a claim" for any dashboard-card ask.
