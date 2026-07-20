@@ -20,8 +20,9 @@
   variant "The paper trail."; identical placement/size everywhere. No hand-written
   per-beat variants. (Pipeline-reveal, 2026-07-18.)
 - Reveals exist on beats 1–6 only; beat 0 stays a clean hook; beat 7 carries a
-  provenance-computed callback line ("One pipeline, three transforms, eight checks —
-  the full record is below"). One disclosure style, shared with details.sql.
+  provenance-computed callback line (current text at index.html:941: "One pipeline,
+  {WORDS[transforms]} transforms, {WORDS[checks]} checks — and you've now walked the
+  paper trail on six of its numbers."). One disclosure style, shared with details.sql.
   (Pipeline-reveal, 2026-07-18.)
 - The one-line strict-JSON format of `const DATA` is load-bearing — tests parse it.
   Never reflow it for readability. (Pipeline-reveal, 2026-07-18.)
@@ -185,11 +186,63 @@
   tooling why-nots. When a verdict promotes a doc to sole-home status, immediately
   re-check that the doc can carry the weight — don't wait for the next survey.
 
+## Prep notes: second source — akabab character API (2026-07-20)
+
+- **Brief gap found (must-have for debate): the WORDS array.** index.html:863 tops out
+  at "fifteen". The required totals bump (checks 15→20) makes `WORDS[P.totals.checks]`
+  undefined — the beat-7 handoff sentence (:941) would literally render "undefined
+  checks". Only the runtime detector (:881, console.warn "totals outgrew the
+  number-word list") catches it; NO pytest pin exists (grepped tests/ for WORDS —
+  nothing). So the site touch is the totals triple PLUS WORDS through "twenty", same
+  commit; and I'll ask QA for an offline pin that WORDS covers totals — this is the
+  banked beat-7 overflow bug recurring on schedule.
+- **README ripple beyond the brief's :48/:157/:160:** the ASCII architecture diagram
+  (:42–46) draws ONE source — a second source that isn't in it makes the landing
+  diagram lie; :23 "SWAPI is someone else's dataset" generalizes fine (akabab is too —
+  the severity philosophy needs no rewrite, maybe a plural); group table :52–54; :79
+  exact-value-tests list (gains akabab facts when its snapshot lands); Stack list;
+  project tree (:145+) gains akabab_resource.py, fixtures/akabab/, new test files.
+- **WORKSHOP surfaces verified:** :299 "The five raw assets all follow the same
+  pattern" drifts if the new raw asset lands in ingestion.py — count-free rewrite or
+  place the paragraph so "the same pattern" is the claim, not "five". :338 "all five
+  raw lists" stays TRUE under Option C — a genuine docs argument FOR C over A. Module 2
+  resources-dict snippet (:269–276) has a `...` that absorbs the new key; sentence
+  :278 stays true. Exercise 3 (:328, vehicles) stays un-pre-solved: akabab is not a
+  SWAPI endpoint, different resource, different pattern-flavor. :493 takes exactly one
+  demonstrated-claim sentence.
+- **Module 10 watch item RESOLVED:** the GE/Soda section (WORKSHOP:690–709) now argues
+  cost, when-a-framework-earns-it, and "the tradeoff, not the tool, is the takeaway".
+  It can carry sole-home weight. Removed from watch list.
+- **Q5 register check:** galaxy_report's house style = topical-noun headings, italic
+  on-page denominators ("*N of 82 …*"), bullet counts, machinery voice with light
+  flavor. "Allegiances & Lineage" fits the shape BUT "Lineage" is a jargon collision:
+  everywhere else in this repo "lineage" means Dagster asset lineage ("lineage strip",
+  "direct lineage", the README screenshot). One word, two meanings, same repo — rename
+  (e.g. "Allegiances & Apprenticeships"). Spoiler pin scope verified
+  (test_site_provenance.py:181–223): term sets derive from known_facts and scan check
+  label+why on rails; new checks attach to UNLISTED assets so they don't render yet,
+  but write them spoiler-safe and subject-only NOW — they're future rail candidates.
+- **Fixture README pattern:** tests/fixtures/swapi/README.md = synthetic disclaimer →
+  awkward-cases list → "not the real dataset, banked tests skip" → refresh command.
+  The akabab README mirrors it + MIT attribution; its awkward cases to name: field
+  sparsity (masters 15/87), the Ratts Tyerell/Tyerel name mismatch, sequel-era records
+  with no SWAPI match.
+- **Q2 naming:** raw_character_profiles / character_biographies fit the existing
+  families (raw_*, character_stats sibling); distinct words for distinct grains read
+  well on the lineage graph. Resource key "akabab" parallels "swapi", but the FIRST
+  mention in README and WORKSHOP must gloss it — "akabab/starwars-api, a
+  community-maintained static JSON dataset (MIT, GitHub Pages)" — proper-noun jargon
+  earns its place by being introduced.
+- Cannot verify offline: live akabab payload shape/counts (brief's 87/15/12/47/6
+  figures and the 81-of-82 join are the orchestrator's 2026-07-19 verification, taken
+  on trust); whether akabab's GitHub Pages hosting is stable enough for the snapshot
+  workflow (not my call — QA/data-engineer).
+- Skill created: `.claude/skills/panel-technical-writer-count-ripple/SKILL.md` — the
+  count-ripple checklist as a reusable procedure (includes the word-renderer step this
+  prep proved necessary a second time).
+
 ## Open watch items (mine)
 
-- Module 10 is now README's only pointer for "why one check framework / no coverage
-  gates" — next prep, verify its text actually argues the why/tradeoff rather than
-  the old "add Great Expectations or Soda" stub framing.
 - Two-reader test for check strings: every description serves the Dagster operator
   AND the site hover reader; names/numbers surface per-run in metadata — exactly
   where an operator looks. Held for the registry pair; keep testing on every new

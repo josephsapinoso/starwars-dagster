@@ -77,81 +77,41 @@
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
 
-## Prep notes: pipeline-reveal (2026-07-17, compacted after banking)
-
-Kept for reuse (verdict resolved the rest — see Settled and Banked):
-- Commit history reads well: coherent boundaries, panel-workflow commits (`9e9db1c`,
-  `3a82146`) make the agent infra discoverable; PR merges #1–#5 show iteration. README
-  need only point at it, not restate it.
-- The brief's beat→asset map was partly false (per data-analyst): the films-per-
-  character numbers (beats 4–5 flavor) are hand-derived at site-authoring time from
-  `raw_people[].films`; `galaxy_report` has zero checks. Lesson: verify a brief's
-  claimed lineage before building the pitch on it.
-- `.claude/` 9-agent panel is a double-edged 2026 signal: reads "AI built this"
-  (discount) or "engineers their AI collaboration" (premium) depending on framing;
-  human-as-adjudicator framing chosen, now settled in README order.
-- External context (2026 loops): trust in raw AI output falling (29%, from 40% in
-  2024); loops screen for judgment over AI output — spotting what's wrong, explaining
-  tradeoffs; live demos out-engage prose. "Judgment made visible" is the durable pitch
-  frame for this repo. (dataexpert.io, dataengineeracademy.com, herohunt.ai.)
-
-Cannot verify: how the artifact URL renders as a link preview off-platform.
-
-## Banked: pipeline-reveal + transform landing (2026-07-18, compacted)
+## Prep notes + Banked: pipeline-reveal & transform landing (2026-07-17/18, compacted)
 
 Verdicts: `2026-07-18-pipeline-reveal.md`, `2026-07-18-per-character-transform-landed.md`.
-Durable lessons only (outcomes live in Settled):
-- First-impression defects beat feature arguments: finding the truncated README in
-  prep was the round's highest-leverage catch.
-- Lost beat-0 reveal, but the signal was met structurally (`raw_people` opens every
-  chain). Lesson: state the signal requirement, let story roles find the placement;
-  don't spend capital on placement fights when structure can satisfy the concern.
-- Coverage-theater veto held twice: transform landed later on analytics merits with
-  exactly the banked WARN slate, which turned "label honestly first, upgrade later"
-  into the repo's best interview narrative. Rushing it would have read as backfilling.
-- Bring concrete wording proposals for badge/severity ground rather than ceding it to
-  qa/designer.
+Durable lessons (outcomes live in Settled):
+- Commit history reads well (coherent boundaries, panel-workflow commits `9e9db1c`,
+  `3a82146`, PR merges #1–#5); README need only point at it, not restate it.
+- Verify a brief's claimed lineage before building the pitch on it (the beat→asset
+  map was partly false; data-analyst caught it).
+- 2026 loops screen for judgment over AI output; "judgment made visible" is the
+  durable pitch frame; human-as-adjudicator framing for `.claude/` is settled.
+- First-impression defects beat feature arguments (truncated-README catch).
+- State the signal requirement, let story roles find placement (beat-0 loss, met
+  structurally); coverage-theater veto held twice and became the best interview
+  narrative ("label honestly first, upgrade later").
+- Bring concrete wording proposals for badge/severity ground rather than ceding it.
 
-## Prep notes: post-landing cleanup (2026-07-18, compacted after banking)
+## Prep notes + Banked: post-landing cleanup (2026-07-18, compacted)
 
-Kept for reuse (verdict resolved the rest — see Settled and Banked):
-- The audit method that found the SQL lie is the reusable part: read the transform's
-  actual `CREATE TABLE` list, then grep every displayed `FROM` clause against it. Three
-  of five site SQL strings were false (charts 2/4 queried a never-created table; chart 1
-  measured stringified-JSON length). An interviewer catches that class of defect in ~3
-  minutes — always execute displayed code claims during prep, never trust them.
-- Q3 fulcrum held as stated: a check earns its place iff it guards a number/artifact
-  someone consumes. Height-null WARN qualified (guards beat 1's "1 unmeasured");
-  galaxy_report did not (no site claim cites it; would also pre-solve WORKSHOP
-  Exercise 8 — qa/tech-writer supplied that second reason).
+Verdict: `2026-07-18-post-landing-cleanup.md`; commits `c0b97e0` (SQL truth) then
+`2aa845e` (spoiler re-author + pin + height check). Won every axis. Durable lessons:
+- Audit method that found the SQL lie: read the transform's actual `CREATE TABLE`
+  list, grep every displayed `FROM` clause against it; always execute displayed code
+  claims during prep. Primary verification converts opinion into evidence.
+- Q3 fulcrum: a check earns its place iff it guards a number/artifact someone
+  consumes (height-null qualified; galaxy_report did not — also pre-solved WORKSHOP
+  Exercise 8). Third consecutive coverage-theater win; galaxy_report stays check-free
+  by design, gap disclosed.
+- **Truth-then-tell sequencing (reusable principle):** when a public claim is false,
+  commit 1 makes it TRUE with a message naming the defect; commit 2 does the
+  storytelling. Never interleave — the honesty arc only earns credit when the fix is
+  separable and self-describing.
+- tests/test_site_sql.py is the "displayed SQL cannot rot" answer; framing veto is
+  law (see Settled).
 
 Cannot verify (still): artifact-side render of the grown DATA literal.
-
-## Banked: post-landing cleanup (2026-07-18)
-
-Verdict: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`. Implemented in
-two commits: `c0b97e0` (SQL truth) then `2aa845e` (spoiler re-author + pin + height
-check). Won on every axis this round.
-
-- **Q1 (won, 5-3-1):** re-authoring + uniform rail. Rail density is coverage signal;
-  narrative metadata pollutes the one object whose credibility is "machine-checked".
-  The designer's guard-only rail lost: thinning the rail hides real check density.
-- **Q2 (won, unanimous, my shape):** interview-kill → best-answer conversion made
-  REAL — tests/test_site_sql.py executes every displayed SQL string against the
-  fixture warehouse and compares to chart rows. "Our displayed SQL was wrong twice;
-  CI executes it so it cannot rot." Framing veto banked as law (see Settled).
-- **Truth-then-tell sequencing happened exactly as I argued** and is now a reusable
-  principle: when a public claim is false, commit 1 makes the claim TRUE (and the
-  commit message names the defect — c0b97e0 does); commit 2 does the storytelling/
-  polish. Never interleave: a mixed commit reads as burying the fix; the honesty arc
-  only earns credit when the fix is separable and self-describing. README gained the
-  second-false-claim sentence in the truth commit, where it belongs.
-- **Q3(b) disclose-only held** — third consecutive win for the coverage-theater law
-  under pressure; galaxy_report stays check-free by design, gap disclosed.
-
-Prep lesson (durable): executing the displayed SQL myself during prep — rather than
-arguing from the brief — is what made the position unassailable; primary verification
-converts opinion into evidence the panel can't discount.
 
 ## Prep notes: improvement survey (2026-07-19, compacted after banking)
 
@@ -200,3 +160,51 @@ constraint interacts with my guard-honesty law and I should arrive with wording.
 Open items I track: (1) watch that future copy never frames write-backs as
 site-serving (framing law); (2) Limits section must stay true — if any bullet's
 forcing trigger fires (e.g., partitions land), the bullet updates in the same commit.
+
+## Prep notes: akabab second source (2026-07-20)
+
+External facts verified (github.com/akabab/starwars-api): MIT confirmed; ~11 commits
+total, effectively unmaintained static JSON on GitHub Pages; wiki/image fields point at
+Wookieepedia-derived fan curation; the README itself warns "some properties may not be
+provided." Consequences for the debate:
+- "Drift" on akabab is near-impossible (static file); the real risk is the host
+  vanishing. The honest doc framing is "curated fan dataset, effectively frozen;
+  treated like any external API" — committed fixtures + blocking shape check already
+  answer "what if the Pages site dies?"; docs should say so in one clause.
+- Attribution honesty is an interview probe: Stack/docs must name it as fan-curated
+  MIT data, distinct in trust level from SWAPI. Never imply it is official canon data.
+
+Positions formed (repo verified against checks.py, known_facts.py,
+test_site_provenance.py:76/:242, README, WORKSHOP:328/:493, snapshot_fixtures.py):
+- Q1: back Option C. Option A's ripple through the pinned "five tables" strings would
+  read in history as churn without cause; C keeps star_wars_db byte-identical and the
+  write-back CREATE OR REPLACE TABLE character_biographies still closes the warehouse
+  gap (framing law satisfied — queryable grain, pipeline merits).
+- New interview question this feature answers (my signal test — it passes): "how do
+  you join a second, dirtier source without fuzzy matching, and account for coverage
+  honestly?" Curated PROFILE_NAME_ALIASES in known_facts + no-fuzzy-matching is the
+  senior-reading answer; demand ONE sentence of why-not-fuzzy in docs. Also makes
+  WORKSHOP:493's "swap the resource" claim demonstrated, not asserted.
+- Failure-mode separation law applies to the JOIN: coverage baseline (data moved)
+  needs a data-independent honesty companion — every PROFILE_NAME_ALIASES entry must
+  resolve against the payload (dead aliases rot silently). Cheapest home: a pytest
+  assertion against fixtures, not a sixth check (coverage-theater law).
+- Q3: death-registry WARN earns its place iff galaxy_report actually prints the
+  deceased count (check-guards-a-consumed-number fulcrum). If the report section
+  drops it, the check waits.
+- Spoiler exposure: new assets are provenance-UNLISTED, so their check strings do NOT
+  render on site rails today — safe now; re-audit at the surfacing panel. Keep
+  descriptions subject-only/number-free anyway (pre-drafted wording in hand).
+- MY CATCH this round: the brief's ripple list omits SCREENSHOTS. README:16 lineage
+  graph shows 11 assets/15 checks; retake at 13 assets/20 green checks in the ripple
+  commit (retake-after-ripple reflex). Also README Architecture diagram/table, :48,
+  :157 "five SWAPI pulls" context, :160, and Stack attribution all move in the atomic
+  feature commit — feature+guard+ripple, one commit, per law.
+- Commit plan (4 commits) is coherent; no false public claim exists, so
+  truth-then-tell ordering isn't triggered. Commit 4 ("freeze reality") must state in
+  its message that synthetic fixtures became a dated real snapshot; the fixtures
+  README must label the synthetic period honestly until then.
+
+Cannot verify: akabab's exact 87-record count and per-field sparsity (brief's numbers;
+GitHub README doesn't state totals) — trust the orchestrator's 2026-07-19 fixture-join
+verification. Still cannot verify off-platform artifact link preview.
