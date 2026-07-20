@@ -45,12 +45,11 @@
   and is executed against the fixture-built warehouse by the offline suite
   (tests/test_site_sql.py); no hand-verified SQL copy anywhere; SQL comments carry no
   numbers (an unexecutable claim). (Post-landing cleanup, 2026-07-18.)
-- Write-back one-code-path: `characters_enriched` persists via
+- Write-back one-code-path: every declared writer persists via
   `CREATE OR REPLACE TABLE ... AS SELECT * FROM df` on the SAME df the asset returns,
-  guarded by test_pipeline.py::test_characters_enriched_table_matches_the_returned_frame
-  (assert_frame_equal). `EXPECTED_DB_TABLES` stays five and
-  `star_wars_db_tables_populated` must NOT grow — asserting a downstream asset's
-  table from an upstream check is an ordering lie. (Post-landing cleanup, 2026-07-18.)
+  guarded by the write-back parity test looping ALL writers. `EXPECTED_DB_TABLES`
+  stays five and `star_wars_db_tables_populated` must NOT grow — asserting a
+  downstream asset's table from an upstream check is an ordering lie. (2026-07-18.)
 - Spoiler pin law: a standing offline test
   (test_site_provenance.py::test_no_payoff_leaks_before_reveal_beat) derives payoff
   term sets from known_facts — names AND payoff numbers, phrase-anchored — and
@@ -62,144 +61,142 @@
   Hand-authored beat indices and story metadata are unverifiable surface — vetoed.
   (Post-landing cleanup, 2026-07-18.)
 - The rail is uniform: every beat renders the same rule — all checks of its chain
-  assets; spoiler safety lives in the STRINGS, not the renderer. Description style
-  rule (technical-writer's): descriptions state the invariant and stakes; run
-  metadata carries particulars; known_facts.py is the only roster/number home; no
-  check string quotes another beat's caption or payoff. (Post-landing cleanup,
-  2026-07-18.)
+  assets; spoiler safety lives in the STRINGS, not the renderer. Descriptions state
+  the invariant and stakes; run metadata carries particulars; known_facts.py is the
+  only roster/number home; no check string quotes another beat's caption or payoff.
+  (Post-landing cleanup, 2026-07-18.)
 - galaxy_report stays check-free BY DESIGN: a check there pre-solves WORKSHOP
   Exercise 8 and duplicates pytest coverage. The gap is deliberately disclosed, not
   an oversight — don't re-propose it. (Post-landing cleanup, 2026-07-18.)
 - Failure-mode separation law: a displayed number derived through a parse gets TWO
   guards — a drift baseline (WARN, snapshot-gated green assertion) and a
   data-independent parse-honesty invariant asserted UNGATED (must hold on synthetic
-  fixtures too). "The data moved" and "the parser broke" must fail differently;
-  one check conflating them lets the headline lie under a glowing badge.
+  fixtures too). "The data moved" and "the parser broke" must fail differently.
   (Birth-registry panel, 2026-07-19, 7–1.)
 - Absence pins are legitimate guards: an element exempted from a detector by a
   property (number-free, spoiler-free) gets a pin asserting that PROPERTY
   (test_the_coda_stays_number_free); pinning wording is theater. (2026-07-19, 5–3.)
 - Warehouse access policy is encoded in code: pure-read transforms open
   `read_only=True`, every writer is declared, the executor is pinned in-process —
-  test_pipeline.py::test_warehouse_access_policy_is_encoded_in_code. character_stats
-  is ratified as the SECOND declared writer; EXPECTED_DB_TABLES stays five,
-  `star_wars_db_tables_populated` did not grow, the write-back parity test loops
-  BOTH writers. (2026-07-19.)
+  test_pipeline.py::test_warehouse_access_policy_is_encoded_in_code. (2026-07-19.)
 - Quoted-testimony rule: external claims (dialogue, canon) may be audited in copy
   but never rendered as site-derived data; derived numbers come only from DATA.
   WORKSHOP.md is on the count-ripple checklist; teaching prose stays count-free
   unless the count is the lesson. (2026-07-19.)
+- Akabab second source lands as Option C (2026-07-20, unanimous): transform-join
+  `character_biographies`; `star_wars_db` byte-identical, EXPECTED_DB_TABLES stays
+  five, tables_populated does not grow; join misses surface via coverage-check
+  metadata. Five checks (2 blocking: grain, shape; 3 WARN: coverage, count,
+  deaths-on-file) is the CEILING for this feature.
+- Enrichment-join numbers carry nested denominators (matched AND field-present) —
+  report-copy discipline COMPUTED from the data, not new per-field checks.
+  (2026-07-20.)
+- Akabab death data is "deaths on file" vocabulary everywhere: check
+  `character_biographies_deaths_on_file_baseline`, constant
+  `EXPECTED_DEATHS_ON_FILE`; never "deceased". Key-presence is not a parse — one
+  WARN guard suffices; the two-guard law wakes only if born/died get parsed for
+  display. (2026-07-20.)
+- Signed-year warehouse columns name their convention in the column name
+  (`_bby`/`_aby`, e.g. `died_year_aby`); no bare year columns; no sign-convention
+  asset check — naming + pytest suffice. (2026-07-20.)
+- Alias governance: curated `PROFILE_NAME_ALIASES` in known_facts with a
+  canon-direction comment per entry; ungated pytest asserts injectivity (Vader/
+  Anakin stay distinct) AND every alias load-bearing (key ≠ value post-
+  normalization); resolution-vs-fixture assertions dual-snapshot-gated; no fuzzy
+  matching, ever. Aliases bridge joins; they never mutate as-filed records.
+  (2026-07-20.)
+- Cross-source derived figures (SWAPI birth × akabab death arithmetic, e.g. Yoda
+  896+4=900) are quoted-testimony territory: pre-vetoed off all surfaces until a
+  surfacing panel rules. (2026-07-20.)
+- The site WORDS number-renderer is a guard surface: it grows (through "twenty")
+  with a pytest pin (`len(WORDS)` exceeds every DATA-rendered count) in the same
+  commit as any count it must spell. (2026-07-20.)
+- Baselines for external-source facts are COMPUTED by script from the frozen fixture
+  at the freeze commit — three independent surveys of akabab disagreed (87/88
+  records; died 47/28); transcription is not a baseline method. (2026-07-20.)
+- Seen-to-fail acceptance matrix before merge (akabab): grain check fails on an
+  inline duplicate-name pair; shape check fails on a missing-`name` record; coverage
+  WARN emits unmatched names both directions. README/WORKSHOP counts stay a human
+  same-commit checklist — no prose grep pins. (2026-07-20.)
 
 ## Working knowledge
 
-- Inventory (post-f170379, 2026-07-19): 11 assets, 4 transforms, 15 checks —
-  4 blocking (`raw_people_has_required_shape`, `star_wars_db_tables_populated`,
-  `films_are_exactly_the_six_episodes`, `characters_enriched_has_no_null_names`),
-  11 WARN: people count, join coverage, unknown-mass, unknown-height (beat 1's
-  "1 unmeasured"), cast sanity, four character_stats drift baselines (one-film 42,
-  six-film trio, pilots 19, max flown 5), plus `character_stats_birth_year_baseline`
-  (undated + oldest vs known_facts) and `character_stats_birth_year_parse_honesty`
-  (parsed NULLs == raw `'unknown'` strings, via `additional_ins` on star_wars_db,
-  read_only connect). Grep trap: checks.py's docstring mentions `@asset_check` and
-  `blocking=True`, so grep counts read 16/5 — always introspect check_specs.
-- SQL guard file map (tests/test_site_sql.py): `SQL_KEYS` is six —
-  films/gender/scatter/homeworlds/hyper/ages. Ungated layer —
-  `test_data_sql_has_exactly_the_chart_entries` (renamed count-free; asserts
-  key set == SQL_KEYS), the no-inline-SQL pin, the execute test (parametrized over
-  SQL_KEYS), the no-numeric-comments pin; snapshot-gated layer — six
-  `test_*_sql_reproduces_the_*` compare tests; the ages one also pins positive-BBY
-  (`all(r[1] > 0)` — a signed year would falsify the displayed unit). Warehouse =
-  module-scoped fixture, pipeline-built, read_only connect.
+- Inventory (post-f170379): 11 assets, 4 transforms, 15 checks — 4 blocking, 11 WARN
+  (people count, join coverage, unknown-mass/height, cast sanity, four
+  character_stats drift baselines, birth-year baseline + UNGATED-principle
+  parse-honesty via `additional_ins`, read_only connect). After akabab lands:
+  13 assets, 5 transforms, 20 checks (6 blocking) — the totals pin at
+  test_site_provenance.py:242 introspects real defs, so the site triple ripples
+  same-commit automatically. Grep trap: docstrings mention `@asset_check` /
+  `blocking=True` — always introspect check_specs, never grep counts.
+- Provenance pins (test_site_provenance.py:76-101) pin each LISTED asset's check set
+  exactly → new checks must attach only to UNLISTED assets (raw_character_profiles,
+  character_biographies comply). Spoiler pin scans only claim-chain assets; unlisted
+  assets' strings never render until surfacing — write them spoiler-safe anyway.
+- SQL guard file map (tests/test_site_sql.py): SQL_KEYS is six (films/gender/
+  scatter/homeworlds/hyper/ages). Ungated layer — key-set pin, no-inline-SQL pin,
+  execute test, no-numeric-comments pin; snapshot-gated layer — six compare tests;
+  ages also pins positive-BBY. Warehouse = module-scoped pipeline-built fixture.
 - Failure modes with named detectors: SWAPI shape change (shape check), count drift
-  (count/mass/height/birth baselines), parse breakage (parse-honesty, ungated),
-  join rot (coverage check), cast rot (TRY_CAST sanity), copy drift on site
-  (runtime detector), SQL rot (execute layer), SQL computing the wrong thing or
-  DATA edited without SQL (compare layer), spoiler regression in check strings
-  (spoiler pin), coda regressing into numbers (digits absence pin), writer/reader
-  lock race (access-policy test + in-process executor pin). New site claims must
-  extend one of these, not bypass them.
+  (baselines), parse breakage (parse-honesty, ungated), join rot (coverage), cast
+  rot (TRY_CAST sanity), site copy drift (runtime detector), SQL rot (execute
+  layer), wrong SQL / edited DATA (compare layer), spoiler regression (spoiler pin),
+  coda numbers (absence pin), writer/reader race (access-policy test). New claims
+  extend one of these, never bypass.
 - A feature and its guard land in the same commit; "verified" means an automated
-  detector exists and has been seen to fail when the guarded thing breaks.
-- `from starwars_dagster import defs` is network-free (SWAPIResource constructed,
-  never called) — safe ground truth for offline tests. Never hand-copy an edge list.
-- Semantic beat→asset attribution is a human claim; pytest proves only that cited
-  assets/edges/checks are real and correctly typed. Spot-check asserted data→claim
-  mappings against raw data during PREP.
-- Any count rendered through a lookup table (e.g. the WORDS number-word list) needs
-  an overflow guard; check-count ripples touch WORDS, beat-7 callback, README,
-  CLAUDE.md, provenance totals — all same commit.
+  detector exists and has been SEEN TO FAIL when the guarded thing breaks.
+- `from starwars_dagster import defs` is network-free — safe ground truth offline.
+  Never hand-copy an edge list. Semantic beat→asset attribution is a human claim;
+  spot-check data→claim mappings against raw data during PREP.
+- Akabab facts (verified live 2026-07-20): 87 records = ids 1–88 with id 17 absent
+  (mirrors SWAPI's skip); sequel five are ids 84–88; Vader (4) and Anakin (11) are
+  separate records in BOTH sources; sole alias "Ratts Tyerell"→"Ratts Tyerel";
+  akabab height/mass are meters/kg vs SWAPI cm — any future numeric inclusion needs
+  a unit pin (positive-BBY style). Snapshot plumbing must grow: snapshot.yml adds
+  the akabab dir; snapshot_fixtures.py fetches it; akabab gets its OWN
+  tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
+  declared-writers list (THIRD writer) same commit.
 
-## Banked: pipeline-reveal + per-character-transform (2026-07-18, compacted)
+## Banked: earlier panels (2026-07-18/19, compacted)
 
-test_site_provenance.py adopted as specced (topology vs resolve_asset_graph, badge =
-f(blocking), verbatim descriptions, exact coverage set, honest guard typing).
-character_stats landed against my banked acceptance criteria in full: four WARN
-baselines, beats 4–6 flipped direct+check same commit, snapshot-gated
-green-assertion test (WARN can't fail a materialize, so green must be asserted),
-negative check performed. Lesson kept: objections without a detector design get
-deferred — bring the verification design in hand.
+Pipeline-reveal + character_stats: provenance/SQL/spoiler laws above shipped as
+specced; lesson — objections without a detector design get deferred; arrive with the
+verification design in hand (execute-and-compare won unanimously because it did).
+Birth registry: my rulings were the adjudication (two-checks 7–1, coda pin 5–3,
+guard slate item-for-item); the lock-race item resolved by POLICY (encode + pin)
+instead of my detector — when I spec a detector, also spec the acceptable policy
+alternative and its conditions. Ledger closure: snapshot.yml runs the FULL suite
+before the bot commit; DATA.meta freshness pinned; re-verify open items AT BANK TIME
+before writing "OPEN".
 
-## Banked: post-landing cleanup (2026-07-18, commits c0b97e0 + 2aa845e)
+## Banked: akabab second source (2026-07-20)
 
-Decision log: `.claude/panel/decisions/2026-07-18-post-landing-cleanup.md`.
+Decision log: `.claude/panel/decisions/2026-07-20-akabab-second-source.md`.
 
-Won nearly the whole slate: write-back one-code-path + EXPECTED_DB_TABLES-stays-five
-became law verbatim; execute-and-compare shipped as test_site_sql.py (unanimous —
-arrived with the full detector design as a skill, not a smell); Q1 re-authoring won
-on the one-home law + "a `beat` field is unverifiable attribution" (now the
-no-narrative-fields law); galaxy_report retraction bought credibility. Amendments
-accepted: spoiler pin covers payoff NUMBERS too (seen-to-fail via "trio" reinsert);
-test_site_sql builds its own module-scoped warehouse instead of reusing full_run
-(same principle, less coupling). Lessons kept: verify other roles' audits in-repo
-during PREP; every new WARN check needs a "what asserts green?" answer.
+Won nearly the whole slate: five-checks ceiling HELD against the analyst's per-field
+baselines (she conceded the mechanism, kept nested denominators as report-copy
+convention — the right trade); my seen-to-fail acceptance matrix adopted verbatim as
+plan item 5; the WORDS-overflow carve-out won jointly with technical-writer (it is
+totals-pin ripple, not surfacing); ungated alias-injectivity + load-bearing pytest
+ratified with engineer's better framing (aliases bridge the join, never repair
+records); no-prose-grep-pins held (README counts stay a human checklist); Q3 ruling
+adopted exactly (key-presence ≠ parse, one WARN guard, two-guard law dormant).
 
-## Banked: birth registry + polish (2026-07-19)
+Lost, correctly: my constant name `EXPECTED_DECEASED_COUNT` fell to lore's
+`EXPECTED_DEATHS_ON_FILE` package. The lesson generalizes: identifier names (checks,
+constants, columns) are CLAIM SURFACE — "deceased" overclaims canon-completeness the
+same way a wrong badge overclaims verification. Same force renamed `died` →
+`died_year_aby`. Vocabulary honesty is part of my definition of verified now.
 
-Decision log: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`.
-Commits: 1f3cf9e (registry) · 4d92cb7 (coda + hues) · 7d96df5 (limits) · f170379
-(screenshots at 15 green — the open item from last bank is CLOSED).
+Vindicated condition: baselines computed-not-transcribed became plan item 6 after
+three independent surveys of the same live JSON disagreed (my WebFetch summarizer
+said died=30; brief said 47; a third said 28). A number nobody can transcribe twice
+identically is a number only a script may bank.
 
-My rulings WERE the adjudication: two-checks won 7–1 (failure-mode separation now
-law); the coda digits-pin stood 5–3 as an absence assertion; the guard slate shipped
-nearly item-for-item (known_facts constants, subject-only descriptions, gated green
-assertion for the baseline, UNGATED parse-honesty assertion, synthetic parse pytest
-for ABY/fractional/garbage/unknown, DATA.sql.ages through both layers with the
-positive-BBY pin, drift-detector claims, spoiler terms extended and seen-to-fail via
-a "Yoda" label leak + baseline bump).
-
-Deviation ratified: the execute layer caught character_stats' displayed table
-missing mid-implementation, forcing it to become the SECOND declared writer. My
-condition held — EXPECTED_DB_TABLES stays five, tables_populated did not grow, the
-parity test loops both writers. This also resolved my prep item 2 (lock race) by a
-DIFFERENT design than I specced: instead of an execute_job-under-multiprocess
-detector, the policy itself is encoded (readers read_only, writers declared,
-executor pinned in_process via test_warehouse_access_policy_is_encoded_in_code).
-Accepted: pinning the executor makes the racy mode unreachable, and any future
-executor swap fails the test first — cheaper than my detector and equally named.
-The stale "one writer" comment nit was fixed same day.
-
-BANK-pass verification habit that paid off: grep said 16 checks / 5 blocking; truth
-is 15/4 (docstring mentions). Introspect check_specs, never grep counts.
-
-Prep-differently: when I spec a detector, also spec the acceptable POLICY
-alternative (make the failure mode unreachable + pin the policy) — the panel may
-land there, and pre-approving its conditions keeps my ruling intact.
-
-## Ledger closure (2026-07-19, verified in-tree at bank time)
-
-Both survey items formerly listed here as "Still OPEN" were fixed by same-day
-pre-debate commits; I re-verified the tree myself before writing this:
-1. snapshot.yml partial-suite gap — CLOSED by ea840fb: the workflow now runs the
-   FULL suite (`pytest -v`, step "Run the full suite against the fresh snapshot")
-   before the bot commit, with an in-file comment naming that step as the CI for a
-   refreshed snapshot. Seen working live on post-merge refresh commit 8cfa1f0.
-2. Verified-as-of date — CLOSED by 2e47baa: `DATA.meta` ({source, snapshot}) drives
-   the footer freshness line; tests/test_site_data.py::
-   test_meta_matches_the_committed_snapshot pins `meta.snapshot ==
-   SNAPSHOT.json fetched_at[:10]` and `meta.source in snap["source"]`; drift
-   detector warns on missing/malformed meta. Suite green at 54.
-
-Lesson: an open-items ledger is a claim about the tree, and claims about the tree
-get re-verified AT BANK TIME — same-day commits closed both items before my bank
-pass was written, and I carried the stale entries anyway. Grep the fix before
-writing "OPEN".
+Prep differently next time: (1) summarizer-derived counts from live fetches are
+unreliable evidence — don't burn prep verifying a brief's exact counts; instead
+verify the SHAPE and make computed-at-freeze a condition from the start. (2) Run my
+proposed check/constant/column NAMES past the vocabulary roles' likely objections
+during prep, so my slate survives adjudication intact. (3) The pre-veto tripwire
+(Yoda derivation) is a new guard genre — a written constraint for a FUTURE panel;
+cheap, and it moves spoiler/testimony law forward in time. Use it again.

@@ -1,7 +1,7 @@
 """
 Layer 1: Ingestion Assets
 =========================
-These assets pull raw data from the SWAPI and save it as JSON files.
+These assets pull raw data from the sources and save it as JSON files.
 
 Key Dagster concept — "Software-Defined Assets" (SDAs):
   An asset is a piece of data your pipeline produces and tracks.
@@ -9,17 +9,19 @@ Key Dagster concept — "Software-Defined Assets" (SDAs):
   Dagster builds the execution graph automatically from dependencies.
 
 Asset lineage here:
-  SWAPIResource ──► raw_films
-                ──► raw_people
-                ──► raw_planets
-                ──► raw_starships
-                ──► raw_species
+  SWAPIResource ───► raw_films
+                ───► raw_people
+                ───► raw_planets
+                ───► raw_starships
+                ───► raw_species
+  AkababResource ──► raw_character_profiles
 """
 
 import json
 import pathlib
 from dagster import asset, AssetExecutionContext
 
+from starwars_dagster.resources.akabab_resource import AkababResource
 from starwars_dagster.resources.swapi_resource import SWAPIResource
 
 # Where to store raw JSON dumps
@@ -87,3 +89,22 @@ def raw_species(context: AssetExecutionContext, swapi: SWAPIResource) -> list[di
     context.add_output_metadata({"record_count": len(species)})
     _save_json("species", species)
     return species
+
+
+@asset(
+    group_name=_GROUP,
+    description="Character profiles from the akabab dataset (second source)",
+)
+def raw_character_profiles(
+    context: AssetExecutionContext, akabab: AkababResource
+) -> list[dict]:
+    """
+    Fetch the full akabab character-profile dump — same pattern as the five
+    SWAPI pulls, different resource. The profiles enrich the SWAPI census
+    (affiliations, apprenticeships, deaths on file) via a name join in
+    the character_biographies transform.
+    """
+    profiles = akabab.fetch("all")
+    context.add_output_metadata({"record_count": len(profiles)})
+    _save_json("character_profiles", profiles)
+    return profiles

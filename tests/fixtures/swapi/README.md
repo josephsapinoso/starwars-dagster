@@ -1,7 +1,10 @@
 # SWAPI test fixtures
 
-**These fixtures are SYNTHETIC.** They mimic the raw shape of swapi.info responses
-and deliberately include the awkward cases the pipeline must handle:
+**These files are synthetic defaults until `SNAPSHOT.json` exists** — its presence
+means `scripts/snapshot_fixtures.py` has replaced them with a dated frozen snapshot
+of the real API (check the marker for the vintage). The synthetic defaults mimic
+the raw shape of swapi.info responses and deliberately include the awkward cases
+the pipeline must handle:
 
 - `mass: "unknown"` (SWAPI encodes missing numbers as strings)
 - a homeworld URL with no matching planet record (LEFT JOIN must keep the row)

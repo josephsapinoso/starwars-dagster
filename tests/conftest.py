@@ -16,13 +16,20 @@ import pathlib
 
 import pytest
 
+from starwars_dagster.resources.akabab_resource import AkababResource
 from starwars_dagster.resources.swapi_resource import SWAPIResource
 
 FIXTURE_DIR = pathlib.Path(__file__).parent / "fixtures" / "swapi"
+AKABAB_FIXTURE_DIR = pathlib.Path(__file__).parent / "fixtures" / "akabab"
 
 # Written by scripts/snapshot_fixtures.py when the fixtures are a real, dated
 # SWAPI snapshot rather than the synthetic defaults. Gates the banked-facts tests.
 SNAPSHOT_MARKER = FIXTURE_DIR / "SNAPSHOT.json"
+
+# Same idea for the akabab source; a separate marker because the two sources
+# refresh together but are verified independently. Cross-source baselines
+# (join coverage, deaths on file) gate on BOTH markers.
+AKABAB_SNAPSHOT_MARKER = AKABAB_FIXTURE_DIR / "SNAPSHOT.json"
 
 
 class FakeSWAPIResource(SWAPIResource):
@@ -49,9 +56,33 @@ class InlineSWAPIResource(SWAPIResource):
         return self.data.get(endpoint, [])
 
 
+class FakeAkababResource(AkababResource):
+    """Reads tests/fixtures/akabab/<endpoint>.json instead of calling the API."""
+
+    fixture_dir: str = str(AKABAB_FIXTURE_DIR)
+
+    def fetch(self, endpoint: str) -> list[dict]:
+        path = pathlib.Path(self.fixture_dir) / f"{endpoint}.json"
+        return json.loads(path.read_text())
+
+
+class InlineAkababResource(AkababResource):
+    """Serves records passed directly by a test (mirrors InlineSWAPIResource)."""
+
+    data: dict = {}
+
+    def fetch(self, endpoint: str) -> list[dict]:
+        return self.data.get(endpoint, [])
+
+
 @pytest.fixture
 def fake_swapi() -> FakeSWAPIResource:
     return FakeSWAPIResource()
+
+
+@pytest.fixture
+def fake_akabab() -> FakeAkababResource:
+    return FakeAkababResource()
 
 
 @pytest.fixture

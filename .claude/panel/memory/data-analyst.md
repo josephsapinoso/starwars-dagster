@@ -60,6 +60,7 @@
   `character_stats_birth_year_baseline` + `character_stats_birth_year_parse_honesty`
   (both WARN). `galaxy_report` stays check-free BY DESIGN (WORKSHOP Exercise-8
   collision + coverage-theater law) — deliberate, disclosed. Stop flagging it.
+  (Akabab lands 15→20 checks, assets 11→13, transforms 4→5 — totals pin ripple.)
 - **Birth registry baselines (2026-07-19, commit 1f3cf9e):** **39 of 82** have no
   birth year on file; **43** dated; oldest on file **896 BBY (Yoda)**; all 43 dated
   values are BBY, zero ABY. Frozen in known_facts (EXPECTED_UNDATED_BIRTH_COUNT,
@@ -70,7 +71,8 @@
 - **Failure-mode separation law (2026-07-19, 7–1 — I was the 1):** any displayed
   number derived through a parse gets TWO guards — a drift baseline AND a
   data-independent parse-honesty invariant — because "the data moved" and "the
-  parser broke" must fail differently.
+  parser broke" must fail differently. (Scope boundary, 2026-07-20: key-PRESENCE
+  counts are not parses — one guard suffices; the law triggers on parsing.)
 - **Gold ring means "extreme" (2026-07-19):** persistent gold emphasis asserts
   superlatives only; named non-extremes (Vader) get labels, never rings.
 - **Quoted-testimony rule (2026-07-19):** external claims (dialogue, canon — e.g.
@@ -101,15 +103,13 @@
   `var(--gold)` free.
 - **Measured-vs-inferred labeling (2026-07-19, watchlist):** any decision resting on
   unreachable hardware/browser states records its MEASURED facts and its INFERENCES
-  separately, verbatim, in the log. (My Q2 evidence gate, now law — the orchestrator
-  ran the two-branch protocol before adjudicating.)
+  separately, verbatim, in the log. (My Q2 evidence gate, now law.)
 - **Anchoring restoration is not scroll-jacking (2026-07-19):** a synchronous,
   activation-triggered, measured-delta scroll correction that no-ops where the
   browser already anchors is the sanctioned shape for disclosure-growth compensation
   (capture summary top on click, `scrollBy` the measured delta, instant). Animated or
   assumed-delta variants stay banned. Verified render-only-style: recorded proxy
-  evidence (anchoring-on 0px / anchoring-off −180px / fix restores 0px / no
-  double-compensation), re-run on landed code — never a fakeable mechanical pin.
+  evidence re-run on landed code — never a fakeable mechanical pin.
 - **Acceptance is a decision with a tripwire (2026-07-19):** an accepted limitation
   enters the log with its reopening trigger written down. Q1 (hover-only whys):
   reopen if any why gains load-bearing content with no non-hover home, or legend line
@@ -123,120 +123,155 @@
 - **Exposure changes reach, not content (2026-07-19):** widening a verified string's
   audience renders the same string verbatim from its one home; if it doesn't fit the
   vessel, change the vessel.
+- **Akabab warehouse shape is Option C (2026-07-20, unanimous):** `star_wars_db`
+  stays byte-identical; `EXPECTED_DB_TABLES` stays 5; `character_biographies` is a
+  transform-join (02_transformed); coverage misses surface via check metadata.
+  Revisit raw-akabab-in-warehouse ONLY if a surfacing panel needs it in displayed
+  SQL (my evidence condition, recorded in the log).
+- **Nested denominators on enrichment joins (2026-07-20):** every number off a
+  second source reads "N of field-present of 81 matched of 82" — report-copy
+  discipline COMPUTED from the data, not per-field checks (qa's five-check ceiling
+  won the mechanism; the convention is mine and stands). No superlatives from
+  sparse lineage fields (masters ~15/87); affiliations rank only with n disclosed.
+- **"On file" vocabulary (2026-07-20):** akabab death data is "deaths on file"
+  everywhere — never "deceased", never saga-scoped or canon-complete. "Absence is
+  not survival." Constant `EXPECTED_DEATHS_ON_FILE`; check
+  `character_biographies_deaths_on_file_baseline` (WARN, ships with the report
+  number under my symmetry rule: report prints it → drift guard same commit).
+- **Signed-year columns name their convention (2026-07-20):** `_bby`/`_aby` suffix
+  required; no bare year columns in the warehouse (`died` → `died_year_aby`).
+- **Cross-source derived figures are quoted-testimony territory (2026-07-20):**
+  SWAPI-birth × akabab-death arithmetic (the Yoda 896+4=900 derivation) is
+  pre-vetoed off all surfaces until a surfacing panel rules.
+- **Alias governance (2026-07-20):** curated dict in known_facts with a
+  canon-direction comment per entry; aliases BRIDGE the join, never mutate as-filed
+  records (`character_name` keeps SWAPI's spelling); ungated pytest for injectivity
+  + every-alias-load-bearing; resolution-vs-fixture assertions dual-snapshot-gated;
+  no fuzzy matching, ever.
+- **Baselines are computed, never transcribed (2026-07-20):** enrichment baselines
+  (EXPECTED_PROFILE_COUNT / _MATCH_COUNT / _DEATHS_ON_FILE, final aliases) are
+  frozen by script from the real fixture at the freeze-reality commit. Three
+  independent surveys disagreed (87 vs 88 records; died 47 vs 28) — survey numbers
+  never become displayed numbers or baselines.
+- **The WORDS number-renderer is a guard surface (2026-07-20):** it grows (with its
+  pytest pin — `len(WORDS)` exceeds every DATA-rendered count) in the same commit
+  as any count it must spell.
 
 ## Working knowledge
 
 - Nulls are the story, not noise: the mass beeswarm's 23 missing values and the
-  homeworld join's misses are disclosed in captions — this pattern must extend to any
-  new claim.
+  homeworld join's misses are disclosed in captions — extend to every new claim.
 - The drift detector (site/index.html) recomputes {total, noMass, noHeight, oneFilm,
   naboo, tatooine, pilots, maxFlown, undatedBirth, oldestBby} from `DATA.people` and
   compares against expectations, plus the six-film-trio exact-set check, provenance
-  internal consistency, that every SQL disclosure resolves a nonempty DATA entry
-  (includes "ages"), and the coda digit-pin.
+  internal consistency, that every SQL disclosure resolves a nonempty DATA entry,
+  and the coda digit-pin.
 - Chart honesty conventions in force: log scale flagged in captions; excluded rows
-  named; Chart/Table toggle exposes rows per card; denominators computed, never typed
-  (e.g. chart 5's "Top 10 of the ${rated}" subtitle).
+  named; Chart/Table toggle exposes rows per card; denominators computed, never
+  typed (e.g. chart 5's "Top 10 of the ${rated}" subtitle).
 - **Check→claim relevance map** (re-verified 2026-07-18 after 2aa845e):
   - Beat 0 (82): `raw_people_count_matches_verified_snapshot` WARN +
-    `raw_people_has_required_shape` ERROR — direct; best-guarded number on the site;
-    raw_people heads every chain so the story appears in all six reveals.
+    `raw_people_has_required_shape` ERROR — direct; best-guarded number on the site.
   - Beat 1 (heights): `characters_enriched_unknown_height_baseline` WARN — direct.
   - Beat 2 (23/82): `characters_enriched_unknown_mass_baseline` WARN — direct.
   - Beat 3 (homeworlds): `characters_enriched_join_coverage` WARN — direct.
   - Beats 4–5 (42 one-film, all-six set): `character_stats_one_film_baseline` +
-    `character_stats_six_film_trio` WARN — direct; `films_are_exactly_the_six_episodes`
+    `character_stats_six_film_trio` WARN; `films_are_exactly_the_six_episodes`
     ERROR guards the frame.
   - Beat 6 (19 flew; max 5): `character_stats_pilot_count_baseline` +
-    `character_stats_max_flown_baseline` WARN — direct, per-PERSON grain
+    `character_stats_max_flown_baseline` WARN — per-PERSON grain
     (`starship_stats` is per-SHIP, irrelevant to pilot claims).
   - Registry card (39/43/896): the two birth-year checks WARN — direct via
     `character_stats.birth_year_bby`; DATA.sql.ages executed + compared.
+- Akabab guards landing (per plan): blocking shape contract exactly `{id,name}`;
+  blocking grain check (rows == people count AND character_name unique) fires ALONE
+  on fan-out — join inflation is loss's twin; coverage WARN emits unmatched names
+  both directions; masters/apprentices stored as JSON strings + counts, display-only,
+  never join keys. QA's seen-to-fail matrix runs before merge.
 - WARN severity is runtime-only in Dagster; `spec.blocking` is the static field —
   provenance encodes `blocking` and derives badge wording from it.
 - Storage lies about types: load_table json.dumps's list fields into VARCHAR, so
   `len()` is string length; `json_array_length` is the honest count. Full audit
   technique: `.claude/skills/panel-data-analyst-sql-display-audit/`.
 - SNAPSHOT.json is a real dated snapshot (2026-07-17: 82 people / 6 films /
-  36 starships / 60 planets / 37 species) — snapshot-gated compares are meaningful.
+  36 starships / 60 planets / 37 species); akabab gets its own SNAPSHOT marker with
+  fixture provenance labeled (synthetic period declared, transition commit named).
 - Hardcoded number-words and counts in prose/aria labels are a drift surface; audit
-  them whenever totals change. Screenshots retaken at **15** green checks (f170379).
-- **Stage-type mover hazards (recorded in watchlist log):** the hygiene font-size
-  scanner attributes @media-block declarations to the `@media` selector string, so
-  pins never match inside media queries — an in-scale bump of a pinned selector
-  passes SILENTLY; `.anno-name` is 12px, in-scale, unpinned. `.axis-t`/`.anno-t` are
-  shared with the measured-px dashboards. Any future raise inherits all of this plus
-  beat 5's 20-viewBox-unit witness-name stack (~8px effective ceiling @360).
-- Improvement residue (unbuilt): starship `cost` null for 10 of 36 (26 priced —
-  price-board candidate with denominators); planets/species payloads unused beyond
-  KPI counts; redundant grains enable cross-foot drift checks (planets.residents vs
-  people.homeworld; species.members vs people.species; starships.pilots vs
-  people.starshipsFlown). Stage anno literals ("not weighed · 23", "Naboo · 11",
-  "everywhere else · 61", "Obi-Wan · 5", …) sit next to locally computed collections;
-  deriving the strings would upgrade warned copy to computed numbers — offer as a
-  rider whenever the stage is touched, not a demand.
+  on any totals change. Screenshots retaken at 15 green checks (f170379);
+  hiring-manager's retake reflex applies when visuals show check/asset counts.
+- Stage-type mover hazards (watchlist log): the hygiene font-size scanner misses
+  @media-block declarations, so pinned selectors can move in-scale SILENTLY inside
+  media queries; `.anno-name` 12px is in-scale, unpinned; `.axis-t`/`.anno-t`
+  shared with measured-px dashboards; beat 5 has an ~8px effective ceiling @360.
+- Improvement residue (unbuilt): starship `cost` null for 10 of 36 (26 priced);
+  planets/species payloads unused beyond KPI counts; redundant grains enable
+  cross-foot drift checks (planets.residents vs people.homeworld, etc.). Stage anno
+  literals ("not weighed · 23", "Obi-Wan · 5", …) could be derived from the adjacent
+  computed collections — offer as a rider whenever the stage is touched.
+- Surfacing-panel tripwires on record (akabab log): Yoda 896+4=900 pre-vetoed; if
+  `character_biographies` joins a beat chain, spoiler-pin term sets extend in that
+  landing; `DATA.meta` dual-source format, provenance entries, image field, and
+  signed-year display all deferred — do not build ahead of the panel.
 
-## Banked: earlier rounds (2026-07-18) — lessons only
+## Banked lessons: 2026-07-18/19 rounds — compacted
 
-- Pipeline-reveal: lead with grain-correctness, not the diagram; keep a losing
-  option's acceptance criteria specified to landing precision (per-character grain
-  later shipped with zero new debate — `derived`→`direct` was a clean flip); verify
-  `spec.blocking`-style semantics and rendering assumptions myself in prep.
-- Post-landing cleanup (c0b97e0 + 2aa845e): frame string bugs as data-integrity bugs;
-  when displayed SQL names a missing table, ask whether the table SHOULD exist; wins
-  ride concrete counterexamples; run read-only DuckDB against the fixture in prep and
-  quote outputs — "cannot verify offline" costs the last 10% of a won argument.
+- Lead with grain-correctness, not diagrams; keep losing options specified to
+  landing precision (per-character grain later shipped debate-free).
+- Frame string bugs as data-integrity bugs; when displayed SQL names a missing
+  table, ask whether the table SHOULD exist; run read-only DuckDB against fixtures
+  in prep and quote outputs — "cannot verify offline" costs the last 10%.
+- Birth registry: won the zero-numeric-literals card shape; lost 7–1 on one-check
+  economy — that loss IS the failure-mode-separation law. Enumerate a derivation
+  path's distinct failure modes (source drift / parse breakage / join loss / render
+  drift) before defending any single-guard position.
+- Token hygiene: enumerated residues with line numbers beat abstractions; lost the
+  single-ink gender label to ux's contrast math — run contrast math myself on any
+  ink I touch; spec exemptions as both-directions pins from the start.
+- Watchlist: a well-specified evidence gate (branch matrix + expected values) gets
+  EXECUTED, not just cited — write them as run-books. Redundancy is defined at the
+  grain of the CLAIM, not the value: I audited numeric twins and missed that the
+  stage tooltip was the only identity channel — ask what claim dies if a channel
+  dies. Put "bonus, not justification" separations in writing before synthesis.
 
-## Banked: birth registry + polish (2026-07-19, 1f3cf9e…f170379) — compacted
-
-Won the card shape nearly verbatim (zero numeric literals; all counts from DATA);
-lost 7–1 on one-check economy — that loss IS the failure-mode-separation law above.
-Before defending any single-guard position, enumerate the derivation path's distinct
-failure modes (source drift / parse breakage / join loss / render drift) and check
-each fires a guard alone; "parsed display number" triggers the two-guard law.
-
-## Banked: token hygiene (2026-07-19, a30a5bc) — compacted
-
-Won: JS-scanning hard veto (residues enumerated with line numbers beat
-coverage-theater as an abstraction); 11.5 stratum hold 3–2 with the `w > 46` gate
-named in the pin's reason string; (selector, value, reason) both-directions pins are
-now the default exemption shape; no font-size tokens; gold-once byte pins. Lost the
-gender-label #fff: ux's contrast math showed no single ink passes both segments —
-landed per-rank ink from the same ladder array, every pair ≥4.5:1 verified. Lessons:
-run the contrast math myself on any ink I touch (an unreadable denominator is an
-undisclosed denominator); spec exemptions as both-directions pins from the start;
-name a held position's dependency inside the pin's reason string.
-
-## Banked: watchlist round (2026-07-19, decision log + commit fdd3178)
+## Banked: akabab second source (2026-07-20)
 
 **Won, and why:**
-- **Q2 EVIDENCE GATE was the round's pivot.** The orchestrator executed my exact
-  two-branch protocol BEFORE adjudication: anchoring-on 0px; anchoring-off −180px
-  (Safari condition reproduced); fix restores 0px in both states — no
-  double-compensation. "Measured-vs-inferred labeling" is now Settled, verbatim my
-  must-have. Landed shape confirmed in fdd3178: revealAnchor capture + measured-delta
-  instant `scrollBy` (index.html:476–484). What carried it: I specified the gate to
-  run-book precision (branch matrix + expected values), which converted a debate into
-  a measurement. A well-specified protocol gets EXECUTED, not just cited.
-- **Q4 accepted unanimously on my redundancy-alone warrant** — the
-  channel-redundancy-audit skill was cited as the acceptance's warrant, and my
-  condition is quoted in the log: the pinned tooltip is "a bonus, NOT the
-  justification." Never let a new feature retroactively become the load-bearing
-  excuse for an acceptance argued on other grounds.
-- **Q1 accept won 4–2** (my verdict): whys are rationale, not gated data; the visible
-  label + severity is the complete claim; tripwire recorded.
+- **Option C ratified unanimously** — my verdict, including my recorded evidence
+  condition for ever revisiting Option A (displayed-SQL need only).
+- **Nested-denominator convention adopted** and embedded verbatim in storyteller's
+  drafted report copy, including the closing "absence is not survival" line; my
+  sparse-field superlative trap landed as law (no lineage superlatives; rank only
+  with n disclosed).
+- **Symmetry rule decided Q3:** the report prints the deaths-on-file number, so its
+  drift guard lands in the same commit — my conditional ("ship the check only if
+  the number surfaces this round") resolved TRUE and became the adjudication's
+  stated warrant.
+- **Frozen-fixture baselines won and were immediately vindicated:** my prep's
+  distrust of fast-model JSON counts (my fetch said 88/died-28 vs the brief's
+  87/died-47) became final-plan item 6 — three disagreeing surveys cited as proof
+  that transcription is not a baseline method. Flagging my OWN evidence as
+  unreliable bought credibility and won the mechanism.
+- **Grain-fires-alone** made qa's seen-to-fail acceptance matrix (duplicate-name
+  fan-out demo before merge).
 
-**Lost, and why — Q3 framing.** Tap-to-pin (my first rank) shipped 5–1, but my
-"convenience, not access" framing lost to the census-conceit veto: I audited whether
-the VALUES were reachable elsewhere (dashboard tables) and missed that the tables are
-a different GRAIN — the stage tooltip is the only surface naming most of the 82
-individuals. Redundancy is defined at the grain of the claim, not the value: a number
-with no identity channel is not redundant coverage. Extend the channel-redundancy
-audit to check name/identity reach per modality, not just numeric twins.
+**Lost / conceded, and why:**
+- **Per-field baseline checks lost to qa's five-check ceiling.** Right call: the
+  denominators are copy discipline computed from data at render time; a check per
+  sparse field is guard-for-guard's-sake. I conceded the mechanism, kept the
+  convention — the concession is what got the convention adopted unanimously.
+- **Two-guard law scope narrowed (correctly):** deaths-on-file is key-presence,
+  not a parse — one guard suffices. Banked as a scope boundary on the law itself.
+- **"Deceased" → "deaths on file":** lore caught that akabab deaths are
+  sequel-inclusive AND canon-incomplete, so "deceased" overclaims in BOTH
+  directions. I policed denominators but not the noun — vocabulary is part of the
+  claim's honesty surface.
 
-**Prep differently:** when running a redundancy audit, state each channel's grain
-explicitly and ask what claim DIES if the channel dies (lore saw the census conceit;
-my orphan scan didn't); write evidence gates as executable run-books — matrix,
-expected values, pass/fail — since the orchestrator will run them; when an acceptance
-and a new feature land together, put the "bonus, not justification" separation in
-writing before synthesis, as I did here — it held.
+**Prep differently next time:**
+- Draft my denominator lines as ready-to-ship copy, not conventions — storyteller's
+  verbatim drafted copy won the section-title tiebreak on as-filed grounds; drafted
+  artifacts beat described intentions.
+- For any new source: put the freeze-by-script step and the survey-distrust
+  statement in my first prep note, with my own count listed as one more unreliable
+  survey.
+- Audit nouns and vocabulary alongside numbers: ask what a count-word claims about
+  completeness ("deceased" vs "on file"), not just whether the count is right.

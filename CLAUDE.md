@@ -43,3 +43,8 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
 - Check strings state invariants — rosters/numbers live only in known_facts.py — and must
   never pre-tell a later story beat's payoff (spoiler pin in test_site_provenance.py);
   DATA.provenance carries no narrative fields; the rail rule is uniform across beats.
+- Second-source enrichment (akabab): every displayed number carries nested denominators
+  (matched AND field-present); death data is "on file" vocabulary, never "deceased";
+  signed-year columns name their convention (`_bby`/`_aby`); cross-source derived figures
+  are quoted-testimony — off all surfaces until a surfacing panel rules; name aliases are
+  a curated known_facts dict (canon-direction comments, injectivity pytest, no fuzzy).

@@ -14,7 +14,7 @@ from dagster import (
 
 from starwars_dagster import assets as assets_module
 from starwars_dagster.assets import checks as checks_module
-from starwars_dagster.resources import SWAPIResource
+from starwars_dagster.resources import AkababResource, SWAPIResource
 from starwars_dagster.schedules import (
     daily_refresh_schedule,
     analytics_only_job,
@@ -31,8 +31,9 @@ defs = Definitions(
     assets=all_assets,
     asset_checks=all_checks,
     resources={
-        # The key "swapi" matches the parameter name in assets that need it
+        # Each key matches the parameter name in assets that need it
         "swapi": SWAPIResource(),
+        "akabab": AkababResource(),
     },
     schedules=[daily_refresh_schedule],
     jobs=[full_pipeline_job, analytics_only_job],

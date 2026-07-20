@@ -50,3 +50,37 @@ REQUIRED_PEOPLE_KEYS = {"name", "homeworld", "films", "mass", "gender"}
 
 # Tables star_wars_db must create
 EXPECTED_DB_TABLES = {"films", "people", "planets", "starships", "species"}
+
+# ── Second source: akabab/starwars-api character profiles ────────────────────
+# Fan-curated, MIT, static JSON, SWAPI-derived (it reproduces SWAPI's spellings
+# almost verbatim — that's why the name join works). PROVISIONAL until frozen:
+# these three baselines are recomputed by scripts/snapshot_fixtures.py against
+# the dated akabab fixture and finalized there — never transcribed from a
+# survey (three independent surveys of this dataset disagreed).
+
+# The only keys the join unconditionally needs. The profile schema is
+# polymorphic by kind (droids lack born/died; only Force users carry masters),
+# so any richer blocking contract would freeze upstream data we don't own.
+REQUIRED_PROFILE_KEYS = {"id", "name"}
+
+# Total records returned by /all.json
+EXPECTED_PROFILE_COUNT = 87
+
+# Census characters with a matching profile (exact normalized name or curated
+# alias — no fuzzy matching, ever)
+EXPECTED_PROFILE_MATCH_COUNT = 82
+
+# Matched profiles with a death on file. "On file" is the only honest claim:
+# the source records sequel-era deaths (beyond the six-film frame) AND lags
+# canon — it is neither saga-scoped nor canon-complete.
+EXPECTED_DEATHS_ON_FILE = 47
+
+# Curated name aliases bridging the profile source onto the census (akabab
+# name → SWAPI name). Aliases bridge the JOIN only; character_name always
+# keeps SWAPI's as-filed spelling. Each entry states the canon direction.
+# No fuzzy matching — an unmatched name stays unmatched and is counted.
+PROFILE_NAME_ALIASES = {
+    # akabab holds the canon spelling; SWAPI's record carries the typo.
+    # The alias files the canon-spelled profile under our as-filed record.
+    "Ratts Tyerell": "Ratts Tyerel",
+}

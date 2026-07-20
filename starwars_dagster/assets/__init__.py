@@ -4,6 +4,7 @@ from starwars_dagster.assets.ingestion import (
     raw_planets,
     raw_starships,
     raw_species,
+    raw_character_profiles,
 )
 from starwars_dagster.assets.transforms import (
     star_wars_db,
@@ -11,6 +12,7 @@ from starwars_dagster.assets.transforms import (
     film_character_counts,
     starship_stats,
     character_stats,
+    character_biographies,
 )
 from starwars_dagster.assets.analytics import galaxy_report
 
@@ -20,10 +22,12 @@ __all__ = [
     "raw_planets",
     "raw_starships",
     "raw_species",
+    "raw_character_profiles",
     "star_wars_db",
     "characters_enriched",
     "film_character_counts",
     "starship_stats",
     "character_stats",
+    "character_biographies",
     "galaxy_report",
 ]

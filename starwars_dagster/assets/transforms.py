@@ -20,6 +20,8 @@ Asset lineage here:
   raw_ships ──┤                 ──► film_character_counts
   raw_species ┘                 ──► starship_stats
                                 ──► character_stats
+  raw_character_profiles ─┐
+  star_wars_db ───────────┴──► character_biographies
 """
 
 import json
@@ -27,6 +29,8 @@ import pathlib
 import duckdb
 import pandas as pd
 from dagster import asset, AssetExecutionContext
+
+from starwars_dagster.known_facts import PROFILE_NAME_ALIASES
 
 _GROUP = "02_transformed"
 DB_PATH = pathlib.Path("data/star_wars.duckdb")
@@ -264,6 +268,115 @@ def character_stats(context: AssetExecutionContext, star_wars_db: str) -> pd.Dat
             "one_film_characters": int((df["film_count"] == 1).sum()),
             "pilots": int((df["starships_flown"] > 0).sum()),
             "max_starships_flown": int(df["starships_flown"].max()) if len(df) else 0,
+        }
+    )
+    return df
+
+
+# ── Transform: Second-source profile enrichment ──────────────────────────────
+
+def _normalize_name(name: str) -> str:
+    """Case-fold and collapse whitespace. The ONLY tolerated variance —
+    anything beyond this is a curated alias in known_facts, never fuzzy."""
+    return " ".join(name.lower().split())
+
+
+# The profile fields the join carries. A field missing on a record stays NULL
+# (the schema is polymorphic by kind); an empty list is a present field with
+# count 0 — the distinction feeds the report's field-present denominators.
+_PROFILE_COLUMNS = [
+    "join_key", "profile_id", "profile_name",
+    "affiliations", "affiliation_count",
+    "masters", "master_count",
+    "apprentices", "apprentice_count",
+    "died_year_aby", "died_location", "wiki",
+]
+
+
+@asset(
+    group_name=_GROUP,
+    description="Akabab character profiles joined onto the census grain by exact name",
+)
+def character_biographies(
+    context: AssetExecutionContext,
+    star_wars_db: str,
+    raw_character_profiles: list[dict],
+) -> pd.DataFrame:
+    """
+    LEFT JOIN from people onto the akabab profiles: one row per census
+    character, always. The join key is the normalized name plus the curated
+    alias map — misses stay visible as NULL profile columns and are counted
+    by the join-coverage check, never dropped or fuzzily matched.
+
+    Lineage strings (masters/apprentices) are stored as JSON strings with
+    counts: display-only, never join keys — the source mixes prose into them.
+    """
+
+    def _list_field(rec: dict, key: str) -> tuple[str | None, float | None]:
+        if key not in rec:
+            return None, None
+        values = rec[key]
+        return json.dumps(values), float(len(values))
+
+    rows = []
+    for rec in raw_character_profiles:
+        affiliations, affiliation_count = _list_field(rec, "affiliations")
+        masters, master_count = _list_field(rec, "masters")
+        apprentices, apprentice_count = _list_field(rec, "apprentices")
+        rows.append({
+            # aliases bridge the join only; character_name below stays SWAPI's
+            "join_key": _normalize_name(
+                PROFILE_NAME_ALIASES.get(rec["name"], rec["name"])
+            ),
+            "profile_id": rec["id"],
+            "profile_name": rec["name"],
+            "affiliations": affiliations,
+            "affiliation_count": affiliation_count,
+            "masters": masters,
+            "master_count": master_count,
+            "apprentices": apprentices,
+            "apprentice_count": apprentice_count,
+            # akabab years are ABY-positive — the OPPOSITE sign convention to
+            # character_stats.birth_year_bby. The unit lives in the name.
+            "died_year_aby": float(rec["died"]) if "died" in rec else None,
+            "died_location": rec.get("diedLocation"),
+            "wiki": rec.get("wiki"),
+        })
+    profiles = pd.DataFrame(rows, columns=_PROFILE_COLUMNS)
+
+    con = duckdb.connect(star_wars_db)
+
+    people = con.execute("SELECT name AS character_name FROM people ORDER BY name").df()
+    people["join_key"] = people["character_name"].map(_normalize_name)
+
+    # merge keeps duplicate profile names as extra rows on purpose: a fan-out
+    # must trip the blocking grain check, not vanish inside a dict
+    df = people.merge(profiles, on="join_key", how="left").drop(columns=["join_key"])
+
+    # Write-back law: the enriched grain is queryable in the warehouse
+    con.execute("CREATE OR REPLACE TABLE character_biographies AS SELECT * FROM df")
+
+    con.close()
+
+    _write_csv(df, "character_biographies.csv")
+
+    matched = df[df["profile_id"].notna()]
+    matched_keys = {_normalize_name(n) for n in matched["character_name"]}
+    unmatched_profiles = sorted(
+        rec["name"]
+        for rec in raw_character_profiles
+        if _normalize_name(PROFILE_NAME_ALIASES.get(rec["name"], rec["name"]))
+        not in matched_keys
+    )
+    context.add_output_metadata(
+        {
+            "row_count": len(df),
+            "matched": len(matched),
+            "unmatched_characters": sorted(
+                df.loc[df["profile_id"].isna(), "character_name"]
+            )[:10],
+            "unmatched_profiles": unmatched_profiles[:10],
+            "deaths_on_file": int(matched["died_year_aby"].notna().sum()),
         }
     )
     return df

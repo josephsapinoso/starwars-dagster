@@ -296,11 +296,18 @@ Note how `characters`, `planets`, etc. are lists of URLs (not embedded objects).
 
 Open `starwars_dagster/assets/ingestion.py`.
 
-The five raw assets all follow the same pattern:
-1. Call `swapi.fetch(endpoint)`
+The raw assets all follow the same pattern:
+1. Call `resource.fetch(endpoint)`
 2. Log metadata to the Dagster UI with `context.add_output_metadata()`
 3. Save JSON to `data/raw/<name>.json` for debugging
 4. Return the data for downstream assets
+
+Five of them pull SWAPI endpoints through `SWAPIResource`. The sixth,
+`raw_character_profiles`, applies the *same pattern to a different resource* —
+`AkababResource`, a second data source serving static JSON character profiles.
+Compare the two asset definitions side by side: only the injected resource and
+the endpoint change. That symmetry is the point of the resource abstraction,
+and it's what Exercise 3 below asks you to reproduce.
 
 ### Materializing the raw layer
 
@@ -325,7 +332,7 @@ cat data/raw/films.json | python -m json.tool | head -60
 
 ### ✅ Exercise 3
 
-The pipeline currently fetches films, people, planets, starships, and species. Add a `raw_vehicles` asset following the same pattern. The endpoint is `/vehicles/`. Then add it to `assets/__init__.py`.
+The pipeline currently fetches five SWAPI endpoints: films, people, planets, starships, and species. Add a `raw_vehicles` asset following the same pattern. The endpoint is `/vehicles/`. Then add it to `assets/__init__.py`.
 
 ---
 
@@ -490,7 +497,7 @@ Real streaming pipelines (Kafka, Kinesis) process events as they arrive. For RES
 - A financial data feed polled hourly
 - A government data portal polled nightly
 
-Swap `SWAPIResource` for any other HTTP resource and the orchestration layer stays the same.
+Swap `SWAPIResource` for any other HTTP resource and the orchestration layer stays the same. The repo demonstrates this claim in code: `AkababResource` is exactly that swap — a second static-JSON source behind the same asset pattern, and nothing downstream of the resource had to change shape.
 
 ---
 

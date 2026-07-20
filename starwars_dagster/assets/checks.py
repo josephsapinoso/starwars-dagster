@@ -32,8 +32,9 @@ from dagster import (
     asset_check,
 )
 
-from starwars_dagster.assets.ingestion import raw_people
+from starwars_dagster.assets.ingestion import raw_character_profiles, raw_people
 from starwars_dagster.assets.transforms import (
+    character_biographies,
     character_stats,
     characters_enriched,
     film_character_counts,
@@ -42,6 +43,7 @@ from starwars_dagster.assets.transforms import (
 )
 from starwars_dagster.known_facts import (
     EXPECTED_DB_TABLES,
+    EXPECTED_DEATHS_ON_FILE,
     EXPECTED_EPISODE_IDS,
     EXPECTED_FILM_COUNT,
     EXPECTED_MAX_STARSHIPS_FLOWN,
@@ -49,10 +51,13 @@ from starwars_dagster.known_facts import (
     EXPECTED_ONE_FILM_COUNT,
     EXPECTED_PEOPLE_COUNT,
     EXPECTED_PILOT_COUNT,
+    EXPECTED_PROFILE_COUNT,
+    EXPECTED_PROFILE_MATCH_COUNT,
     EXPECTED_UNDATED_BIRTH_COUNT,
     EXPECTED_UNKNOWN_HEIGHT_COUNT,
     EXPECTED_UNKNOWN_MASS_COUNT,
     REQUIRED_PEOPLE_KEYS,
+    REQUIRED_PROFILE_KEYS,
     SIX_FILM_CHARACTERS,
 )
 
@@ -127,6 +132,63 @@ def films_are_exactly_the_six_episodes(film_character_counts: pd.DataFrame) -> A
 def characters_enriched_has_no_null_names(characters_enriched: pd.DataFrame) -> AssetCheckResult:
     nulls = int(characters_enriched["character_name"].isna().sum())
     return AssetCheckResult(passed=nulls == 0, metadata={"null_names": nulls})
+
+
+@asset_check(
+    asset=raw_character_profiles,
+    blocking=True,
+    description="Every character profile must be non-empty and carry the id and "
+    "name keys the census join anchors on — the profile schema is polymorphic "
+    "by kind, but the anchor is non-negotiable.",
+)
+def raw_character_profiles_has_required_shape(
+    raw_character_profiles: list[dict],
+) -> AssetCheckResult:
+    if not raw_character_profiles:
+        return AssetCheckResult(passed=False, metadata={"reason": "empty response"})
+    missing = [
+        (rec.get("name", f"record #{i}"), sorted(REQUIRED_PROFILE_KEYS - rec.keys()))
+        for i, rec in enumerate(raw_character_profiles)
+        if not REQUIRED_PROFILE_KEYS <= rec.keys()
+    ]
+    return AssetCheckResult(
+        passed=not missing,
+        metadata={
+            "records": len(raw_character_profiles),
+            "records_missing_keys": missing[:10],
+        },
+    )
+
+
+@asset_check(
+    asset=character_biographies,
+    blocking=True,
+    additional_ins={"star_wars_db": AssetIn("star_wars_db")},
+    description="Exactly one row per census character, with unique names — "
+    "a fan-out in the profile join would silently inflate every downstream count.",
+)
+def character_biographies_grain_is_one_row_per_character(
+    character_biographies: pd.DataFrame, star_wars_db: str
+) -> AssetCheckResult:
+    con = duckdb.connect(star_wars_db, read_only=True)
+    try:
+        people_count = con.execute("SELECT COUNT(*) FROM people").fetchone()[0]
+    finally:
+        con.close()
+    duplicates = (
+        character_biographies["character_name"]
+        .value_counts()
+        .loc[lambda s: s > 1]
+        .index.tolist()
+    )
+    return AssetCheckResult(
+        passed=len(character_biographies) == people_count and not duplicates,
+        metadata={
+            "rows": len(character_biographies),
+            "census_characters": people_count,
+            "duplicated_names": duplicates[:10],
+        },
+    )
 
 
 # ── Drift checks (WARN — upstream data is not ours to freeze) ────────────────
@@ -325,4 +387,81 @@ def character_stats_birth_year_parse_honesty(
         passed=parsed_nulls == raw_unknowns,
         severity=AssetCheckSeverity.WARN,
         metadata={"parsed_nulls": parsed_nulls, "raw_unknowns": raw_unknowns},
+    )
+
+
+@asset_check(
+    asset=raw_character_profiles,
+    description=f"The profile source returned {EXPECTED_PROFILE_COUNT} records "
+    "when this pipeline was verified. A different count isn't a bug — it's "
+    "drift in a dataset we don't own. Investigate, then update known_facts.py.",
+)
+def raw_character_profiles_count_matches_verified_snapshot(
+    raw_character_profiles: list[dict],
+) -> AssetCheckResult:
+    return AssetCheckResult(
+        passed=len(raw_character_profiles) == EXPECTED_PROFILE_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={
+            "count": len(raw_character_profiles),
+            "expected": EXPECTED_PROFILE_COUNT,
+        },
+    )
+
+
+@asset_check(
+    asset=character_biographies,
+    additional_ins={"raw_character_profiles": AssetIn("raw_character_profiles")},
+    description="The census→profile name join keeps every character and nulls "
+    "the misses silently. This check publishes the losses on both sides — "
+    "unmatched census names and unmatched profiles — so coverage drift is "
+    "news, not noise.",
+)
+def character_biographies_join_coverage(
+    character_biographies: pd.DataFrame, raw_character_profiles: list[dict]
+) -> AssetCheckResult:
+    matched = int(character_biographies["profile_id"].notna().sum())
+    unmatched_characters = sorted(
+        character_biographies.loc[
+            character_biographies["profile_id"].isna(), "character_name"
+        ]
+    )
+    matched_profile_names = set(
+        character_biographies["profile_name"].dropna()
+    )
+    unmatched_profiles = sorted(
+        rec["name"]
+        for rec in raw_character_profiles
+        if rec["name"] not in matched_profile_names
+    )
+    return AssetCheckResult(
+        passed=matched == EXPECTED_PROFILE_MATCH_COUNT,
+        severity=AssetCheckSeverity.WARN,
+        metadata={
+            "matched": matched,
+            "expected": EXPECTED_PROFILE_MATCH_COUNT,
+            "unmatched_characters": unmatched_characters[:10],
+            "unmatched_profiles": unmatched_profiles[:10],
+            "coverage_pct": round(
+                100 * matched / len(character_biographies), 1
+            ) if len(character_biographies) else 0,
+        },
+    )
+
+
+@asset_check(
+    asset=character_biographies,
+    description="Profiles with a death on file match the verified baseline in "
+    "known_facts.py — the denominator behind the report's deaths-on-file "
+    "figure. Drift signals upstream edits, not casualties.",
+)
+def character_biographies_deaths_on_file_baseline(
+    character_biographies: pd.DataFrame,
+) -> AssetCheckResult:
+    matched = character_biographies[character_biographies["profile_id"].notna()]
+    deaths = int(matched["died_year_aby"].notna().sum())
+    return AssetCheckResult(
+        passed=deaths == EXPECTED_DEATHS_ON_FILE,
+        severity=AssetCheckSeverity.WARN,
+        metadata={"deaths_on_file": deaths, "expected": EXPECTED_DEATHS_ON_FILE},
     )

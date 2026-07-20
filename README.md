@@ -40,18 +40,28 @@ checks behind that figure.
 ## Architecture
 
 ```
-SWAPI (live API) → Raw JSON → DuckDB tables → SQL transforms → Markdown report
-     ↑                ↑              ↑                ↑               ↑
-  Resource        01_raw         star_wars_db    02_transformed   03_analytics
+SWAPI (live API) ────┐
+                     ├→ Raw JSON → DuckDB tables → SQL transforms → Markdown report
+akabab (static JSON) ┘      ↑              ↑                ↑               ↑
+     ↑                    01_raw       star_wars_db    02_transformed   03_analytics
+  Resources
 ```
 
-**11 assets across 3 groups, 15 asset checks (4 blocking, 11 warn):**
+**13 assets across 3 groups, 20 asset checks (6 blocking, 14 warn):**
 
 | Group | Assets | Description |
 |---|---|---|
-| `01_raw` | `raw_films`, `raw_people`, `raw_planets`, `raw_starships`, `raw_species` | HTTP pulls from SWAPI |
-| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats`, `character_stats` | DuckDB storage + SQL |
+| `01_raw` | `raw_films`, `raw_people`, `raw_planets`, `raw_starships`, `raw_species`, `raw_character_profiles` | HTTP pulls: five SWAPI endpoints + the akabab profile dump |
+| `02_transformed` | `star_wars_db`, `characters_enriched`, `film_character_counts`, `starship_stats`, `character_stats`, `character_biographies` | DuckDB storage + SQL, incl. the cross-source name join |
 | `03_analytics` | `galaxy_report` | Markdown summary report |
+
+The second source ([akabab/starwars-api](https://github.com/akabab/starwars-api)) is a
+fan-curated, MIT-licensed, effectively frozen static dataset — a different trust level
+than SWAPI, and the pipeline treats it that way: profiles attach to the census by exact
+normalized name plus a curated alias map (no fuzzy matching; the one alias on file
+corrects a SWAPI-side typo and says so), coverage is measured on both sides by a WARN
+check, and death data is reported strictly as "on file" — the source records sequel-era
+deaths and lags canon, so presence is the only honest claim.
 
 ## Quick start
 
@@ -75,15 +85,20 @@ CI additionally pins transitive dependencies with `-c requirements.lock`
 (regenerate via `uv pip compile pyproject.toml --extra dev -o requirements.lock`);
 the version ranges in `pyproject.toml` stay authoritative for humans.
 
-`scripts/snapshot_fixtures.py` freezes a dated real-API snapshot and unlocks the exact-value
-tests (82 people, 3 six-film characters, 23 unknown masses, 42 one-film cameos, 19 pilots).
-A daily 6 AM schedule re-pulls from SWAPI — the same pattern you'd use for any REST feed.
+`scripts/snapshot_fixtures.py` freezes dated snapshots of both sources in one run and
+unlocks the exact-value tests (82 people, 3 six-film characters, 23 unknown masses,
+42 one-film cameos, 19 pilots — plus the profile-count, join-coverage, and
+deaths-on-file baselines, which the script computes from the frozen pair rather than
+anyone transcribing them). A daily 6 AM schedule re-pulls the sources — the same
+pattern you'd use for any REST feed.
 
 ## Stack
 
 - **[Dagster](https://dagster.io)** — orchestration (open-source, free)
 - **[DuckDB](https://duckdb.org)** — embedded analytics database
 - **[SWAPI](https://swapi.info)** — Star Wars REST API (free, no auth)
+- **[akabab/starwars-api](https://github.com/akabab/starwars-api)** — character profiles
+  (fan-curated static JSON, MIT, no auth)
 - **Pandas** — DataFrame transforms
 - **Python 3.11+**
 
@@ -154,21 +169,23 @@ starwars-dagster/
 │   ├── known_facts.py            ← single source of verified baselines
 │   ├── schedules.py
 │   ├── assets/
-│   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls
+│   │   ├── ingestion.py          ← 01_raw: five SWAPI pulls + one akabab pull
 │   │   ├── transforms.py         ← 02_transformed: DuckDB + SQL
 │   │   ├── analytics.py          ← 03_analytics: galaxy_report
-│   │   └── checks.py             ← 15 asset checks (4 blocking, 11 warn)
+│   │   └── checks.py             ← 20 asset checks (6 blocking, 14 warn)
 │   └── resources/
-│       └── swapi_resource.py
+│       ├── swapi_resource.py
+│       └── akabab_resource.py
 ├── site/
 │   └── index.html                ← the whole website, one file
 ├── tests/
-│   ├── conftest.py               ← fake + inline SWAPI resources
+│   ├── conftest.py               ← fake + inline resources for both sources
 │   ├── test_pipeline.py          ← full offline materialization + banked facts
 │   ├── test_transforms.py
+│   ├── test_biographies.py       ← cross-source join contract + alias governance
 │   ├── test_swapi_resource.py
 │   ├── test_site_provenance.py   ← site provenance vs real Dagster defs
-│   └── fixtures/swapi/           ← committed fixtures + dated snapshot marker
+│   └── fixtures/                 ← committed fixtures + dated snapshot markers
 ├── scripts/
 │   └── snapshot_fixtures.py      ← refresh fixtures from the live API
 └── .claude/                      ← the design-panel agents, memories, decisions
