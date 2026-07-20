@@ -185,21 +185,63 @@ Prep-differently: when I spec a detector, also spec the acceptable POLICY
 alternative (make the failure mode unreachable + pin the policy) — the panel may
 land there, and pre-approving its conditions keeps my ruling intact.
 
-## Ledger closure (2026-07-19, verified in-tree at bank time)
+## Ledger closure (2026-07-19, compacted)
 
-Both survey items formerly listed here as "Still OPEN" were fixed by same-day
-pre-debate commits; I re-verified the tree myself before writing this:
-1. snapshot.yml partial-suite gap — CLOSED by ea840fb: the workflow now runs the
-   FULL suite (`pytest -v`, step "Run the full suite against the fresh snapshot")
-   before the bot commit, with an in-file comment naming that step as the CI for a
-   refreshed snapshot. Seen working live on post-merge refresh commit 8cfa1f0.
-2. Verified-as-of date — CLOSED by 2e47baa: `DATA.meta` ({source, snapshot}) drives
-   the footer freshness line; tests/test_site_data.py::
-   test_meta_matches_the_committed_snapshot pins `meta.snapshot ==
-   SNAPSHOT.json fetched_at[:10]` and `meta.source in snap["source"]`; drift
-   detector warns on missing/malformed meta. Suite green at 54.
+Both open items CLOSED same-day: snapshot.yml now runs the FULL suite before the
+bot commit (ea840fb, that step IS the CI for a refreshed snapshot); DATA.meta
+freshness line pinned by test_site_data.py::test_meta_matches_the_committed_snapshot
+(2e47baa). Lesson kept: an open-items ledger is a claim about the tree — re-verify
+AT BANK TIME before writing "OPEN".
 
-Lesson: an open-items ledger is a claim about the tree, and claims about the tree
-get re-verified AT BANK TIME — same-day commits closed both items before my bank
-pass was written, and I carried the stale entries anyway. Grep the fix before
-writing "OPEN".
+## Prep notes: second source — akabab (2026-07-20)
+
+Verified the brief's repo claims myself; all held:
+- Provenance pins: test_site_provenance.py:76-101 pins each LISTED asset's check
+  set exactly (listed = raw_people, star_wars_db, characters_enriched,
+  character_stats) → new checks MUST attach only to unlisted assets; the brief's
+  slate (raw_character_profiles, character_biographies) complies. Totals pin
+  (:242) introspects real defs, so the site totals triple 11/4/15 → 13/5/20 is
+  FORCED same-commit by an existing guard — no new pin needed there.
+- Spoiler pin scans only checks of assets in claim CHAINS; unlisted assets'
+  strings never render until site surfacing. Write them spoiler-safe anyway;
+  f-string interpolation FROM known_facts is the sanctioned number pattern.
+- Access policy (test_pipeline.py:155-181): character_biographies (CREATE OR
+  REPLACE TABLE) becomes the THIRD declared writer — must join the writers list
+  same commit; EXPECTED_DB_TABLES stays five; tables_populated must not grow.
+- Snapshot plumbing gaps confirmed: snapshot.yml:39 `git add tests/fixtures/swapi`
+  only (must add akabab dir); snapshot_fixtures.py fetches swapi only; akabab
+  needs its OWN marker (tests/fixtures/akabab/SNAPSHOT.json). test_site_data.py:23
+  points SNAPSHOT at the swapi dir only — its substring shape is untouched.
+- README/WORKSHOP counts have NO automated pin (grep tests/ for README: none) —
+  count ripple there stays a human checklist item, same commit.
+
+External verification (WebFetch, live all.json, 2026-07-20):
+- 87 records = ids 1–88 with id 17 ABSENT — akabab ids mirror SWAPI's famous
+  id-17 skip; sequel five are ids 84–88. Consistent with brief.
+- Darth Vader (id 4) and Anakin Skywalker (id 11) are SEPARATE records in BOTH
+  sources — exact-name join keeps them distinct. Alias-map guard must therefore
+  assert injectivity: after normalize+alias, akabab names stay unique AND no
+  alias maps two akabab records onto one SWAPI name (ungated pytest, synthetic-
+  safe). Sole alias: "Ratts Tyerell"(akabab 47) → "Ratts Tyerel" (confirmed in
+  our people.json fixture).
+- Brief's sparsity figures (masters 15/87, died 47/87, mass 64/87) NOT
+  confirmable — summarizer counted 17/30/80. Design-irrelevant IF all baselines
+  (EXPECTED_PROFILE_COUNT, _MATCH_COUNT, _DECEASED_COUNT) are COMPUTED from the
+  frozen fixture at the freeze commit, never hand-copied from the brief. I will
+  make that a condition.
+- Units confirmed: akabab height/mass are meters/kg (Luke 1.72/73) vs SWAPI cm —
+  exclusion is right; any future inclusion needs a unit pin (positive-BBY style).
+
+Debate ammunition:
+- Every new check answers "what asserts green?" + seen-to-fail before merge:
+  grain (blocking) → Inline duplicate-name akabab pair must FAIL it; shape
+  (blocking) → record missing `name`; coverage WARN → unmatchable name metadata;
+  count/deceased baselines → dual-marker-gated green assertions.
+- Q3 lean: deceased-count via key PRESENCE is not a parse — one WARN drift
+  baseline suffices; the two-guard failure-mode-separation law triggers only if
+  born/died get PARSED into displayed ages later.
+- Q4 lean: accept curated PROFILE_NAME_ALIASES in known_facts WITH the
+  injectivity pytest; fuzzy matching stays vetoed.
+- Fixture law extension: synthetic akabab fixture may reference real SWAPI NAMES
+  (join must hit offline), but fixture-based tests assert structure/grain only;
+  match-count exactness is gated on BOTH markers (brief's dual gate — correct).
