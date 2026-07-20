@@ -213,6 +213,52 @@
   of demanding the exception not exist; stress-test my own proposals for ordering
   risk. Skill `panel-data-engineer-single-file-hygiene-guard` teaches the shipped shape.
 
+## Prep notes: akabab second source (2026-07-20)
+
+Verified live today (WebFetch, akabab.github.io + github.com/akabab/starwars-api):
+- all.json: 87 records; ids run 1..88 NON-contiguous (17 absent) — never check id
+  contiguity or use id as ordinal; count + shape only. All 87 carry `name`. MIT license
+  confirmed on the repo. Endpoint shape is `{base}/all.json` (also `/id/{id}.json`), so
+  `fetch(endpoint) → f"{base_url}/{endpoint}.json"`; a SEPARATE ConfigurableResource,
+  not a SWAPIResource subclass (URL suffix differs, and subclassing would lie).
+- Schema is POLYMORPHIC by kind: droids carry dateCreated/dateDestroyed/creator/
+  manufacturer INSTEAD of born/died. `{id,name}` is the only universal contract —
+  the blocking shape check is right at exactly that, no more.
+- SIGN TRAP: akabab years are ABY-positive (Luke born:-19 = 19 BBY, died:34 = 34 ABY);
+  our `birth_year_bby` is BBY-positive. A raw `died` column copied as-is carries the
+  OPPOSITE sign convention from birth_year_bby in the same warehouse. One convention
+  per warehouse: normalize at transform time (synthetics-tested sign flip) or name the
+  column unambiguously (e.g. died_year_aby) — never a bare `died`.
+- Prose contamination: apprentices holds "Ben Solo (along with a dozen apprentices)" —
+  lineage lists are display strings, not join keys. JSON-string + count columns yes;
+  joining/exploding on them, never.
+
+Verified in-repo:
+- test_site_provenance.py:242 totals math confirmed: assets=all keys, transforms=
+  group 02_transformed minus star_wars_db (so character_biographies MUST be
+  02_transformed to make 5), checks=all specs. :76 pins check sets only for LISTED
+  provenance assets — new checks on unlisted assets are invisible to it. The spoiler
+  pin (:181) scans only claim-chain assets' checks, so new check strings go unscanned
+  until site surfacing — write them number/roster-free anyway; they enter scope later.
+- test_pipeline.py:155 access policy hardcodes reader/writer lists: character_biographies
+  (CREATE OR REPLACE TABLE) becomes writer #3 → same commit must update that test AND
+  the test_written_back_tables_match_the_returned_frames parity loop. EXPECTED_DB_TABLES
+  stays five; tables_populated untouched; DB ends a full run with EIGHT tables.
+- Snapshot plumbing: snapshot.yml only `git add tests/fixtures/swapi` — must widen;
+  snapshot_fixtures.py is SWAPI-only. Akabab marker must be its OWN
+  tests/fixtures/akabab/SNAPSHOT.json — test_site_data.py:68-71 substring-pins the
+  swapi marker's source/fetched_at shape, so never merge markers.
+- fixtures/swapi/people.json:1066 "Ratts Tyerel" confirmed vs akabab "Ratts Tyerell"
+  (id 47) — the alias map earns its first entry. Governance mechanism: a pytest
+  dead-alias detector — every alias source must exist in the akabab fixture and every
+  target in people, gated on both snapshot markers.
+- Reachability: akabab.github.io WAS reachable from this dev container via the agent
+  proxy today; the snapshot workflow remains the sanctioned freeze path regardless.
+
+Cannot verify cheaply: the exact 81/82 match count and died=47/87 sparsity (trusting
+the brief's 2026-07-19 fixture audit; re-derive during implementation); whether akabab
+has duplicate name strings (the blocking grain check covers fan-out regardless).
+
 ## Banked: watchlist round (2026-07-19, fdd3178)
 
 - **Lost Q1 (4–2):** expose-whys-first fell to accept-and-document — 48 new tab stops
