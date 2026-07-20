@@ -24,8 +24,10 @@ import pytest
 from dagster import materialize
 
 from starwars_dagster.assets import (
+    character_biographies,
     character_stats,
     characters_enriched,
+    raw_character_profiles,
     raw_films,
     raw_people,
     raw_planets,
@@ -33,12 +35,12 @@ from starwars_dagster.assets import (
     raw_starships,
     star_wars_db,
 )
-from tests.conftest import SNAPSHOT_MARKER, FakeSWAPIResource
+from tests.conftest import SNAPSHOT_MARKER, FakeAkababResource, FakeSWAPIResource
 
 REPO = Path(__file__).resolve().parent.parent
 SITE = REPO / "site" / "index.html"
 
-SQL_KEYS = ["films", "gender", "scatter", "homeworlds", "hyper", "ages"]
+SQL_KEYS = ["films", "gender", "scatter", "homeworlds", "hyper", "ages", "bios"]
 
 requires_real_snapshot = pytest.mark.skipif(
     not SNAPSHOT_MARKER.exists(),
@@ -61,8 +63,9 @@ def warehouse(tmp_path_factory, monkeypatch_module):
     monkeypatch_module.chdir(cwd)
     result = materialize(
         [raw_films, raw_people, raw_planets, raw_starships, raw_species,
-         star_wars_db, characters_enriched, character_stats],
-        resources={"swapi": FakeSWAPIResource()},
+         raw_character_profiles, star_wars_db, characters_enriched,
+         character_stats, character_biographies],
+        resources={"swapi": FakeSWAPIResource(), "akabab": FakeAkababResource()},
     )
     assert result.success
     return cwd / "data" / "star_wars.duckdb"
@@ -184,3 +187,18 @@ def test_hyper_sql_reproduces_the_leaderboard(data, warehouse):
     expected = [(s["name"], float(s["hyperdrive"])) for s in ships[:10]]
     rows = run_sql(warehouse, data["sql"]["hyper"])
     assert [(r[0], float(r[3])) for r in rows] == expected
+
+
+@requires_real_snapshot
+def test_bios_sql_reproduces_the_second_reading_coverage(data, warehouse):
+    # the biographies card's headline numbers must be the SAME whether computed
+    # from character_biographies in the warehouse or from DATA.people[].bio — two
+    # homes for the coverage counts, and they must agree. The query returns COUNTS
+    # only, never died_year_aby values (ABY-sign display + derivation are vetoed).
+    rows = run_sql(warehouse, data["sql"]["bios"])
+    assert len(rows) == 1
+    matched, deaths_on_file, affiliated = rows[0]
+    bios = [p["bio"] for p in data["people"] if p.get("bio")]
+    assert matched == len(bios)
+    assert deaths_on_file == sum(1 for b in bios if b["diedOnFile"])
+    assert affiliated == sum(1 for b in bios if (b["aff"] or 0) > 0)

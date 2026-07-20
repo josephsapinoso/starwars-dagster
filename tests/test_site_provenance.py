@@ -239,6 +239,25 @@ def test_the_coda_stays_number_free(prov):
         assert term not in text
 
 
+def test_dag_strip_names_every_real_asset(real):
+    # The dashboard's DAG strip (hardcoded .chip spans) is the site's lineage
+    # establishing shot. It once drifted: totals read 13/5/20 while the strip
+    # still showed 5 raw / 4 transforms and omitted the akabab assets. This pin
+    # makes the chip set == the real Dagster asset keys, so it can't drift again.
+    html = SITE.read_text(encoding="utf-8")
+    m = re.search(r'<div class="dag".*?<div class="kpis"', html, re.S)
+    assert m, "the DAG strip block was not found"
+    chips = re.findall(r'<span class="chip[^"]*">([^<]+)</span>', m.group(0))
+    names = set()
+    for c in chips:
+        # chips may carry a decorative suffix, e.g. "star_wars_db · DuckDB"
+        names.add(re.split(r"·", c.replace("&nbsp;", " "))[0].strip())
+    assert names == real["keys"], (
+        f"DAG strip chips diverge from the real asset graph: "
+        f"{sorted(names)} vs {sorted(real['keys'])}"
+    )
+
+
 def test_totals_match_the_real_definitions(prov, real):
     totals = prov["totals"]
     assert totals["assets"] == len(real["keys"])
