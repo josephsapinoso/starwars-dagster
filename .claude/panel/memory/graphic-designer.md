@@ -133,6 +133,45 @@
   beat 4 (held pause) gets the quietest variant "The paper trail." — identical
   placement/size everywhere.
 
+## Prep notes: akabab surfacing (2026-07-20)
+
+Brief: surface the wired-but-invisible second source (raw_character_profiles,
+character_biographies). My lane: does a new surface (card / DAG chip / beat) fragment the
+mark system, the one-hue law, gold-only rule, color/type budget. Verified against source:
+
+- **DAG chips are source-agnostic and monochrome (ink-2, `--void` bg, `--line` border).**
+  Adding `raw_character_profiles` to 01 (5→6 chips) and `character_biographies` to 02 (4→5)
+  is pure `.chip` reuse — ZERO new marks. RESIST any instinct to color/tint akabab chips to
+  mark provenance: a source distinction would be a new data-color seat (violates one-hue)
+  and a status-that-is-not-a-series. Attribution belongs in TEXT (footer, prov-note, card
+  caption), never in a chip hue. The `.hot` gold seat stays exactly one per chain
+  (galaxy_report); akabab earns no gold. `aria-label` string updates with the counts.
+- **Headline number → `.kpi` treatment** (`.kpi`/`.k-value` 42px, sanctioned scale integer;
+  `.k-label` 13, `.k-sub` 12). A dashboard-only akabab stat card is the lowest-fragmentation
+  home: it reuses the existing `.kpis` grid / `.card span*` grid. No new component.
+- **"on file" is ALREADY the site's voice** — tooltips render "film on file", "no mass on
+  file", "82 rows, on file" (L267, L594, L652). So the mandated vocabulary needs no new
+  style and reads as continuity, not a bolt-on. Confirm "on file" / "as filed"; never
+  "deceased".
+- **Nested denominators render as wrapping HTML caption below the figure** (banked caption
+  law) — never SVG `<text>`. 47-of-82-matched / field-present split lives in `.prov-note`
+  (13px) or a `.k-sub`, never on-chart clipping.
+- **Provenance reveal = `details.prov`** (shared disclosure selector, gold ▸/▾, ink-3 12px
+  summary, `.prov-check` 11.5 rail, legend "◆ blocking · ◇ drift"). A dashboard akabab card
+  gets its own `details.prov` exactly like the others — no per-card mini-DAG (banked).
+  Check badges stay monochrome ◆/◇; the 5 akabab checks slot into the SAME rail grammar.
+- **No superlatives → no gold rings.** Sparse akabab list fields (affiliations/masters/
+  apprentices) yield no verified extreme; ranked lists would need a superlative the data
+  can't honestly assert. Gold ring stays reserved for the three true extremes. If any death
+  "oldest/most" claim tempts a ring, veto — "on file" is not "complete".
+
+Design verdict forming (for DEBATE): **dashboard-only surface, no new beat.** A new beat
+re-opens settled 8-step/"n/8"/exactly-8-kicker geometry and buys nothing visual the mark
+system doesn't already give a card. The live beat-7 contradiction ("four transforms" static
+L320 vs "five transforms" rendered L941) is a copy-truth fix, not a mark question — but the
+count that renders must match provenance. No new skill: mark-system skill already covers
+chip reuse, status-not-a-series, no-per-card-DAG, caption-wraps-HTML, gold-ring-is-extreme.
+
 ## Banked: pipeline-reveal + per-character (2026-07-18, compacted)
 
 Won: real HTML `.chip` reuse (propose *using* existing CSS, not imitating it);

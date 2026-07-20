@@ -234,6 +234,47 @@ Durable: badge whys are verbatim Dagster descriptions, not number-free —
 raw_people's "82" is safe as beat-0's own hook; hover `title=` stays a
 desktop bonus with no non-hover twin, by decision.
 
+## Prep notes: akabab SURFACING (2026-07-20)
+
+Verified on-file today (site L413 DATA, analytics.py:91-203, known_facts:64-86, decision log):
+- Baselines LOCKED: `EXPECTED_PROFILE_MATCH_COUNT=82` (alias bridges the one typo → ALL
+  82 census chars match), `EXPECTED_DEATHS_ON_FILE=47`, `EXPECTED_PROFILE_COUNT=87`.
+  The report's "Affiliations & Apprenticeships" (L182) is my copy pattern: matched-count
+  outer denom, field-present inner, "on file", closer "absence is not survival."
+- **Q1 (my lead): dashboard-only card, NOT a 9th beat.** The census spine is complete
+  (measured/weighed/located/counted → the six-film trio → pilots → handoff). Re-opening
+  the settled 8-step / "n/8" / exactly-8-kickers law ripples the "eight steps" heading,
+  the counter, `test_story_has_a_real_heading_outline`, beat numbering, drift `claims
+  "1..6"`, handoff "six of its numbers" — a huge cost, and a sparse enrichment join has
+  NO payoff that rivals "Ben counts." Spine untouched; card mirrors the report section.
+- **Q2 headline = 82 of 82 matched.** That is the one genuinely strong (non-sparse)
+  number and it earns the alias story. Deaths on file 47 of 82. Masters/apprentices/
+  affiliations: counts with nested denominators, n disclosed, NO superlatives.
+- **Ranked-affiliation trap (new):** `affiliations` is CANON-WIDE and sequel-inclusive
+  (Luke: "New Republic","Resistance"). A top-affiliations chart surfaces beyond-saga
+  faction names — it needs the SAME frame disclosure as deaths ("as filed, canon-wide",
+  not saga-scoped), or cut it. Do not let a ranked list smuggle in an un-disclosed frame.
+- **Q3:** "on file"/"as filed" confirmed; no "deceased"; alias akabab-canon→SWAPI-typo;
+  attribute fan-curated/MIT/effectively-frozen/SWAPI-derived-spellings, NEVER canon
+  authority. Pre-vetoed derivation stays sealed: NO `died_year_aby`×`birth_year_bby`
+  arithmetic on any surface; the Yoda 896+4=900 gem stays quoted-testimony, off as data.
+- **Q4:** a card is a NEW claim surface → its number gets a guard. Matched count →
+  `character_biographies_join_coverage`; deaths → `character_biographies_deaths_on_file_baseline`.
+  A dashboard card is not a story beat, so it need not touch the 8-step rail — but if any
+  akabab number lands in a beat's chain, the spoiler-pin term sets extend that commit.
+- **Live contradiction to flag (honesty, my lane):** beat-7 prose (L320) + DAG aria-labels
+  (L343) still say "four transforms" / "four transform assets"; JS provenance renders
+  "five" (L941, totals.transforms=5). Surfacing forces beat-7 + DAG chips + aria true:
+  01 gains `raw_character_profiles` (a 6th raw pull, akabab not SWAPI — "five raw SWAPI
+  pulls" stays literally true; it's a sixth, fan-curated pull), 02 gains
+  `character_biographies` (→ five transforms). The number must be computed, single-homed.
+- **Q6 footer:** "Source: SWAPI" → dual-source, akabab credited as secondary/fan-curated/
+  non-canon; `DATA.meta.source` grows to hold both. Watch: footer "May the Force be with
+  your data pipeline" is a quote-joke in machinery register (my open watch item) — Q6 now
+  touches the footer, so it's in scope to raise.
+- Cannot verify without the others: exact SQL-fixture wiring cost (engineers/qa);
+  whether graphic/ux want the card as chart vs prose (their lane). I defer on mechanism.
+
 ## Banked: akabab second source (2026-07-20)
 
 Decision: `2026-07-20-akabab-second-source.md`. Option C unanimous —

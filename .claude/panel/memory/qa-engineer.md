@@ -157,6 +157,70 @@
   tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
   declared-writers list (THIRD writer) same commit.
 
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Read every assertion in test_site_provenance.py + test_site_sql.py + conftest
+warehouse fixture + the two site drift blocks. Exact break-map by option:
+
+DASHBOARD CARD (mirror `#card-registry`, L1333 `registryChart`) touches the
+FEWEST guards — the birth registry is the precedent: a `span12` card, numbers
+computed from inline DATA.people at render, `{sql: DATA.sql.ages}` disclosure,
+guarded by the census drift detector (L536 `expect`) + ages SQL execute/compare,
+NO provenance-claim, NO live check badge, "on file"/"as filed" vocab already
+there. A card does NOT touch: `test_story_has_a_real_heading_outline` (==8
+kickers), `test_claims_cover_exactly_beats_one_through_six` ([1..6]), drift
+`beats !== "1,2,3,4,5,6"` (L867), the L941 hardcoded "six of its numbers"
+literal, or `test_beats_four_through_six...`. This is my recommendation.
+
+NEW BEAT ripples ALL of the above + reopens Settled 8-step/"n/8" geometry:
+kicker count 8→9, claims-cover set, drift beats-string, and the L941 literal
+"six"→"seven" (hand-typed, UNGUARDED — should become `WORDS[P.claims.length]`).
+Append, never insert before beat 4, or `test_beats_four_through_six` shifts.
+
+Guards a card/beat MUST extend regardless:
+- If akabab numbers render, they join a drift detector (census `expect` L549 or
+  provenance edition) recomputed from inline JSON → the per-char death-on-file
+  flag + match flag must live in DATA (derivable), not just an aggregate.
+- Spoiler: add `payoff_terms[8]` in test_no_payoff_leaks (L186) keyed off
+  known_facts EXPECTED_DEATHS_ON_FILE / EXPECTED_PROFILE_MATCH_COUNT so 47/82
+  can never appear on rails 1..6 (belt-and-suspenders; matches birth-registry
+  `payoff_terms[7]`). Only needed as a hard rail-scan break if character_bios
+  joins a CLAIM chain.
+- SQL chart (Q5): add key to `SQL_KEYS` (L41) AND DATA.sql (else
+  `test_data_sql_has_exactly_the_chart_entries` fails); the `warehouse` fixture
+  (L58) must add `raw_character_profiles, character_biographies` to the
+  materialize list AND `"akabab": FakeAkababResource()` to resources — else the
+  UNGATED execute test fails on a missing table (the exact character_stats/ages
+  history). character_biographies is a declared writer already. Gated compare
+  test recomputes rows from DATA-derived arrays; if `died_year_aby` (ABY-
+  positive) is displayed, pin `all(r>0)` like `ages`. Gate on BOTH markers.
+- Listing raw_character_profiles / character_biographies in
+  DATA.provenance.assets (for a provenance reveal) triggers
+  test_provenance_assets_edges_and_checks_are_real: deps exact, ALL their checks
+  listed, blocking verbatim, `why` == checks.py description verbatim, label ≤20.
+  Safe — they're not in any claim chain, so their strings never hit a rail.
+
+UNGUARDED HAND-COPY GAP (flag loudly): the DAG strip chips + aria-label
+(L343-367, "five raw ... four transform") and beat-7 static prose (L320) are
+hardcoded HTML with NO pytest pin — they already CONTRADICT totals 13/5/20 and
+the JS provenance sentence. Surfacing is the moment to fix them; the honest fix
+is to RENDER the strip from DATA.provenance.assets (or add a pin that the strip
+chip set == provenance asset keys). Proposing that pin is the guard that should
+land with surfacing. totals stay 13/5/20 (site-only surfacing adds no Dagster
+objects); WORDS through "twenty" suffices (no new checks/beat count > 20).
+
+Q4 ruling: a live pytest-verified check BADGE requires the claims machinery
+(test_claims_are_honest), which requires a claim entry, which today is beats 1-6
+only. Birth registry surfaces WITHOUT a claim badge — guarded by SQL + drift.
+Akabab card should follow: number honesty = drift recompute + SQL execute/
+compare; pipeline existence disclosed via the (newly-rendered) DAG strip. Name
+guard refs `character_biographies_join_coverage` / `_deaths_on_file_baseline`
+as pipeline disclosure, not per-number live badges, unless we open a card-claim.
+
+Cannot verify without live run: the actual verbatim `description=` strings of
+the 5 akabab checks (needed for the `why`-verbatim assertion if provenance-
+listed) — read checks.py at implementation. Everything else is banked/derivable.
+
 ## Banked: earlier panels (2026-07-18/19, compacted)
 
 Pipeline-reveal + character_stats: provenance/SQL/spoiler laws above shipped as

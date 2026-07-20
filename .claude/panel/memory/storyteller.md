@@ -230,6 +230,58 @@ data-side twin of "never hand-write pipeline arithmetic"; cite it against any
 transcribed number in copy. Still cannot verify: whether a future panel makes
 affiliations/lineage a spine beat — that's their call, my tripwires are written.
 
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Verified files: beat sheet (index.html:264-323), DAG strip (343-367), footer/meta (406),
+coda (397-400), Census dashboard section (385-395), analytics.py draft copy (182-203).
+
+My positions going into debate:
+
+- **Q1 — dashboard card, NOT a new beat. Spine untouched.** This is the birth-registry
+  precedent exactly (2026-07-19: new dashboard fact → card, not beat). Two narrative reasons,
+  not just the geometry-ripple cost: (a) the census conceit is "every character the saga's
+  OWN database keeps a record on" (beat 0) — a single-archive frame. Affiliations/masters/
+  deaths come from a SECOND, fan-curated source; injecting it mid-spine breaks the one-archive
+  coherence that makes beats 0-7 read as one census. (b) The coda already names the payoff:
+  "every record is open to a second reading." The akabab second source LITERALLY IS the second
+  reading. So it belongs AFTER the handoff, in the records office (dashboard), where it gives
+  the coda a concrete referent immediately above it — strengthening, not competing with, the
+  frame's close. Re-opening the settled 8-step/"n/8"/exactly-8-kickers law is NOT earned.
+  Placement: a card in the existing "The Census" dashboard section, after `#card-registry`,
+  before the coda (in-grid, so it does not violate "coda is the only post-grid element").
+
+- **Q2 — headline = the MATCH.** Single honest headline number: **82 of 82** census characters
+  matched to a curated profile (the alias bridges the one as-filed typo). That is the "second
+  reading reached everyone" number and it is complete, not sparse. Then deaths on file **47 of
+  82 matched**; affiliations/masters/apprentices with nested field-present-vs-nonzero
+  denominators exactly as analytics.py:189-201. Affiliations may rank ONLY with n disclosed,
+  no superlatives (sparse lineage fields). NOTE: my old memory line said "81 matched" — brief
+  now says 82 of 82; defer to brief/known_facts (EXPECTED_PROFILE_MATCH_COUNT=82).
+
+- **Q3 — vocabulary confirmed.** "on file" / "as filed"; alias direction akabab-canon →
+  SWAPI-as-filed typo ("Ratts Tyerell"→"Ratts Tyerel"); attribution = fan-curated, MIT,
+  SWAPI-derived spellings, NOT canon authority; NEVER "deceased". Stay clear of the pre-veto:
+  card states single-source akabab figures only — no birth×death arithmetic, no lifespan, no
+  Yoda 896+4. Closing line is my fixed report copy: "'On file' means the curated source
+  records it — absence is not survival."
+
+- **Q4 — no beat chain join.** Because it is a card not a beat, `character_biographies` does
+  NOT rail on a story beat; spoiler-pin term sets need not grow (my written tripwire stays
+  armed for a FUTURE beat). Card carries its own provenance reveal; guard must assert the
+  DISPLAYED number — headline=match ⇒ guard = `character_biographies_join_coverage`.
+
+- **Q5 — SQL optional, defer to data-engineer.** The card works on copy+provenance alone; a
+  new executable chart adds fixture cost for little narrative gain. If one query ships, keep it
+  to one. Not my veto ground either way, but I want no fourth act.
+
+- **Q6 — dual-source footer is a must.** "Source: SWAPI" alone is now false once akabab shows
+  anywhere; footer/meta must attribute both, second source flagged fan-curated/non-canon.
+
+- **Live bug I flag (my law governs):** beat-7 static prose (L320) hand-counts "four
+  transforms"; JS provenance (L941) computes "five". Hand-authored pipeline arithmetic drifted
+  — exactly my 2026-07-18 "never hand-write pipeline arithmetic" lesson. The count must render
+  from provenance, not be hand-set. Fix belongs in this landing.
+
 ## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178; compacted)
 
 Q3 won 5–1 (tap-to-pin; reader-owned dismissal shipped exactly: pin :799, leave-guard

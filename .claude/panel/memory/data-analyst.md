@@ -213,6 +213,42 @@
   landing; `DATA.meta` dual-source format, provenance entries, image field, and
   signed-year display all deferred — do not build ahead of the panel.
 
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Verified in-repo (file:line):
+- `known_facts.py:67-76`: EXPECTED_PROFILE_COUNT=**87**, EXPECTED_PROFILE_MATCH_COUNT=**82**,
+  EXPECTED_DEATHS_ON_FILE=**47**. Only these three enrichment figures are frozen constants.
+- `analytics.py:96-117`: matched=`profile_id.notna()`; matched_count=82. Report computes
+  `aff_present`(count.notna), `aff_nonzero`(count>0), `masters_on_file`(master_count>0),
+  `apprentices_on_file`(apprentice_count>0), `deaths_on_file`(died_year_aby.notna).
+  These four affiliation/lineage figures have **NO frozen baseline and NO check** — pure
+  render-computed copy discipline. Field-present (notna, field exists) vs non-zero (>0, lists
+  ≥1) are two DIFFERENT denominators; report says "Among the 82 matched, {aff_present} carry
+  an affiliations list and {aff_nonzero} list at least one." Closer verbatim (`analytics.py:203`):
+  "'On file' means the curated source records it — absence is not survival."
+- Site drift detector (`index.html:536-573`) recomputes only census fields from `PEO`
+  (DATA.people); `expect` object hardcodes {total,noMass,...oldestBby}. NO akabab field is in
+  DATA.people yet. To surface ANY akabab number derivably, its per-char field must land in the
+  inline JSON and the detector's `stats`/`expect` must grow (drift-detector-grows law).
+
+My rulings for debate:
+- **Single honest headline = 82 of 82 census characters matched to a curated profile.** Clean
+  complete denominator, frozen constant, guarded (blocking shape + WARN count/coverage). It is
+  the ONE superlative-free "every one of them" claim the data proves. Deaths = **47 of 82**
+  as the secondary figure (frozen, WARN-guarded, "on file" worded).
+- **Affiliations/masters/apprentices: render-computed, no baseline, sparse.** Nested denom
+  mandatory (present vs non-zero of 82 matched of 82). Masters/apprentices are tiny-n — NO
+  ranked leaderboard, NO superlative; state as counts. Affiliations may rank top-N ONLY with
+  aff_nonzero disclosed on-chart. These are the enrichment-denominators skill's superlative gate.
+- If any akabab number surfaces on the SITE, its per-char field enters DATA.people and the drift
+  detector grows a stats/expect pair for it (baselines 82/47 come from known_facts; the four
+  sparse counts recompute from DATA with zero literals, registry-card style). Cross-source
+  DERIVED figures stay pre-vetoed off all surfaces.
+
+Cannot verify offline (didn't run fixture): exact values of aff_present, aff_nonzero,
+masters_on_file, apprentices_on_file — not frozen, would need pipeline run. Memory notes
+masters ~15. Treat any specific N for these as unverified until computed at freeze.
+
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 
 - Lead with grain-correctness, not diagrams; keep losing options specified to

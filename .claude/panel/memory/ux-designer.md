@@ -132,6 +132,17 @@
   a visually-hidden h2 and each beat kicker is a real `<h3>` — the heading outline gap
   from my survey is closed. Protect these; they are easy to lose in a rewrite.
 
+## Prep notes: akabab surfacing (2026-07-20)
+
+Verified the cost of a scroll beat vs a dashboard surface (file:line):
+- **Beat counter is AUTO-derived:** `capEl.textContent = `${st.cap} · ${i+1} / ${BUILDERS.length}`` (site:784). BUILDERS.length is currently 8; a 9th state builder silently flips the counter to "/9" and re-opens the settled exactly-8 / "n/8" law. A dashboard-only surface leaves BUILDERS.length=8 and the spine 100% untouched.
+- **A new beat ripples to ~7 co-landing edits:** vh heading "eight steps" (site:260) + section aria-label (259); a NEW stage state builder AND 8→9-state anchor-geometry re-verification (the settled per-beat dot re-anchoring — the expensive part, my standing stage-viewBox tripwire); drift guard `beats !== "1,2,3,4,5,6"` (867); beat-7 static "four transforms" prose (320) and JS handoff "six of its numbers" (941); heading-outline pytest; spoiler-pin term sets. That is a spine rewrite, not an addition.
+- **Dashboard surface is cheap and flat-safe:** a new `.section-head`+`.grid` card slots into `#dash` (pattern at site:385-395); renders ONCE, needs no `enterFlat()` figure builder (flat parity free — my skill §3), reuses the shared `details.prov`/`details.sql` disclosure (≥44px summary, downward growth, no anchor issue in the dashboard flow). The coda at site:397-399 already invites "every record is open to a second reading" — the natural, pre-authored hook for a second-source epilogue.
+- Footer is single-source string (site:406); `DATA.meta` is a single `source` (end of DATA literal). Both are trivial dual-source edits with no geometry cost.
+
+Leaning for debate: **dashboard-only section, NOT a scroll beat.** Enrichment here is aggregate-grade (deaths-on-file 47/82, affiliation/master counts) — it does not carry the individual-grain census-conceit weight that earns a stage beat, and re-opening settled 8-step geometry + 9-state anchor re-verification is unearned cost. Place it after the census grid / at the coda as the "second reading." Reuse the disclosure for its provenance reveal; dual-source footer+meta yes; new executable SQL chart only if a figure genuinely needs a chart (else copy+provenance only). Honor nested denominators + "on file" vocab; pre-vetoed derivations stay off.
+Cannot verify without running: whether QA/pipeline want the biographies provenance as a claim-chain reveal (my rail is uniform, so a dashboard-card reveal is fine off-spine) — that's a Q4 cross-role call.
+
 ## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
 
 - Won: vertical chip chain (260px budget); beats 1–6 with beat-0 clean; legend

@@ -195,14 +195,55 @@
   storyteller announces drafted-copy discipline, propose edits INTO their draft
   during debate rather than parallel titles after.
 
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Count-ripple map for surfacing akabab ON THE SITE (verified file:line today):
+
+- **LIVE CONTRADICTION to fix regardless of any Q (highest priority):** site L320
+  STATIC handoff prose says "five raw SWAPI pulls, one DuckDB warehouse, **four
+  transforms**, one report"; the JS callback L941 renders `${WORDS[P.totals.transforms]}`
+  = "**five** transforms" (totals already 13/5/20). The shipped page contradicts itself.
+  Fix: the enumerated machinery sentence must move to five transforms AND account for
+  the akabab pull. My lean: make it count-accurate + source-honest ("five SWAPI pulls
+  and one akabab pull ... five transforms") rather than count-free — this sentence is a
+  machinery inventory where the counts are the point, and it's the natural place to first
+  name the second source on the story spine.
+- **Footer L406 + DATA.meta (Q6):** "Source: SWAPI" only; `DATA.meta={source:"swapi.info"}`
+  single-valued. Dual-source footer needed. Meta shape: prefer `sources: [swapi, akabab]`
+  array over a second scalar key, so the footer renders from data (provenance-projection
+  law) not a hand-typed string.
+- **README "The website" L105-113 (the ripple the brief names):** this is the ONLY
+  reader-facing description of what the SITE shows, and it is still single-source framed
+  (census dims + "Dagster lineage strip and the DuckDB SQL"). README architecture diagram
+  (L43-62), group table (L54), tree (L172) ALREADY surface akabab — from the pipeline
+  landing — so the landing page's own "what the site shows" paragraph will be the last
+  single-source holdout. If the site surfaces akabab, this paragraph gains one clause
+  naming the second-source card/figure. One home: describe the site's akabab surface here,
+  link don't re-explain the pipeline akabab (that's L58-62).
+- **L941 "six of its numbers" + heading "eight steps" + "n/8" counter + drift
+  claims "1..6":** these ripple ONLY IF Q1 adds a NEW BEAT. A dashboard-only card leaves
+  the entire beat-count spine untouched → zero story-count ripple. From the count-drift
+  lane, dashboard-only is dramatically cheaper and honors settled 8-step law. My Q1 lean:
+  **dashboard-only card**, no new beat; re-opening settled geometry is NOT earned by an
+  enrichment join whose honest home is a dashboard section beside the SQL.
+- **Q5 new SQL chart:** README L128 "three of the five SQL strings [historically] didn't
+  run" is PAST-tense + count-free present ("Now every displayed string ... is executed"),
+  so a 6th executable SQL string does NOT falsify it. Safe. Six SQL strings would ripple
+  the site SQL_KEYS/fixture (qa/engineer lane), not my prose.
+- **WORKSHOP:** grep confirms it is a PIPELINE tutorial, not a site walkthrough — no beat
+  counts to ripple. :305 "Five ... The sixth" and :500 AkababResource already absorbed the
+  akabab pull; :335/:345 "five SWAPI endpoints / five raw lists" stay literally true (five
+  SWAPI, akabab is separate). No WORKSHOP site-count ripple from surfacing.
+- First-mention akabab gloss: README Stack (L100-101) and L58-62 already gloss it; the site
+  itself has NO gloss yet — a surfaced akabab card/footer is akabab's first site mention and
+  must carry the "fan-curated, MIT, SWAPI-derived spellings, not canon authority" attribution.
+
 ## Open watch items (mine)
 
-- Akabab landing ripple (when commits land): totals 15→20 everywhere on the
-  count-ripple checklist; WORDS through "twenty" + pin; first-mention akabab gloss
-  in README and WORKSHOP; akabab fixture README on the swapi pattern (awkward cases:
-  masters ~15/87 sparsity, Ratts Tyerell/Tyerel, sequel-era unmatched); WORKSHOP:493
-  gains one demonstrated-claim sentence; new check descriptions subject-only and
-  spoiler-safe NOW — they attach to unlisted assets but are future rail candidates.
+- Akabab PIPELINE landing has shipped (totals 13/5/20; README diagram/table/tree +
+  Stack gloss all surfaced akabab already). REMAINING for the SURFACING landing: the
+  site itself (footer, DATA.meta, handoff L320 contradiction, README "The website"
+  paragraph) — see Prep notes above.
 - Surfacing-panel tripwires I co-own: Yoda 896+4=900 stays pre-vetoed; if
   character_biographies joins a beat chain, spoiler-pin term sets extend in the same
   landing; screenshot retake whenever a visual shows check/asset counts.

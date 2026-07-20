@@ -81,25 +81,16 @@
 ## Banked: 2026-07-17/18 rounds (pipeline reveal, transform, cleanup — compacted)
 
 Verdicts: `2026-07-18-pipeline-reveal.md`, `-per-character-transform-landed.md`,
-`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0` then
-`2aa845e`). Durable lessons (outcomes live in Settled):
-- Commit history reads well (coherent boundaries, PR merges #1–#5); README points at
-  it, never restates it.
-- Verify a brief's claimed lineage before building a pitch on it; primary
-  verification (execute displayed code claims, grep `FROM` clauses against the real
-  `CREATE TABLE` list) converts opinion into evidence.
-- 2026 loops screen for judgment over AI output; "judgment made visible" is the
-  pitch frame; first-impression defects beat feature arguments.
-- Q3 fulcrum: a check earns its place iff it guards a number/artifact someone
-  consumes; galaxy_report stays check-free by design, gap disclosed. Coverage-theater
-  veto held three times and became the best interview narrative.
-- **Truth-then-tell sequencing:** when a public claim is false, commit 1 makes it
-  TRUE with a message naming the defect; commit 2 does the storytelling. Never
-  interleave.
-- State the signal requirement, let story roles find placement; bring concrete
-  wording proposals for badge/severity ground rather than ceding it.
-- Repo-root hygiene scan every round: a stray bootstrap script once quietly
-  reintroduced the "self-study" framing the README rewrite removed.
+`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0`, `2aa845e`).
+Durable lessons (outcomes live in Settled):
+- Verify a brief's claimed lineage before pitching on it; primary verification
+  (execute code claims, grep `FROM` vs real `CREATE TABLE`) converts opinion to evidence.
+- 2026 loops screen judgment over AI output; "judgment made visible" is the pitch frame;
+  first-impression defects beat feature arguments. **Truth-then-tell:** commit 1 makes a
+  false public claim TRUE (message names the defect); commit 2 tells the story. Never interleave.
+- Coverage-theater veto held 3× and became the best interview narrative; state the signal
+  requirement, let story roles place it, but bring concrete badge/wording proposals. Repo-root
+  hygiene scan every round (a stray bootstrap once reintroduced the "self-study" framing).
 
 ## Banked: birth registry, coda, hues, limits (2026-07-19)
 
@@ -208,3 +199,46 @@ pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count it
   in the same commit as any DATA-rendered count it must spell.
 
 Cannot verify (standing): off-platform artifact link preview.
+
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Reviewed the scan surfaces (site/index.html:259-367,404-413), the akabab decision log, and
+README "The website" (:105-113) / DAG screenshot ref (:16 → screenshots/dagster_asset_lineage.png).
+State: the pipeline wires akabab but the SITE surfaces NONE of it. Everything a scanner sees
+is single-source; totals.assets=13 already say "13 assets" while the DAG strip shows only 5+4.
+Plus a live contradiction: beat-7 static prose (L320) says "four transforms", JS provenance (L941)
+"five transforms" — a first-impression defect to fix truth-first regardless of the surfacing verdict.
+
+My going-in positions (bring as concrete proposals, not a menu):
+- **Signal value is high.** The strongest banked interview answer — "join a second, dirtier source
+  without fuzzy matching AND account for coverage honestly" — is currently INVISIBLE to a 90-sec scan.
+  Surfacing it converts done pipeline work into visible signal. Multi-source join + honest nested
+  denominators reads as senior judgment; leaving it buried is wasted signal.
+- **Q1 placement: dashboard section, NOT a new scroll beat.** The census arc is a single-source
+  SWAPI narrative; enrichment is a DIFFERENT provenance and belongs where provenance reveals already
+  live (the dashboard). A 9th beat re-opens hard-won settled geometry (8-step / "n/8" / exactly-8
+  kickers / drift claims "1..6" / handoff "six numbers") — that ripple reads as churn without cause,
+  the exact argument that won Option C last round. Technical readers look for pipeline sophistication
+  in the DAG strip + dashboard, not the story spine. Keep the spine byte-stable.
+- **Highest-leverage, lowest-churn surfacing = the architecture visual + footer.** Adding the two
+  akabab chips to the DAG strip (01 raw_character_profiles, 02 character_biographies) makes "two
+  sources feed one warehouse" legible in the FIRST architecture visual — and that visual is the
+  README screenshot (:16), the single most-scanned image. Dual-source footer ("Sources: SWAPI +
+  akabab", DATA.meta → array/second source) tells a scanner there are two sources instantly.
+- **Q2 headline number: "82 of 82 matched"** — the alias bridge closing the one as-filed typo IS the
+  join-governance story a reader can grasp in one line; "47 deaths on file (of 82 matched)" second.
+  Nested denominators on every figure; no superlatives from sparse fields (masters ~15).
+- **README ripple (my ground):** "The website" para (:105-113) currently says single-source
+  ("82 dots… SWAPI"); it must gain one honest clause that a second, fan-curated MIT source enriches
+  the cast — without overclaiming canon. Keep it to the why (multi-source, coverage-honest), not a
+  feature list. The DAG-strip aria-label ("five raw… four transform") is count-bearing prose — ripple it.
+- **Screenshot-retake reflex (my standing catch):** ANY count-bearing visual changes here — the DAG
+  strip gains chips (5→6 raw shown, 4→5 transforms), so screenshots/dagster_asset_lineage.png (README:16)
+  gets retaken IN the surfacing commit. Briefs habitually omit this; it is on my tripwire list from the
+  akabab decision log (watch item 3). If a dashboard SQL chart lands, retake that too.
+- Honor pre-vetoes: no cross-source derived figures (Yoda 896+4=900); "on file" vocabulary, never
+  "deceased"; akabab = fan-curated MIT SWAPI-derived, never canon authority. If character_biographies
+  joins a beat chain (it should NOT, per my Q1 stance), spoiler-pin term sets extend in the same landing.
+
+Still cannot verify: the artifact link preview; the real fixture counts (baselines are script-derived
+at freeze — I carry them as unverified, per last round's lesson).

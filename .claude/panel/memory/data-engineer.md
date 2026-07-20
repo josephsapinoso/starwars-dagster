@@ -258,6 +258,63 @@
   before objecting "we can't verify this." Won Q3 5–1 (tap-to-pin, shared layer only,
   no fork); Q4 accept unanimous — hazards kept in Working knowledge.
 
+## Prep notes: akabab SURFACING panel (2026-07-20)
+
+Verified state (file:line):
+- `character_biographies` (transforms.py:300, writer #3) LEFT JOINs profiles onto the 82
+  census rows; cols `join_key(dropped),profile_id,profile_name,affiliations(+count),
+  masters(+count),apprentices(+count),died_year_aby,died_location,wiki`. `_list_field`:
+  absent→(None,None); empty list→("[]",0.0) — the field-present denominator. `died_year_aby`
+  is ABY-positive (opposite `birth_year_bby`). merge keeps dup profile names as rows (grain
+  check trips fan-out). raw_character_profiles (ingestion.py:98) via AkababResource `all.json`.
+- 5 checks (checks.py): blocking `raw_character_profiles_has_required_shape` (140),
+  `character_biographies_grain_is_one_row_per_character` (164, has star_wars_db additional_in);
+  WARN `..._count_matches_verified_snapshot` (393, ==87), `..._join_coverage` (412, ==82,
+  has raw_character_profiles additional_in, publishes losses BOTH sides), `..._deaths_on_file_
+  baseline` (452, ==47). Descriptions are already spoiler-safe (number/roster-free bar the
+  count-drift ints).
+- known_facts: EXPECTED_PROFILE_COUNT=87, MATCH=82 (alias bridges the one typo → all 82
+  match), DEATHS_ON_FILE=47. NO masters/apprentices/affiliation baselines exist — do NOT
+  invent them; if surfaced they need compute-from-fixture baselines or stay denominator-only.
+- galaxy_report copy pattern (analytics.py:182-203): "N of matched_count" everywhere;
+  "Among the {matched} matched, {aff_present} carry a list and {aff_nonzero} list ≥1";
+  closing "'On file' means the curated source records it — absence is not survival."
+- Site GAPS to fix: DATA.provenance.assets lists only 4 assets (no akabab); claims cover
+  beats 1-6 only; DAG strip static HTML L343-367 (5 ingest chips, 4 transform chips) + its
+  aria-label "five raw ingestion assets ... four transform assets" both now WRONG; footer
+  L406 "Source: SWAPI" + DATA.meta single `source`. Live CONTRADICTION: beat-7 STATIC prose
+  L320 "four transforms" vs JS L941 `${WORDS[P.totals.transforms]}`="five transforms" (totals
+  already bumped 13/5/20). DATA.people rows carry NO akabab fields → nothing akabab is
+  currently derivable from inline JSON.
+
+My going-in positions (defend in DEBATE):
+- Q1: DASHBOARD-ONLY card in the Census section, NOT a 9th beat. A new beat re-opens settled
+  8-step/"n/8"/exactly-8-kicker law + heading + test_story_has_a_real_heading_outline + drift
+  `claims 1..6` + handoff "six of its numbers" — huge blast radius for sparse enrichment. The
+  spine is SWAPI single-source; akabab is the coda's promised "second reading." Card mirrors
+  galaxy_report's "Affiliations & Apprenticeships" (as-filed title).
+- Q2/derivability crux: "every number derivable from inline JSON" FORCES akabab per-row data
+  into DATA.people (nullable `matched`/`died`/`masters`/`apprentices`/`affiliation` counts) so
+  the card + drift detector recompute denominators client-side. Aggregate-only blobs are not
+  recomputable → violate the law. Headline = **82 of 82 matched**; then **47 of 82 deaths on
+  file**. Drop the top-affiliations TABLE from the site (report's job; big list bloat); keep
+  masters/apprentices as "N of 82 matched" only. No superlatives from sparse fields.
+- Q4 (guard honesty, my Settled): badge only where a check asserts the shown number →
+  matched 82 ⇒ `character_biographies_join_coverage`; deaths 47 ⇒ `..._deaths_on_file_
+  baseline`. Masters/apprentices have NO check (qa's 5-ceiling) ⇒ render unbadged, labeled
+  derived-from-inline-data. Add BOTH akabab assets to provenance.assets so their check sets
+  get pinned by test_site_provenance; the card is a dashboard reveal, NOT a provenance
+  `claims[]` entry (dashboard cards guard via executed-SQL, not beat claims).
+- Q5: YES one executable SQL string keyed `bios` (deaths/matched over character_biographies),
+  same verification-driven logic as `ages`→writer#2. Cost I own: extend the test_site_sql
+  warehouse fixture with a fake AkababResource + materialize the two akabab assets; compare
+  layer asserts SQL rows == the DATA.people-derived rows (two homes agree). If panel declines
+  SQL, akabab numbers still must be DATA-derivable (Q2 stands).
+- Q6: dual-source footer + DATA.meta grows to `{sources:[swapi,akabab]}` or adds `source2`;
+  each source keeps its OWN SNAPSHOT.json marker (test_site_data.py substring-pins swapi's).
+- Ripples if ANY akabab surfaces: fix L320/L941 contradiction (both from one home); DAG strip
+  chips→6 ingest/5 transform + aria-label; screenshot-retake reflex on DAG strip + footer.
+
 ## Banked: akabab second source (2026-07-20)
 
 - Won every contested point by naming mechanisms, not objections. The `died_year_aby`
