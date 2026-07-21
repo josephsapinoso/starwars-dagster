@@ -93,6 +93,32 @@ home and a misquoted source; (2) exposure that falsifies adjacent settled copy (
 a legend saying the full text lives elsewhere, once the full text is visibly here).
 Check both before agreeing that an exposure is copy-neutral.
 
+## Corollary: a mark that asserts identity we don't hold is kitsch (prepped 2026-07-21)
+
+When a proposed VISUAL upgrade (portrait, face-sprite, avatar, icon-per-row) replaces a
+neutral data mark, audit it as a DATA-honesty claim, not a style choice. Ask: what does
+the current mark assert, and what would the new one assert? A positional dot named only
+in a tooltip asserts "one tracked entity, this measured value" — exactly what's on file.
+A face asserts "this is what this individual looks like." First check whether that
+portrait data exists inline in the pipeline (grep for image/portrait fields; SWAPI has
+none; akabab's `image` URL is external, banned, and never canon). If it doesn't exist,
+every sprite is authored-from-nothing — fabrication, the visual cousin of a number
+credited to the wrong asset.
+
+Two dishonest escape hatches to veto:
+- INVENT a face per entity → fabricates identity no source holds (authenticity veto).
+- GENERIC ARCHETYPE (one sprite per species/type) → renders distinct individuals
+  IDENTICALLY, collapsing an "N distinct entities" claim into a few stamps, and inherits
+  the source's clerical errors (a mis-filed species stamps the wrong face).
+
+Legibility crossover into the color law: for the franchise's signature marks, COLOR is
+the identity (C-3PO=gold, Vader=black, R2=white/blue). A monochrome recolor into the
+sole data hue doesn't just break the palette — it destroys recognizability, leaving a
+generic retro blob that is on-theme only via adjacent copy. A mark whose theme lives in
+the copy, not the mark, is decoration. Earned form, if any: a short iconic-silhouette
+subset revealed on hover/label — never a uniform all-rows system, which is what forces
+the fabricate-or-archetype choice.
+
 ## Why it works
 
 Mixing registers reads as a theme park; separating them reads as an archivist who

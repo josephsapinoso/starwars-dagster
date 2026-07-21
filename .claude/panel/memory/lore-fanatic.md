@@ -162,6 +162,27 @@
   needs a claim entry (beats-1–6 machinery); cards state numbers with denominators
   and lean on the DAG strip for lineage. The DAG chip set is now a guarded surface,
   pinned to the real Dagster asset keys.
+- **A sprite asserts only what the adjacent name already asserts (8-bit faces,
+  2026-07-21):** the census population is anonymous dots; identity is EARNED, never
+  default. A mark may resolve into an 8-bit face ONLY on a beat where the story
+  already names it in copy — a reveal mechanic, never a population reskin. No sprite
+  for an unnamed/anonymous mark; ~60 obscure characters STAY DOTS. "Faces for all
+  82" is dead on four grounds (no portrait source, illegible at mark footprint,
+  per-item hue is a forbidden series, leaks the beat-5 payoff); do not re-propose.
+- **Faces are single-fill monochrome silhouettes (8-bit faces):** one `<path>`
+  swapped for the `<circle>`, inheriting the four `.unit` states for free — zero new
+  color seats. A hot named face is GOLD (the one emphasis seat); a base named face
+  (Yoda, Yarael Poof) is saber-blue. No outline, no second tone, no skin tone, no
+  per-item hue. Sourcing is a tiny curated 1:1 registry keyed to `known_facts`
+  canonical names, decoded by ONE shared builder (sticky + flat) — never procedural-
+  by-species (species ≠ face; a field-varying glyph cross-talks the beat encoding),
+  never an external image. No invented portraits, no archetype stamps.
+- **The face roster is exactly SIX and guarded (8-bit faces):** Yoda + Yarael Poof
+  (height, blue), Jabba (mass, gold), C-3PO + R2-D2 + Obi-Wan (beat-5 witnesses,
+  gold; Obi-Wan again on pilots). A 7th face needs a panel. `tests/test_site_faces.py`
+  pins the roster to known_facts, enforces injectivity, palette hygiene (fill from
+  state tokens only, no hex), well-formed 1-bit grids, and extends the beat-5 spoiler
+  pin to the three witness sprites — no earlier beat may resolve a witness mark.
 
 ## Working knowledge
 
@@ -254,31 +275,48 @@ Durable: badge whys are verbatim Dagster descriptions, not number-free —
 raw_people's "82" is safe as beat-0's own hook; hover `title=` stays a
 desktop bonus with no non-hover twin, by decision.
 
-## Banked: akabab site surfacing (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20, compacted)
 
-Decision: `2026-07-20-akabab-site-surfacing.md`. Near-sweep in my lane.
+Decision: `2026-07-20-akabab-site-surfacing.md`. Near-sweep. Won: my ranked-
+affiliation trap became the unanimous D5 veto (top-8 incl. New Republic 11/CIS 11 →
+ranked bar banned, only saga-safe 75/82 coverage surfaces); card-not-9th-beat (D1,
+spine untouched); "82 of 82 matched" headline; "on file"/"absence is not survival"
+verbatim; my never-canon attribution; the 896+4 pre-veto held (bios SQL returns
+COUNTS, `diedOnFile` boolean, no signed year reaches the page). Adjacent tightenings:
+PIN over render for the DAG chips; boolean `diedOnFile` over `diedAby|null`. Lessons:
+trust the harder line sooner when scope can't be honestly narrowed (I said "disclose
+or cut"; panel went straight to cut); DRAFT the copy I care about — the storyteller's
+drafted stat-block led, my role shrank to an attribution gloss.
 
-Won: my ranked-affiliation trap became the unanimous D5 veto — the computed top-8
-(New Republic 11, CIS 11) proved the canon-scope trap was live, so the ranked bar
-is banned and only saga-safe coverage counts (75/82) surface. My Q1 dashboard-card-
-not-a-9th-beat framing carried unanimous (D1): spine untouched at BUILDERS.length=8.
-"82 of 82 matched" headline (D2) — the one number both complete and guarded. "On
-file" / "absence is not survival" shipped verbatim; my fan-curated/MIT/SWAPI-derived/
-never-canon attribution held. The 896+4 pre-veto held under pressure: the `bios` SQL
-returns COUNTS, the `bio` object holds a `diedOnFile` boolean — no `died_year_aby`
-value ever reaches the page. My L320/L941 contradiction flag drove the unconditional
-fix ("five SWAPI pulls and one akabab pull … five transforms").
+## Banked: 8-bit character faces (2026-07-21)
 
-Lost nothing of substance. Adjacent rulings I didn't own but should note: Claude ruled
-PIN over render for the DAG chip set (a guarded surface now), and boolean `diedOnFile`
-over the engineer's `diedAby|null` — both tightened my honesty laws further than I'd
-asked.
+Decision: `2026-07-21-8bit-character-faces.md` ("The Resolving Mark"). All-82 faces
+UNANIMOUSLY VETOED on four grounds; settled constraints promoted above.
 
-Prep differently: (1) I flagged the ranked-affiliation trap in *prep* as "disclose the
-frame or cut" — the panel went straight to cut. Trust the harder line sooner when a
-claim's scope can't be honestly narrowed. (2) Draft the card copy verbatim next time;
-the storyteller's "A second reading" stat-block led because it was drafted, and my role
-was reduced to an attribution gloss on it. Bring the whole block, not just the vocabulary.
+Won, and clean: my two crux facts led the honesty case. (1) The pipeline holds ZERO
+portrait data (SWAPI has no image field; akabab's `image` URL surfaces nowhere and is
+a banned external asset), so every face is authored-from-nothing — fabrication, not
+data. (2) My invent-vs-archetype fork became the panel's spine: all-82 forces either
+invented portraits (~60 obscure characters have no canonical silhouette) or species
+stamps that collapse 82 distinct people and inherit clerical garbage (R4-P17 filed
+Human/female → a human face on an astromech). The analyst independently confirmed the
+archetype path has a guard-shaped hole (no correctness check possible). The curated
+1:1-guarded registry beat the engineer's procedural glyph f(species) on my honesty
+point: species ≠ face, and a field-varying glyph cross-talks the beat encoding.
+
+Lost nothing; my "earned subset, never uniform" fallback became the shipped form. The
+storyteller's RESOLVE-on-named framing was the better vessel for the same instinct —
+identity as a reveal mechanic at the instant a mark goes hot/named, not a labeled-hover
+subset. My color-IS-identity argument (C-3PO monochrome isn't C-3PO) was honored by
+making the face inherit the four states rather than earning a per-item hue: a hot face
+is the single gold seat, not a new color.
+
+Prep differently: (1) I framed my fallback as hover/labeled-subset; the sharper form
+was "resolve exactly where copy already names it" — tie the reveal to an EXISTING
+assertion, don't invent a new surface. Reach for the mechanic that adds zero new claims.
+(2) I should have named the beat-5 spoiler risk myself — three anonymous dots becoming
+C-3PO/R2-D2/Obi-Wan is precisely my spoiler-pin lane, and the storyteller flagged the
+leak first. When a reveal rides iconic names, the spoiler pin is my reflex to bring.
 
 ## Banked: akabab second source (2026-07-20, compacted)
 

@@ -119,12 +119,59 @@
   `affiliations` is canon-wide/sequel-inclusive, so a ranked bar is a ranking *claim* the
   saga scope can't honestly make. Only saga-safe coverage COUNTS surface (75/82 affiliated).
   A sparse-list superlative that would tempt a gold ring is vetoed — "on file" ≠ "complete".
+- **The census population is anonymous dots; a face is a resolving state, not a reskin**
+  (8bit-faces panel, 2026-07-21): a `.unit` may gain an 8-bit silhouette ONLY on a beat
+  where the story already names it in copy — six iconic marks (Yoda, Yarael Poof, Jabba,
+  C-3PO, R2-D2, Obi-Wan). The face is a SINGLE-fill `<path>` swapped for the `<circle>` and
+  inherits all four `.unit` states for free (the state rule reads `.unit circle, .unit .face`;
+  `.faint` = opacity only); a hot face is gold = the one emphasis seat. No outline, no second
+  tone, no skin tone, no per-item hue — zero new color seats. Pixels are a 1-bit grid in a JS
+  const `FACES`, decoded to ONE path (row-run rects, never rect-per-pixel), cached, one shared
+  builder for sticky+flat. The registry is roster-pinned/injective and lands with its guard
+  (tests/test_site_faces.py: only `.unit` state rules may fill `.face`; spoiler pin holds the
+  three witnesses to beat 5). Kills any future "faces for all 82"; scatter + birth-strip stay
+  dots (different legibility regime, held out).
 - **Second-source coverage = one `.kpi`, no per-card badge** (akabab surfacing,
   2026-07-20): headline "82 of 82 matched" in the sanctioned `.kpi` treatment; the ladder
   (47/82 deaths on file, 75/82 affiliated, 14 masters, 12 apprentices) all nested-
   denominatored, "on file" voice. A dashboard card states numbers with denominators and
   relies on the DAG strip for lineage — NO fabricated card-level ◆/◇ live status (a badge
   needs a claim, i.e. the beats-1–6 machinery). Numbers render from `DATA.people[].bio`.
+
+## Banked: 8-bit character faces — "The Resolving Mark" (2026-07-21)
+
+Log `2026-07-21-8bit-character-faces.md`; all six, unanimous VETO of the owner's maximal
+"all-82 full-color faces every beat" on four independent grounds (honesty / legibility /
+color law / narrative). Shipped instead: 82 dots at rest; a mark resolves into a monochrome
+single-fill 8-bit silhouette ONLY on a beat where the story already names it — six iconic
+characters (Yoda, Yarael Poof; Jabba; C-3PO, R2-D2, Obi-Wan). Base population stays uniform
+saber-blue dots; identity is earned, never default.
+
+**Won — my single-fill argument became the mechanism.** The silhouette is ONE `<path>`
+swapped in for the `<circle>`, so it inherits the four `.unit` states for free: the fix was
+broadening `.unit circle` → `.unit circle, .unit .face` in each state rule (`.faint` sets
+opacity only). A hot named mark = a gold-filled face — the one emphasis seat, no
+gold-among-81 problem. My double-veto on full-color (new seats AND an appearance claim we
+don't hold for ~68 of 82) carried; my decode-to-ONE-path (row-run rects, never rect/pixel),
+cached, shared builder for sticky+flat carried verbatim; my "registry is a new honesty+rot
+surface, needs a same-commit guard" carried (tests/test_site_faces.py pins that ONLY `.unit`
+state rules may fill `.face` — no new color seat — plus 1:1 injectivity, palette hygiene,
+drift entry, and the beat-5 witness spoiler pin).
+
+**Where I was one step behind:** in prep I still framed the honest maximal form as "faces on
+the named/gold SUBSET, dots for the mass" — a static two-mark split. The storyteller's
+resolve-on-named turned that same subset into a REVEAL mechanic (the mark transforms at the
+instant it goes named/hot; beat 5's three anonymous dots → C-3PO/R2/Obi-Wan). Same six marks,
+but a verb not a layout. Lesson: when a subset-only mark is the answer, ask whether it should
+be a state transition (delight, and it leans on the existing state machine) rather than a
+second static mark type — the mechanic I already knew (single-fill inherits states) makes the
+reveal nearly free.
+
+**Newly settled (promoted to Settled above):** faces are single-fill monochrome silhouettes
+inheriting the four mark states; roster-pinned to named beats; decode-to-one-path; no new
+color seat. Prep differently: I under-costed the delight axis — I proved the mark was *legal*
+and *cheap* but the storyteller proved it was *good*. Pair the systems verdict with the
+narrative payoff, not just the guard.
 
 ## Working knowledge
 

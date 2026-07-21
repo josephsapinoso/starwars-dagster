@@ -75,6 +75,21 @@
   counts are not parses — one guard suffices; the law triggers on parsing.)
 - **Gold ring means "extreme" (2026-07-19):** persistent gold emphasis asserts
   superlatives only; named non-extremes (Vader) get labels, never rings.
+- **Mark-enrichment non-competition law (2026-07-21, unanimous, faces panel):** a
+  per-item mark enrichment may NEVER vary by a data field or carry internal contrast
+  that competes with the mark's own state encoding. Identity marks (an 8-bit
+  silhouette) ride ONLY where the copy already names the record — identity is earned
+  by an adjacent name, never a population default. A face is single-fill monochrome
+  inheriting the four states (base/dim/faint/hot); a hot face is gold (the one
+  emphasis seat); no outline, second tone, skin tone, per-item hue, or field-varying
+  glyph. Source is a tiny 1:1-guarded registry keyed to known_facts canonical names —
+  never procedural-by-field, never an external image. Rationale: a face's internal
+  luminance corrupts the .18-opacity missing-data signal; ~60 obscure marks would be
+  fabricated identities with no ground-truth column and therefore no possible
+  correctness guard (a guard that can only COUNT sprites is the tell). Guard:
+  tests/test_site_faces.py (sprite exists only for a named+known_facts character,
+  injective, palette-hygiene, deterministic decode, drift entry, beat-5 spoiler pin
+  extended to the three witness sprites). Kills any future "faces for all 82."
 - **Quoted-testimony rule (2026-07-19):** external claims (dialogue, canon — e.g.
   Yoda's "900 years") may be audited in copy but never rendered as site-derived
   data; derived numbers come only from DATA.
@@ -224,6 +239,37 @@
   spoiler-pin extension; `DATA.meta` → `sources[]` array; provenance gains the two akabab
   assets; signed-year display rejected (boolean flag instead); 896+4 stays vetoed. See
   the Settled "Akabab site surfacing" line; nothing here is deferred anymore.
+
+## Banked: 8-bit character faces (2026-07-21) — WON, shipped "The Resolving Mark"
+
+Outcome: all-82 faces vetoed unanimously on four grounds (honesty, legibility, color
+law, narrative). Shipped: 82 dots at rest; a mark resolves into a monochrome single-fill
+8-bit silhouette ONLY on beats where the copy already names it — six iconic characters
+(Yoda, Yarael Poof, Jabba, C-3PO, R2-D2, Obi-Wan). Guard: tests/test_site_faces.py.
+
+**My arguments that WON (all three, verbatim into the adjudication):** (1) a face is
+non-derivable — zero appearance column in the JSON, and ~60 obscure marks = fabricated
+identities with no possible correctness guard; the guard-shaped hole (can only COUNT
+sprites) was cited as the diagnostic tell. (2) a face's internal luminance at .18/~3px
+corrupts the missing-data opacity signal — the census denominators read ONLY because a
+flat disc's opacity maps linearly. (3) per-item hue / field-varying glyph is a forbidden
+series that cross-talks with the beat encoding (won sub-fight 2 vs engineer's procedural
+f(species): species ≠ face, is sparse, and beat 3 already groups by homeworld). The
+final form honors all three: single-fill, inherits states untouched, never per-item hue.
+Newly Settled: the mark-enrichment non-competition law (promoted above).
+
+**Prep lessons / what I'd do differently:** the encoding-inventory-first move worked —
+tabulating the THREE facts each state encodes (missing/group/superlative) is what made
+"internal luminance corrupts the .18 signal" land as mechanism, not aesthetics; keep
+leading with the channel table. The storyteller, not I, found the strongest positive
+form (resolve-as-reveal on the named subset); I had it as "degrade ladder option 2,
+contradicts appetite" — I under-sold the honest subset as delight because I framed it as
+a concession. Next time: when I've proven the maximal ask is dishonest, hand the panel
+the honest-and-delightful reframe, not just the honest-but-smaller floor. My
+correctly-flagged unverifiable (does a silhouette read as faint at .18/~3px) was ceded to
+the ux/graphic perceptual lane and resolved by the single-fill + subset-only design —
+flagging the limit, not guessing it, was right. Technique banked:
+`.claude/skills/panel-data-analyst-encoding-derivability/`.
 
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 

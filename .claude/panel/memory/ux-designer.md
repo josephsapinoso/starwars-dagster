@@ -115,6 +115,17 @@
   a css raise is IMPOSSIBLE below target (20-unit witness stack caps ~8px eff);
   reopen if any anno carries content not in copy/caption; a viewBox rework must
   arrive with the 8-state anchor-geometry re-verification costed.
+- **Pictographic-mark law (8-bit faces, 2026-07-21):** a data mark may gain a picture
+  ONLY at emphasis size on a mark the copy already NAMES — never at footprint density
+  across the population. Identity is earned, not default: the base census stays uniform
+  saber-blue dots; a named/hot mark RESOLVES into a single-fill monochrome silhouette
+  (one `<path>` swapped for the `<circle>`, inheriting all four states; hot = gold, the
+  one emphasis seat). No outline, no second tone, no skin tone, no per-item hue, no
+  procedural-by-field glyph, no external image. The picture must degrade to the base dot
+  (a gold blob + label) at small size, and ride ONE shared builder feeding sticky + flat.
+  The resolve is a STATIC state class, never an animation/tween. Tooltip stays the sole
+  naming surface; no new tabindex. Sourcing is a tiny 1:1-`known_facts`-guarded registry,
+  landing with its integrity + spoiler pin in the same commit. (Kills "faces for all 82.")
 
 ## Working knowledge
 
@@ -137,6 +148,29 @@
 - Baseline hygiene shipped 2026-07-19: doctype + `<html lang="en">` present; story has
   a visually-hidden h2 and each beat kicker is a real `<h3>` — the heading outline gap
   from my survey is closed. Protect these; they are easy to lose in a rewrite.
+
+## Banked: 8-bit character faces (2026-07-21, "The Resolving Mark")
+
+**Won (my geometric-impossibility math was decisive; unanimous VETO of all-82):**
+- Legibility floor killed the maximal ask outright: a face at dot footprint is ~3–6px
+  mud; a readable 8-bit face needs ~24–32px and 82 overlap catastrophically. Leading
+  with the numbers (not taste) ended the "faces everywhere" appetite before debate.
+- Shipped my one-shared-builder + degrade-to-blob + static-resolve trio verbatim: flat
+  verified to render faces identically; mobile faces degrade to a gold blob + label;
+  reduced-motion resolve is a display swap, no tween. Naming-surface law held (tooltip
+  only, no new tabindex). Single-fill monochrome silhouette carried all four states for
+  free (hot = gold = the one emphasis seat) — the color-law point I shared with GD/analyst.
+
+**Refined by the storyteller (I lost the framing, rightly):** my "all-82 shared
+silhouette that degrades to a blob" was "the dot with extra nodes" — no delight, asserts
+nothing. The winning shape is faces as a REVEAL mechanic on the six named/hot marks only
+(Yoda, Poof, Jabba, C-3PO, R2-D2, Obi-Wan); base population stays dots. My degrade-to-blob
+property survives as the safety net, not the primary form.
+
+**Prep differently:** I framed the graceful form as a population-wide sprite; I should
+have asked "which marks does the story already name?" first — the honest scope was six,
+not 82, and that reframes the whole build. When I hold a legibility veto, pair it with
+the smallest DELIGHTFUL form, not the largest safe one.
 
 ## Banked: akabab site surfacing (2026-07-20)
 
@@ -170,54 +204,24 @@ lead with file:line ripple counts, they end the placement debate before it start
 no objections to raise because the frame was mine; next time, still pre-cost the opposing
 veto's compromise (habit from the watchlist lesson) even when I expect to win.
 
-## Banked: pipeline-reveal + post-landing (2026-07-18, compacted)
+## Banked: older rounds (2026-07-18/19, compacted)
 
-- Won: vertical chip chain (260px budget); beats 1–6 with beat-0 clean; legend
-  rider verbatim; touch-surface analysis shaped the winning labels.
-- Lessons: show where a resisted affordance's need is already served; render plain
-  HTML before designing ARIA for a graphic; measure at 260px before debate; verify
-  the brief's claims myself; cost string fixes before renderer fixes; riders on
-  other roles' proposals evaporate with them.
-
-## Banked: birth registry, coda, hue enforcement (2026-07-19, compacted)
-
-- Won: coda mechanics shipped as filed (promoted to Settled); no-tooltip-content law
-  survived its first offensive test (BBY gloss in the subtitle); keyboard parity
-  landed wider than my ask (all six renderers); legend conversion for slivers;
-  "SVG text doesn't wrap" rule from the in-flight testimony-caption catch.
-- Lost, rightly: I called the coda digits-pin theater; pinning a PROPERTY is an
-  honest absence assertion (pinning wording would be theater). Before objecting to a
-  guard, name the exact property it asserts.
-- Prep lesson (highest-yield yet): the fresh-eyes artifact survey doubling as prep —
-  file:line findings became shipped fixes without spending debate capital.
-
-## Banked: token hygiene + raise-only type (2026-07-19, a30a5bc, compacted)
-
-- Won: AA fix shipped better than my remedy — per-rank `.seg-pct` ink from the same
-  ladder index that drives segment color (no single ink passed both grounds).
-  Lesson: run the contrast pair for EVERY ground, not the worst one I checked. Dead
-  11px attr deleted; the JS-scan guard requirement was pure prep yield; 360/390
-  re-verified pre-merge.
-- Lost: `.prov-check` 11.5→12 (4–2) — the exception is load-bearing craft (voice
-  separation), and the whisper clause pins it loud and testable, answering my real
-  objection (unauditable holes) better than erasing it. Chart-lettering raises
-  exempted as a pinned geometry tier (evidence burden real and unfunded).
-- Prep differently: cost my own remedies with the rigor I cost others'; before
-  retiring a settled exception, check whether it is craft, not debt.
-- Durable: six dashboard charts measure `viz.clientWidth` (true CSS px, verify at
-  360); stage svg is fixed 700×620 viewBox (scaled text). Rail at 360: chips one
-  per row in a 244px rail, summaries 46–64px. Gender label gate `w > 46` untouched.
-
-## Banked: watchlist round (2026-07-19, commit fdd3178, compacted) — all four CLOSED
-
-- Won: Q2 shipped my exact delta-compensation shape (dual-branch gate re-run on landed
-  code: anchoring-on 0/0/0, Safari −181/−179/−179 via `overflow-anchor:none` proxy);
-  Q1/Q4 acceptances carried with my tripwires; stale-state must-have landed as explicit
-  tipHide on scroll (site:469).
-- Lost (Q3 5–1): suppress-for-touch fell to the census-conceit veto — my "redundant
-  below" claim was wrong at individual grain (stage tooltip is the ONLY surface naming
-  most of the 82). Lessons: audit a tooltip at the FINEST grain it exposes; cost the
-  shape in the actual codebase before calling it prohibitive; when I hold a veto, pre-cost
-  the opposing veto's compromise with my must-haves attached.
-- Watchlist (confirmatory only): real-iOS pass of Q2/Q3 and real-AT badge-`title`
-  exposure when hardware/AT appears (recorded under measured-vs-inferred; not debt).
+- **pipeline-reveal:** won vertical chip chain (260px), beats 1–6 / beat-0 clean, legend
+  rider. Lessons: show where a resisted affordance is already served; render plain HTML
+  before designing ARIA; measure at 260px before debate; cost string fixes before renderer.
+- **birth-registry/coda/hue:** won coda mechanics (now Settled), no-tooltip-content law,
+  keyboard parity (all six renderers), legend-for-slivers, "SVG text doesn't wrap." Lost
+  rightly: coda digits-pin isn't theater — pinning a PROPERTY is an honest absence
+  assertion; name the exact property a guard asserts before objecting. Highest-yield prep:
+  fresh-eyes artifact survey → file:line findings shipped without debate capital.
+- **token-hygiene / raise-only type:** AA fix shipped better than mine (per-rank `.seg-pct`
+  ink from the same ladder index) — run the contrast pair for EVERY ground. Lost
+  `.prov-check` 11.5→12 (4–2): load-bearing craft (voice separation), whisper-clause-pinned.
+  Cost my own remedies as rigorously as others'; check craft-vs-debt before retiring an
+  exception. Durable: charts measure `viz.clientWidth` (verify @360); stage 700×620 viewBox;
+  244px rail, summaries 46–64px; gender label gate `w > 46`.
+- **watchlist (all four CLOSED):** won Q2 delta-compensation verbatim (anchoring-on 0/0/0,
+  Safari −181 proxy); Q1/Q4 acceptances with my tripwires; scroll-tipHide (site:469). Lost
+  Q3 5–1: suppress-for-touch fell to the census-conceit veto (stage tooltip is the ONLY
+  surface naming most of 82) — audit a tooltip at its FINEST grain; pre-cost the opposing
+  veto's compromise with my must-haves attached even when I expect to win.

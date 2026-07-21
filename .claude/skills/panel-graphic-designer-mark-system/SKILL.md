@@ -14,6 +14,7 @@ justify a permanent seat.
 | Mark | Selector / lines | Look | Meaning |
 |---|---|---|---|
 | Dot unit | `.unit` (+ dim/faint/hot) ~80–84 | 7px circle, saber blue `--s1` | one character; the only data series mark in the story |
+| Resolving face | `.unit .face` path + `.unit.as-face .face{display:inline}` (hides the circle); const `FACES` bitmaps | monochrome single-fill 8-bit silhouette, one `<path>` | a `.unit` on a beat where the story NAMES it (six iconic marks); a resolving STATE of the dot, not a new series. Inherits all four `.unit` states — hot = gold face = the one emphasis seat |
 | Gold hot state | `.unit.hot`, `.chip.hot`, `.anno-name.hot` | `--gold` fill/text | "the one to look at" — display emphasis, never a series; every gold dot is direct-labeled |
 | Annotation | `.anno-line`, `.anno-name` ~87–89 | 1px ink-3 line, 12px ink-2 label | callouts on the stage; legibility floor is 12px |
 | Chip | `.chip` ~139 | mono 12px, ink-2, `--void` bg, 1px `--line` border, 5px radius | one Dagster asset |
@@ -125,6 +126,44 @@ renders 312px @360 viewport → ×.45: `.axis-t` 11.5 → 5.1px, `.anno-name` 12
   `--ink` on tints), every rendered pair ≥4.5:1 verified computationally; the
   fallback is dropping the on-mark label (legend/table carry the data) — never a
   new hex, never one ink that fails somewhere.
+
+## The resolving face — pixel-art marks in one file (LANDED law, 2026-07-21)
+
+The 8-bit-faces panel shipped "The Resolving Mark" (log `2026-07-21-8bit-character-faces.md`;
+guard tests/test_site_faces.py). The owner's maximal "all-82 full-color faces every beat" was
+vetoed unanimously (honesty / legibility / color law / narrative). What DID land, and the
+rules any future sprite-style mark must obey:
+
+1. **A face is a resolving STATE of the dot, never a population reskin.** All 82 `.unit` marks
+   stay uniform saber-blue dots at rest. A mark resolves into a silhouette ONLY on a beat where
+   the story already names it in copy — six iconic characters total (Yoda, Yarael Poof, Jabba,
+   C-3PO, R2-D2, Obi-Wan). Identity is earned, not default. "Faces for all 82" is dead; a
+   subset-only sprite should be a state transition (delight, and it leans on the existing state
+   machine) rather than a second static mark type.
+2. **Single-fill silhouette, inherits the four states for free.** The face is ONE `<path>`
+   swapped in for the `<circle>`; the state rules read `.unit circle, .unit .face` so base
+   (s1) / `.dim` (ink-3) / `.faint` (opacity only) / `.hot` (gold) recolor the whole mark
+   exactly as the circle did — applyState logic unchanged. A hot face = a gold face = THE one
+   emphasis seat (no gold-among-81 problem). Toggle: `.unit.as-face .face{display:inline}`
+   hides the circle. A fixed-color outline or any two-tone/portrait shading breaks dim/faint
+   (reads muddy) — forbidden. No skin tone, no per-item hue: a silhouette asserts only "a
+   tracked individual," same as the dot. Full-color faces are a double veto (new seats + an
+   appearance claim the data doesn't hold for ~68 of 82).
+3. **Decode to ONE path (row-run rects), never rect-per-pixel.** Pixels live as a 1-bit grid
+   in a JS const `FACES`; a pure deterministic decoder builds row-run rectangles merged into a
+   single cached `<path>`. 82×64 rects ≈ 5k nodes (×2 for flat redraw) is the bloat to avoid.
+   ONE shared builder feeds both the sticky stage and the flat embed.
+4. **Roster-pinned registry + same-commit guard.** A sprite exists ONLY for a character named
+   on some beat and present in `known_facts`; injective (one sprite per character); palette
+   hygiene pinned by tests/test_site_faces.py — **only `.unit` state rules may fill `.face`,
+   no hex, no new color seat**; drift detector gains an entry (a named mark that lost its
+   sprite, or a sprite no longer named, trips it); the beat-5 spoiler pin holds the three
+   witness sprites off every earlier beat. Feature + guard, one commit.
+5. **Legibility held it to the emphasis-size named marks.** An 8×8 silhouette at ×.45 mobile ≈
+   3–4px reads worse than a clean dot; resolving marks appear at their named/hot emphasis size,
+   and degrade to a blob (= the dot) if ever rendered small. Scatter (:1227) and birth-strip
+   (:1385) stay dots — different legibility regime, explicitly held out of v1. Resolve is a
+   static state class, never a morph/tween (reduced-motion + a11y); no new tabindex.
 
 ## Type-scale law (banked 2026-07-19; guard: tests/test_site_style_hygiene.py)
 

@@ -150,6 +150,51 @@
   (`len(WORDS)` exceeds every DATA-rendered count), in the same commit as any count it
   must spell. Baselines are computed by script from the frozen fixture, never
   transcribed — three independent akabab surveys disagreed (87/88 records; died 47/28).
+- **Sprite/glyph art is PRESENTATION, not pipeline data (8-bit-faces panel, 2026-07-21,
+  unanimous):** authored pixel art lives in a JS `const FACES` (a curated registry keyed
+  to `known_facts` canonical names), NEVER in `DATA` — it asserts no queryable fact, so it
+  is not derivable-from-JSON ink and does not belong in the data literal. The derivability
+  law governs DATA; presentation consts are governed by their own 1:1 guard.
+- **A per-record mark may NOT vary by a data field (procedural-glyph veto, lost 4-2 but
+  its converse is now law):** a glyph shape computed as `f(species)` (or any field) is a
+  per-item channel that cross-talks with the beat encoding (opacity=missing, base/faint=
+  group, gold=superlative) — a hidden fourth series. My "derivable + drift-safe" argument
+  did not overturn "species ≠ face, sparse field, channel collision." The census
+  population stays uniform anonymous dots; identity is EARNED (named in copy on a beat),
+  never a default population reskin.
+- **Enrichment/likeness marks land with a same-commit 1:1 REGISTRY guard, not an asset
+  check** (there is no producing asset for authored art). The guard: a sprite exists ONLY
+  for a character named on some beat AND in `known_facts` (sprite for an anonymous mark =
+  ERROR); injective (one sprite per character); palette hygiene (fill from state
+  classes/tokens only — no hex, no skin tone); pure deterministic decode → single
+  `<path>`; runtime drift check warns if FACES/FACE_BEATS disagree or a sprite maps to no
+  census person; the beat-5 witnesses spoiler pin extends to the three witness sprites.
+  `tests/test_site_faces.py`. This is the alias-governance/registry-with-coverage-pin shape
+  applied to art: tiny, curated, roster-anchored, bidirectionally guarded — the survivable
+  form of a hand-authored second source.
+
+## Banked: 8-bit character faces (2026-07-21, "The Resolving Mark")
+
+Verdict: all-82 faces vetoed unanimously on four grounds. Shipped: 82 uniform saber-blue
+dots at rest; a mark resolves into a monochrome single-fill 8-bit silhouette ONLY where the
+story already names it in copy — six characters (Yoda, Yarael Poof, Jabba, C-3PO, R2-D2,
+Obi-Wan). Guard: `tests/test_site_faces.py` + a runtime face-drift check.
+
+- My procedural-glyph `f(species)` proposal LOST 4-2 to analyst/lore: species ≠ face, the
+  field is sparse, and a field-varying per-item glyph is a hidden fourth channel that
+  cross-talks with the beat encoding (beat 3 already groups by homeworld). I over-indexed on
+  "derivable + drift-safe" and under-weighted channel collision — a form can satisfy my
+  sourcing laws and still be a bad ENCODING. Next time, before proposing any per-item mark
+  variation, ask "does this add a channel?" not just "can the JSON back it?".
+- My underlying VALUE won and is now three Settled laws (above): no rotting unguardable
+  second source; art is presentation in a JS const, never DATA; the registry lands with a
+  same-commit 1:1 guard. The storyteller's resolve-on-named mechanic is the honest, bounded
+  target my "constrain the set" instinct was reaching for — a reveal, not a population reskin.
+- Pattern confirmed for the third panel running: losing the verdict while the value gets
+  promoted to law is a good trade. The mechanism (registry keyed to known_facts, injective,
+  palette-clean, spoiler-pinned) transferred whole from alias governance — reuse the shape,
+  don't re-derive it. Scatter (`:1227`) + birth strip (`:1385`) stayed dots (held out of v1);
+  any future mark that gains a face inherits this same registry test.
 
 ## Working knowledge
 
@@ -270,66 +315,21 @@
   before objecting "we can't verify this." Won Q3 5–1 (tap-to-pin, shared layer only,
   no fork); Q4 accept unanimous — hazards kept in Working knowledge.
 
-## Banked: akabab site surfacing (2026-07-20)
+## Banked: akabab second source + surfacing (2026-07-20, compacted — substance in Settled)
 
-The surfacing panel adopted my whole data-shape contract; I lost one adjudication and one
-data-type call, both to sharper versions of my own principles.
-
-Won:
-- DASHBOARD CARD, not a 9th beat — unanimous. My going-in Q1 blast-radius argument
-  (8-step/"n/8"/exactly-8-kicker/claims-1..6/"six of its numbers" pins) was the record.
-  `#card-biographies` after `#card-registry`; BUILDERS.length stays 8, spine 100% untouched.
-- Per-row derivability — unanimous. akabab numbers render from `DATA.people[].bio`, never an
-  aggregate blob (aggregate isn't drift-recomputable → violates the derivable-from-JSON law).
-- Executable `bios` SQL — YES, my verification-driven framing held: a table named in
-  `DATA.sql` must exist in the warehouse, so `FakeAkababResource()` materializes
-  `raw_character_profiles`+`character_biographies` in the test_site_sql fixture. The query
-  returns coverage COUNTS only (matched/deaths_on_file/affiliated) — never `died_year_aby`
-  VALUES, dodging both the ABY-sign display and the pre-vetoed 896+4 derivation.
-- Both akabab assets into `DATA.provenance.assets` (verbatim `why`, exact check sets,
-  chain-checks 13→18 ≤20); `DATA.meta` becomes `sources[]`, footer projects it — my Q6.
-- No per-card badge — a badge needs a claim entry (beats-1–6 machinery); dashboard cards
-  state denominatored numbers and lean on the DAG strip for lineage (registry-card precedent).
-
-Lost / adjudicated against me:
-- `bio` carries `diedOnFile: bool`, NOT my proposed `diedAby|null`. Claude ruled the boolean
-  so no signed ABY year ever enters the page (honors signed-year + quoted-testimony laws);
-  deaths-on-file stays presence-derivable. A cleaner read of my own convention law — I was
-  about to leak the sign I spent last panel walling out.
-- DAG strip: I wanted a full RENDER from real defs; qa offered "or pin the chip set"; the
-  adjudication was PIN. Chips stay HTML, a new guard asserts the chip set == real Dagster
-  asset keys, aria-label corrected to six raw / five transforms. Same guarantee, less churn.
-  Noted: my render instinct over-built; a pin catches the exact silent-contradiction failure.
-- Ranked affiliations chart DROPPED (unanimous, lore-led) — I'd already conceded it in prep;
-  `affiliations` is canon-wide/sequel-inclusive, a ranked bar is a claim a six-film site
-  can't make. Coverage COUNT (75/82 affiliated) carries the fact saga-safe.
-
-Prep differently: I brought the derivability crux and the SQL-fixture cost as evidence, which
-won them outright — the pattern from last panel (name the mechanism, own the cost) held. But
-I under-thought the data-TYPE inside my own contract: proposing `diedAby|null` contradicted
-my own just-banked signed-year law. Next time, run each new field past my own Settled section
-before proposing it — the type is as load-bearing as the shape.
-
-## Banked: akabab second source (2026-07-20)
-
-- Won every contested point by naming mechanisms, not objections. The `died_year_aby`
-  veto: a bare `died` would smuggle ABY-positive years into a warehouse whose
-  `birth_year_bby` is BBY-positive — the column NAME carries the convention, no
-  runtime check needed (hiring-manager independently seconded naming-over-check).
-  Separate `AkababResource` over subclassing: the `{base}/all.json` URL shape makes
-  inheritance a lie — live-fetching the endpoint in prep made that unanswerable.
-  Blocking contract exactly `{id,name}`: the polymorphic droid schema I verified in
-  prep killed any richer shape check before qa had to. Alias-bridges-never-mutates
-  beat lore's "correct the canon into the records" framing because it satisfied both
-  laws at once: records stay as-filed, lore keeps the canon-direction comment.
-  Reusable frame: give the other role's requirement a home that doesn't touch the data.
-- Nothing major lost: my writer-#3 access-policy ripple and separate-SNAPSHOT.json
-  amendments were adopted verbatim. The section title went to storyteller's drafted
-  copy on the as-filed tiebreak (the source field is literally `affiliations`) — my
-  own kind of argument, applied to a title I had no stake in. Good law.
-- Prep differently: the live fetch of the real source was the highest-value hour —
-  id non-contiguity, schema polymorphism, and the sign trap all came from reading
-  actual records, not docs. But I trusted the brief's 81/82 and died=47 counts rather
-  than deriving them; three surveys then disagreed (87/88; 47/28), which is what
-  forced the compute-not-transcribe baseline rule. Next time run the counting script
-  IN prep and bring numbers as evidence, not trust.
+- Won every contested data-shape point by naming mechanisms, not objections: the
+  `died_year_aby` naming veto, separate `AkababResource` (URL shape makes subclassing a
+  lie), the exact `{id,name}` blocking contract, alias-bridges-never-mutates, DASHBOARD
+  CARD not a 9th beat, per-row `bio` derivability, executable `bios` SQL returning coverage
+  COUNTS only. Reusable frame: give the other role's requirement a home that doesn't touch
+  the data.
+- Lost two, both to sharper reads of my OWN laws: `bio.diedOnFile: bool` (not my
+  `diedAby|null` — I was about to leak the sign I'd just walled out); DAG strip PINNED to
+  real asset keys (not my full render — a pin catches the exact silent-contradiction, less
+  churn). My render instinct over-builds; prefer the pin.
+- Prep differently (two lessons, both now habits): (1) the live fetch of the real source
+  was the highest-value hour — id non-contiguity, droid schema polymorphism, the sign trap
+  all came from reading records, not docs; run the counting script IN prep and bring
+  numbers as evidence, never trust the brief's counts (three surveys disagreed 87/88,
+  47/28 → the compute-not-transcribe rule). (2) Run each new field/type past my own Settled
+  section before proposing it — the TYPE is as load-bearing as the shape.
