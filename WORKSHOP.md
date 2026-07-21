@@ -277,6 +277,12 @@ defs = Definitions(
 
 The key `"swapi"` must match the parameter name in your assets. Dagster injects it automatically — your asset functions never import or instantiate the resource directly.
 
+> **Heads-up for later:** resources aren't the right answer for *every* external system. The
+> transform layer (Module 3) deliberately opens DuckDB with a raw `duckdb.connect()` instead of a
+> `DuckDBResource`, to keep an access-control guarantee the framework resource can't express.
+> [Module 10](#14-module-10--going-further) explains exactly why — a worked example of choosing
+> *not* to adopt an idiom.
+
 ### ✅ Exercise 2
 
 Try calling the API manually to see what it returns:
@@ -714,6 +720,29 @@ itself:
 The tradeoff, not the tool, is the takeaway: add a data-quality framework
 when its authorship or scale story applies to you — not because a tutorial
 listed it as a next step.
+
+### Why NOT `dagster-duckdb`'s `DuckDBResource`?
+
+Dagster ships a first-party [`dagster-duckdb`](https://docs.dagster.io/integrations/libraries/duckdb)
+integration, and Module 2 just taught you to reach for resources — so why does the transform
+layer hand-roll `duckdb.connect()` instead of injecting a `DuckDBResource`? Because the resource
+**can't express this pipeline's safety contract**, and that omission is the more interesting lesson:
+
+- **The gap.** `DuckDBResource.get_connection()` **hardcodes `read_only=False`** and takes no
+  per-call arguments. DuckDB allows *many readers OR one writer* on a file, so the pure-read
+  transforms here open with `read_only=True` — a lock DuckDB itself enforces, pinned by source
+  introspection in `tests/test_pipeline.py`. Through the resource, every asset would open
+  read-write and the reader/writer distinction would collapse into a naming convention, not an
+  enforced lock. Two resource instances ("reader"/"writer") or a subclass could paper over it —
+  but a subclass just re-hand-rolls the exact `read_only=` line the migration was meant to remove.
+- **What we keep by not migrating.** A clean, uniform data-flow story (`star_wars_db` returns a
+  path; each transform opens it) *and* a real, tested single-writer safety invariant.
+- **When would `DuckDBResource` earn its place?** When you want per-environment database paths from
+  config, connection pooling, or you're standardizing DuckDB access across many pipelines and
+  uniform wiring matters more than the read-only guarantee.
+
+The tradeoff, not the idiom, is the takeaway: reach for the framework-native resource when its
+configuration story helps you more than an explicit, enforced access policy does.
 
 Asset checks appear in the Dagster UI as pass/fail badges on each asset.
 

@@ -183,6 +183,16 @@
   only saga-safe coverage COUNTS surface. DAG chip set is a guarded surface (pinned to real
   defs). Field-present vs non-zero both stated on-chart ("75 of 82 affiliated, 82 carry the
   field"). Cross-source arithmetic (896+4) stays off all surfaces.
+- **No production-pattern-for-show (2026-07-21, production-pattern panel):** a
+  partition / incremental / SCD2 / backfill asset is NOT added merely to signal scale.
+  On a static, small, heterogeneous, 82-row source lacking the pattern's dimension, the
+  documented "Limits, by design" why-not is the stronger senior signal. A change-history
+  table on a frozen source is HOLLOW — it can only say "0 of N changed." The 87→88 akabab
+  drift is survey noise: never a displayed number, a baseline, or a "detected change"
+  headline (reaffirms the frozen-baseline law). Docs may not claim a capability the code
+  lacks — `schedules.py` states honestly it does a full refresh on a static source (no
+  incremental/streaming/CDC). Revisit only if the source gains a real time axis or grows
+  past re-pull scale.
 
 ## Working knowledge
 
@@ -270,6 +280,41 @@ correctly-flagged unverifiable (does a silhouette read as faint at .18/~3px) was
 the ux/graphic perceptual lane and resolved by the single-fill + subset-only design —
 flagging the limit, not guessing it, was right. Technique banked:
 `.claude/skills/panel-data-analyst-encoding-derivability/`.
+
+## Banked: production-pattern (SCD/partition/incremental) (2026-07-21) — STAND PAT
+
+Outcome: no partitioned/incremental/SCD asset shipped. The real fix was honesty copy —
+`schedules.py` no longer implies streaming/incremental; "Limits, by design" sharpened.
+
+**Won (governing citation):** my honesty floor killed the SCD2 headline. SCD2 on frozen
+fixtures can only say "0 of N changed" (hollow); the 87→88 akabab drift is un-baselineable
+survey noise — my frozen-baseline law was cited as governing to veto it as a "detected
+change" story. "0 of N changed is hollow" was recognized panel-wide. Two-guard reasoning
+and the guard-shaped-hole tell (a guard that counts versions but never sees a second one)
+carried.
+
+**Moot (my endpoint-partition proposal):** I preferred a disjoint endpoint StaticPartition
+over episode_id (the many-to-many denominator trap held). But a code-shape finding sank it:
+the raw layer is FIVE separate assets (`raw_films`…`raw_species`), so an "endpoint
+partition" is not contained — it collapses 5 SDAs into one partitioned `raw_swapi`, drops
+the asset count (13→9), rewrites the WORKSHOP Layer-1 lesson, and ripples the site
+totals/DAG-strip. On a dimensionless 82-row snapshot even the honest partition is contrived.
+When EVERY demonstration is contrived because the data lacks the dimension, the #2-banked
+"documented why-not beats bolted-on machinery" governs. My preference was correct in the
+abstract, moot in this repo.
+
+**Settled (promoted above):** No production-pattern-for-show; 87→88 is survey noise, never
+a displayed number/baseline/"detected change"; a change-history on a frozen source is hollow;
+docs may not claim a capability the code lacks.
+
+**Prep differently:** I audited the DATA/claim honesty but not the ASSET-COUNT topology —
+I proposed the endpoint partition as "contained" without checking that endpoints were already
+5 discrete assets, which is exactly what made it a large ripple. Next time, before endorsing
+"the contained honest version," count the assets/site-pins the change touches (qa's ripple
+map is my checklist too). And when I've shown the maximal ask is contrived, hand the panel the
+NON-machinery fix directly — the real defect was an over-claiming docstring, not "no
+partitions"; I should have hunted the false capability-claim in copy first. Skill updated with
+the collapse caveat: `.claude/skills/panel-data-analyst-static-source-cdc-honesty/`.
 
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 

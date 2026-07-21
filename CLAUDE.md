@@ -32,6 +32,10 @@ decision maker and writes the decision log to `.claude/panel/decisions/`.
 - pytest guards CODE offline; asset checks guard DATA (structural=ERROR/blocking,
   drift=WARN); `known_facts.py` is the single source of baselines; no second
   data-quality framework, no coverage gates; CI stays offline-only.
+- Warehouse access is hand-managed `duckdb.connect` on purpose: pure-read transforms open
+  `read_only=True` (a DuckDB-enforced single-writer lock, source-tested in test_pipeline.py);
+  `dagster-duckdb`'s DuckDBResource is deliberately NOT adopted (its `get_connection()` hardcodes
+  `read_only=False`) — rationale in WORKSHOP Module 10; don't "modernize" without a panel.
 - A feature and its automated guard land in the same commit.
 - Site provenance is honest and verified: all lineage/severity strings render from
   `DATA.provenance` (pytest-checked against the real Dagster defs; badge severity derives

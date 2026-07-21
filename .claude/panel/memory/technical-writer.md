@@ -95,6 +95,35 @@
   ("Affiliations" beat "Allegiances" because the source field is `affiliations`);
   and drafted copy adopted verbatim beats after-the-fact title edits.
   (akabab panel, 2026-07-20.)
+- **Tooling why-nots live in WORKSHOP Module 10 as tradeoff-both-ways sections**
+  (beside "Why NOT Great Expectations"): name the mechanism (`read_only=False`
+  hardcode), state the cost BOTH ways, and "when it would earn its place." A
+  forward-pointer FROM the teaching module (Module 2 → Module 10) resolves a "why
+  isn't the idiom used here?" coherence gap without moving the rationale. The
+  rationale has ONE home; code comments only POINT to it, never restate.
+  (dagster-duckdb panel, 2026-07-21.)
+- **A deliberate technology NON-adoption is a guardable artifact, not just prose:**
+  pin a stable rationale marker in the source (e.g. `"DuckDBResource"` +
+  `"read_only=False"` present in transforms.py) beside the invariant it protects, so
+  a future "modernize" refactor trips both the pin and the marker and must re-read the
+  decision. "Silent adoption-of-the-status-quo" (keeping raw code with no note) is the
+  worst outcome — worse than either migrating or documenting. (dagster-duckdb, 2026-07-21.)
+- **Code comments/docstrings must not claim a capability the code lacks (MINE, banked
+  law):** a scheduler on a static source is a full refresh and the copy must SAY so —
+  no "simulates streaming" / "returns new records each run" over-claim. Docstrings are
+  reader-facing docs and get the same honesty bar as the site and README. The one
+  non-contrived weakness a whole panel found was this over-claim, not the missing
+  pattern. (production-pattern panel, 2026-07-21.)
+- **"Limits, by design" bullets stay literally true — sharpen, don't delete.** The
+  engineering judgment a limits section signals is naming the ceiling AND its forcing-
+  trigger (what would force the change); a scale technique bolted onto an 82-row static
+  snapshot signals less than knowing not to. A lead-in may make that judgment explicit;
+  no bullet is deleted to look more capable. (production-pattern panel, 2026-07-21.)
+- **No production-pattern-for-show (extends the #2 why-not from framework idioms to
+  ARCHITECTURAL patterns):** a partition/incremental/SCD/backfill asset is not added
+  merely to signal scale on a source that lacks the pattern's dimension; the documented
+  limit out-signals contrived machinery. Revisit only if the source gains a real time
+  axis or grows past re-pull scale. (production-pattern panel, 2026-07-21.)
 
 ## Working knowledge
 
@@ -108,15 +137,17 @@
   bullet + WORKSHOP Module 8, anchor `#12-module-8--testing--asset-checks`),
   snapshot rationale (workflow comments + fixtures README), severity discipline
   (checks.py docstring + `description=` strings), tooling why-nots (WORKSHOP
-  Module 10 sole home — verified 2026-07-20 it can carry the weight).
+  Module 10 sole home — now carries TWO: "Why NOT Great Expectations" and "Why NOT
+  DuckDBResource"; both tradeoff-both-ways; transforms.py + Module 2 point in).
 - Site voice anchors (site/index.html): SQL reveal summary "Show the DuckDB SQL";
   two-word beat kickers; lineage-strip heading "The pipeline that made this page".
   galaxy_report house style: topical-noun headings, italic on-page denominators,
   bullet counts, machinery voice with light flavor.
-- Ground truth (2026-07-19 commits, PRE-akabab landing): 11 assets / 4 transforms /
-  15 checks (4 blocking, 11 warn); `birth_year_bby`; six executed SQL strings;
-  WORDS through "fifteen" (index.html:863); README Limits at 117–137; screenshots
-  at 15 green (f170379). Akabab landing will ripple to 13/5/20 — see banked plan.
+- Ground truth (current, post-akabab): 13 assets / 5 transforms / 20 checks (4 blocking,
+  16 warn); `birth_year_bby`; six executed SQL strings; WORDS at index.html:~863; README
+  "Limits, by design" between "How this was built" and "Learn Dagster". schedules.py copy
+  now states full-refresh-on-static (production-pattern panel). Retake screenshots only
+  when a visual shows check/asset counts.
 - Jargon-introduction duty (mine): first mention of "akabab" in README and WORKSHOP
   gets the gloss "akabab/starwars-api, a community-maintained static JSON dataset
   (MIT, GitHub Pages)". Proper-noun jargon earns its place by being introduced.
@@ -128,106 +159,41 @@
 - Skill: `.claude/skills/panel-technical-writer-count-ripple/SKILL.md` — the
   count-ripple checklist as a reusable procedure, incl. the word-renderer step.
 
-## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
+## Banked: pipeline-reveal + birth-registry (2026-07-18/19, compacted)
 
-- Wins promoted to Settled above: single-source rationale, generated labels, README
-  order, WORKSHOP as appendix, description style rule, displayed-SQL-is-executed-SQL.
-- One-home law won Q1 (5–3–1) as an ENGINEERING invariant, not style: a hand-listed
-  roster in a check description was a third home that would make the Dagster UI lie.
-  Argue it as architecture, it adjudicates architecture.
-- Exercise-8 collision precedent: docs are a guard surface — grep WORKSHOP exercises
-  before endorsing any new repo feature; shipped code can pre-solve a tutorial.
-- Superseded claims update or become explicit PAST-tense history (the "How this was
-  built" honesty-arc genre, now two confession beats); copy that encodes a count is
-  a drift surface — name, don't enumerate.
-- Pre-draft copy for the branch you expect to win, gated on the fix: both my Q2
-  drafts shipped near-verbatim and made "same commit" frictionless.
+- Wins now in Settled: single-source rationale, generated labels, README order, WORKSHOP
+  as appendix, description style rule, displayed-SQL-is-executed, Limits placement +
+  Module-10 handoff, WORKSHOP:705 count-free retirement.
+- **One-home law won Q1 (5–3–1) as an ENGINEERING invariant, not style** — a hand-listed
+  roster in a check description was a third home that would make the Dagster UI lie. Argue
+  a docs rule as architecture and it adjudicates architecture (the recurring muscle).
+- **Docs are a guard surface (Exercise-8 collision):** grep WORKSHOP exercises before
+  endorsing any repo feature; shipped code can pre-solve a tutorial. Copy that encodes a
+  count is a drift surface — name, don't enumerate.
+- Writing rules belong where writers can't avoid them (the checks.py docstring rule shaped
+  authors I never briefed). Pre-draft the branch you expect to win, gated on the fix —
+  makes "same commit" frictionless. QA's failure-mode separation shapes my copy: "data
+  moved" and "parser broke" are different sentences with different guards.
 
-## Banked: birth registry + coda + limits (2026-07-19, compacted)
+## Banked: akabab second source + site surfacing (2026-07-20, compacted; decisions
+`2026-07-20-akabab-second-source.md`, `2026-07-20-akabab-site-surfacing.md`)
 
-- Won Q4 whole (Limits placement + Module-10 handoff) on CONTINUITY with the honesty
-  genre; won the WORKSHOP:705 count-free retirement — second live exercise of the
-  docs-as-guard-surface grep.
-- QA's failure-mode separation (7–1) shapes my copy: "the data moved" and "the
-  parser broke" are different sentences, so their guards fail differently.
-- The style rule in checks.py's docstring worked on authors I never briefed — both
-  registry descriptions arrived subject-only. Writing rules belong where writers
-  can't avoid them.
-- When a verdict promotes a doc to sole-home status, immediately re-verify it can
-  carry the weight (done for Module 10, 2026-07-20 — resolved, off the watch list).
-
-## Banked: akabab second source (2026-07-20; decision
-`2026-07-20-akabab-second-source.md`; implementation pending, four commits)
-
-- **Won the WORDS carve-out (with qa), my prep's biggest find:** grep proved NO
-  pytest pin existed on WORDS coverage — only the runtime console.warn. The verdict
-  classifies WORDS growth as totals-pin ripple, not deferred surfacing: it grows
-  through "twenty" in the feature commit with a new pytest pin. Second recurrence of
-  the beat-7 overflow bug; the count-ripple skill earned its keep. Promoted to
-  Settled.
-- **Won the docs argument FOR Option C:** WORKSHOP:338 ("all five raw lists") and
-  the "5 tables loaded" line stay literally TRUE under the transform-join; under
-  Option A they'd both drift. Docs truth adjudicated an architecture question again
-  — same muscle as the one-home law. Option C ratified unanimously.
-- **Won the lineage-collision veto:** no "Lineage" in the section title; the word
-  stays reserved for Dagster lineage. Lore independently proposed the same rename —
-  vocabulary vetoes land easier with a co-sponsor.
-- **Lost the title word, instructively:** my "Allegiances & Apprenticeships" fell to
-  storyteller's "Affiliations & Apprenticeships" on the as-filed tiebreak — the
-  source field is literally `affiliations`, and drafted-copy discipline adopts
-  verbatim. My veto was satisfied either way, but I proposed a synonym where the
-  schema had already chosen the word. Banked as the as-filed naming law.
-- **My README-ripple inventory adopted whole into commit 2:** ASCII architecture
-  diagram gains the second source (a one-source diagram would make the landing page
-  lie), :79 exact-value-tests list, tree comments, Stack attribution ("fan-curated,
-  MIT, effectively frozen; SWAPI-derived — reproduces SWAPI's spellings"),
-  WORKSHOP:299 rewritten count-free. Ripple-inventory prep is now my standard move.
-- **Adopted from others, now mine to enforce in copy:** lore's "on file" vocabulary
-  package; analyst's nested denominators (as copy discipline — qa's five-check
-  ceiling beat per-field baselines); engineer's aliases-bridge-never-mutate framing
-  with lore's canon-direction comments; storyteller's Yoda-derivation pre-veto
-  (folded into my quoted-testimony rule). All promoted to Settled.
-- **Baselines are computed, never transcribed** — three independent surveys of
-  akabab disagreed (87/88 records; died 47/28). Docs corollary: never quote a
-  brief's figures as facts; wait for the frozen fixture, then let the script speak.
-- Prep differently next time: (1) read the source SCHEMA's own field names before
-  proposing any user-facing title — the as-filed word usually wins; (2) when a
-  storyteller announces drafted-copy discipline, propose edits INTO their draft
-  during debate rather than parallel titles after.
-
-## Banked: akabab site surfacing (2026-07-20; decision
-`2026-07-20-akabab-site-surfacing.md`; implementation pending)
-
-- **My whole prep landed, near-verbatim.** The L320/L941 four-vs-five-transforms
-  contradiction I flagged as highest-priority-fix-regardless is fixed unconditionally;
-  my exact rewrite ("five SWAPI pulls and one akabab pull … five transforms") ships.
-  Drafted-copy-gated-on-the-fix discipline paid a fourth time.
-- **README "The website" gains the second-source clause — my one-home ruling held.**
-  The site's own "what the website shows" paragraph was the last single-source holdout
-  (diagram/table/tree already surfaced akabab from the pipeline landing). It now NAMES
-  the site's second-source panel (the `#card-biographies` card) and LINKS to the
-  pipeline akabab — describe the surface here, don't re-explain the join.
-- **Footer + freshness line are projections, not prose — provenance-projection law
-  extended to `DATA.meta`.** `DATA.meta` becomes `{sources:[{name,url,snapshot}],
-  snapshot}`; footer and freshness render "SWAPI · akabab" FROM the array. No
-  hand-typed source string survives. Same muscle as the provenance-strings law.
-- **Dashboard card, not a beat — my Q1 lean won unanimous.** The census spine stays
-  8 steps / "n/8" / "six of its numbers" untouched; the second source is a second
-  *reading* on a dashboard, not a 9th archive step. Re-opening settled geometry was
-  not earned by an aggregate-grade join. Zero story-count ripple, as prepped.
-- **Zero WORKSHOP ripple confirmed and banked as law:** it is a pipeline tutorial, not
-  a site walkthrough; "five SWAPI endpoints / five raw lists" stay literally true
-  (akabab is a separate pull). Docs-as-guard grep, third clean exercise.
-- **New site-specific laws I now enforce in copy** (promoted to Settled below): the
-  second source is a card not a beat; no ranked faction chart on a six-film site
-  (canon-scope trap — only saga-safe coverage COUNTS surface); the akabab SQL string
-  returns coverage counts, never `died_year_aby` values; `bio` carries a `diedOnFile`
-  boolean, no signed year; a dashboard card states denominatored numbers and relies
-  on the DAG strip for lineage — no fabricated card-level badge.
-- Prep differently next time: I mapped every ripple but under-specified the DATA SHAPE
-  (per-row `bio` vs aggregate blob) — the analyst/engineer/qa owned that call and it
-  drove my copy's derivability. When a copy claim ("82 of 82 renders from data") depends
-  on a data shape, propose the shape in prep so the number's home is settled with the words.
+- Wins now in Settled: WORDS carve-out (grep proved no pytest pin existed — count-ripple
+  skill earned its keep), "on file" vocabulary, nested denominators, alias governance,
+  signed-year column names, second-source-is-a-card-not-a-beat, no ranked faction chart,
+  DATA.meta source-array projection, footer/freshness projections. Lost the title word
+  (Affiliations) on the as-filed tiebreak — also now Settled law.
+- **Docs truth adjudicated architecture THREE more times:** Option C won because
+  WORKSHOP:338/"5 tables" stay literally true under it (Option A drifts); README diagram
+  would lie if single-source; the L320/L941 four-vs-five-transforms contradiction was
+  fix-regardless. My ripple-inventory prep (README diagram, :79 tests, tree comments,
+  Stack gloss) adopted whole — now my standard move.
+- **Baselines are computed, never transcribed** — three surveys of akabab disagreed
+  (87/88 records; died 47/28). Never quote a brief's figures as facts; let the script speak.
+- Prep differently: read the source SCHEMA's field names before proposing a title (as-filed
+  usually wins); propose edits INTO a storyteller's draft during debate, not parallel titles
+  after; when a copy claim depends on DATA SHAPE (per-row `bio` vs blob), settle the shape
+  in prep so the number's home lands with the words.
 
 ## Settled additions (akabab site surfacing, 2026-07-20)
 
@@ -242,6 +208,48 @@
   SWAPI-derived-spellings/not-canon-authority attribution.
 - Dashboard cards state denominatored numbers and rely on the DAG strip for lineage —
   no card-level check badge (a badge needs a claim entry, i.e. the beats-1–6 machinery).
+
+## Banked: dagster-duckdb why-not (2026-07-21; shipped; laws now in Settled + skill)
+
+- My position won (A: don't migrate, document the why-not). Shipped as argued: Module 10
+  gains "Why NOT DuckDBResource", Module 2 a forward-pointer, transforms.py a rationale
+  pin. The decisive win was FRAMING — a documented non-adoption teaches more than another
+  how-to; my job was proving the WORKSHOP cost was low + the coherence gap real, which made
+  (A) shippable not a cop-out. Docs cost adjudicated architecture a FIFTH time.
+- Reusable: even arguing AGAINST a change, mapping its blast radius surfaces the coherence
+  gap the why-not must name. Prep-differently (carried forward + reused at #production-
+  pattern): when a portfolio "ding" arrives, lead with "cheapest honest FRAMING" before
+  mapping the expensive fix.
+
+## Banked: production pattern (partitions/SCD/incremental) — 2026-07-21
+(decision `2026-07-21-production-pattern.md`; STAND PAT — pure docs/copy honesty shipped)
+
+- **My docs-honesty analysis largely won.** Nothing shipped as a new asset/check/site
+  change; the fix landed entirely in MY lane. (1) SCD2 was rejected partly because it
+  forces the hollow "0 of N changed" sentence and reopens TWO limits bullets — my
+  count-the-reopened-bullets argument. (2) My "WORKSHOP Module 10 pre-solves its own
+  partition exercise" concern went moot once no pattern shipped. (3) The endpoint-partition
+  form I + the data-analyst preferred did NOT ship either: the CODE-SHAPE finding (raw
+  ingestion is 5 separate SDAs; collapsing 5→1 rewrites the WORKSHOP Layer-1 lesson AND
+  ripples the site totals/DAG-strip) falsified my "contained, one-bullet" containment
+  premise. Lesson: a docs-ripple estimate is only as good as the code shape it assumes —
+  confirm the asset COUNT/SHAPE with code roles before calling a change "contained."
+- **What shipped, both mine:** `schedules.py` rewritten — its docstring + daily-schedule
+  description no longer claim an incremental/streaming payoff the code never delivers; it
+  now says full-refresh on a static source and points to "Limits, by design." And a
+  sharpened "Limits, by design" lead-in making explicit that naming the ceiling AND its
+  forcing-trigger is the judgment. Every bullet stayed literally true; nothing deleted;
+  99 tests green.
+- **The decisive reframe was "cheapest honest FRAMING before the expensive fix"** (the
+  prep-differently note I banked from the #2 panel, applied). The whole debate assumed the
+  fix was a new asset; the real defect was a docstring over-claiming a capability — a
+  copy edit, not architecture. When a portfolio "ding" arrives, first ask what sentence is
+  actually dishonest today; often the answer is a comment, not a feature.
+- Three new laws promoted to Settled above: docs/comments must not claim absent
+  capability; Limits bullets sharpen-don't-delete; no production-pattern-for-show.
+- Prep differently: the akabab 87→88 "drift" I eyed as a possible headline is SURVEY
+  NOISE (analyst's frozen-baseline law reaffirmed) — never a displayed/detected number.
+  Don't hunt for a "change to showcase" on a frozen source.
 
 ## Open watch items (mine)
 

@@ -33,6 +33,14 @@ from dagster import asset, AssetExecutionContext
 from starwars_dagster.known_facts import PROFILE_NAME_ALIASES
 
 _GROUP = "02_transformed"
+
+# Warehouse access is hand-managed with raw `duckdb.connect(...)` ON PURPOSE — not via
+# dagster-duckdb's DuckDBResource. The framework resource can't express this pipeline's
+# per-asset safety contract: DuckDBResource.get_connection() hardcodes read_only=False,
+# so pure-read transforms could not open read_only and DuckDB's single-writer file lock
+# would go unenforced. Raw connect() lets each asset declare read_only itself — a lock
+# DuckDB enforces, source-tested in tests/test_pipeline.py. Full rationale + the tradeoff
+# both ways live in WORKSHOP.md Module 10 ("Why NOT dagster-duckdb's DuckDBResource?").
 DB_PATH = pathlib.Path("data/star_wars.duckdb")
 OUTPUT_DIR = pathlib.Path("data/output")
 

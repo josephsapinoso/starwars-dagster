@@ -39,6 +39,94 @@ count is the lesson.
    near-verbatim from prep drafts — this is what makes "feature and guard and
    doc in the same commit" frictionless instead of rushed.
 
+## Idiom-migration corollary (dagster-duckdb panel, 2026-07-21)
+
+When a panel weighs migrating a code IDIOM the tutorial teaches, don't assume the
+migration "falsifies the tutorial." First grep whether the tutorial ALREADY teaches
+the TARGET idiom in an earlier module. If it does, migrating usually IMPROVES
+integrity: it makes the changed layer REINFORCE the earlier lesson instead of
+competing with it. (DuckDB case: Module 2 already sells resources — glossary lists
+"database" as a resource example — so a hand-rolled `duckdb.connect()` in Layer 2 was
+a papered-over self-contradiction; a DuckDBResource resolves it.) The from-zero
+"transparent, no-magic" argument for the raw pattern only holds in a tutorial that
+never adopted the abstraction. And note which raw usages LEGITIMATELY survive: a
+standalone REPL/exploration snippet ("query the DB yourself") should stay raw even
+after the pipeline migrates — it teaches the tool, not the wiring. Map the blast
+radius by line before debate; count the load-bearing mental-model phrase's echoes
+(often it appears once) so you know whether it's a cascade or a single swap.
+
+## Outcome that shipped: the why-NOT, not the migration (dagster-duckdb, 2026-07-21)
+
+The DuckDB migration was BLOCKED by a code fact (`DuckDBResource.get_connection()`
+hardcodes `read_only=False`, erasing the tested single-writer lock), so the panel kept
+the raw code. But the coherence gap the migration would have closed (Module 2 taught
+resources; why is Layer 2 hand-rolling?) is REAL and does not go away just because the
+migration doesn't happen. The reusable technique:
+
+1. **A blocked migration still owes the reader the why-not.** The worst outcome is
+   "silent status quo" — raw code, no note — which reads as ignorance of the idiom
+   rather than a judged choice. Document the non-adoption; it's richer teaching than
+   another how-to ("when NOT to adopt an idiom" > "used the resource").
+2. **Tooling why-nots live in ONE home as tradeoff-both-ways sections.** Here: WORKSHOP
+   Module 10, beside "Why NOT Great Expectations." Name the mechanism, state the cost
+   BOTH directions, and "when it would earn its place." Never a one-sided dismissal.
+3. **Close the coherence gap with a forward-pointer, not a relocated rationale.** The
+   teaching module (Module 2) gets a one-line "see Module 10" note; the rationale stays
+   in its single home. Code comments at the choice site (transforms.py) only POINT.
+4. **Guard the non-adoption.** Pin a stable rationale marker in the source beside the
+   invariant it protects (`"DuckDBResource"` + `"read_only=False"` present in the file),
+   so a future "modernize" refactor trips the pin and must re-read the decision. A
+   deliberate omission is a guardable artifact, not just prose.
+
+So the blast-radius grep pays off BOTH ways: even arguing against the change, it locates
+the coherence gap the why-not must name and forward-point to.
+
+## Demonstrated-limit corollary (production-pattern panel, 2026-07-21)
+
+When a panel proposes SHIPPING the very pattern a "Limits, by design"-style honesty
+section documents as a deliberate absence, the docs cost is a genre test, not just a
+ripple:
+
+1. **A limits section is a LADDER of honest ceilings, not a single omission.** Shipping
+   ONE pattern does not erase the frame — it CONVERTS one bullet from "absent
+   (deliberate)" to "demonstrated once; here's where it still stops and why." The bullet
+   stays a limit statement, now carrying a proof point.
+2. **The truth test on the converted sentence is the veto signal.** Write the new bullet.
+   If it stays literally true about the DATA ("partitioned by film to show backfill
+   mechanics; the rest stays full-refresh because the snapshot is static"), the pattern is
+   honest to ship. If the only sentence that fits would claim production-scale the data
+   doesn't warrant, the pattern is cargo-cult and the honest limit out-signals it — block
+   or shrink it. This is the same bar as the tooling why-not: machinery must beat the
+   documented limit, not decorate it.
+3. **Fake honesty is its own veto.** A demonstrated SCD/history table on a source that
+   never changes MUST say in copy that it never changes (a guard-simulated delta is not
+   real history). Do not let a "look, change-data-capture" surface imply live change it
+   doesn't have — same discipline as "on file" vocabulary.
+4. **The tutorial may already teach the pattern aspirationally.** A "Going Further" module
+   that shows the pattern as the reader's NEXT step gets pre-solved by shipping it — move
+   the snippet from "here's how you'd add it" to "the pipeline now does this; go further
+   by X," in the same commit. Grep the tutorial for the pattern's nouns first.
+
+### What actually shipped: no pattern, a fixed over-claim
+
+The panel stood pat — NO partition/SCD/incremental asset (every form was contrived on a
+static, heterogeneous, 82-row snapshot, and the endpoint-partition form ALSO rippled once
+the code shape showed 5 separate raw SDAs collapsing to 1). So the demonstrated-limit
+conversion above was never triggered. Instead the panel found the ONE non-contrived
+weakness — `schedules.py` claimed an incremental/streaming payoff it never delivered — and
+that copy fix is the whole change. Two durable lessons:
+
+- **A docstring/comment is reader-facing docs and gets the honesty bar.** "Docs must not
+  claim a capability the code lacks" applies to `schedules.py` as much as to the site: a
+  scheduler on a STATIC source is a full refresh, and the copy must say so, not
+  "simulates streaming." When auditing a repo for a portfolio ding, grep code comments/
+  docstrings for capability verbs (streaming, incremental, CDC, backfill, merge) and check
+  each against what the code actually does — the cheapest honest fix often lives here.
+- **A docs-ripple estimate is only as good as the code shape it assumes.** The "endpoint
+  partition reopens only ONE bullet, contained" call was wrong because the raw layer was 5
+  assets, not 1 — collapsing them rewrote a tutorial lesson and rippled site totals.
+  Confirm asset COUNT and SHAPE with code roles before calling a change contained.
+
 ## Companion rule (banked law, lives in checks.py docstring)
 
 Check descriptions state the INVARIANT and its STAKES; run metadata carries

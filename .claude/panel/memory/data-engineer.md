@@ -75,6 +75,16 @@
   TABLE`); `defs.executor is in_process_executor` serializes writes on DuckDB's
   one-writer file lock. Pinned by `test_warehouse_access_policy_is_encoded_in_code`.
   (Closed the 2026-07-18 lock-race finding.)
+- **`dagster-duckdb`'s `DuckDBResource` is DELIBERATELY NOT adopted (2026-07-21 panel):**
+  raw `duckdb.connect()` stays because `get_connection()` hardcodes `read_only=False` (stable
+  1.7–1.13, no per-connection arg), which would erase the per-asset read-only single-writer
+  lock. IO manager is out (one-table-per-asset can't emit `star_wars_db`'s 5 raw tables);
+  a subclass just re-hand-rolls the deleted line. Rationale home is WORKSHOP Module 10
+  (Module 2 forward-pointer + transforms.py comment); `test_warehouse_access_policy...` now
+  also asserts a rationale marker (`"DuckDBResource"`+`"read_only=False"` present in
+  transforms.py source) so a "modernize" refactor trips the guard. No dependency added.
+  Do NOT modernize without a panel. A deliberate non-adoption is a GUARDABLE artifact —
+  pin a stable rationale marker in the source beside the invariant it protects.
 - Absence pins are legitimate guards: an element exempted from a detector by a
   property (number-free, name-free) gets a pin asserting that property; pinning
   wording would be the theater. (QA's ruling, 5–3 — I lost this one; it is law.)
@@ -172,6 +182,44 @@
   `tests/test_site_faces.py`. This is the alias-governance/registry-with-coverage-pin shape
   applied to art: tiny, curated, roster-anchored, bidirectionally guarded — the survivable
   form of a hand-authored second source.
+- **No production-pattern-for-show (2026-07-21 panel, STAND PAT):** a partition / incremental
+  MERGE / SCD2 / backfill asset is NOT added merely to signal scale. On a static, small,
+  heterogeneous source that lacks the pattern's dimension (no time axis; episodes many-to-many;
+  endpoints heterogeneous; SCD on a frozen source detects nothing), the documented "Limits, by
+  design" why-not is the stronger senior signal — extends the dagster-duckdb non-adopt principle
+  from framework idioms to architectural patterns. Docs must not claim a capability the code
+  lacks: `schedules.py` was rewritten to say full-refresh on a static source (was over-claiming
+  "simulates streaming"). Revisit ONLY if the source gains a real time axis or grows past
+  re-pull scale. The 87→88 akabab drift is survey noise — never a displayed number/baseline/
+  "detected change" headline (reaffirms analyst's frozen-baseline law).
+
+## Banked: production pattern (partitions / MERGE / SCD2) — 2026-07-21, STAND PAT
+
+Outcome: NO new asset. schedules.py honesty fix (dropped the streaming over-claim) + a
+sharpened "Limits, by design" lead-in. Substance is now Settled (above); the durable
+honesty test lives in skill `panel-data-engineer-production-pattern-honesty`.
+
+- My SCD2 (dated-snapshot dimension) proposal LOST — as did the partition. Three grounds I
+  under-weighted: (1) CONTRIVANCE — every candidate pattern needs a dimension the 82-row static
+  snapshot lacks, so ALL demos are cargo-cult; (2) SITE-RIPPLE — SCD2 adds a key + checks (breaks
+  write-back parity, ripples equality-pinned totals/DAG-strip); (3) the analyst's SURVEY-NOISE
+  VETO killed my "real drift across refreshes" hook — the 87→88 is un-baselineable noise, not a
+  displayable delta, so "capability-on-real-cadence with the delta count stated" had no honest
+  number to state. The #2 documented-why-not principle governed: when the data lacks the
+  dimension, the honest limit out-signals bolted-on machinery.
+- What STOOD: my "in_process serializes the writer lock → backfills run sequentially, DON'T
+  switch executors to parallelize" architecture point is correct and banked in the skill.
+- Where I was RIGHT to worry but wrong on the shape: I flagged the DAG-strip pin (equality vs
+  subset) as the crux and couldn't resolve it in prep. qa read it: totals + DAG-strip are
+  EQUALITY, per-asset blob is SUBSET → any new asset key OR `@asset_check` ripples the site.
+  But I MISSED the bigger containment falsifier: the raw layer is FIVE separate SDAs, so an
+  "endpoint partition" is NOT a contained tweak — it collapses 5→1 (`raw_swapi`), drops asset
+  count 13→9, rewrites WORKSHOP Layer-1, changes `star_wars_db`'s signature. I banked the
+  5-table shape (Working knowledge) yet didn't carry it into the ripple analysis.
+- Prep differently: before calling ANY structural change "pipeline-only / contained," trace the
+  actual asset-GRAPH shape the change would rewrite — not just the count delta. A partition over
+  a key that spans N separate assets is an N→1 collapse, and a collapse is never contained.
+  The containment question is upstream of the site-ripple question.
 
 ## Banked: 8-bit character faces (2026-07-21, "The Resolving Mark")
 
@@ -195,6 +243,32 @@ Obi-Wan). Guard: `tests/test_site_faces.py` + a runtime face-drift check.
   palette-clean, spoiler-pinned) transferred whole from alias governance — reuse the shape,
   don't re-derive it. Scatter (`:1227`) + birth strip (`:1385`) stayed dots (held out of v1);
   any future mark that gains a face inherits this same registry test.
+
+## Banked: dagster-duckdb migration → NON-adopt (2026-07-21, compacted)
+
+Outcome (A): do NOT migrate; document the deliberate why-not + guard it. Substance is now
+Settled (above); durable API facts live in skill `panel-data-engineer-dagster-duckdb-api`.
+
+- My API research was DECISIVE and killed three options: IO-manager (one-table-per-asset
+  can't emit the 5 raw tables → graph decomposition), (C) subclass (re-hand-rolls the
+  deleted `read_only` line), and ultimately my own (B). The highest-value hour was reading
+  `get_connection()` source and finding the hardcoded `read_only=False` — bring the code,
+  not the docs, to a "should we adopt X" panel.
+- My conditional-(B) two-instance `DuckDBResource` LOST to (A) on two grounds I under-weighted:
+  guard-honesty (moving the lock from a DuckDB-enforced, source-tested literal into Definitions
+  wiring is best-case idiomatic-but-INVISIBLE on the 90-sec scan, worst-case enforcement
+  theater) and the unverified `access_mode` vs hardcoded-kwarg conflict I flagged but couldn't
+  resolve offline. hiring-manager's "rarer signal beats common signal" and qa's "a behavioral
+  'write raises' test, never a binding-introspection substitute" both cut against (B).
+- Pattern (fourth panel running): a MIGRATION is not the only senior move — a documented,
+  guarded NON-adoption ("when not to adopt an idiom") can be the stronger signal AND the
+  lower-risk one, because it doesn't depend on unverified API behavior. Before proposing any
+  "modernize to the framework idiom" form, ask: does the idiom PRESERVE the tested invariant,
+  or relocate it somewhere the guard can't see? If it relocates, the churn rarely pays.
+- Prep differently: when a proposal hinges on an UNVERIFIED runtime behavior (does
+  `access_mode:read_only` fight the hardcoded kwarg?), that gap is not a footnote — it is the
+  crux; either resolve it in prep (pin the duckdb version, run it) or lead the debate by
+  conceding the form is contingent on it. I carried the lean into DEBATE with the gap open.
 
 ## Working knowledge
 

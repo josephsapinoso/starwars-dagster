@@ -3,12 +3,15 @@ Schedules
 =========
 Key Dagster concept — Schedules:
   A schedule runs a job (a selection of assets) on a cron expression.
-  This simulates "streaming" by pulling fresh data from the SWAPI on a cadence.
 
-  In a real pipeline, the API would return new records each run.
-  For SWAPI (static data), this demonstrates the pattern: you'd swap in
-  a live API (e.g., a sports score API, financial data feed) and the
-  schedule logic stays identical.
+  What this demonstrates: cron-driven orchestration of the whole graph.
+  What it deliberately does NOT do: SWAPI is a static snapshot, so each run
+  re-pulls the same records and rebuilds the warehouse from scratch — a full
+  refresh, not an incremental or streaming load, and not change capture (see
+  "Full refresh, no history" under "Limits, by design" in the README). Point
+  the same schedule at a live, changing source and the orchestration is
+  identical; the incremental/merge logic a changing source would need is
+  honestly absent here, because this source never changes.
 """
 
 from dagster import (
@@ -29,7 +32,7 @@ daily_refresh_schedule = ScheduleDefinition(
     name="daily_star_wars_refresh",
     job=full_pipeline_job,
     cron_schedule="0 6 * * *",   # 6:00 AM every day
-    description="Pull fresh Star Wars data daily and rebuild the report",
+    description="Re-pull SWAPI and rebuild the report daily (full refresh; the snapshot is static)",
 )
 
 # ── Bonus: a manual-trigger-only job for just the analytics layer ─────────────
