@@ -28,17 +28,21 @@ true_checks = {
 }
 ```
 
-Expected today (post commit 1f3cf9e, 2026-07-19): 11 assets (raw_* ×5 →
-star_wars_db → 4 transforms → galaxy_report); 15 checks, split 4 blocking /
-11 warn. The two newest WARN checks are the birth-registry pair on
-`character_stats`: `character_stats_birth_year_baseline` (drift: undated count +
-oldest BBY vs known_facts) and `character_stats_birth_year_parse_honesty`
-(data-independent: parsed NULLs == raw `'unknown'` strings, reaching the
-warehouse via `additional_ins={"star_wars_db": ...}`, read_only connect —
-asserted green UNGATED in pytest because it must hold on synthetics too).
+Expected today (post the akabab second source, 2026-07-20): 13 assets
+(raw_* ×5 + raw_character_profiles → star_wars_db → 5 transforms →
+galaxy_report; character_biographies takes both star_wars_db AND
+raw_character_profiles); 20 checks, split 6 blocking / 14 warn. The newest
+checks are the akabab batch on `raw_character_profiles`/`character_biographies`
+(shape + one-row-per-character grain blocking; count / join-coverage /
+deaths-on-file WARN). A good data-independent example remains the birth-registry
+pair on `character_stats`: `character_stats_birth_year_baseline` (drift: undated
+count + oldest BBY vs known_facts) and `character_stats_birth_year_parse_honesty`
+(parsed NULLs == raw `'unknown'` strings, reaching the warehouse via
+`additional_ins={"star_wars_db": ...}`, read_only connect — asserted green
+UNGATED in pytest because it must hold on synthetics too).
 If these counts drift, re-introspect — never patch by hand, and never COUNT BY
 GREP: checks.py's module docstring mentions `@asset_check` and `blocking=True`,
-so grep reads 16/5 when the truth is 15/4. Count ripples touch the WORDS
+so grep reads 21/7 when the truth is 20/6. Count ripples touch the WORDS
 number-word list, beat-7 callback totals, README, CLAUDE.md, and WORKSHOP.md
 (kept count-free per the 2026-07-19 law: teaching prose states counts
 count-free unless the count is the lesson) — same commit.
