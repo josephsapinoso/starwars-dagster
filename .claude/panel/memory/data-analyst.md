@@ -271,6 +271,48 @@ the ux/graphic perceptual lane and resolved by the single-fill + subset-only des
 flagging the limit, not guessing it, was right. Technique banked:
 `.claude/skills/panel-data-analyst-encoding-derivability/`.
 
+## Prep notes: production-pattern SCD2/partition on a static source (2026-07-21)
+
+Verified in-repo: `snapshot_fixtures.py` writes ONE `fetched_at` per source into
+SNAPSHOT.json (a single marker timestamp, NOT per-record, NOT an accumulating series);
+SWAPI fixtures are a frozen 6-film snapshot (82/6/60/36/37). Real keys in the data:
+`episode_id` {1..6}, the 5 endpoints, homeworld. NO time/date key exists in the source.
+"Limits, by design" documents each absence WITH its forcing-trigger (README L128-146).
+
+**Analyst lane conclusions (I own claims/denominators/nulls, not the should-we call):**
+- An SCD2/change-history table on a source that never mutates a record produces exactly
+  ZERO change events across N snapshots: one version per entity, valid_from = first run,
+  valid_to = null, forever. It is HONEST **iff its only claim is** "0 changes observed
+  across N snapshots" with **N as the disclosed denominator** — the zero IS the story
+  (same shape as "23 of 82 lack mass"; "0 of N snapshots changed"). A table LABELED
+  "change history" that silently carries zero history rows is dishonest-by-implication:
+  it implies CDC that fires — a capability the data never exercises. The tell is a guard
+  that can only COUNT versions but never sees a second one (cf. the faces "guard can only
+  count sprites" tell). So: it must SAY 0, and a check must ASSERT 0.
+- **Simulated delta**: may exercise the merge's change-branch ONLY inside a labeled TEST
+  (data-independent invariant: given a synthetic changed record, merge emits a correct new
+  version with right valid_from/valid_to). It must NEVER contaminate a real snapshot count
+  or any displayed number. If demonstration change surfaces anywhere, label =
+  "demonstration/synthetic" — identical discipline to akabab's declared synthetic period
+  and the frozen-baseline law (survey/synthetic numbers never become displayed numbers).
+- **Two-guard shape = my 7-1 failure-mode-separation law, reused**: "nothing changed"
+  (drift baseline: 0 versions across frozen fixtures) and "the merge CAN detect change"
+  (mechanism invariant on a synthetic delta) MUST fail differently. Same two-guard skeleton
+  as a parsed number.
+- **StaticPartition over `episode_id` = denominator trap.** People↔film is many-to-many
+  (a char in 4 films lands in 4 partitions), so per-partition row counts DON'T sum to 82 —
+  a cross-foot hazard, and no NEW number (film_character_counts already exists; it just
+  reshuffles the same 82 rows). The disjoint honest partition is the 5 endpoints
+  (independent, reprocess-one is real, no fan-out). Any partitioned count that reaches the
+  site must still cross-foot to 82 or disclose why it can't.
+- **v1 scope**: pipeline-only ⇒ no DATA.provenance/blob change, no drift-detector entry.
+  The moment it surfaces ONE number, full law applies (derivable, denominator on-chart,
+  guard same commit, count-ripple). Recommend v1 pipeline-only.
+
+Can't verify offline: whether the executor lock / read_only pin survives a merge asset
+(engineer's lane — a MERGE is read-write, should stay in_process, likely holds). Skill:
+`.claude/skills/panel-data-analyst-static-source-cdc-honesty/`.
+
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 
 - Lead with grain-correctness, not diagrams; keep losing options specified to

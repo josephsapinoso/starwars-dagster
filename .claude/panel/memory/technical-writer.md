@@ -219,6 +219,54 @@
   cheapest honest FRAMING" before mapping the expensive fix — the answer here was a 3-edit
   why-not, and I nearly over-invested in migration-edit choreography.
 
+## Prep notes: production pattern (partitions/SCD) — 2026-07-21
+
+- **"Limits, by design" is a LADDER, not a single omission.** README:124–144. Five
+  honest ceilings, each shaped limit→why-fine-now→forcing-trigger. TWO bullets are
+  directly reopened: #1 "Full refresh, no history" (:128 — names "no incremental merge,
+  no SCD, no change history") and #3 "No partitions" (:135). Shipping a real
+  partition/SCD makes BOTH read as contradicted-by-code unless rewritten SAME commit.
+- **The honest-form conversion (my proposed copy law):** a deliberate-absence bullet
+  becomes a demonstrated-once bullet ONLY if the new sentence stays literally true about
+  the DATA. "No partitions" → "Partitioned by film to demonstrate backfill/reprocess
+  mechanics; the rest stays full-refresh because the snapshot is static — a growing or
+  date-stamped source forces partitioning across the board." Still a LIMIT (names the
+  remaining ceiling), now with a proof point. If the only truthful sentence would claim
+  production-scale the 82-row snapshot doesn't warrant, the bullet turns dishonest — that
+  is the veto signal, and it aligns exactly with the #2 why-not bar (machinery must
+  out-signal the honest limit, not cargo-cult it).
+- **Does it violate the just-banked why-not?** No, IF framed as ladder-conversion, not
+  erasure. The why-not principle guards "silent status quo" and cargo-cult adoption. A
+  demonstrated pattern that KEEPS its honest ceiling sentence is neither — it's "here's
+  the pattern AND here's where I stopped and why," which is a STRONGER senior signal than
+  either bare absence or contrived scale. But option (b) SCD on a never-changing source
+  needs my "on file"/honesty-vocab discipline: a history table that never changes MUST
+  say so in copy (a guard-simulated delta is not real history) — else it's fake honesty.
+- **WORKSHOP Module 10 collision (docs-as-guard-surface):** Module 10 ALREADY teaches
+  partitions as an ASPIRATIONAL "Going Further" snippet (:674–691, `StaticPartitionsDefinition`
+  over episodes) AND says "This unlocks incremental processing." Shipping a partition
+  pre-solves the reader's own next step — the snippet must move from "here's how you'd add
+  it" to either (i) "the pipeline now does this — see `<asset>`; go further by X" or (ii)
+  a re-pointed extension. Also the sensor snippet (:657) and the "Why NOT" sections stay.
+  A shipped SCD/partition likely wants its OWN new teaching module or a promoted Module 10
+  subsection, NOT left as speculative sample code the repo now contradicts.
+- **Count ripple IF asset/check counts change (my skill's surfaces):** README headline
+  (:48), ASCII diagram (:42–46 — a new group/stage must be DRAWN), group table (:52–54),
+  exact-value-tests list (:79), tree comments (:157/:160), Stack list; WORKSHOP enumerating
+  sentences (:299/:338) + any fully-quoted resources/defs dict + every Exercise (grep for
+  pre-solve); site provenance totals triple (~:413) + WORDS array (~:863, needs the new
+  spelled count or beat-7 renders "undefined") + test_site_provenance totals/per-asset pins;
+  screenshots retaken AFTER ripple lands. Ground truth now: 13 assets / 5 transforms / 20
+  checks (post-akabab). A pipeline-only v1 that does NOT enter the site provenance blob
+  avoids the WORDS/totals/screenshot ripple — recommend v1 stays pipeline-only (README +
+  WORKSHOP + CLAUDE.md counts only), keeping the site blob untouched.
+- **Recommend v1 scope:** pipeline-only, no site/provenance surface — matches the "second
+  source is a card not a beat" precedent (surface deferral until a panel rules). Keeps my
+  blast radius to README Limits (2 bullets) + WORKSHOP Module 10 + counts, not the site.
+- Can't verify: whether a partitioned/merge asset holds under the in_process/single-writer
+  lock (code roles own that — #5); whether checks.py gains blocking vs warn checks (changes
+  the 4/16 split, a count surface); the actual asset/check delta until the code shape is set.
+
 ## Open watch items (mine)
 
 - Akabab PIPELINE landing shipped (13/5/20; README diagram/table/tree + Stack gloss).

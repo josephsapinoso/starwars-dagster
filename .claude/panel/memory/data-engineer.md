@@ -183,6 +183,80 @@
   applied to art: tiny, curated, roster-anchored, bidirectionally guarded — the survivable
   form of a hand-authored second source.
 
+## Prep notes: production pattern (partitions / MERGE / SCD2) — 2026-07-21
+
+Question: which of partitions / incremental-MERGE / SCD2 is HONEST on this static
+6-film snapshot, and how it hits the pinned lock/executor/read_only architecture.
+
+Verified from source (this prep):
+- Raw assets each `resource.fetch(endpoint) -> list[dict]`, whole-endpoint pull; no
+  per-record time or partition dimension anywhere in the data. `star_wars_db` loads all
+  5 tables all-or-nothing in ONE read-write asset (DROP+CREATE per table).
+- `episode_id ∈ {1..6}` is the only real static key with cardinality; endpoints (5) is the
+  other. NO time/date column exists in any source record.
+- `daily_refresh_schedule` (cron `0 6 * * *`) re-pulls ALL endpoints; docstring already
+  states the why-not honestly: "SWAPI is static … this demonstrates the pattern; swap in a
+  live API and the schedule logic stays identical." Same why-not-with-forcing-trigger shape
+  as the dagster-duckdb bank.
+- Real drift DOES exist across snapshot REFRESHES: SNAPSHOT.json carries `fetched_at`; the
+  snapshot workflow re-freezes periodically; three akabab surveys disagreed 87/88. The
+  warehouse is EPHEMERAL (rebuilt per run) — no cross-run persistence; any "history" must be
+  seeded from committed dated fixtures.
+
+Worked verdicts:
+- (a-time) **DailyPartitionsDefinition = DISHONEST, reject outright.** No time axis in source;
+  it would partition identical snapshots by run-date = the faked-time cargo-cult the honesty
+  signal guards against.
+- (a-key) **StaticPartitionsDefinition over `episode_id` = honest but CONTRIVED/near-hollow.**
+  Real key, real backfill semantics, no faked time — but whole-endpoint fetch + all-or-nothing
+  `star_wars_db` mean a per-episode partition just does `WHERE episode_id=` on 1 row. 6
+  partitions of 1 row buys nothing operationally; reviewer sees you know the API AND that it's
+  decoration. Endpoint-as-key is worse: collapses 5 named raw assets into 1 → wrecks the
+  lineage graph + provenance/DAG-strip contract. Reject endpoint; episode_id only marginally
+  defensible.
+- (b) **Snapshot-diff / SCD2 is the MOST honest form — IF hooked to the REAL forcing trigger.**
+  Not the daily cron (that produces zero deltas → hollow). The honest hook is the SNAPSHOT
+  WORKFLOW: successive dated fixture snapshots genuinely differ (upstream drift is real +
+  observed). An as-of dimension built by MERGE over two date-stamped snapshots, detecting
+  change between refreshes, answers a question the repo ACTUALLY has. Honesty requirement: the
+  table/copy must STATE that the current snapshot pair shows N changes (likely small/zero for
+  SWAPI) — a history table that never changes must say so; the demo is capability-on-real-
+  cadence, never a claim of live churn.
+
+Architecture interaction (all three):
+- A MERGE/SCD2 asset is a WRITER → fits existing declared-writer discipline (open read-write,
+  the accumulating table is NOT in `EXPECTED_DB_TABLES`=5, doesn't grow `tables_populated`).
+  Would be declared writer #4/#5.
+- **in_process_executor is a POINT IN FAVOR, not a conflict:** partition BACKFILLS under
+  in_process run partitions SEQUENTIALLY → single-writer file lock holds. A multiprocess
+  executor backfilling in parallel WOULD race the lock — exactly why in_process is pinned. So
+  the pattern is compatible; DO NOT switch executors to "parallelize the backfill." read_only
+  readers unchanged.
+- **SCD2 BREAKS the write-back parity invariant** (`test_written_back...match_returned_frames`):
+  an accumulating MERGE table ≠ the df returned that run. So a MERGE writer must be EXCLUDED
+  from the parity loop with a pinned reason and get its OWN guard class: feed two synthetic
+  snapshots with one changed record, assert the old version's `valid_to` closes and a new
+  version row opens (data-independent correctness), plus a WARN drift note on real deltas.
+  This is the failure-mode-separation shape applied to CDC.
+
+Ripple:
+- Recommend v1 = PIPELINE-ONLY, cited by no site claim (my Settled: no asset added to make a
+  diagram truthful; uncited assets leave the provenance map). BUT: still ripples asset/check
+  COUNTS (README/CLAUDE.md/WORKSHOP/site "11 assets / 4 transforms / 15 checks" +1).
+- CANNOT-VERIFY (crux for site scope): is the DAG-strip chip pin EQUALITY (chips == all real
+  defs) or SUBSET? Akabab bank recorded "a guard asserts chips == real defs." If equality, ANY
+  new asset forces the strip to render it → a "pipeline-only" asset is NOT site-free. Must read
+  the actual pin before DEBATE.
+- REOPENS README "Limits, by design" (~L128-146, unread) — technical-writer owns it. The
+  forcing-trigger framing must change from "a consumer asking what-changed WOULD force
+  incremental" to "we diff successive snapshots BECAUSE the source drifts across refreshes."
+
+Lean into DEBATE: reject DailyPartitions (dishonest); episode_id StaticPartitions is honest-
+but-hollow; the only form that clears the #2 bar (machinery must out-signal the documented
+limit) is snapshot-diff/SCD2 GROUNDED IN the existing snapshot workflow's real drift, framed
+as capability-on-real-cadence with the delta count stated. Absent that grounding, the
+documented limit still wins — bolting SCD2 onto the daily-cron cadence is the cargo-cult.
+
 ## Banked: 8-bit character faces (2026-07-21, "The Resolving Mark")
 
 Verdict: all-82 faces vetoed unanimously on four grounds. Shipped: 82 uniform saber-blue

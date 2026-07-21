@@ -81,6 +81,32 @@ migration doesn't happen. The reusable technique:
 So the blast-radius grep pays off BOTH ways: even arguing against the change, it locates
 the coherence gap the why-not must name and forward-point to.
 
+## Demonstrated-limit corollary (production-pattern panel, 2026-07-21)
+
+When a panel proposes SHIPPING the very pattern a "Limits, by design"-style honesty
+section documents as a deliberate absence, the docs cost is a genre test, not just a
+ripple:
+
+1. **A limits section is a LADDER of honest ceilings, not a single omission.** Shipping
+   ONE pattern does not erase the frame — it CONVERTS one bullet from "absent
+   (deliberate)" to "demonstrated once; here's where it still stops and why." The bullet
+   stays a limit statement, now carrying a proof point.
+2. **The truth test on the converted sentence is the veto signal.** Write the new bullet.
+   If it stays literally true about the DATA ("partitioned by film to show backfill
+   mechanics; the rest stays full-refresh because the snapshot is static"), the pattern is
+   honest to ship. If the only sentence that fits would claim production-scale the data
+   doesn't warrant, the pattern is cargo-cult and the honest limit out-signals it — block
+   or shrink it. This is the same bar as the tooling why-not: machinery must beat the
+   documented limit, not decorate it.
+3. **Fake honesty is its own veto.** A demonstrated SCD/history table on a source that
+   never changes MUST say in copy that it never changes (a guard-simulated delta is not
+   real history). Do not let a "look, change-data-capture" surface imply live change it
+   doesn't have — same discipline as "on file" vocabulary.
+4. **The tutorial may already teach the pattern aspirationally.** A "Going Further" module
+   that shows the pattern as the reader's NEXT step gets pre-solved by shipping it — move
+   the snippet from "here's how you'd add it" to "the pipeline now does this; go further
+   by X," in the same commit. Grep the tutorial for the pattern's nouns first.
+
 ## Companion rule (banked law, lives in checks.py docstring)
 
 Check descriptions state the INVARIANT and its STAKES; run metadata carries

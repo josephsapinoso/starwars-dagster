@@ -78,41 +78,28 @@
   + live site link → one architecture visual → one testing-philosophy paragraph →
   decides whether to open the site or the code.
 
-## Banked: 2026-07-17/18 rounds (pipeline reveal, transform, cleanup — compacted)
+## Banked lessons (2026-07-17→20 rounds — compacted; outcomes live in Settled)
 
-Verdicts: `2026-07-18-pipeline-reveal.md`, `-per-character-transform-landed.md`,
-`-post-landing-cleanup.md` (won every cleanup axis; commits `c0b97e0`, `2aa845e`).
-Durable lessons (outcomes live in Settled):
-- Verify a brief's claimed lineage before pitching on it; primary verification
-  (execute code claims, grep `FROM` vs real `CREATE TABLE`) converts opinion to evidence.
+Verdicts in `.claude/panel/decisions/` (pipeline-reveal, per-character-transform,
+post-landing-cleanup, birth-registry, akabab-second-source, akabab-site-surfacing).
+Durable, reusable lessons:
+- **Primary verification converts opinion to evidence** — execute code claims, grep `FROM`
+  vs real `CREATE TABLE`, read framework source. Do it before pitching on a brief's claim.
 - 2026 loops screen judgment over AI output; "judgment made visible" is the pitch frame;
   first-impression defects beat feature arguments. **Truth-then-tell:** commit 1 makes a
-  false public claim TRUE (message names the defect); commit 2 tells the story. Never interleave.
-- Coverage-theater veto held 3× and became the best interview narrative; state the signal
-  requirement, let story roles place it, but bring concrete badge/wording proposals. Repo-root
-  hygiene scan every round (a stray bootstrap once reintroduced the "self-study" framing).
-
-## Banked: birth registry + akabab rounds (2026-07-19/20 — compacted)
-
-Verdicts: `2026-07-19-birth-registry-and-polish.md`, `2026-07-20-akabab-second-source.md`.
-Outcomes live in Settled; durable lessons only:
-- **Parse-honesty won 7-1** → Failure-mode separation law. Frame ("drift vs breakage") to
-  reuse whenever a single check is proposed over a parse or a join (it recurred as alias
-  governance: coverage WARN = data moved; ungated injectivity/load-bearing pytest = bridge
-  rotted; "one pytest, not a sixth check" beat a new check, aligned with qa's five-ceiling).
-- **Limits bullets** shipped near-verbatim: I own bullet CONTENT (interview-probe framing),
-  tech-writer owns placement — their honesty-genre-continuity argument beat mine.
-- **Naming can encode an invariant cheaper than a runtime check** (`died_year_aby` + pytest,
-  no sign-convention check). Prefer it when available.
-- **Truth-then-tell held under pressure**: registry commit came first, message names the
-  mid-implementation defect its own guards caught — commit history showing guards catch a
-  real defect DURING development beats any prose claim.
-- **Ceded rightly**: section title + "deaths on file" vocabulary to story/lore roles — I own
-  whether copy reads honest, not what it says.
-- **Would prep differently**: never carry transcribed counts as facts (three surveys
-  disagreed 87/88, died 47/28) — state per-source numbers "unverified, demand script
-  derivation at freeze". Pre-draft check-description wording (subject-only, number/name-free)
-  since that spoiler-rail constraint interacts with my guard-honesty law.
+  false public claim TRUE (message names the defect); commit 2 tells the story — never
+  interleave. Held under pressure (registry commit's message named the defect its guards caught).
+- Coverage-theater veto held 3×; became the best interview narrative. State the signal
+  requirement, let story roles place it, bring concrete badge/wording proposals. Repo-root
+  hygiene scan every round (a stray bootstrap once reintroduced "self-study" framing).
+- **Parse-honesty won 7-1** → Failure-mode separation law; reuse "drift vs breakage" frame
+  whenever ONE check is proposed over a parse or join. **Naming can encode an invariant
+  cheaper than a check** (`died_year_aby` + pytest). "Reads as churn without cause" frame
+  beats feature adds that don't touch the core grain (held for the 9th beat).
+- **I own whether copy reads honest, not what it says** — ceded section titles / "deaths on
+  file" vocabulary to story-lore; own bullet CONTENT (interview-probe framing), tech-writer
+  owns placement. **Never carry transcribed counts as facts** — state per-source, "unverified,
+  demand script derivation at freeze". Executable-SQL / count-ripple laws are non-negotiable.
 
 ## Settled additions (2026-07-20, akabab panel — do not relitigate)
 
@@ -142,6 +129,43 @@ Outcomes live in Settled; durable lessons only:
   "modernize" without a panel.
 
 Cannot verify (standing): off-platform artifact link preview.
+
+## Prep notes: production pattern (partition/SCD) vs "Limits, by design" (2026-07-21)
+
+Knew: "Limits, by design" (README L124-144) is settled honest copy — each bullet is
+limit → why-fine-now → forcing trigger, incl. "Full refresh, no history" and "No
+partitions." The #2 why-not principle (don't trade a rare signal for table stakes).
+
+Learned (crux — the ASYMMETRY that separates this from #2): in the dagster-duckdb case
+the strong signal (the tested `read_only` single-writer contract) was ALREADY REAL in
+the code; the why-not merely declined a DIFFERENT idiom. Here, "no history / no
+partitions" documents patterns that appear NOWHERE in the repo — the why-not EXCUSES an
+absent capability rather than PROTECTING a demonstrated one. That is materially weaker:
+a reviewer probing rec #3's "can you actually build incremental/SCD/partitions?" finds
+prose, not proof. A why-not naming a mechanism you've never shown < a why-not for a
+mechanism the repo proves elsewhere. So the #2 principle does NOT automatically save the
+limit here; the two why-nots are different species.
+- schedules.py: `daily_refresh_schedule` re-pulls ALL endpoints; docstring already says
+  "swap in a live API, schedule logic stays identical" — the cadence is real, the
+  incremental payoff is asserted but never demonstrated. Latent probe: "you run daily but
+  full-refresh a static snapshot — so what does the schedule prove?"
+- Real keys that EXIST: `episode_id` (6 films), the 5 endpoints, homeworld. NO time/date
+  key in source — a time-partitioned incremental would be FAKED (the cargo-cult tell).
+- Contrivance ranking: (a) static partitions over `episode_id`/endpoint = least dishonest
+  (real key, honest backfill/reprocess semantics, no faked change) but tiny; (b) daily-
+  snapshot SCD2/MERGE = stronger senior pattern BUT "hollow if never changes" — needs a
+  simulated delta, the exact tell the honesty signal guards against.
+- Leaning: the honest limit out-signals bolt-on machinery ONLY if we keep excusing an
+  absence; the sharper move is ONE genuinely non-contrived demonstration over a REAL key
+  (lean (a) episode_id partitions) + guard (partition/backfill test) in the same commit,
+  with "Limits" REWRITTEN to "partitioning demonstrated over episode_id; time-partitioned
+  incremental still absent because the source is static." Keep pipeline-only for v1 (no
+  site/provenance touch); asset/check counts ripple (count-ripple law, tech-writer owns).
+  Verdict is NOT a default yes and NOT a default no — it turns on whether the chosen form
+  is non-contrived AND the copy stays honest about what is/ISN'T demonstrated.
+
+Can't verify: whether a per-film/per-endpoint reprocess serves any real analytics
+consumer (if not, (a) is still decoration); the final asset/check count delta (freeze).
 
 ## Banked: akabab site surfacing (2026-07-20 — compacted)
 

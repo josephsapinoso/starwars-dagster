@@ -20,6 +20,25 @@ If the hand-rolled code encodes a *tested* invariant the idiom **cannot express*
 migrating is usually NET-NEGATIVE for the portfolio: you delete the stronger signal to
 gain the weaker one.
 
+## Step 0 — Classify the why-not: PROTECTS vs EXCUSES (decides how strong it is)
+Two why-nots look identical in prose but differ in signal strength:
+- **Protecting** why-not: declines an idiom to preserve a capability the repo ALREADY
+  demonstrates and tests (e.g. hand-rolled `read_only` contract). Strong — the repo
+  proves capability; the why-not adds judgment on top.
+- **Excusing** why-not: documents the absence of a pattern that appears NOWHERE in the
+  repo (e.g. "no partitions / no SCD" when no partitioned or incremental asset exists).
+  Weak — to a reviewer probing "can you actually build this?", it reads as "talks about
+  it, hasn't shown it." Naming the mechanism and its forcing-trigger is honest but is not
+  proof of capability.
+For a PROTECTING why-not, the documented-limit almost always beats adopting machinery
+(the #2 result). For an EXCUSING why-not, weigh ONE non-contrived, guarded demonstration
+against the prose: if a real key exists to demonstrate over WITHOUT faking data (e.g. a
+static partition over an existing categorical key, not a faked time key), the
+demonstration + honest "still absent for X because Y" copy can out-signal the excuse.
+Reject the demonstration if it requires faking the data's shape (time partitions on a
+static snapshot, an SCD history table that can never change) — that is the cargo-cult the
+honesty signal exists to guard against; keep the excuse and sharpen the copy instead.
+
 ## Step 1 — Verify the idiom's real capability (PRIMARY, non-negotiable)
 Read the framework source, not the brief or the docs summary. Ask: can the native
 abstraction express the exact invariant the hand-rolled code encodes and tests?
