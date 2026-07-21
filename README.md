@@ -153,6 +153,10 @@ in [WORKSHOP Module 10](WORKSHOP.md#14-module-10--going-further).
 software-defined assets, resources, DuckDB SQL transforms, schedules, offline testing, asset
 checks, and re-execution from failure.
 
+For a faster on-ramp, [`learn/ELI5.md`](learn/ELI5.md) is a 10-minute plain-language map of the
+whole build and why it's built this way, and [`learn/flashcards.md`](learn/flashcards.md) (also an
+Anki-importable [`.tsv`](learn/flashcards.tsv)) turns the concepts into active-recall practice.
+
 ## Decision records
 
 Every significant design choice here is logged in
