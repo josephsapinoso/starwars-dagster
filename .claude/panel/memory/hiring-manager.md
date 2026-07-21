@@ -92,94 +92,27 @@ Durable lessons (outcomes live in Settled):
   requirement, let story roles place it, but bring concrete badge/wording proposals. Repo-root
   hygiene scan every round (a stray bootstrap once reintroduced the "self-study" framing).
 
-## Banked: birth registry, coda, hues, limits (2026-07-19)
+## Banked: birth registry + akabab rounds (2026-07-19/20 — compacted)
 
-Verdict: `.claude/panel/decisions/2026-07-19-birth-registry-and-polish.md`. Commits:
-1f3cf9e (registry), 4d92cb7 (coda + hues), 7d96df5 (limits), f170379 (screenshots).
-
-Won:
-- **Parse-honesty argument won 7-1** and is now the Failure-mode separation law (see
-  Settled). The interview framing carried it: "how do you tell drift from breakage?"
-  is now answerable IN the repo — baseline check = data moved, parse-honesty
-  invariant = parser broke; one conflated check lets "39 undated" silently mean "39
-  unparsed" under a glowing badge. This is the repo's newest strong answer; use the
-  failure-mode-separation frame whenever a single check is proposed over a parse.
-- **Q4 Limits bullets shipped nearly verbatim** (five bullets, limit → why-fine-now →
-  forcing trigger, Module 10 linked once) at the tech-writer's placement. Verified in
-  README post-landing: reads as stated ceilings with forcing triggers, not apologies —
-  "what breaks at 10x?" converted from vulnerability to hire signal. Lesson: I own the
-  bullet CONTENT (interview-probe framing); placement is tech-writer ground and their
-  honesty-genre-continuity argument was better than any I had.
-- **13→15 ripple demand landed everywhere**, including a fresh one-retake screenshot
-  set at 15 green checks. The standing screenshot open item closes AGAIN at the new
-  count — retake-after-ripple is now reflex; keep demanding it whenever counts move.
-- **Truth-then-tell sequencing held under pressure**: registry commit came first and
-  its message names the mid-implementation defect the guards caught (DATA.sql.ages
-  referenced a table that didn't exist until character_stats got its write-back — the
-  second verification-driven write-back). The commit history now shows guards catching
-  a real defect DURING the feature's own development — stronger than any prose claim.
-
-Lost/ceded: nothing of mine this round; the analyst's one-check economy lost to the
-position I shared with qa/engineer. The coda digits-pin I backed is law (absence
-pins guard the exemption's premise; pinning wording is theater).
-
-Would prep differently: nothing structural — primary verification (executing parses,
-scanning repo root, reading the actual README tail) keeps converting opinion into
-evidence. Next round, pre-draft the check-description wording too: subject-only,
-number/name-free descriptions were adjudicated via storyteller/qa; that spoiler-rail
-constraint interacts with my guard-honesty law and I should arrive with wording.
-
-Open items I track: (1) watch that future copy never frames write-backs as
-site-serving (framing law); (2) Limits section must stay true — if any bullet's
-forcing trigger fires (e.g., partitions land), the bullet updates in the same commit.
-
-## Banked: akabab second source (2026-07-20)
-
-Verdict: `.claude/panel/decisions/2026-07-20-akabab-second-source.md`. Option C
-ratified unanimously; my prep notes for this round are folded here (superseded).
-
-Won:
-- **Option C** with my exact history argument: Option A's ripple through the pinned
-  "five tables" strings would read as churn without cause; C keeps star_wars_db
-  byte-identical and the write-back still closes a warehouse gap (framing law holds).
-- **Alias governance is the failure-mode-separation law applied to a join**: coverage
-  WARN check = data moved; ungated pytest (injectivity + every-alias-load-bearing) =
-  the bridge itself rotted. My "one pytest, not a sixth check" home won — qa's
-  five-check ceiling and my coverage-theater law pointed the same way. Amendment I
-  accepted: alias-resolution-against-fixtures assertions are dual-snapshot-gated
-  (they depend on payload contents), while injectivity/load-bearing stay ungated.
-- **No sign-convention asset check** — naming (`died_year_aby`) plus pytest suffices;
-  the engineer's column-rename veto delivered the same safety cheaper. Pattern: when
-  a naming convention can encode the invariant, prefer it over a runtime check.
-- **Docs ripple + screenshot retake in the feature commit.** MY CATCH: the brief's
-  ripple list omitted screenshots (README:16 shows 11 assets/15 checks; retake at
-  13/20). Retake-after-ripple is now a written tripwire in the decision log itself.
-- **Q3 fulcrum held via the analyst's symmetry rule** (same principle, her phrasing):
-  the report prints deaths-on-file, so its drift guard ships in the same commit.
-- Interview-signal test passed: the feature answers "how do you join a second,
-  dirtier source without fuzzy matching and account for coverage honestly?" — one
-  why-not-fuzzy sentence lands in docs; WORKSHOP:493's "swap the resource" claim
-  becomes demonstrated, not asserted.
-
-Lost/ceded (both rightly):
-- **Section title**: storyteller's "Affiliations & Apprenticeships" beat the
-  alternatives on the as-filed tiebreak (source field is literally `affiliations`).
-  Copy is story ground; I own whether it reads honest, not what it says.
-- **Vocabulary**: lore's "deaths on file" package beat plain "deceased" — attribution
-  honesty (fan-curated, sequel-inclusive AND canon-incomplete) was my probe, but
-  lore's wording answers it better than my prep framing ("curated fan dataset,
-  effectively frozen") which survives only in the Stack attribution line.
-
-Would prep differently: baselines-by-script (three independent surveys disagreed —
-87/88 records, died 47/28) proves I should never carry transcribed counts into
-debate as facts; next time, state per-source numbers as "unverified, demand script
-derivation at freeze." My prep correctly flagged I couldn't verify the 87.
-
-Watch items: (1) commit 4's message must name the synthetic→real fixture transition;
-fixtures README labels the synthetic period until then. (2) At the surfacing panel:
-re-audit spoiler exposure of the five new check strings, extend spoiler-pin term
-sets if character_biographies joins a beat chain, and hold the Yoda-derivation
-pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count item.
+Verdicts: `2026-07-19-birth-registry-and-polish.md`, `2026-07-20-akabab-second-source.md`.
+Outcomes live in Settled; durable lessons only:
+- **Parse-honesty won 7-1** → Failure-mode separation law. Frame ("drift vs breakage") to
+  reuse whenever a single check is proposed over a parse or a join (it recurred as alias
+  governance: coverage WARN = data moved; ungated injectivity/load-bearing pytest = bridge
+  rotted; "one pytest, not a sixth check" beat a new check, aligned with qa's five-ceiling).
+- **Limits bullets** shipped near-verbatim: I own bullet CONTENT (interview-probe framing),
+  tech-writer owns placement — their honesty-genre-continuity argument beat mine.
+- **Naming can encode an invariant cheaper than a runtime check** (`died_year_aby` + pytest,
+  no sign-convention check). Prefer it when available.
+- **Truth-then-tell held under pressure**: registry commit came first, message names the
+  mid-implementation defect its own guards caught — commit history showing guards catch a
+  real defect DURING development beats any prose claim.
+- **Ceded rightly**: section title + "deaths on file" vocabulary to story/lore roles — I own
+  whether copy reads honest, not what it says.
+- **Would prep differently**: never carry transcribed counts as facts (three surveys
+  disagreed 87/88, died 47/28) — state per-source numbers "unverified, demand script
+  derivation at freeze". Pre-draft check-description wording (subject-only, number/name-free)
+  since that spoiler-rail constraint interacts with my guard-honesty law.
 
 ## Settled additions (2026-07-20, akabab panel — do not relitigate)
 
@@ -197,92 +130,77 @@ pre-veto. (3) Screenshot retake at 13 assets/20 green checks closes the count it
   never canon authority.
 - The site WORDS number-renderer is a guard surface: it grows (with its pytest pin)
   in the same commit as any DATA-rendered count it must spell.
+- **Documented why-not beats invariant-deleting adoption (dagster-duckdb, 2026-07-21):**
+  a documented why-not that names the concrete mechanism beats adopting a framework-native
+  idiom that would delete a tested safety invariant. Framework-native is NOT automatically
+  the stronger portfolio signal. The pipeline keeps raw `duckdb.connect()` deliberately;
+  `DuckDBResource` is not adopted because `get_connection()` hardcodes `read_only=False`,
+  erasing the per-asset read-only single-writer lock. Rationale home: WORKSHOP Module 10
+  (+ Module 2 forward-pointer + transforms.py comment); guarded by a rationale-marker pin
+  in `test_pipeline.py`. A deliberate technology non-adoption is a GUARDABLE artifact
+  (marker pinned in source beside the invariant it protects), not just prose. Do not
+  "modernize" without a panel.
 
 Cannot verify (standing): off-platform artifact link preview.
 
-## Banked: akabab site surfacing (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20 — compacted)
 
-Verdict: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`. Surfacing decided
-unanimously on the big axes; my surfacing prep is folded here (superseded).
-
-Won (my positions carried):
-- **Multi-source join is now legible in a 90-second scan** — exactly my signal argument.
-  It surfaces three ways, no story beat: the two akabab chips join the DAG strip
-  (six raw / five transforms), a `#card-biographies` coverage card lands after
-  `#card-registry`, and the footer renders "Sources: SWAPI · akabab" from
-  `DATA.meta.sources[]`. The strongest banked interview answer stopped being invisible.
-- **No 9th beat — dashboard card only. Unanimous.** My "reads as churn without cause"
-  frame (the Option-C argument reused) held: a beat would break four settled pins
-  (exactly-8 kickers, claims-cover-1..6, drift "1,2,3,4,5,6", L941 "six numbers") to
-  carry aggregate-grade enrichment that never touches census grain. Spine stays
-  byte-stable (BUILDERS.length=8).
-- **Executable SQL kept — non-negotiable held.** One `bios` string in `DATA.sql`
-  returns coverage COUNTS only (never `died_year_aby` values), executed against the
-  warehouse fixture with `FakeAkababResource`. No dashboard chart without an executed
-  query survives another round intact.
-- **Contradiction fixed truth-first** (L320 "four transforms" vs L941 "five") —
-  unconditional, first-impression-defect discipline, independent of the surfacing verdict.
-- **Headline "82 of 82 matched"** — my pick: complete AND pipeline-guarded, one line a
-  reader grasps. Ranked affiliations chart DROPPED (canon-scope trap), which I backed.
-
-Lost/ceded: nothing of mine. The screenshot-retake reflex I always demand did NOT fire
-this round — the DAG screenshot was already at 13/20 from the akabab-second-source
-landing, so the chips it depicts were already present; no retake needed. Noted so I
-don't reflexively demand a retake when the count-bearing visual is already current.
-
-New settled constraints (added to Settled block below where load-bearing): the
-second-source site surface is a dashboard card, never a beat; no ranked faction chart on
-a six-film-scoped site (coverage counts only); a per-card number relies on the DAG strip
-for lineage (no fabricated card-level badge); the DAG chip set is pinned to real Dagster
-keys.
-
-Would prep differently: check whether a count-bearing visual is ALREADY current before
-demanding a retake — the reflex is right but this round it would have been noise. Next
-surfacing-type panel, arrive knowing which screenshots already reflect the pending counts.
+Verdict: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`. My positions carried;
+durable lessons only (settled constraints folded into Settled block):
+- **My signal argument won**: the multi-source join is now legible in a 90-second scan
+  (DAG chips + coverage card + footer sources), no story beat — the strongest banked
+  interview answer stopped being invisible. New settled: second-source surface is a
+  dashboard card never a beat; no ranked faction chart on a six-film-scoped site (coverage
+  counts only); per-card number relies on the DAG strip for lineage (no fabricated
+  card-level badge); DAG chip set pinned to real Dagster keys.
+- **"Reads as churn without cause" frame held again** (no 9th beat — would break four
+  settled pins to carry aggregate-grade enrichment). Reuse this frame against feature
+  additions that don't touch the core grain.
+- **Executable-SQL non-negotiable held** (coverage COUNTS only, executed against fixture);
+  contradiction fixed truth-first; headline "82 of 82 matched" (my pick).
+- **Retake reflex refined**: check whether a count-bearing visual is ALREADY current before
+  demanding a retake — the DAG screenshot already showed 13/20, so no retake was noise.
 
 Cannot verify (standing): off-platform artifact link preview; script-derived fixture
-counts (carried as unverified until freeze).
+counts (unverified until freeze).
 
-## Prep notes: dagster-duckdb migration (2026-07-21)
+## Banked: dagster-duckdb non-adoption (2026-07-21)
 
-Brief: `panel-brief-duckdb.md`. Q1 (migrate at all?) is mine to call.
+Verdict: `.claude/panel/decisions/2026-07-21-dagster-duckdb-decision.md`. Outcome: do NOT
+migrate (Option A) — my position won and my core argument carried the decision. Prep notes
+folded here (superseded). Idiom-vs-discipline skill updated (Step 3 now covers guarding
+the non-adoption with a rationale marker).
 
-Knew going in: the pipeline threads DuckDB as a path string returned by `star_wars_db`
-(`-> str`), reopened per asset; pure readers pass `read_only=True`, writers omit it and
-`CREATE OR REPLACE TABLE` their grain back; a source-introspection pin
-(`test_pipeline.py:193-217`) tests that contract. WORKSHOP L343-380 teaches the
-path-string pattern explicitly ("assets return data (or paths to data)").
+Won (decisive):
+- **My signal argument carried it**: a *tested* single-writer `read_only` reader/writer
+  contract is a RARER, stronger senior signal (shows single-writer-lock/lifecycle
+  awareness few portfolio pipelines demonstrate) than "used the resource" — table stakes,
+  invisible in a 90-second scan. Migrating deletes the strong signal to gain the weak one.
+- **Guard-honesty veto held on (B)**: two same-file `DuckDBResource` instances would move
+  the reader/writer distinction into Definitions wiring — best case idiomatic-but-invisible,
+  worst case enforcement theater (uncertain the hardcoded kwarg even honors config
+  read-only). My "don't trade a proven signal for a common one" frame closed it.
+- **Primary verification was decisive** (data-engineer + qa confirmed): `get_connection()`
+  hardcodes `read_only=False`, no per-connection args, stable 1.7–1.13. The idiom
+  STRUCTURALLY cannot express the invariant — this killed the full migration, the
+  path/config compromise, AND the (C) subclass in one fact. Reading framework source, not
+  the brief, converted opinion to evidence again.
+- **The ding became demonstrated judgment**: documented why-not (WORKSHOP Module 10 beside
+  the Great-Expectations why-not + Module 2→3 forward-pointer + transforms.py comment)
+  answers "why not dagster-duckdb?" — knows the idiom AND has a concrete reason. Same
+  "Limits, by design" / failure-mode-separation shape already banked.
+- **Non-adoption made GUARDABLE** (with qa): rationale-marker pin in test_pipeline.py
+  asserts `"DuckDBResource"` + `"read_only=False"` present in source, so a future
+  "modernize" refactor trips both the safety pin and the marker. Prose alone rots.
 
-Learned (PRIMARY, decisive): **`DuckDBResource.get_connection()` hardcodes
-`read_only=False` and takes no per-connection args** (verified against
-dagster-duckdb `resource.py` source). It has only `database` + `connection_config`.
-So the framework-native idiom STRUCTURALLY CANNOT express per-connection read_only —
-migrating destroys the reader/writer discipline the banked pin tests. Even the "resource
-for path/config only" compromise (Q6) fails: once you call `get_connection()` you lose
-read_only, and using a resource's `database` field while still hand-rolling
-`duckdb.connect(read_only=...)` reads WORSE (a resource you deliberately bypass).
+Lost/ceded: nothing of mine. IO-manager (5 raw tables ≠ 1 table/key, breaks provenance
+pin + site lineage strip) was unanimous OUT; the writer/tech-writer owned the WORKSHOP
+placement and Module 2 coherence-gap fix (their ground, better than my framing).
 
-My verdict (Q1): **NET-NEGATIVE — lean NO on DuckDBResource.** Rationale for the loop:
-- The trade is a RARE senior signal (a *tested* read_only reader/writer contract that
-  shows single-writer-lock awareness — few portfolio pipelines show this) for a
-  TABLE-STAKES one ("used the resource," invisible in a 90-second scan).
-- The path-string ding is real but is an INTERVIEW LANDMINE, not a scan-level defect —
-  and the risk is the reviewer THINKING the author didn't know dagster-duckdb exists.
-- The actual gap is that the repo does not yet ANSWER "why not dagster-duckdb?" The
-  senior move is a **documented why-not**, not capitulation: one line (WORKSHOP Module
-  10, the banked home of tooling why-nots + a `transforms.py` comment) stating "we
-  manage duckdb connections directly because DuckDBResource hardcodes read_only=False
-  and can't express our per-connection reader/writer safety contract on a single-writer
-  file." That converts the ding into a hire signal: knows the idiom AND has a concrete
-  reason. This is the "Limits, by design" / failure-mode pattern already banked.
-- WORKSHOP falsification is a cost, not a benefit: raw `duckdb.connect()` is BETTER
-  from-zero pedagogy (transparent) than IO-manager magic; the tutorial is itself a
-  portfolio asset — don't weaken it to chase idiom.
-- `DuckDBPandasIOManager` (Q2): agree with brief, off the table — `star_wars_db`
-  produces 5 raw tables not 1, so it forces decomposing the asset and reshaping the
-  graph → breaks provenance pin + site lineage strip. Net churn, no signal.
+Would prep differently: nothing structural — arriving with the framework-source fact
+pre-verified let me pre-empt the compromise positions before they were raised. The one
+reflex to keep: when a panelist proposes a partial adoption, check whether the idiom can
+express the invariant AT ALL before debating placement; a structural "cannot" ends the
+branch faster than any signal argument.
 
-Still can't verify: whether the data-engineer/qa panelists will concede read_only is the
-stronger signal, or push a partial DuckDBResource-for-path form regardless (I'll rebut
-with the hardcoded-`read_only=False` fact — it kills the compromise, not just the full
-migration). Off-platform artifact preview (standing).
+Cannot verify (standing): off-platform artifact link preview.

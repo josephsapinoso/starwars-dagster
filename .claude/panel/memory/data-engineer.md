@@ -75,6 +75,16 @@
   TABLE`); `defs.executor is in_process_executor` serializes writes on DuckDB's
   one-writer file lock. Pinned by `test_warehouse_access_policy_is_encoded_in_code`.
   (Closed the 2026-07-18 lock-race finding.)
+- **`dagster-duckdb`'s `DuckDBResource` is DELIBERATELY NOT adopted (2026-07-21 panel):**
+  raw `duckdb.connect()` stays because `get_connection()` hardcodes `read_only=False` (stable
+  1.7–1.13, no per-connection arg), which would erase the per-asset read-only single-writer
+  lock. IO manager is out (one-table-per-asset can't emit `star_wars_db`'s 5 raw tables);
+  a subclass just re-hand-rolls the deleted line. Rationale home is WORKSHOP Module 10
+  (Module 2 forward-pointer + transforms.py comment); `test_warehouse_access_policy...` now
+  also asserts a rationale marker (`"DuckDBResource"`+`"read_only=False"` present in
+  transforms.py source) so a "modernize" refactor trips the guard. No dependency added.
+  Do NOT modernize without a panel. A deliberate non-adoption is a GUARDABLE artifact —
+  pin a stable rationale marker in the source beside the invariant it protects.
 - Absence pins are legitimate guards: an element exempted from a detector by a
   property (number-free, name-free) gets a pin asserting that property; pinning
   wording would be the theater. (QA's ruling, 5–3 — I lost this one; it is law.)
@@ -196,56 +206,31 @@ Obi-Wan). Guard: `tests/test_site_faces.py` + a runtime face-drift check.
   don't re-derive it. Scatter (`:1227`) + birth strip (`:1385`) stayed dots (held out of v1);
   any future mark that gains a face inherits this same registry test.
 
-## Prep notes: dagster-duckdb migration (2026-07-21)
+## Banked: dagster-duckdb migration → NON-adopt (2026-07-21, compacted)
 
-Verified dagster-duckdb API facts (source: dagster master `dagster_duckdb/resource.py`,
-docs, DuckDB access_mode):
-- **`DuckDBResource` fields = exactly `database: str` + `connection_config: dict` (default
-  {}). No `schema` field on the resource.** `get_connection()` is a `@contextmanager`
-  taking **NO parameters** (`self` only). It passes `connection_config` as `config=` to
-  `duckdb.connect()` and **hardcodes `read_only=False`** in that call.
-- **There is NO per-connection `read_only` argument.** The only way to open read-only is
-  resource-level: `connection_config={"access_mode": "read_only"}`. That configures the
-  WHOLE resource instance — every asset bound to it opens the same way. Per-asset
-  reader/writer distinction can only be expressed by **two resource instances** (e.g.
-  `duckdb_ro` / `duckdb_rw`) wired to different assets — the inline flag becomes resource
-  wiring. UNVERIFIED: whether `access_mode: read_only` in config conflicts with the
-  hardcoded `read_only=False` kwarg (duckdb may error on the combination) — must test on
-  the pinned duckdb version before adopting.
-- **`DuckDBPandasIOManager` names the table by the ASSET KEY/name** (schema via
-  `key_prefix`). One asset → one table. It **cannot** make `star_wars_db` produce five
-  differently-named raw tables (films/people/planets/starships/species) from one returned
-  value. Using the IO manager for the raw layer forces decomposing `star_wars_db` into
-  five separate assets — which deletes the `star_wars_db` node, changes the asset graph
-  edges, and blows up `EXPECTED_DB_TABLES`, `star_wars_db_tables_populated`, the
-  provenance-graph test, and the site DAG strip (pinned to real asset keys). **IO manager
-  is out on graph-preservation grounds.**
+Outcome (A): do NOT migrate; document the deliberate why-not + guard it. Substance is now
+Settled (above); durable API facts live in skill `panel-data-engineer-dagster-duckdb-api`.
 
-Entanglement map (what breaks per idiom):
-- **read_only pin** (`test_pipeline.py:189-219`, `test_warehouse_access_policy...`): reads
-  reader/writer SOURCE, asserts readers contain `"read_only=True"`, writers do NOT + contain
-  `CREATE OR REPLACE TABLE`, and `defs.executor is in_process_executor`. `DuckDBResource`
-  removes the `read_only=True` literal → this pin MUST be rewritten (e.g. assert readers
-  bind the RO resource, writers the RW resource). If a single shared resource is used the
-  reader/writer safety contract is LOST entirely.
-- **Provenance graph** (`test_site_provenance.py`) + site DAG strip: preserved IF
-  `star_wars_db` stays one asset and edges stay (deps= edges still register). Value type
-  changes str→None but edges survive. Decomposing raw layer breaks it.
-- **Executed-SQL** (`test_site_sql.py`) + write-back parity: unaffected as long as tables
-  `people/planets/characters_enriched/character_stats/character_biographies` still exist
-  with current names — DuckDBResource keeps explicit SQL, so fine.
-- **WORKSHOP.md:343-380 + :105-108**: teaches `star_wars_db -> str` returning path +
-  `duckdb.connect(path)` with "assets return data (or paths to data)" callout and a DAG
-  edge labeled "DuckDB path". DuckDBResource idiom falsifies all three; must update in
-  lockstop (feature+guard+tutorial same commit).
-
-My read (for DEBATE): smallest sufficient form is `DuckDBResource` for connection/path/
-config management ONLY, keeping explicit SQL. The `read_only` reader/writer discipline is
-a STRONGER seniority signal than "used the resource" and the API can only preserve it via
-two resource instances — net churn may exceed the 90-second-scan payoff. Lean: migrate to
-DuckDBResource for path/config centralization, express RO/RW as two resource instances so
-the safety contract survives as resource wiring, rewrite the pin to assert the binding,
-update WORKSHOP same commit. Full IO-manager decomposition is vetoed.
+- My API research was DECISIVE and killed three options: IO-manager (one-table-per-asset
+  can't emit the 5 raw tables → graph decomposition), (C) subclass (re-hand-rolls the
+  deleted `read_only` line), and ultimately my own (B). The highest-value hour was reading
+  `get_connection()` source and finding the hardcoded `read_only=False` — bring the code,
+  not the docs, to a "should we adopt X" panel.
+- My conditional-(B) two-instance `DuckDBResource` LOST to (A) on two grounds I under-weighted:
+  guard-honesty (moving the lock from a DuckDB-enforced, source-tested literal into Definitions
+  wiring is best-case idiomatic-but-INVISIBLE on the 90-sec scan, worst-case enforcement
+  theater) and the unverified `access_mode` vs hardcoded-kwarg conflict I flagged but couldn't
+  resolve offline. hiring-manager's "rarer signal beats common signal" and qa's "a behavioral
+  'write raises' test, never a binding-introspection substitute" both cut against (B).
+- Pattern (fourth panel running): a MIGRATION is not the only senior move — a documented,
+  guarded NON-adoption ("when not to adopt an idiom") can be the stronger signal AND the
+  lower-risk one, because it doesn't depend on unverified API behavior. Before proposing any
+  "modernize to the framework idiom" form, ask: does the idiom PRESERVE the tested invariant,
+  or relocate it somewhere the guard can't see? If it relocates, the churn rarely pays.
+- Prep differently: when a proposal hinges on an UNVERIFIED runtime behavior (does
+  `access_mode:read_only` fight the hardcoded kwarg?), that gap is not a footnote — it is the
+  crux; either resolve it in prep (pin the duckdb version, run it) or lead the debate by
+  conceding the form is contingent on it. I carried the lean into DEBATE with the gap open.
 
 ## Working knowledge
 

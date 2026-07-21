@@ -43,3 +43,10 @@ official docs, DuckDB `access_mode`. Re-verify against the repo's PINNED version
   source-introspection pin must be rewritten to assert resource BINDING (RO vs RW instance),
   or the safety contract is lost. Weigh churn (rewrite the pin + falsify any tutorial that
   teaches the path-string pattern, same commit) against the 90-second-scan payoff.
+- SHIPPED PRECEDENT (starwars-dagster, 2026-07-21): this panel resolved to NON-adoption.
+  A read-only single-writer lock enforced by DuckDB and pinned by source-introspection is a
+  RARER senior signal than "used the resource"; expressing RO/RW as two same-file resource
+  instances is idiomatic-but-invisible on the scan at best, enforcement theater at worst.
+  The winning move was to keep raw `duckdb.connect()` and DOCUMENT the deliberate why-not
+  (a "when not to adopt an idiom" teaching beat) + pin a rationale marker so a future
+  "modernize" trips the guard. A documented, guarded non-adoption can beat a migration.

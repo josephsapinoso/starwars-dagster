@@ -55,6 +55,32 @@ after the pipeline migrates — it teaches the tool, not the wiring. Map the bla
 radius by line before debate; count the load-bearing mental-model phrase's echoes
 (often it appears once) so you know whether it's a cascade or a single swap.
 
+## Outcome that shipped: the why-NOT, not the migration (dagster-duckdb, 2026-07-21)
+
+The DuckDB migration was BLOCKED by a code fact (`DuckDBResource.get_connection()`
+hardcodes `read_only=False`, erasing the tested single-writer lock), so the panel kept
+the raw code. But the coherence gap the migration would have closed (Module 2 taught
+resources; why is Layer 2 hand-rolling?) is REAL and does not go away just because the
+migration doesn't happen. The reusable technique:
+
+1. **A blocked migration still owes the reader the why-not.** The worst outcome is
+   "silent status quo" — raw code, no note — which reads as ignorance of the idiom
+   rather than a judged choice. Document the non-adoption; it's richer teaching than
+   another how-to ("when NOT to adopt an idiom" > "used the resource").
+2. **Tooling why-nots live in ONE home as tradeoff-both-ways sections.** Here: WORKSHOP
+   Module 10, beside "Why NOT Great Expectations." Name the mechanism, state the cost
+   BOTH directions, and "when it would earn its place." Never a one-sided dismissal.
+3. **Close the coherence gap with a forward-pointer, not a relocated rationale.** The
+   teaching module (Module 2) gets a one-line "see Module 10" note; the rationale stays
+   in its single home. Code comments at the choice site (transforms.py) only POINT.
+4. **Guard the non-adoption.** Pin a stable rationale marker in the source beside the
+   invariant it protects (`"DuckDBResource"` + `"read_only=False"` present in the file),
+   so a future "modernize" refactor trips the pin and must re-read the decision. A
+   deliberate omission is a guardable artifact, not just prose.
+
+So the blast-radius grep pays off BOTH ways: even arguing against the change, it locates
+the coherence gap the why-not must name and forward-point to.
+
 ## Companion rule (banked law, lives in checks.py docstring)
 
 Check descriptions state the INVARIANT and its STAKES; run metadata carries

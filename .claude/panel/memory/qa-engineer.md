@@ -79,6 +79,18 @@
 - Warehouse access policy is encoded in code: pure-read transforms open
   `read_only=True`, every writer is declared, the executor is pinned in-process —
   test_pipeline.py::test_warehouse_access_policy_is_encoded_in_code. (2026-07-19.)
+- The `read_only` per-asset single-writer lock is enforced+source-tested law and
+  `DuckDBResource` CANNOT express it: `get_connection()` hardcodes `read_only=False`
+  with no per-connection override (stable Dagster 1.7–1.13). We keep raw
+  `duckdb.connect()` deliberately; `dagster-duckdb` is NOT a dependency. Do not
+  "modernize" without a panel. (Dagster-duckdb non-migration, 2026-07-21.)
+- A deliberate technology NON-adoption is a guardable artifact, not just prose: pin
+  a stable rationale marker in the source next to the invariant it protects (here
+  `"DuckDBResource"`+`"read_only=False"` asserted present in transforms.py source by
+  test_warehouse_access_policy_is_encoded_in_code), so a future refactor trips BOTH
+  the invariant pin and the marker and must re-read the decision. Rationale home is
+  WORKSHOP Module 10 (beside the "Why NOT Great Expectations" why-not). Kin to the
+  absence-pin law: guard the PROPERTY/choice, not the wording. (2026-07-21.)
 - Quoted-testimony rule: external claims (dialogue, canon) may be audited in copy
   but never rendered as site-derived data; derived numbers come only from DATA.
   WORKSHOP.md is on the count-ripple checklist; teaching prose stays count-free
@@ -175,56 +187,36 @@
   tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
   declared-writers list (THIRD writer) same commit.
 
-## Prep notes: dagster-duckdb migration (2026-07-21)
+## Banked: dagster-duckdb non-migration (2026-07-21)
 
-Verified upstream API (dagster master `dagster_duckdb/resource.py`): `DuckDBResource`
-has ONLY two fields — `database: str`, `connection_config: dict`. `get_connection()`
-HARDCODES `read_only=False`; there is NO read_only field and no per-connection override.
-`connection_config` maps to duckdb's `config={}`, and `read_only` is a top-level
-`duckdb.connect()` arg, not a config key — so you cannot even reach it through config.
+Log: `.claude/panel/decisions/2026-07-21-dagster-duckdb-decision.md`. Outcome (A):
+do NOT migrate. My position largely won.
 
-Consequences for my guards:
-- **read_only pin dies, contract is LOST not relocated** (Q3). The idiom cannot express
-  the reader/writer distinction: every `get_connection()` is read-write. Rewriting
-  `test_warehouse_access_policy_is_encoded_in_code` to look for a different literal is
-  cosmetic — the OS-level many-readers-or-one-writer safety it encodes ceases to exist.
-  Preserving it needs a SUBCLASS overriding `get_connection(read_only=)` (i.e. still
-  hand-rolling the one line the migration set out to delete) or two resources (impossible:
-  read_only is hardcoded). The explicit `read_only` discipline is a STRONGER seniority
-  signal than "used the resource"; trading it away is a net downgrade in exactly the
-  verification dimension I own. My position: if we migrate, the read_only contract must
-  survive in a testable form (custom `get_connection(read_only=...)`) and the pin be
-  rewritten + seen-to-fail same commit — otherwise the migration guts its own value.
-- **Asset-graph edges survive ONLY via explicit `deps=[star_wars_db]`** (Q2). Today the
-  edge is a DATA dep (`star_wars_db: str` param). Under a resource, transforms take
-  `duckdb: DuckDBResource` and lose that param, so each must add `deps=[star_wars_db]` or
-  `star_wars_db` also stops being a parent. GOOD NEWS: the provenance test reads
-  `graph.get(k).parent_keys` (test_site_provenance.py:62, :79-82), and `deps=` populates
-  parent_keys — so a dropped edge FAILS `test_provenance_assets_edges_and_checks_are_real`
-  loudly. Migration cannot silently break lineage; the existing test is the detector.
-  Same for `test_dag_strip_names_every_real_asset` (:242) and totals (:261, group filter
-  `02_transformed` && != star_wars_db) — all read the real graph, all ripple automatically.
-- **DuckDBPandasIOManager does NOT fit** (Q2). One-asset→one-table; `star_wars_db`
-  produces 5 tables. Decomposing into 5 assets reshapes the graph → breaks provenance
-  edges, DAG strip, transforms count. Veto this idiom.
-- **Fixture warehouse still builds the same way** (Q5), with one required edit: every
-  `materialize(...)` (test_pipeline `full_run`:90-95; test_site_sql module `warehouse`
-  fixture) must add the duckdb resource to `resources={}`. A RELATIVE `database=
-  "data/star_wars.duckdb"` still isolates under `isolated_cwd` (monkeypatch.chdir), since
-  it resolves at connect time. Test-side `duckdb.connect(path, read_only=True)` in
-  test_written_back_tables (:116) and test_site_sql are unaffected (they open their own
-  connections). Executor stays in_process → sequential → the 2026-07-18 race does not
-  return even though readers lose read_only (read_only was defense-in-depth, not
-  concurrency-required, given the sequential executor).
+Won: the `read_only` source-introspection pin stays UNCHANGED (Q3 — the contract is
+LOST not relocated under `DuckDBResource`, which hardcodes `read_only=False`). My
+prep-verified fact (no per-connection read_only override, stable 1.7–1.13) was the
+external fact that decided the panel: IO-manager unanimously OUT (5 raw tables can't
+map one-asset→one-table without reshaping the provenance graph), (C) subclass
+unanimously vetoed (re-hand-rolls the deleted line for zero added enforcement). My
+"a deliberate omission CAN be guarded" idea SHIPPED as the marker-pin: the access-
+policy test now also asserts `"DuckDBResource"`+`"read_only=False"` present in
+transforms.py source, so a future "modernize" trips both pins. Both now Settled above.
 
-Smallest sufficient form (Q6): `DuckDBResource` (or thin subclass) for path/connection
-mgmt ONLY, keeping explicit SQL + a `read_only` capability + `deps=` edges; WORKSHOP +
-the rewritten pin land same commit. The IO-manager idiom is out. Net QA read: the idiom
-ding is real but shallow; the read_only discipline is the deeper signal — do not delete a
-guard to satisfy a reviewer's idiom checklist. Cannot verify without implementing: exact
-Dagster version's DuckDBResource behavior in THIS repo's pinned dagster (checked master —
-confirm the pinned version has no read_only field before ruling), and whether a subclass
-trips any "no reinvented storage layer" objection the data-engineer will raise.
+Moot / not needed: my behavioral "write raises" bar for allowing (B) never triggered —
+(B) was rejected (its reader/writer split would move from a DuckDB-enforced source-
+tested lock into Definitions wiring, best-case invisible, worst-case theater; hiring-
+manager's guard-honesty veto). Good: I held the line that a migration must not delete a
+guard to satisfy an idiom checklist, AND I named the acceptable non-detector resolution
+(document the why-not) — that policy alternative is what shipped.
+
+Prep validated: introspection-based provenance tests ripple automatically (deps=
+populates parent_keys), so lineage can't silently break — I confirmed the detector
+already exists rather than proposing a new one. Prep differently: I checked dagster
+MASTER for the API, not this repo's pinned version — flagged it as unverified and it
+happened not to matter (dagster-duckdb isn't even a dep), but pin the ACTUAL installed
+version's source next time before ruling on upstream behavior. Lesson reinforced (3rd
+time): whenever I spec a detector, name the lower-churn policy variant in the same
+breath — here "document the why-not + marker pin" beat "migrate + rewrite the pin."
 
 ## Banked: earlier panels (2026-07-18/19, compacted)
 
@@ -251,51 +243,14 @@ of the same JSON disagreed). Lessons: verify SHAPE not exact counts from live fe
 run my proposed NAMES past vocabulary roles in prep; the pre-veto tripwire (Yoda
 derivation) is a reusable guard genre.
 
-## Banked: akabab site surfacing (2026-07-20)
+## Banked: akabab site surfacing (2026-07-20, compacted)
 
-Decision log: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`.
-
-The whole guard slate shipped as I specced it. The card-not-beat break-map (my
-prep recommendation) was adopted unanimously as D1 — the birth-registry precedent
-held: a dashboard card touches none of the exactly-8-kickers / claims-cover-1..6 /
-drift-beats-string / L941-"six" pins, so the spine stays 100% untouched. The
-checked-vs-uncheckable HONESTY SPLIT is now banked law (D2 + "Checked-vs-uncheckable"
-adjudication): matched 82/82 and deaths-on-file 47/82 are drift-recomputable from
-per-row `bio` AND pinned to known_facts; 75/14/12 (affiliated/masters/apprentices)
-are render-computed copy discipline whose ONLY guard is the drift detector, and the
-card carries NO badge so it never implies a live check on any of them. My Q4 ruling
-(a badge needs a claim entry → no per-card badge; DAG strip is the lineage surface)
-was adopted verbatim.
-
-Won: `FakeAkababResource` in the warehouse fixture the moment akabab SQL ships +
-`bios` in SQL_KEYS + gated compare — the exact character_stats/ages history I flagged
-in prep, taken as plan item 5. My DAG-strip guard proposal became D4 — and here I
-was OVERRULED toward the cheaper option in my own favor: engineer wanted a full
-render from DATA.provenance.assets, I offered "render OR pin the chip-set," Claude
-ruled PIN. Same guarantee (chip set == real Dagster asset keys, can never silently
-contradict totals again), less churn. Totals stay 13/5/20 unanimously; WORDS through
-"twenty" suffices (site-only surfacing adds no Dagster objects). The unconditional
-L320/L941 contradiction fix (six raw / five transforms) landed truth-first.
-
-Lost, correctly / refined: on per-row shape I wanted a flag and engineer wanted
-`diedAby|null`; Claude ruled the boolean `diedOnFile` — MY side, and the sharper
-line: no signed ABY year value ever enters the page (honors signed-year +
-quoted-testimony laws) while deaths-on-file stays presence-derivable. The ranked
-affiliations chart I was neutral on got DROPPED (D5, lore-led) — a new banked
-site law: no ranked faction chart on a six-film site because `affiliations` is
-canon-wide/sequel-inclusive; only saga-safe coverage counts surface. The `bios`
-SQL returns COUNTS not `died_year_aby` values — my "counts, not values" instinct
-became an explicit constraint.
-
-Verbatim-description gap I flagged in prep (the 5 akabab checks' `description=`
-strings, needed for the provenance `why`-verbatim assertion) still resolves only at
-implementation — read checks.py then; D4 confirms the existing real-defs assertion
-validates them, so no new mechanism, just the values.
-
-Prep differently next time: my prep break-map WAS the adjudication skeleton — arriving
-with the exact guard-by-guard ripple map (which pins a card touches vs a beat) is what
-made the card win on the first pass. Keep doing that. One miss: I framed the DAG-strip
-guard as "render OR pin" and Claude picked pin — offering the cheaper alternative
-alongside the detector (the birth-registry lock-race lesson) worked AGAIN, so make it
-standard: whenever I spec a detector, name the lower-churn policy variant and its
-equivalent-guarantee condition in the same breath.
+Log: `.claude/panel/decisions/2026-07-20-akabab-site-surfacing.md`. Durable law is in
+Settled (card-not-beat; checked-vs-uncheckable honesty split; no per-card badge; no
+ranked-affiliations chart; bios SQL returns counts; DAG-strip PIN). Whole slate shipped
+as specced; my prep break-map WAS the adjudication skeleton. Refined on my side: shape
+is boolean `diedOnFile` (no signed ABY value on the page). Overruled cheaper in my
+favor: DAG strip PINned, not full-rendered. Lessons (both now standing habits): arrive
+with the exact guard-by-guard ripple map (which pins a card vs a beat touches); whenever
+I spec a detector, name the lower-churn policy variant + its equivalent-guarantee
+condition in the same breath. The captured skill: panel-qa-engineer-second-source-guards.

@@ -33,12 +33,19 @@ A "didn't use the idiom" flag is almost always an INTERVIEW LANDMINE (reviewer m
 the author didn't know the idiom exists), not a scan-level first-impression defect. Treat
 it accordingly: the fix is making the CHOICE VISIBLE, not capitulating.
 
-## Step 3 — Prefer the documented why-not to migration
+## Step 3 — Prefer the documented why-not to migration, and GUARD it
 The real gap is that the repo doesn't yet ANSWER "why not `<idiom>`?" The senior move:
 one honest sentence in the tooling why-not home (e.g. WORKSHOP "Limits/why-not" section)
 plus a code comment, stating the concrete reason (the invariant the idiom can't express).
 This converts the ding into a hire signal — knows the idiom AND has a reason. Same shape
 as a "Limits, by design" bullet: a stated ceiling with a trigger, never an apology.
+
+A deliberate non-adoption is a GUARDABLE artifact, not just prose (shipped in the
+dagster-duckdb panel). Pin a stable rationale MARKER in the source test beside the
+invariant it protects — assert the idiom name AND the disqualifying mechanism string
+(e.g. `"DuckDBResource"` + `"read_only=False"`) are present in the code comment — so a
+future "modernize" refactor trips both the safety pin and the marker and must re-read the
+decision. Prose alone rots silently; a marker forces the next author back through the why.
 
 ## Step 4 — Count the collateral
 Migration cost includes: rewriting banked tests, falsifying teaching/tutorial assets

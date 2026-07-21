@@ -95,6 +95,19 @@
   ("Affiliations" beat "Allegiances" because the source field is `affiliations`);
   and drafted copy adopted verbatim beats after-the-fact title edits.
   (akabab panel, 2026-07-20.)
+- **Tooling why-nots live in WORKSHOP Module 10 as tradeoff-both-ways sections**
+  (beside "Why NOT Great Expectations"): name the mechanism (`read_only=False`
+  hardcode), state the cost BOTH ways, and "when it would earn its place." A
+  forward-pointer FROM the teaching module (Module 2 → Module 10) resolves a "why
+  isn't the idiom used here?" coherence gap without moving the rationale. The
+  rationale has ONE home; code comments only POINT to it, never restate.
+  (dagster-duckdb panel, 2026-07-21.)
+- **A deliberate technology NON-adoption is a guardable artifact, not just prose:**
+  pin a stable rationale marker in the source (e.g. `"DuckDBResource"` +
+  `"read_only=False"` present in transforms.py) beside the invariant it protects, so
+  a future "modernize" refactor trips both the pin and the marker and must re-read the
+  decision. "Silent adoption-of-the-status-quo" (keeping raw code with no note) is the
+  worst outcome — worse than either migrating or documenting. (dagster-duckdb, 2026-07-21.)
 
 ## Working knowledge
 
@@ -108,7 +121,8 @@
   bullet + WORKSHOP Module 8, anchor `#12-module-8--testing--asset-checks`),
   snapshot rationale (workflow comments + fixtures README), severity discipline
   (checks.py docstring + `description=` strings), tooling why-nots (WORKSHOP
-  Module 10 sole home — verified 2026-07-20 it can carry the weight).
+  Module 10 sole home — now carries TWO: "Why NOT Great Expectations" and "Why NOT
+  DuckDBResource"; both tradeoff-both-ways; transforms.py + Module 2 point in).
 - Site voice anchors (site/index.html): SQL reveal summary "Show the DuckDB SQL";
   two-word beat kickers; lineage-strip heading "The pipeline that made this page".
   galaxy_report house style: topical-noun headings, italic on-page denominators,
@@ -128,106 +142,41 @@
 - Skill: `.claude/skills/panel-technical-writer-count-ripple/SKILL.md` — the
   count-ripple checklist as a reusable procedure, incl. the word-renderer step.
 
-## Banked: pipeline-reveal + post-landing cleanup (2026-07-18, compacted)
+## Banked: pipeline-reveal + birth-registry (2026-07-18/19, compacted)
 
-- Wins promoted to Settled above: single-source rationale, generated labels, README
-  order, WORKSHOP as appendix, description style rule, displayed-SQL-is-executed-SQL.
-- One-home law won Q1 (5–3–1) as an ENGINEERING invariant, not style: a hand-listed
-  roster in a check description was a third home that would make the Dagster UI lie.
-  Argue it as architecture, it adjudicates architecture.
-- Exercise-8 collision precedent: docs are a guard surface — grep WORKSHOP exercises
-  before endorsing any new repo feature; shipped code can pre-solve a tutorial.
-- Superseded claims update or become explicit PAST-tense history (the "How this was
-  built" honesty-arc genre, now two confession beats); copy that encodes a count is
-  a drift surface — name, don't enumerate.
-- Pre-draft copy for the branch you expect to win, gated on the fix: both my Q2
-  drafts shipped near-verbatim and made "same commit" frictionless.
+- Wins now in Settled: single-source rationale, generated labels, README order, WORKSHOP
+  as appendix, description style rule, displayed-SQL-is-executed, Limits placement +
+  Module-10 handoff, WORKSHOP:705 count-free retirement.
+- **One-home law won Q1 (5–3–1) as an ENGINEERING invariant, not style** — a hand-listed
+  roster in a check description was a third home that would make the Dagster UI lie. Argue
+  a docs rule as architecture and it adjudicates architecture (the recurring muscle).
+- **Docs are a guard surface (Exercise-8 collision):** grep WORKSHOP exercises before
+  endorsing any repo feature; shipped code can pre-solve a tutorial. Copy that encodes a
+  count is a drift surface — name, don't enumerate.
+- Writing rules belong where writers can't avoid them (the checks.py docstring rule shaped
+  authors I never briefed). Pre-draft the branch you expect to win, gated on the fix —
+  makes "same commit" frictionless. QA's failure-mode separation shapes my copy: "data
+  moved" and "parser broke" are different sentences with different guards.
 
-## Banked: birth registry + coda + limits (2026-07-19, compacted)
+## Banked: akabab second source + site surfacing (2026-07-20, compacted; decisions
+`2026-07-20-akabab-second-source.md`, `2026-07-20-akabab-site-surfacing.md`)
 
-- Won Q4 whole (Limits placement + Module-10 handoff) on CONTINUITY with the honesty
-  genre; won the WORKSHOP:705 count-free retirement — second live exercise of the
-  docs-as-guard-surface grep.
-- QA's failure-mode separation (7–1) shapes my copy: "the data moved" and "the
-  parser broke" are different sentences, so their guards fail differently.
-- The style rule in checks.py's docstring worked on authors I never briefed — both
-  registry descriptions arrived subject-only. Writing rules belong where writers
-  can't avoid them.
-- When a verdict promotes a doc to sole-home status, immediately re-verify it can
-  carry the weight (done for Module 10, 2026-07-20 — resolved, off the watch list).
-
-## Banked: akabab second source (2026-07-20; decision
-`2026-07-20-akabab-second-source.md`; implementation pending, four commits)
-
-- **Won the WORDS carve-out (with qa), my prep's biggest find:** grep proved NO
-  pytest pin existed on WORDS coverage — only the runtime console.warn. The verdict
-  classifies WORDS growth as totals-pin ripple, not deferred surfacing: it grows
-  through "twenty" in the feature commit with a new pytest pin. Second recurrence of
-  the beat-7 overflow bug; the count-ripple skill earned its keep. Promoted to
-  Settled.
-- **Won the docs argument FOR Option C:** WORKSHOP:338 ("all five raw lists") and
-  the "5 tables loaded" line stay literally TRUE under the transform-join; under
-  Option A they'd both drift. Docs truth adjudicated an architecture question again
-  — same muscle as the one-home law. Option C ratified unanimously.
-- **Won the lineage-collision veto:** no "Lineage" in the section title; the word
-  stays reserved for Dagster lineage. Lore independently proposed the same rename —
-  vocabulary vetoes land easier with a co-sponsor.
-- **Lost the title word, instructively:** my "Allegiances & Apprenticeships" fell to
-  storyteller's "Affiliations & Apprenticeships" on the as-filed tiebreak — the
-  source field is literally `affiliations`, and drafted-copy discipline adopts
-  verbatim. My veto was satisfied either way, but I proposed a synonym where the
-  schema had already chosen the word. Banked as the as-filed naming law.
-- **My README-ripple inventory adopted whole into commit 2:** ASCII architecture
-  diagram gains the second source (a one-source diagram would make the landing page
-  lie), :79 exact-value-tests list, tree comments, Stack attribution ("fan-curated,
-  MIT, effectively frozen; SWAPI-derived — reproduces SWAPI's spellings"),
-  WORKSHOP:299 rewritten count-free. Ripple-inventory prep is now my standard move.
-- **Adopted from others, now mine to enforce in copy:** lore's "on file" vocabulary
-  package; analyst's nested denominators (as copy discipline — qa's five-check
-  ceiling beat per-field baselines); engineer's aliases-bridge-never-mutate framing
-  with lore's canon-direction comments; storyteller's Yoda-derivation pre-veto
-  (folded into my quoted-testimony rule). All promoted to Settled.
-- **Baselines are computed, never transcribed** — three independent surveys of
-  akabab disagreed (87/88 records; died 47/28). Docs corollary: never quote a
-  brief's figures as facts; wait for the frozen fixture, then let the script speak.
-- Prep differently next time: (1) read the source SCHEMA's own field names before
-  proposing any user-facing title — the as-filed word usually wins; (2) when a
-  storyteller announces drafted-copy discipline, propose edits INTO their draft
-  during debate rather than parallel titles after.
-
-## Banked: akabab site surfacing (2026-07-20; decision
-`2026-07-20-akabab-site-surfacing.md`; implementation pending)
-
-- **My whole prep landed, near-verbatim.** The L320/L941 four-vs-five-transforms
-  contradiction I flagged as highest-priority-fix-regardless is fixed unconditionally;
-  my exact rewrite ("five SWAPI pulls and one akabab pull … five transforms") ships.
-  Drafted-copy-gated-on-the-fix discipline paid a fourth time.
-- **README "The website" gains the second-source clause — my one-home ruling held.**
-  The site's own "what the website shows" paragraph was the last single-source holdout
-  (diagram/table/tree already surfaced akabab from the pipeline landing). It now NAMES
-  the site's second-source panel (the `#card-biographies` card) and LINKS to the
-  pipeline akabab — describe the surface here, don't re-explain the join.
-- **Footer + freshness line are projections, not prose — provenance-projection law
-  extended to `DATA.meta`.** `DATA.meta` becomes `{sources:[{name,url,snapshot}],
-  snapshot}`; footer and freshness render "SWAPI · akabab" FROM the array. No
-  hand-typed source string survives. Same muscle as the provenance-strings law.
-- **Dashboard card, not a beat — my Q1 lean won unanimous.** The census spine stays
-  8 steps / "n/8" / "six of its numbers" untouched; the second source is a second
-  *reading* on a dashboard, not a 9th archive step. Re-opening settled geometry was
-  not earned by an aggregate-grade join. Zero story-count ripple, as prepped.
-- **Zero WORKSHOP ripple confirmed and banked as law:** it is a pipeline tutorial, not
-  a site walkthrough; "five SWAPI endpoints / five raw lists" stay literally true
-  (akabab is a separate pull). Docs-as-guard grep, third clean exercise.
-- **New site-specific laws I now enforce in copy** (promoted to Settled below): the
-  second source is a card not a beat; no ranked faction chart on a six-film site
-  (canon-scope trap — only saga-safe coverage COUNTS surface); the akabab SQL string
-  returns coverage counts, never `died_year_aby` values; `bio` carries a `diedOnFile`
-  boolean, no signed year; a dashboard card states denominatored numbers and relies
-  on the DAG strip for lineage — no fabricated card-level badge.
-- Prep differently next time: I mapped every ripple but under-specified the DATA SHAPE
-  (per-row `bio` vs aggregate blob) — the analyst/engineer/qa owned that call and it
-  drove my copy's derivability. When a copy claim ("82 of 82 renders from data") depends
-  on a data shape, propose the shape in prep so the number's home is settled with the words.
+- Wins now in Settled: WORDS carve-out (grep proved no pytest pin existed — count-ripple
+  skill earned its keep), "on file" vocabulary, nested denominators, alias governance,
+  signed-year column names, second-source-is-a-card-not-a-beat, no ranked faction chart,
+  DATA.meta source-array projection, footer/freshness projections. Lost the title word
+  (Affiliations) on the as-filed tiebreak — also now Settled law.
+- **Docs truth adjudicated architecture THREE more times:** Option C won because
+  WORKSHOP:338/"5 tables" stay literally true under it (Option A drifts); README diagram
+  would lie if single-source; the L320/L941 four-vs-five-transforms contradiction was
+  fix-regardless. My ripple-inventory prep (README diagram, :79 tests, tree comments,
+  Stack gloss) adopted whole — now my standard move.
+- **Baselines are computed, never transcribed** — three surveys of akabab disagreed
+  (87/88 records; died 47/28). Never quote a brief's figures as facts; let the script speak.
+- Prep differently: read the source SCHEMA's field names before proposing a title (as-filed
+  usually wins); propose edits INTO a storyteller's draft during debate, not parallel titles
+  after; when a copy claim depends on DATA SHAPE (per-row `bio` vs blob), settle the shape
+  in prep so the number's home lands with the words.
 
 ## Settled additions (akabab site surfacing, 2026-07-20)
 
@@ -243,50 +192,32 @@
 - Dashboard cards state denominatored numbers and rely on the DAG strip for lineage —
   no card-level check badge (a badge needs a claim entry, i.e. the beats-1–6 machinery).
 
-## Prep notes: dagster-duckdb migration (2026-07-21)
+## Banked: dagster-duckdb why-not (2026-07-21; decision
+`2026-07-21-dagster-duckdb-decision.md`; shipped)
 
-- **What I knew:** WORKSHOP is a 15-module pipeline tutorial (not a site walkthrough);
-  docs-as-guard-surface + count-ripple muscle; one-home law.
-- **Full WORKSHOP blast radius of a DuckDBResource migration (verified by grep):** the
-  path-string pattern is taught in exactly these places — contained, not sprawling:
-  1. DAG diagram edge label "DuckDB path" (`:108`) — small reframe.
-  2. Layer-2 code block + **"Note the pattern: assets return data (or paths to data)"**
-     callout (`:349-362`): the `-> str` / `return str(DB_PATH)` and the mental model.
-     THE one load-bearing rewrite. Replace with "reach your database through a Resource
-     (Module 2), not a hand-opened connection."
-  3. Layer-3 list "Opens the DuckDB file from the path passed by star_wars_db" (`:367`)
-     — reword to "gets a connection from the DuckDBResource."
-  4. Write-back exception (`:374`) — SURVIVES verbatim (still `CREATE OR REPLACE`).
-  5. "Querying DuckDB yourself" REPL snippet raw `duckdb.connect(...)` (`:378-395`) —
-     KEEPS raw. It's a user poking the file in a REPL, not pipeline wiring; the raw
-     pattern legitimately belongs here.
-  6. Deployment checklist "Move DB_PATH … to a shared volume" (`:642`) — reword to
-     resource config. Small.
-- **The mental-model phrase appears ONCE (`:362`), echoed nowhere.** No cascade.
-- **Key finding — migration IMPROVES tutorial integrity, doesn't falsify it.** Module 2
-  already teaches resources hard: glossary "Resource = shared connection to an external
-  system (API, **database**, S3)" (`:75`); "the resource abstraction is the point"
-  (`:309`); testability/reusability/observability (`:257-262`). A hand-rolled
-  `duckdb.connect()` in Layer 2 right after Module 2 is a papered-over self-contradiction.
-  A DuckDBResource makes Layer 2 REINFORCE Module 2 instead of competing with it.
-- **Q4 answer:** raw `duckdb.connect()` is NOT the better from-zero pattern *for this
-  tutorial* — it would be, in a tutorial that never taught resources; this one committed
-  to them in Module 2. The one place raw connect() stays right is the REPL snippet.
-- **README nearly untouched:** its diagram already labels inputs "Resources" (`:53`) and
-  shows data-flow, not a path edge; "In-process executor / DuckDB file lock" Limits
-  bullet (`:139`) stays true. A DuckDBResource is consistent with README as written.
-- **IO manager (DuckDBPandasIOManager) = large WORKSHOP rewrite:** falsifies the 4-Layer
-  architecture diagram, "loads 5 tables," the Layer 2/3 split, and provenance/lineage.
-  Docs lane strongly prefers DuckDBResource; oppose the IO-manager idiom.
-- **read_only reader/writer discipline is NOT currently taught in WORKSHOP** (grep: zero
-  hits). So migration is docs-neutral there — UNLESS it preserves read_only, in which
-  case it's a NEW teaching opportunity (the safety contract is currently invisible). If
-  it GUTS read_only, that's a code loss docs can't paper over — flag to code roles.
-- **Feature + docs in ONE commit: clean and pre-draftable** for DuckDBResource (3-4
-  contained edits + the callout replacement). Standard docs-as-guard-surface pre-draft.
-- **Can't verify:** whether `DuckDBResource.get_connection()` exposes per-connection
-  read_only (code roles own this); the executor-lock/fixture-path interaction under
-  centralized resource config; whether provenance edges survive `deps=` rewiring.
+- **My position won (A: don't migrate, document the why-not).** Center of gravity was
+  mine: 2 firm-A, 1 lean-A, 1 conditional-B. Shipped exactly as argued — Module 10 gains
+  "Why NOT DuckDBResource" beside "Why NOT Great Expectations" (names `read_only=False`,
+  tradeoff both ways); Module 2 gains a forward-pointer resolving the Module 2→3 coherence
+  gap; transforms.py comment POINTS to Module 10 (never restates); the "silent A" I warned
+  against was avoided. Feature + guard + docs in ONE commit; no dep added; 13 assets / 20
+  checks unchanged. Both new laws promoted to Settled above.
+- **The decisive win was the FRAMING: a documented non-adoption is richer teaching than
+  another how-to.** "When NOT to adopt an idiom" beats "used the resource." The external
+  fact (`get_connection()` hardcodes `read_only=False`, no per-connection arg, stable
+  1.7–1.13) that killed migration was code roles' find — but MY job was proving the WORKSHOP
+  cost was low and the coherence gap was real, which is what made (A) shippable rather than
+  a cop-out. Docs cost adjudicated an architecture question a FIFTH time.
+- **My blast-radius grep prep was over-built for the outcome that shipped** — I mapped every
+  edit for a migration that didn't happen. But the SAME grep proved the Module 2→3 gap was
+  real and localized, which sold the forward-pointer. Reusable: even when I argue AGAINST a
+  change, mapping its blast radius surfaces the coherence gap the why-not must name.
+- **qa's "deliberate omission is guardable" married my "silent A is worst":** the rationale
+  marker pin in transforms.py is the mechanism that makes the why-not un-erasable. A doc
+  decision and its guard landed together — docs-as-guard-surface's strongest form yet.
+- Prep differently next time: when a portfolio "ding" arrives, lead prep with "what's the
+  cheapest honest FRAMING" before mapping the expensive fix — the answer here was a 3-edit
+  why-not, and I nearly over-invested in migration-edit choreography.
 
 ## Open watch items (mine)
 
