@@ -123,7 +123,11 @@ as "on file," never as canon.
 
 ## Limits, by design
 
-Ceilings I chose, and what would force each change:
+Ceilings I chose to fit a small static dataset — each paired with the concrete signal that would
+force it to change. Knowing where the ceiling is, and what raises it, is the engineering judgment;
+the absence itself isn't. (I weighed adding a partitioned or incremental-merge asset purely to
+show the pattern and decided against it — bolting a scale technique onto an 82-row static snapshot
+signals less than knowing not to.)
 
 - **Full refresh, no history.** Every run re-pulls every endpoint and rebuilds the
   warehouse from scratch — no incremental merge, no SCD, no change history. Right for a
