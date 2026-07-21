@@ -218,6 +218,17 @@ def test_warehouse_access_policy_is_encoded_in_code():
         assert "CREATE OR REPLACE TABLE" in src, f"{writer.key} must write its grain back"
     assert defs.executor is in_process_executor
 
+    # The deliberate non-adoption of dagster-duckdb's DuckDBResource is documented in
+    # code (and WORKSHOP Module 10) precisely because it is otherwise invisible: a future
+    # "modernize to DuckDBResource" refactor would delete the raw connect() calls above
+    # (failing the read_only pins) AND this rationale. Pin the rationale marker too, so
+    # that refactor has to re-read the decision instead of silently dropping the lock.
+    module_src = inspect.getsource(transforms)
+    assert "DuckDBResource" in module_src and "read_only=False" in module_src, (
+        "the documented why-not for dagster-duckdb's DuckDBResource has gone missing "
+        "from transforms.py — see WORKSHOP Module 10 before removing it"
+    )
+
 
 # ── Banked facts — real dataset only ─────────────────────────────────────────
 # These assert exact values verified against swapi.info, so they only run when
