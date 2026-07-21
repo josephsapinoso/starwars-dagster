@@ -1,10 +1,15 @@
-# A Galaxy of 82 People
+# Star Wars Galaxy Report
 
 [![CI](https://github.com/josephsapinoso/starwars-dagster/actions/workflows/ci.yml/badge.svg)](https://github.com/josephsapinoso/starwars-dagster/actions/workflows/ci.yml)
 
-An end-to-end [Dagster](https://dagster.io) pipeline — SWAPI → DuckDB → transforms → report —
-and a data story that shows its work: every number on the site names the asset that computed
-it and the check that guards it.
+**An end-to-end [Dagster](https://dagster.io) pipeline — SWAPI → DuckDB → transforms → report —
+whose companion data story is machine-verified against the pipeline that built it.** Every number
+on the site names the asset that computed it and the check that guards it; every SQL string it
+shows is executed against a fixture-built warehouse by the offline test suite, so what a reader
+opens is provably what runs.
+
+**Small on purpose.** 82 characters is a dataset you can verify entirely by hand — which is what
+lets the guard layer *prove* the data story rather than decorate it.
 
 **▶ [Open the live site](https://josephsapinoso.github.io/starwars-dagster/)** —
 a scroll-told census of the 82 characters the saga keeps records on, ending in a chart
@@ -116,23 +121,6 @@ surfaces the akabab enrichment as on-file coverage — 82 of 82 census character
 curated profile, 47 with a death on file — every figure carrying its denominator and framed
 as "on file," never as canon.
 
-## How this was built
-
-The design process is itself in the repo: a standing panel of nine role agents (data engineer,
-analyst, UX, storyteller, QA, hiring-manager lens, and more) defined in
-[`.claude/agents/`](.claude/agents/), each with its own persistent memory and self-authored
-skills. Before every debate the panelists research the codebase and update their own knowledge;
-afterwards they bank what won and lost. The human adjudicates every verdict, and each decision
-is logged in [`.claude/panel/decisions/`](.claude/panel/decisions/) — the pipeline-reveal
-feature on the site was specified this way, including the panel catching that three of the
-site's headline numbers were computed by no pipeline asset at all. Those beats shipped honestly
-labeled as authoring-time tallies pinned by pytest; later the `character_stats` transform landed
-on its own merits, computed them in the pipeline, and flipped those beats to direct lineage
-with asset-check badges. The same process then caught a second false claim: three of the five
-SQL strings displayed on the dashboard didn't actually run against the warehouse. Now every
-displayed string lives in the page's data payload and is executed and compared by the offline
-suite — the fix and the guard landed together.
-
 ## Limits, by design
 
 Ceilings I chose, and what would force each change:
@@ -160,6 +148,22 @@ in [WORKSHOP Module 10](WORKSHOP.md#14-module-10--going-further).
 [`WORKSHOP.md`](WORKSHOP.md) is a 15-module, from-zero tutorial written alongside the pipeline:
 software-defined assets, resources, DuckDB SQL transforms, schedules, offline testing, asset
 checks, and re-execution from failure.
+
+## Decision records
+
+Every significant design choice here is logged in
+[`.claude/panel/decisions/`](.claude/panel/decisions/) — and the process earned its keep by
+catching real bugs. It found that three of the site's headline numbers were computed by *no
+pipeline asset*: those beats shipped honestly labeled as authoring-time tallies pinned by pytest,
+and later the `character_stats` transform landed on its own merits and flipped them to direct
+lineage with asset-check badges. The same review caught three of five displayed SQL strings that
+never actually ran against the warehouse; now every displayed string lives in the page's data
+payload and is executed and compared by the offline suite — the fix and its guard landed together.
+
+The review process itself is in the repo: a standing panel of nine role agents (data engineer,
+analyst, UX, storyteller, QA, a hiring-manager lens, and more) in
+[`.claude/agents/`](.claude/agents/), each with persistent memory it updates before a debate and
+banks after. The human adjudicates every verdict.
 
 ## Project structure
 
