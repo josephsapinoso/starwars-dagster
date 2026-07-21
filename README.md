@@ -6,7 +6,7 @@ An end-to-end [Dagster](https://dagster.io) pipeline — SWAPI → DuckDB → tr
 and a data story that shows its work: every number on the site names the asset that computed
 it and the check that guards it.
 
-**▶ [Open the live site](https://claude.ai/code/artifact/e71e41b6-f606-492c-af77-d19a8b3443d7)** —
+**▶ [Open the live site](https://josephsapinoso.github.io/starwars-dagster/)** —
 a scroll-told census of the 82 characters the saga keeps records on, ending in a chart
 dashboard. Open any beat's **"paper trail"** to see the exact pipeline lineage and data-quality
 checks behind that figure.
