@@ -242,3 +242,47 @@ surfacing-type panel, arrive knowing which screenshots already reflect the pendi
 
 Cannot verify (standing): off-platform artifact link preview; script-derived fixture
 counts (carried as unverified until freeze).
+
+## Prep notes: dagster-duckdb migration (2026-07-21)
+
+Brief: `panel-brief-duckdb.md`. Q1 (migrate at all?) is mine to call.
+
+Knew going in: the pipeline threads DuckDB as a path string returned by `star_wars_db`
+(`-> str`), reopened per asset; pure readers pass `read_only=True`, writers omit it and
+`CREATE OR REPLACE TABLE` their grain back; a source-introspection pin
+(`test_pipeline.py:193-217`) tests that contract. WORKSHOP L343-380 teaches the
+path-string pattern explicitly ("assets return data (or paths to data)").
+
+Learned (PRIMARY, decisive): **`DuckDBResource.get_connection()` hardcodes
+`read_only=False` and takes no per-connection args** (verified against
+dagster-duckdb `resource.py` source). It has only `database` + `connection_config`.
+So the framework-native idiom STRUCTURALLY CANNOT express per-connection read_only —
+migrating destroys the reader/writer discipline the banked pin tests. Even the "resource
+for path/config only" compromise (Q6) fails: once you call `get_connection()` you lose
+read_only, and using a resource's `database` field while still hand-rolling
+`duckdb.connect(read_only=...)` reads WORSE (a resource you deliberately bypass).
+
+My verdict (Q1): **NET-NEGATIVE — lean NO on DuckDBResource.** Rationale for the loop:
+- The trade is a RARE senior signal (a *tested* read_only reader/writer contract that
+  shows single-writer-lock awareness — few portfolio pipelines show this) for a
+  TABLE-STAKES one ("used the resource," invisible in a 90-second scan).
+- The path-string ding is real but is an INTERVIEW LANDMINE, not a scan-level defect —
+  and the risk is the reviewer THINKING the author didn't know dagster-duckdb exists.
+- The actual gap is that the repo does not yet ANSWER "why not dagster-duckdb?" The
+  senior move is a **documented why-not**, not capitulation: one line (WORKSHOP Module
+  10, the banked home of tooling why-nots + a `transforms.py` comment) stating "we
+  manage duckdb connections directly because DuckDBResource hardcodes read_only=False
+  and can't express our per-connection reader/writer safety contract on a single-writer
+  file." That converts the ding into a hire signal: knows the idiom AND has a concrete
+  reason. This is the "Limits, by design" / failure-mode pattern already banked.
+- WORKSHOP falsification is a cost, not a benefit: raw `duckdb.connect()` is BETTER
+  from-zero pedagogy (transparent) than IO-manager magic; the tutorial is itself a
+  portfolio asset — don't weaken it to chase idiom.
+- `DuckDBPandasIOManager` (Q2): agree with brief, off the table — `star_wars_db`
+  produces 5 raw tables not 1, so it forces decomposing the asset and reshaping the
+  graph → breaks provenance pin + site lineage strip. Net churn, no signal.
+
+Still can't verify: whether the data-engineer/qa panelists will concede read_only is the
+stronger signal, or push a partial DuckDBResource-for-path form regardless (I'll rebut
+with the hardcoded-`read_only=False` fact — it kills the compromise, not just the full
+migration). Off-platform artifact preview (standing).

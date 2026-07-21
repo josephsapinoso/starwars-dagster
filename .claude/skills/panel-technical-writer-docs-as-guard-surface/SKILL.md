@@ -39,6 +39,22 @@ count is the lesson.
    near-verbatim from prep drafts — this is what makes "feature and guard and
    doc in the same commit" frictionless instead of rushed.
 
+## Idiom-migration corollary (dagster-duckdb panel, 2026-07-21)
+
+When a panel weighs migrating a code IDIOM the tutorial teaches, don't assume the
+migration "falsifies the tutorial." First grep whether the tutorial ALREADY teaches
+the TARGET idiom in an earlier module. If it does, migrating usually IMPROVES
+integrity: it makes the changed layer REINFORCE the earlier lesson instead of
+competing with it. (DuckDB case: Module 2 already sells resources — glossary lists
+"database" as a resource example — so a hand-rolled `duckdb.connect()` in Layer 2 was
+a papered-over self-contradiction; a DuckDBResource resolves it.) The from-zero
+"transparent, no-magic" argument for the raw pattern only holds in a tutorial that
+never adopted the abstraction. And note which raw usages LEGITIMATELY survive: a
+standalone REPL/exploration snippet ("query the DB yourself") should stay raw even
+after the pipeline migrates — it teaches the tool, not the wiring. Map the blast
+radius by line before debate; count the load-bearing mental-model phrase's echoes
+(often it appears once) so you know whether it's a cascade or a single swap.
+
 ## Companion rule (banked law, lives in checks.py docstring)
 
 Check descriptions state the INVARIANT and its STAKES; run metadata carries

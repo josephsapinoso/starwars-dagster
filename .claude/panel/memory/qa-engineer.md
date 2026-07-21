@@ -175,6 +175,57 @@
   tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
   declared-writers list (THIRD writer) same commit.
 
+## Prep notes: dagster-duckdb migration (2026-07-21)
+
+Verified upstream API (dagster master `dagster_duckdb/resource.py`): `DuckDBResource`
+has ONLY two fields — `database: str`, `connection_config: dict`. `get_connection()`
+HARDCODES `read_only=False`; there is NO read_only field and no per-connection override.
+`connection_config` maps to duckdb's `config={}`, and `read_only` is a top-level
+`duckdb.connect()` arg, not a config key — so you cannot even reach it through config.
+
+Consequences for my guards:
+- **read_only pin dies, contract is LOST not relocated** (Q3). The idiom cannot express
+  the reader/writer distinction: every `get_connection()` is read-write. Rewriting
+  `test_warehouse_access_policy_is_encoded_in_code` to look for a different literal is
+  cosmetic — the OS-level many-readers-or-one-writer safety it encodes ceases to exist.
+  Preserving it needs a SUBCLASS overriding `get_connection(read_only=)` (i.e. still
+  hand-rolling the one line the migration set out to delete) or two resources (impossible:
+  read_only is hardcoded). The explicit `read_only` discipline is a STRONGER seniority
+  signal than "used the resource"; trading it away is a net downgrade in exactly the
+  verification dimension I own. My position: if we migrate, the read_only contract must
+  survive in a testable form (custom `get_connection(read_only=...)`) and the pin be
+  rewritten + seen-to-fail same commit — otherwise the migration guts its own value.
+- **Asset-graph edges survive ONLY via explicit `deps=[star_wars_db]`** (Q2). Today the
+  edge is a DATA dep (`star_wars_db: str` param). Under a resource, transforms take
+  `duckdb: DuckDBResource` and lose that param, so each must add `deps=[star_wars_db]` or
+  `star_wars_db` also stops being a parent. GOOD NEWS: the provenance test reads
+  `graph.get(k).parent_keys` (test_site_provenance.py:62, :79-82), and `deps=` populates
+  parent_keys — so a dropped edge FAILS `test_provenance_assets_edges_and_checks_are_real`
+  loudly. Migration cannot silently break lineage; the existing test is the detector.
+  Same for `test_dag_strip_names_every_real_asset` (:242) and totals (:261, group filter
+  `02_transformed` && != star_wars_db) — all read the real graph, all ripple automatically.
+- **DuckDBPandasIOManager does NOT fit** (Q2). One-asset→one-table; `star_wars_db`
+  produces 5 tables. Decomposing into 5 assets reshapes the graph → breaks provenance
+  edges, DAG strip, transforms count. Veto this idiom.
+- **Fixture warehouse still builds the same way** (Q5), with one required edit: every
+  `materialize(...)` (test_pipeline `full_run`:90-95; test_site_sql module `warehouse`
+  fixture) must add the duckdb resource to `resources={}`. A RELATIVE `database=
+  "data/star_wars.duckdb"` still isolates under `isolated_cwd` (monkeypatch.chdir), since
+  it resolves at connect time. Test-side `duckdb.connect(path, read_only=True)` in
+  test_written_back_tables (:116) and test_site_sql are unaffected (they open their own
+  connections). Executor stays in_process → sequential → the 2026-07-18 race does not
+  return even though readers lose read_only (read_only was defense-in-depth, not
+  concurrency-required, given the sequential executor).
+
+Smallest sufficient form (Q6): `DuckDBResource` (or thin subclass) for path/connection
+mgmt ONLY, keeping explicit SQL + a `read_only` capability + `deps=` edges; WORKSHOP +
+the rewritten pin land same commit. The IO-manager idiom is out. Net QA read: the idiom
+ding is real but shallow; the read_only discipline is the deeper signal — do not delete a
+guard to satisfy a reviewer's idiom checklist. Cannot verify without implementing: exact
+Dagster version's DuckDBResource behavior in THIS repo's pinned dagster (checked master —
+confirm the pinned version has no read_only field before ruling), and whether a subclass
+trips any "no reinvented storage layer" objection the data-engineer will raise.
+
 ## Banked: earlier panels (2026-07-18/19, compacted)
 
 Pipeline-reveal + character_stats: provenance/SQL/spoiler laws above shipped as

@@ -243,6 +243,51 @@
 - Dashboard cards state denominatored numbers and rely on the DAG strip for lineage —
   no card-level check badge (a badge needs a claim entry, i.e. the beats-1–6 machinery).
 
+## Prep notes: dagster-duckdb migration (2026-07-21)
+
+- **What I knew:** WORKSHOP is a 15-module pipeline tutorial (not a site walkthrough);
+  docs-as-guard-surface + count-ripple muscle; one-home law.
+- **Full WORKSHOP blast radius of a DuckDBResource migration (verified by grep):** the
+  path-string pattern is taught in exactly these places — contained, not sprawling:
+  1. DAG diagram edge label "DuckDB path" (`:108`) — small reframe.
+  2. Layer-2 code block + **"Note the pattern: assets return data (or paths to data)"**
+     callout (`:349-362`): the `-> str` / `return str(DB_PATH)` and the mental model.
+     THE one load-bearing rewrite. Replace with "reach your database through a Resource
+     (Module 2), not a hand-opened connection."
+  3. Layer-3 list "Opens the DuckDB file from the path passed by star_wars_db" (`:367`)
+     — reword to "gets a connection from the DuckDBResource."
+  4. Write-back exception (`:374`) — SURVIVES verbatim (still `CREATE OR REPLACE`).
+  5. "Querying DuckDB yourself" REPL snippet raw `duckdb.connect(...)` (`:378-395`) —
+     KEEPS raw. It's a user poking the file in a REPL, not pipeline wiring; the raw
+     pattern legitimately belongs here.
+  6. Deployment checklist "Move DB_PATH … to a shared volume" (`:642`) — reword to
+     resource config. Small.
+- **The mental-model phrase appears ONCE (`:362`), echoed nowhere.** No cascade.
+- **Key finding — migration IMPROVES tutorial integrity, doesn't falsify it.** Module 2
+  already teaches resources hard: glossary "Resource = shared connection to an external
+  system (API, **database**, S3)" (`:75`); "the resource abstraction is the point"
+  (`:309`); testability/reusability/observability (`:257-262`). A hand-rolled
+  `duckdb.connect()` in Layer 2 right after Module 2 is a papered-over self-contradiction.
+  A DuckDBResource makes Layer 2 REINFORCE Module 2 instead of competing with it.
+- **Q4 answer:** raw `duckdb.connect()` is NOT the better from-zero pattern *for this
+  tutorial* — it would be, in a tutorial that never taught resources; this one committed
+  to them in Module 2. The one place raw connect() stays right is the REPL snippet.
+- **README nearly untouched:** its diagram already labels inputs "Resources" (`:53`) and
+  shows data-flow, not a path edge; "In-process executor / DuckDB file lock" Limits
+  bullet (`:139`) stays true. A DuckDBResource is consistent with README as written.
+- **IO manager (DuckDBPandasIOManager) = large WORKSHOP rewrite:** falsifies the 4-Layer
+  architecture diagram, "loads 5 tables," the Layer 2/3 split, and provenance/lineage.
+  Docs lane strongly prefers DuckDBResource; oppose the IO-manager idiom.
+- **read_only reader/writer discipline is NOT currently taught in WORKSHOP** (grep: zero
+  hits). So migration is docs-neutral there — UNLESS it preserves read_only, in which
+  case it's a NEW teaching opportunity (the safety contract is currently invisible). If
+  it GUTS read_only, that's a code loss docs can't paper over — flag to code roles.
+- **Feature + docs in ONE commit: clean and pre-draftable** for DuckDBResource (3-4
+  contained edits + the callout replacement). Standard docs-as-guard-surface pre-draft.
+- **Can't verify:** whether `DuckDBResource.get_connection()` exposes per-connection
+  read_only (code roles own this); the executor-lock/fixture-path interaction under
+  centralized resource config; whether provenance edges survive `deps=` rewiring.
+
 ## Open watch items (mine)
 
 - Akabab PIPELINE landing shipped (13/5/20; README diagram/table/tree + Stack gloss).

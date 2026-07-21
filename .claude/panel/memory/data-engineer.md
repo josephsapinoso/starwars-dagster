@@ -196,6 +196,57 @@ Obi-Wan). Guard: `tests/test_site_faces.py` + a runtime face-drift check.
   don't re-derive it. Scatter (`:1227`) + birth strip (`:1385`) stayed dots (held out of v1);
   any future mark that gains a face inherits this same registry test.
 
+## Prep notes: dagster-duckdb migration (2026-07-21)
+
+Verified dagster-duckdb API facts (source: dagster master `dagster_duckdb/resource.py`,
+docs, DuckDB access_mode):
+- **`DuckDBResource` fields = exactly `database: str` + `connection_config: dict` (default
+  {}). No `schema` field on the resource.** `get_connection()` is a `@contextmanager`
+  taking **NO parameters** (`self` only). It passes `connection_config` as `config=` to
+  `duckdb.connect()` and **hardcodes `read_only=False`** in that call.
+- **There is NO per-connection `read_only` argument.** The only way to open read-only is
+  resource-level: `connection_config={"access_mode": "read_only"}`. That configures the
+  WHOLE resource instance — every asset bound to it opens the same way. Per-asset
+  reader/writer distinction can only be expressed by **two resource instances** (e.g.
+  `duckdb_ro` / `duckdb_rw`) wired to different assets — the inline flag becomes resource
+  wiring. UNVERIFIED: whether `access_mode: read_only` in config conflicts with the
+  hardcoded `read_only=False` kwarg (duckdb may error on the combination) — must test on
+  the pinned duckdb version before adopting.
+- **`DuckDBPandasIOManager` names the table by the ASSET KEY/name** (schema via
+  `key_prefix`). One asset → one table. It **cannot** make `star_wars_db` produce five
+  differently-named raw tables (films/people/planets/starships/species) from one returned
+  value. Using the IO manager for the raw layer forces decomposing `star_wars_db` into
+  five separate assets — which deletes the `star_wars_db` node, changes the asset graph
+  edges, and blows up `EXPECTED_DB_TABLES`, `star_wars_db_tables_populated`, the
+  provenance-graph test, and the site DAG strip (pinned to real asset keys). **IO manager
+  is out on graph-preservation grounds.**
+
+Entanglement map (what breaks per idiom):
+- **read_only pin** (`test_pipeline.py:189-219`, `test_warehouse_access_policy...`): reads
+  reader/writer SOURCE, asserts readers contain `"read_only=True"`, writers do NOT + contain
+  `CREATE OR REPLACE TABLE`, and `defs.executor is in_process_executor`. `DuckDBResource`
+  removes the `read_only=True` literal → this pin MUST be rewritten (e.g. assert readers
+  bind the RO resource, writers the RW resource). If a single shared resource is used the
+  reader/writer safety contract is LOST entirely.
+- **Provenance graph** (`test_site_provenance.py`) + site DAG strip: preserved IF
+  `star_wars_db` stays one asset and edges stay (deps= edges still register). Value type
+  changes str→None but edges survive. Decomposing raw layer breaks it.
+- **Executed-SQL** (`test_site_sql.py`) + write-back parity: unaffected as long as tables
+  `people/planets/characters_enriched/character_stats/character_biographies` still exist
+  with current names — DuckDBResource keeps explicit SQL, so fine.
+- **WORKSHOP.md:343-380 + :105-108**: teaches `star_wars_db -> str` returning path +
+  `duckdb.connect(path)` with "assets return data (or paths to data)" callout and a DAG
+  edge labeled "DuckDB path". DuckDBResource idiom falsifies all three; must update in
+  lockstop (feature+guard+tutorial same commit).
+
+My read (for DEBATE): smallest sufficient form is `DuckDBResource` for connection/path/
+config management ONLY, keeping explicit SQL. The `read_only` reader/writer discipline is
+a STRONGER seniority signal than "used the resource" and the API can only preserve it via
+two resource instances — net churn may exceed the 90-second-scan payoff. Lean: migrate to
+DuckDBResource for path/config centralization, express RO/RW as two resource instances so
+the safety contract survives as resource wiring, rewrite the pin to assert the binding,
+update WORKSHOP same commit. Full IO-manager decomposition is vetoed.
+
 ## Working knowledge
 
 - Lineage: `SWAPIResource → raw_{films,people,planets,starships,species}
