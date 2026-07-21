@@ -280,6 +280,49 @@ claim's scope can't be honestly narrowed. (2) Draft the card copy verbatim next 
 the storyteller's "A second reading" stat-block led because it was drafted, and my role
 was reduced to an attribution gloss on it. Bring the whole block, not just the vocabulary.
 
+## Prep notes: 8-bit character faces as the census mark (2026-07-21)
+
+Brief: owner wants ALL 82 census dots → 8-bit faces, every beat (maximal form).
+My lane: Q5 (recognizability/honesty) and Q1 (does monochrome saber-blue read as
+Star Wars). Verified in site + repo.
+
+Crux honesty fact (verified): the pipeline holds ZERO inline portrait data.
+SWAPI has no image field; akabab HAS an `image` URL field but it is surfaced
+NOWHERE (grep: no `image` in any .py, none in inline JSON) and would be a banned
+external photo anyway. So every 8-bit face is AUTHORED-FROM-NOTHING, not derived.
+A mark that asserts a portrait we don't hold is fabrication, not data — same sin
+as a number credited to the wrong asset.
+
+The current mark asserts little and honestly: a `.unit` is an anonymous positional
+dot (index into PEO), named ONLY via the shared tooltip (census-conceit law, the
+82's sole roll-call). It claims membership + a measured value. That is exactly what
+we have on file.
+
+Q5 verdict (my read): a FACE is an identity claim. Two failure modes, both dishonest:
+(a) INVENT per-character faces = fabricate portraits no source holds (authenticity
+veto); (b) GENERIC ARCHETYPE by species = two DISTINCT individuals render IDENTICALLY,
+collapsing "82 distinct people" into a few stamps — and it inherits clerical garbage
+(R4-P17 is filed Human/female; an astromech would get a human face). The maximal
+"all 82" appetite is precisely what forces one of these. A short EARNED subset
+(genuine iconic silhouettes) can't satisfy a uniform all-82 system.
+
+Q1 verdict: color IS identity for the mascots. C-3PO monochrome saber-blue is NOT
+C-3PO — gold is his defining trait; Vader is defined by black; strip color and you
+get generic humanoid/droid blobs that read as "little blue retro people," Star-Wars
+only by CONTEXT (the copy), not by the sprite. A sprite whose Star-Wars-ness lives
+entirely in adjacent copy is decoration — my veto trigger. Of 82, only ~a handful
+(R2-D2 dome, Vader helmet, Leia buns, Yoda ears, Jabba bulk, C-3PO) have a silhouette
+surviving monochrome at ~3-7px effective mobile; and even those fight the color law.
+
+Honest fallback ranking (my lane; feasibility/legibility belong to other roles):
+1) Keep the dot as the census mark — the dot honestly = "a person on file, portrait
+   not on file"; put the "fun" somewhere that doesn't fabricate. Restraint reads as
+   deeper fandom. 2) At most, an EARNED hover/labeled-subset reveal for the truly
+   iconic few, never uniform. Reject invent-all and archetype-all.
+
+Cannot verify: how the mechanics/graphic-designer roles weigh the "fun" appetite vs
+honesty; whether owner will accept a subset. Not my call — I supply the honesty floor.
+
 ## Banked: akabab second source (2026-07-20, compacted)
 
 Decision: `2026-07-20-akabab-second-source.md`. Option C unanimous. Won: the

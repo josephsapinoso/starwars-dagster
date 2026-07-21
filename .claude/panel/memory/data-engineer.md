@@ -151,6 +151,59 @@
   must spell. Baselines are computed by script from the frozen fixture, never
   transcribed — three independent akabab surveys disagreed (87/88 records; died 47/28).
 
+## Prep notes: 8-bit faces as the census mark (2026-07-21)
+
+Brief: owner wants ALL 82 census `.unit` marks to become 8-bit character faces, every beat.
+
+Verified how marks are built/sourced:
+- `PEO = DATA.people` (82 records; site:531). Each mark is ONE `<g class="unit base">
+  <circle r=7></g>` built once (site:774-778), re-`transform`/re-`class`ed per beat by
+  `applyState` (site:799-802). Same geometry redrawn in flat mode (site:856-859). States are
+  CSS on `.unit`: base=`--s1`@.92, `.dim`=`--ink-3`@.45, `.faint`@.18, `.hot`=`--gold`@1
+  (site:89-92). Hot means "look here" and is ALWAYS also name-labeled (anno). Nearest-mark
+  hit test → shared tooltip names the person (site:811-820) — the ONLY surface naming most 82.
+- Per person we have: name, height, mass, gender, birthYear, homeworld, species, films,
+  starshipsFlown, bio{diedOnFile,aff,masters,appr}. NO sprite/likeness field anywhere; SWAPI
+  and akabab carry none. There is no producing asset for character art.
+
+Data-engineering crux (the sourcing test): two models.
+- MODEL A — bespoke per-character sprite art inline (82 pixel `<path>`s or bitmap strings).
+  This is a NEW hand-authored second source with NO producing asset. It ROTS: SWAPI drift
+  (add/drop/rename a character) silently desyncs the registry. It asserts a LIKENESS the
+  pipeline can't back — most of the 82 have no canonical face, so art either invents identity
+  (honesty violation) or is generic (implies identity we don't have). Adds real bytes to the
+  already-large one-line `const DATA` / markup. Survivable ONLY as alias-governance-shaped
+  curation: registry keyed to the known_facts roster, bidirectional injectivity + coverage
+  pins against the frozen fixture, no fuzzy — but the likeness-honesty problem remains.
+- MODEL B — procedural face = pure `f(DATA.people[i])` from EXISTING fields (species→head
+  shape, droid vs organic, gender feature, etc.). DERIVABLE-from-JSON law satisfied; DRIFT-
+  SAFE (data changes → face changes); ZERO new data bytes (JS generator only); asserts only
+  what the data asserts (a Human from Tatooine, not a portrait) → dodges Q5 likeness problem.
+  This is the only form that survives my laws cleanly. Vader won't look like Vader — the face
+  is a data glyph, not a likeness.
+
+My positions for debate:
+- Q1 color: monochrome computed tints of `--s1` (solid computed colors, not opacity — my
+  ink-adapts law); gold stays display-emphasis only.
+- Q2 states: reuse existing transforms — opacity(faint), dim tint(dim); HOT = gold ring/frame
+  (display accent), never a gold face FILL (would make gold a data hue). Status is not a series.
+- Q3 feasibility: Model B, procedural, no registry. Bloat budget: procedural = 0 data bytes.
+- Q4 legibility: 7px→~3px mobile; a face can't read at 3px. Maximal-everywhere collides with
+  the legibility floor → faces on desktop/hover/labeled subset; degrade to glyph/dot on mobile.
+  This is a fact, not a preference.
+- Q7 GUARD (same commit): NOT an asset check (no producing asset). Pytest + drift detector.
+  Model B: pytest asserts the generator is a pure function of DATA fields — grep the JS for a
+  name→art lookup map; its EXISTENCE is the failure (a hidden second source). Face count ==
+  PEO.length; no face for a name absent from DATA; palette = computed `--s1` tints, no new
+  hex (rides test_site_style_hygiene). Model A: registry roster-derived from known_facts,
+  bidirectional coverage + injectivity pinned to the frozen fixture, palette hygiene.
+- Scope: hold to the census story's 82 unit marks; scatter (site:1227) + birth strip
+  (site:1385) are different mark systems — 82 faces there occlude. Any mark that becomes a
+  face inherits the same sourcing test.
+
+Cannot verify: effective legibility of a specific pixel grid at 3-7px (needs a rendered
+prototype); actual byte cost of a chosen sprite encoding (needs the encoding picked).
+
 ## Working knowledge
 
 - Lineage: `SWAPIResource → raw_{films,people,planets,starships,species}

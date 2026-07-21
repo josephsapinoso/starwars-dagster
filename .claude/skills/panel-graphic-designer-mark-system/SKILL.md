@@ -126,6 +126,34 @@ renders 312px @360 viewport → ×.45: `.axis-t` 11.5 → 5.1px, `.anno-name` 12
   fallback is dropping the on-mark label (legend/table carry the data) — never a
   new hex, never one ink that fails somewhere.
 
+## Pixel-art / sprite marks in one file (technique + guardrails, 2026-07-21)
+
+If a proposal replaces a data mark with a per-character sprite (e.g. 8-bit faces for the 82
+`.unit` marks), apply these before approving:
+1. **Atomic single-fill only.** The `.unit` state machine (applyState :799–802) works because a
+   state is a fill/opacity swap of ONE shape (circle → s1/ink-3/gold, faint=opacity .18). A
+   sprite preserves base/dim/faint/**hot(gold)** for free ONLY if it is a single-fill silhouette
+   (one path, `fill: currentColor`/`var(--s1)`), recolored whole. A fixed-color outline or any
+   two-tone portrait breaks dim/faint (they read muddy) — forbid it. Multi-value shading is legal
+   for hue only if every value is the Settled tint ladder [100,75,55,40,28], but it still breaks
+   atomic state, so not for stateful stage marks.
+2. **One hue, no appearance claims.** Full-color sprites (skin tones, character-specific colors)
+   are a double veto: new color seats past s1+gold, AND a data-honesty claim about appearance the
+   dataset doesn't hold. A silhouette asserts only "a tracked individual," same as the dot.
+3. **Decode to one `<path>` per sprite, not `<rect>`-per-pixel.** 82×(up to 64 pixels) ≈ 5k
+   nodes, doubled by the flat-embed redraw, is DOM bloat. Pack each sprite as a compact bitmap
+   string in the inline JSON (8×8 1-bit ≈ 16 hex chars) and decode to a single path. Budget the
+   node count AND the byte count in prep.
+4. **A sprite registry is a new honesty + rot surface.** Each sprite asserts identity, must stay
+   1:1 with the roster, and needs its own same-commit guard (one-sprite-per-tracked-character,
+   palette hygiene, drift extension). No sprite for a character we can't honestly depict —
+   generic archetypes imply identity we lack.
+5. **Legibility gate is decisive on the mobile stage.** Effective px = css × render ratio (×.45 @
+   360). An 8×8 silhouette ≈ 3–4px → a blob that reads worse than a clean dot. Run a
+   render/redundancy audit before believing a sprite survives; the honest fallback is sprites on
+   the named/canonical subset (or desktop-only) with dots for the anonymous mass — but that is
+   TWO mark types, a fragmentation cost to weigh against just keeping dots.
+
 ## Type-scale law (banked 2026-07-19; guard: tests/test_site_style_hygiene.py)
 
 - Sanctioned fixed sizes: **{11, 12, 13, 14, 16, 17, 18, 42}** px; clamp() display

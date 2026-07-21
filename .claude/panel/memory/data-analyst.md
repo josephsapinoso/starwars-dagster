@@ -225,6 +225,57 @@
   assets; signed-year display rejected (boolean flag instead); 896+4 stays vetoed. See
   the Settled "Akabab site surfacing" line; nothing here is deferred anymore.
 
+## Prep notes: 8-bit character faces as the census mark (2026-07-21)
+
+**What the 8 beats encode (verified site/index.html:610-762).** Channels per mark:
+POSITION (primary data signal — height rank, mass log-x, film-count histogram column,
+homeworld cluster), STATE (base/dim/faint/hot = CSS opacity+color), SIZE (scale s).
+State assertions per beat: b0 all base (row exists); **b1 dim=1 unmeasured height**;
+**b2 hot=mass>1000 (Jabba, superlative) + dim=23 not weighed**; **b3 faint=61 not
+Naboo/Tatooine (non-membership)**; b4 all base (position=film count); **b5 hot=6-film
+trio (superlative) + faint=other 79**; **b6 hot=Obi-Wan max-flown + faint=never-flew +
+size=starships flown**; b7 all base. So state encodes THREE data facts: missing-data
+(dim/faint), group-membership (base vs faint), superlative (hot/gold). Gold-hot is
+display emphasis, never a series, and every hot mark is also name-labeled.
+
+**Q5 (honesty — the kill).** There is NO face/appearance column anywhere in the pipeline
+JSON. A face renders "what this character looks like" — a claim with zero source column,
+so it fails "every displayed thing derivable from inline JSON" by construction. Count the
+fabrication: of 82, only ~15-25 are recognizable canon (main cast); ~60 are obscure
+(Yarael Poof, Ratts Tyerel, background aliens) with no face the data OR common knowledge
+supplies. **"All 82 specific faces" = ~60 invented identities.** Generic archetype faces
+are worse-not-better: they imply a shared appearance/species that's false AND collapse the
+census conceit ("one per tracked character" dies if 60 share 3 sprites). SWAPI HAS a
+species field but it's UNUSED, sparse, un-guarded — routing faces through it surfaces a
+sparse-join field as a categorical identity+color series (my banked sparse-field trap +
+color law). No drift check can assert "R2's face is correct" — no ground-truth column;
+the guard can only count sprites. That guard-shaped hole is diagnostic: the mark asserts
+what the pipeline can't stand behind.
+
+**Q2 (does a face corrupt the encoding?).** The missing-data denominators (23/61/1/faint
+pilots) read ONLY because a flat disc's opacity maps linearly to perceived ink — ".18 =
+missing" is legible because the mark is uniform. A face carries internal luminance
+structure (eyes, edges); at .18 opacity + ~3px effective (mobile ×.45) either it vanishes
+(then why a face?) or its hard edges anchor the eye and faintness stops reading as
+missingness. Full-color faces (skin tones, Vader-black) also add a per-item hue = a
+categorical series the single-hue law forbids; gold-hot faces are OK as emphasis (not a
+series) but monochrome only.
+
+**Verdict direction (bank at debate):** maximal all-82-specific-faces is data-dishonest
+(fabricates ~60/82 identities, no source column, no possible correctness guard) AND
+corrupts the opacity/missing-data signal. Honest degrade ladder: (1) uniform saber-blue
+silhouette for all 82 asserts nothing per-character (honest) but must be tested against
+Gate 3; (2) faces ONLY on the already-named/hot subset (≤~7 canon: Jabba, Yoda, Yarael
+Poof, the trio, Obi-Wan) — redundant-but-honest, dots for the rest; contradicts appetite.
+Guard that CAN land: sprite-registry integrity (one sprite/character, palette hygiene =
+saber tints + gold only, no skin tones), drift count == people count. Technique banked:
+`.claude/skills/panel-data-analyst-encoding-derivability/`.
+
+**Cannot verify offline:** whether a silhouette at .18/~3px actually reads as faint vs a
+dot (ux/graphic-designer perceptual lane — I flag the risk, can't measure); whether the
+owner accepts the named-subset degrade; nothing in DATA can ever back a per-face identity
+(confirmed — no such column exists).
+
 ## Banked lessons: 2026-07-18/19 rounds — compacted
 
 - Lead with grain-correctness, not diagrams; keep losing options specified to

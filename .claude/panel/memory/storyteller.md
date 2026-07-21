@@ -271,6 +271,47 @@ Prep differently: the file-reading pass again predicted every fault line — kee
 correction to self: audit memory for STALE numbers before debate (the 81/82 slip) — a
 banked figure can go stale when the fixture recomputes; defer to known_facts, never my note.
 
+## Prep notes: 8-bit faces as the census mark (2026-07-21)
+
+Brief asks: owner wants ALL 82 dots → 8-bit character faces, every beat (maximal).
+My mandate is narrative, not pixels. Verified against site/index.html:
+- Beat 0 dek literally says "told here as a census of **82 dots**" — the mark is named
+  in the hook copy; the dot IS the census idea.
+- Mark states (:89-92): base=blue anon / dim / faint / hot=gold+direct-labeled. `hot`
+  is "look-at-this-one" and every gold mark is ALSO named. Individuation already
+  happens exactly where the story spends it.
+- Stage tooltip is the ONLY surface naming most of the 82 (Settled, census conceit).
+  Anonymity-that-individuates-on-demand is the whole conceit.
+- Payoff = beat 5, three marks (C-3PO/R2-D2/Obi-Wan) saw all six films.
+
+My verdict (for debate): **maximal HURTS the spine, veto it.** Three narrative faults:
+(1) 82 recognizable faces from beat 0 = a character parade / cast poster, NOT a census;
+uniform marks are the census made visible, and faces contradict the records-office/
+archive voice the absences (unweighed, unknown-homeworld, never-measured) depend on.
+(2) The gold `hot` pointing gesture dies — you can't point at one face among 81 faces;
+free individuation is spent payoff. (3) **Recognizability front-runs the beat-5 payoff**:
+the droids and Vader are the most iconic marks; make all marks faces and the reader's eye
+locks onto the witnesses the whole scroll — a leak through the EYE no spoiler-pin catches.
+Plus story-honesty: most of the 82 have no canon face; inventing 82 asserts identity the
+archive lacks (twin of data-honesty).
+
+**#8 closest-surviving form (my ONE proposal):** a mark RESOLVES into an 8-bit face at
+the moment it goes hot / is named — only the featured subset, only at its beat. Base
+marks stay uniform blue dots. This keeps the census, sharpens the pointing gesture (the
+face IS the emphasis), and makes the witnesses reveal STRONGER: three anonymous dots
+turning into three faces at beat 5 is a better reveal than dots-with-gold. Bonus
+convergence: the named subset = exactly the characters WITH canonical faces (honesty
+solved), featured marks are scaled-up and few (mobile ~3px legibility wall never applies,
+bloat trivial). Let this narrative cut shrink the engineering problem before anyone costs
+the maximal one. Colour law (Q1): faces on the hot seat can BE the gold accent (display
+emphasis, one mark) — no need to amend the single-hue data law; base marks stay saber
+blue. If pressed toward more: faces-on-hover is the next fallback (individuation on
+demand = the tooltip's job, same conceit), still no faces at rest.
+
+Skill written: panel-storyteller-mark-identity (mark identity as spent currency).
+Cannot verify: sprite feasibility/palette/bloat numbers and the exact resolve animation
+under reduced-motion — graphic-designer/engineer turf; I rule on sequence, not pixels.
+
 ## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178; compacted)
 
 Q3 won 5–1 (tap-to-pin; reader-owned dismissal shipped exactly: pin :799, leave-guard

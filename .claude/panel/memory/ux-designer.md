@@ -116,6 +116,42 @@
   reopen if any anno carries content not in copy/caption; a viewBox rework must
   arrive with the 8-state anchor-geometry re-verification costed.
 
+## Prep notes: 8-bit character faces as census mark (2026-07-20)
+
+- **Legibility math (fatal, lead with it):** stage viewBox 700×620 → mobile render
+  ratio ≈ .45 (312px @360), desktop ≈ .8–.9. Mark is `circle r=7` (14-unit footprint).
+  14×.45 ≈ **6.3px total** on mobile; 8×8 sprite = 0.79px/cell, 16×16 = 0.39px/cell —
+  MUD. Desktop 14×.85 ≈ 12px → coarse silhouette, never a likeness. A recognizable
+  8-bit face needs ~24–32px (3–5× footprint) → 82 marks overlap catastrophically in
+  clustered/histogram beats. **Recognizable per-character faces at every beat are
+  geometrically impossible under settled geometry.** New skill:
+  panel-ux-designer-pictographic-marks.
+- **Graceful form (my proposal):** monochrome saber-blue pixel *silhouette* whose
+  bounding shape carries the mark and degrades to a solid blob (= the dot) at 6px;
+  interior detail is a desktop/hover-zoom bonus only. Test at the densest beat.
+- **State survives single-hue law:** base/faint/dim = opacity on fill; hot = gold
+  (allowed: display emphasis on one always-name-labeled mark, not a series). Full-color
+  faces would make color a per-mark series → breaks sole-data-hue law. Reduced-motion:
+  no frame anim / sprite-swap tween.
+- **Flat-embed parity:** sticky path builds units once + re-transforms; enterFlat
+  REBUILDS per beat (:846-869). Both emit `circle r=7` today. A sprite needs ONE shared
+  builder both call, or inline `<use href="#sym">` of an inline `<symbol>` (works in the
+  flat clone that lives outside the main svg id). One-path inlining = silent flat-mode
+  vanish.
+- **Honesty tension (core):** most of 82 have no verifiable likeness. Per-character
+  invented face asserts identity the pipeline can't source (data-honesty violation). A
+  single generic glyph for all 82 is honest but is just a fancier dot — does NOT deliver
+  "character faces." Owner appetite vs. honesty gap must be surfaced, not papered.
+- **A11y unchanged:** tooltip stays the only naming surface (census-conceit veto); no 82
+  new tabindex (label-only rule; table is keyboard home). A face implying a name has no
+  keyboard/AT path.
+- **Scope Q (defer to Claude):** mass/height scatter (:1227) + birth-year strip (:1385)
+  also use dots — brief flags whether they change too; I'd hold them out (different
+  charts, different legibility regimes).
+- **Cannot verify:** exact desktop stage column width (inferred .8–.9); actual overlap
+  density in clustered beats without measuring; sprite pixel/bloat budget (graphic-
+  designer's to cost). Verify these before implementation, not before debate.
+
 ## Working knowledge
 
 - Flat mode: `shouldFlatten()` auto-detects auto-height embeds; `?flat` forces it,

@@ -126,6 +126,47 @@
   relies on the DAG strip for lineage — NO fabricated card-level ◆/◇ live status (a badge
   needs a claim, i.e. the beats-1–6 machinery). Numbers render from `DATA.people[].bio`.
 
+## Prep notes: 8-bit character faces as the census mark (2026-07-21)
+
+Verified in source (site/index.html): the `.unit` is ONE `<g><circle r=7></g>` built 82× at
+:774–778; `applyState` (:799–802) only rewrites each unit's `transform` (x,y,scale) and its
+`class` ("unit " + d.k). States are pure fill/opacity swaps of the whole circle (CSS :89–92):
+base s1@.92 → `.dim` ink-3@.45 → `.faint` opacity .18 → `.hot` gold@1. The state machine
+recolors an ATOMIC single-fill shape; that is the property any face must preserve.
+
+My positions for debate:
+- **Q1 (hue law).** A monochrome saber-blue face is a legitimate ladder extension ONLY IF it
+  is a single-fill silhouette (one path, one currentColor). Any face with internal shading to
+  "read as a face" needs multiple values; if those are the Settled tint ladder
+  [100,75,55,40,28] it's still one hue and legal — but a two-tone sprite breaks the atomic
+  state swap (dim/hot must recolor the WHOLE mark or it reads muddy). So: silhouette yes,
+  portrait no. Full-color faces (skin tones, Vader-black) are a double veto — new color seats
+  AND a data-honesty claim about appearance we don't hold for ~68 of 82.
+- **Q2 (states).** Preserved for free IFF the sprite is one fill: swap fill/opacity exactly as
+  the circle does, applyState untouched, zero new seats. `.hot` = gold-filled silhouette (still
+  the ONE emphasis seat, still direct-labeled). The moment a sprite has a fixed-color outline,
+  dim/faint stop reading — that's the real reason to forbid multi-tone here.
+- **Q3 (where pixels live / bloat).** 82 inline sprites = a per-character bitmap registry in
+  the JSON. 8×8 1-bit = 8 bytes → ~16 hex chars ×82 ≈ 1.3KB data, tolerable. Decode cost is
+  the trap: naïve `<rect>`-per-pixel = up to 64×82 ≈ 5k nodes at init (×2 for flat-embed
+  redraw). Decode each sprite to ONE `<path>` instead. BUT the registry is a NEW rot + honesty
+  surface: each sprite ASSERTS "this is that character," must stay 1:1 with the roster, and
+  needs its own guard (one-sprite-per-tracked-character, palette hygiene) in the same commit.
+- **Q4/Q5 the likely killers (name in debate).** Legibility: 8×8 silhouette at ×.45 mobile ≈
+  3–4px → indistinguishable blob, worse-reading than a clean dot; run a redundancy/render audit
+  before believing otherwise. Honesty: only ~14 of 82 have canonical faces; inventing the rest
+  is fiction, generic archetypes imply identity we lack. Both point to the same fallback (Q8):
+  faces ONLY on the already-named/gold subset per beat (canonical, larger, legible), dots for
+  the anonymous mass — but that is TWO mark types, a fragmentation cost to weigh vs. keeping
+  dots. Closest honest maximal form is likely "silhouette faces desktop, dots mobile" gated by
+  legibility, not the owner's "all 82 full-color every beat."
+- Scatter (:1227–1246, layered circles + gold extreme-ring) and birth-year strip (:1385) share
+  the dot; changing the census mark but not these forks the vocabulary — scope must be explicit.
+
+Cannot verify: perceptual recognizability of a 3–4px silhouette (needs a render/redundancy
+audit — measurement lane); which characters have canonical on-screen faces (lore lane);
+exact DOM-node/byte cost of the chosen decode (qa lane).
+
 ## Working knowledge
 
 - Design tokens live in one `:root` block at the top of `site/index.html` (~lines
