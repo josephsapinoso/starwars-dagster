@@ -119,6 +119,18 @@
   `affiliations` is canon-wide/sequel-inclusive, so a ranked bar is a ranking *claim* the
   saga scope can't honestly make. Only saga-safe coverage COUNTS surface (75/82 affiliated).
   A sparse-list superlative that would tempt a gold ring is vetoed — "on file" ≠ "complete".
+- **The census population is anonymous dots; a face is a resolving state, not a reskin**
+  (8bit-faces panel, 2026-07-21): a `.unit` may gain an 8-bit silhouette ONLY on a beat
+  where the story already names it in copy — six iconic marks (Yoda, Yarael Poof, Jabba,
+  C-3PO, R2-D2, Obi-Wan). The face is a SINGLE-fill `<path>` swapped for the `<circle>` and
+  inherits all four `.unit` states for free (the state rule reads `.unit circle, .unit .face`;
+  `.faint` = opacity only); a hot face is gold = the one emphasis seat. No outline, no second
+  tone, no skin tone, no per-item hue — zero new color seats. Pixels are a 1-bit grid in a JS
+  const `FACES`, decoded to ONE path (row-run rects, never rect-per-pixel), cached, one shared
+  builder for sticky+flat. The registry is roster-pinned/injective and lands with its guard
+  (tests/test_site_faces.py: only `.unit` state rules may fill `.face`; spoiler pin holds the
+  three witnesses to beat 5). Kills any future "faces for all 82"; scatter + birth-strip stay
+  dots (different legibility regime, held out).
 - **Second-source coverage = one `.kpi`, no per-card badge** (akabab surfacing,
   2026-07-20): headline "82 of 82 matched" in the sanctioned `.kpi` treatment; the ladder
   (47/82 deaths on file, 75/82 affiliated, 14 masters, 12 apprentices) all nested-
@@ -126,46 +138,40 @@
   relies on the DAG strip for lineage — NO fabricated card-level ◆/◇ live status (a badge
   needs a claim, i.e. the beats-1–6 machinery). Numbers render from `DATA.people[].bio`.
 
-## Prep notes: 8-bit character faces as the census mark (2026-07-21)
+## Banked: 8-bit character faces — "The Resolving Mark" (2026-07-21)
 
-Verified in source (site/index.html): the `.unit` is ONE `<g><circle r=7></g>` built 82× at
-:774–778; `applyState` (:799–802) only rewrites each unit's `transform` (x,y,scale) and its
-`class` ("unit " + d.k). States are pure fill/opacity swaps of the whole circle (CSS :89–92):
-base s1@.92 → `.dim` ink-3@.45 → `.faint` opacity .18 → `.hot` gold@1. The state machine
-recolors an ATOMIC single-fill shape; that is the property any face must preserve.
+Log `2026-07-21-8bit-character-faces.md`; all six, unanimous VETO of the owner's maximal
+"all-82 full-color faces every beat" on four independent grounds (honesty / legibility /
+color law / narrative). Shipped instead: 82 dots at rest; a mark resolves into a monochrome
+single-fill 8-bit silhouette ONLY on a beat where the story already names it — six iconic
+characters (Yoda, Yarael Poof; Jabba; C-3PO, R2-D2, Obi-Wan). Base population stays uniform
+saber-blue dots; identity is earned, never default.
 
-My positions for debate:
-- **Q1 (hue law).** A monochrome saber-blue face is a legitimate ladder extension ONLY IF it
-  is a single-fill silhouette (one path, one currentColor). Any face with internal shading to
-  "read as a face" needs multiple values; if those are the Settled tint ladder
-  [100,75,55,40,28] it's still one hue and legal — but a two-tone sprite breaks the atomic
-  state swap (dim/hot must recolor the WHOLE mark or it reads muddy). So: silhouette yes,
-  portrait no. Full-color faces (skin tones, Vader-black) are a double veto — new color seats
-  AND a data-honesty claim about appearance we don't hold for ~68 of 82.
-- **Q2 (states).** Preserved for free IFF the sprite is one fill: swap fill/opacity exactly as
-  the circle does, applyState untouched, zero new seats. `.hot` = gold-filled silhouette (still
-  the ONE emphasis seat, still direct-labeled). The moment a sprite has a fixed-color outline,
-  dim/faint stop reading — that's the real reason to forbid multi-tone here.
-- **Q3 (where pixels live / bloat).** 82 inline sprites = a per-character bitmap registry in
-  the JSON. 8×8 1-bit = 8 bytes → ~16 hex chars ×82 ≈ 1.3KB data, tolerable. Decode cost is
-  the trap: naïve `<rect>`-per-pixel = up to 64×82 ≈ 5k nodes at init (×2 for flat-embed
-  redraw). Decode each sprite to ONE `<path>` instead. BUT the registry is a NEW rot + honesty
-  surface: each sprite ASSERTS "this is that character," must stay 1:1 with the roster, and
-  needs its own guard (one-sprite-per-tracked-character, palette hygiene) in the same commit.
-- **Q4/Q5 the likely killers (name in debate).** Legibility: 8×8 silhouette at ×.45 mobile ≈
-  3–4px → indistinguishable blob, worse-reading than a clean dot; run a redundancy/render audit
-  before believing otherwise. Honesty: only ~14 of 82 have canonical faces; inventing the rest
-  is fiction, generic archetypes imply identity we lack. Both point to the same fallback (Q8):
-  faces ONLY on the already-named/gold subset per beat (canonical, larger, legible), dots for
-  the anonymous mass — but that is TWO mark types, a fragmentation cost to weigh vs. keeping
-  dots. Closest honest maximal form is likely "silhouette faces desktop, dots mobile" gated by
-  legibility, not the owner's "all 82 full-color every beat."
-- Scatter (:1227–1246, layered circles + gold extreme-ring) and birth-year strip (:1385) share
-  the dot; changing the census mark but not these forks the vocabulary — scope must be explicit.
+**Won — my single-fill argument became the mechanism.** The silhouette is ONE `<path>`
+swapped in for the `<circle>`, so it inherits the four `.unit` states for free: the fix was
+broadening `.unit circle` → `.unit circle, .unit .face` in each state rule (`.faint` sets
+opacity only). A hot named mark = a gold-filled face — the one emphasis seat, no
+gold-among-81 problem. My double-veto on full-color (new seats AND an appearance claim we
+don't hold for ~68 of 82) carried; my decode-to-ONE-path (row-run rects, never rect/pixel),
+cached, shared builder for sticky+flat carried verbatim; my "registry is a new honesty+rot
+surface, needs a same-commit guard" carried (tests/test_site_faces.py pins that ONLY `.unit`
+state rules may fill `.face` — no new color seat — plus 1:1 injectivity, palette hygiene,
+drift entry, and the beat-5 witness spoiler pin).
 
-Cannot verify: perceptual recognizability of a 3–4px silhouette (needs a render/redundancy
-audit — measurement lane); which characters have canonical on-screen faces (lore lane);
-exact DOM-node/byte cost of the chosen decode (qa lane).
+**Where I was one step behind:** in prep I still framed the honest maximal form as "faces on
+the named/gold SUBSET, dots for the mass" — a static two-mark split. The storyteller's
+resolve-on-named turned that same subset into a REVEAL mechanic (the mark transforms at the
+instant it goes named/hot; beat 5's three anonymous dots → C-3PO/R2/Obi-Wan). Same six marks,
+but a verb not a layout. Lesson: when a subset-only mark is the answer, ask whether it should
+be a state transition (delight, and it leans on the existing state machine) rather than a
+second static mark type — the mechanic I already knew (single-fill inherits states) makes the
+reveal nearly free.
+
+**Newly settled (promoted to Settled above):** faces are single-fill monochrome silhouettes
+inheriting the four mark states; roster-pinned to named beats; decode-to-one-path; no new
+color seat. Prep differently: I under-costed the delight axis — I proved the mark was *legal*
+and *cheap* but the storyteller proved it was *good*. Pair the systems verdict with the
+narrative payoff, not just the guard.
 
 ## Working knowledge
 

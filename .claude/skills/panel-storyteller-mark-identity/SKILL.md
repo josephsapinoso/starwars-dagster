@@ -48,3 +48,25 @@ pointing; issue it to everyone and you point at nothing.
    wall never applies) and the bloat answer (a handful of sprites, not N). Let the story
    ruling shrink the engineering problem before the engineers cost the maximal one; note
    the convergence but defer sizing/palette/feasibility to the graphic-designer/engineer.
+
+6. **The face inherits the state grammar — it spends no new channel.** Ship the resolved
+   mark as a single-fill silhouette that rides the EXISTING mark states: a hot named mark
+   is a gold-filled face (the face IS the one emphasis seat, so there is no gold-among-N
+   problem and no amendment to a single-hue data law), a named-but-not-hot mark is a
+   base-hue face. No outline, no second tone, no per-item hue, no skin tone, no
+   procedural-by-field glyph, no external image. This "spends no new channel" property is
+   what makes the whole panel converge on the resolve instead of arbitrating the maximal
+   ask — lead the debate with it. Ship the earned-identity rule AS A GUARD in the same
+   commit: a sprite exists only for a character named on some beat (injective, registry
+   keyed to canonical facts), and payoff marks are spoiler-pinned so no witness/reveal mark
+   resolves before its beat. (Shipped 2026-07-21, "The Resolving Mark," unanimous.)
+
+## Move: when an owner wants richness on the marks, find the reveal it wants to be
+
+Don't answer a maximal "make every mark X" with a bare veto. Name what the uniform mark
+asserts (rule 1), prove the maximal form is undeliverable in any honest form ("the dot with
+extra nodes" — a generic all-N shape asserts nothing and reads as a dot), then draft the #8
+closest-surviving form: the richness applied ONLY at the beat that already earns it, as a
+reveal. That salvage keeps the conceit, sharpens the pointing gesture, strengthens the
+payoff, AND shrinks the engineering problem — so the panel converges on your form rather
+than costing the maximal one. The owner gets more delight than wallpaper would have given.

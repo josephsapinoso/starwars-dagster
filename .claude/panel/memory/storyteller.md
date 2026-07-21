@@ -103,6 +103,15 @@
 - **The census conceit is load-bearing** (2026-07-19): the stage tooltip is the only
   surface naming most of the 82 individuals; no input modality may be cut off from it.
   On touch it pins; dismissal is the reader's own next tap or own scroll, NEVER a timer.
+- **Identity is earned, not default** (2026-07-21, log 2026-07-21-8bit-character-faces.md):
+  the census population is anonymous dots; a mark gains a FACE only on a beat where the copy
+  already names it. Base marks stay uniform saber-blue dots on every beat — faces are a
+  reveal mechanic, never a population reskin ("faces for all 82" is dead). Faces are
+  single-fill monochrome 8-bit silhouettes that INHERIT the four mark states (a hot face is
+  gold — the one emphasis seat; a named-but-not-hot face is blue — Yoda/Poof); no new color
+  seat, no per-item hue, no skin tone, no procedural-by-field glyph, no external image.
+  Sourcing is a tiny 1:1-guarded registry keyed to `known_facts`; the witnesses reveal is
+  spoiler-pinned (`tests/test_site_faces.py`: no witness sprite resolves before beat 5).
 - **Exposure changes reach, not content** (2026-07-19): widening a verified string's
   audience renders the same string verbatim from its one home; if it doesn't fit the
   vessel, change the vessel.
@@ -152,6 +161,10 @@
   only for payoff *concepts* the pin cannot derive from known_facts.
 - The held pause is beat 4 (the cameos). Any affordance inside the pause must be the
   quietest voice on the page.
+- Resolving-mark faces (2026-07-21, `tests/test_site_faces.py`): six characters resolve
+  into 8-bit silhouettes on the beats that name them — Yoda/Poof blue (heights), Jabba
+  gold (mass), C-3PO/R2-D2/Obi-Wan gold (witnesses), Obi-Wan gold again (pilots). Base
+  marks stay dots; the reveal snaps 3 dots → 3 gold faces at beat 5. Spoiler-pinned.
 - Reveal micro-story structure: claim → machinery (vertical chip chain, one gold
   `.hot` seat) → guard (◆ blocks / ◇ warns + one-line rationale) → honesty line from
   the NOTE.check template. A bare chain is a diagram, not a beat.
@@ -161,156 +174,75 @@
   (adds 2 blocking / 3 WARN on two UNLISTED assets — no beat rail renders them today),
   assets 11→13, WORDS through "twenty". Beats 1 and 4–6 are `guard.kind: "check"`;
   every pytest→check flip re-projected honesty lines with zero hand edits.
-- Birth registry (2026-07-19): `#card-registry`, dashboard Census section — bar (39
-  undated as tint) + dot strip, Yoda gold-ringed, Jabba labeled, BBY gloss printed.
-  Coda ~395–398; Yoda conditional line ~1371–1375.
-- Touch tooltip pin + reveal delta compensation (fdd3178): tipPinned/tipHide
-  ~465–485 and ~796–802; the stage tooltip is now mobile's real-pixel dot-identity
-  channel (bonus, not Q4's justification).
+- Dashboard cards (2026-07-19/20): `#card-registry` (births — bar w/ 39 undated as tint +
+  dot strip, Yoda gold-ringed) then `#card-biographies` (akabab, "A second reading") then
+  coda; Yoda conditional line lives near the registry. Touch tooltip pins/dismisses on the
+  reader's own tap-scroll (fdd3178) — mobile's real-pixel dot-identity channel.
 - Dashboard lineage strip is the epilogue's establishing shot; per-card mini-DAGs were
   rejected unanimously — telling the gag eight ways.
 
-## Banked: 2026-07-18 rounds (pipeline reveals + cleanup; 082d9c9, c0b97e0, 2aa845e; compacted)
+## Banked: 2026-07-18–19 rounds (pipeline reveals, birth registry/coda, token hygiene; compacted)
 
-Won: beats 1–6 only, clean hook, beat-7 callback, micro-story reveal shape, honest
-third act; four spoiler leaks fixed (incl. the "23 unweighed" only my audit caught).
-Lost, correctly: bespoke labels → ONE generated template; my "six pipelines" callback
-was arithmetically false (hand-authored pipeline copy drifts); my cumulative-rail
-mechanism 5–3–1 — a hand-authored `beat` field is unverifiable. A check's blast radius
-is every beat citing its asset. Lessons live in skill rules 9–10.
+All outcomes promoted to Settled above. Pipeline reveals (082d9c9/c0b97e0/2aa845e): won
+beats 1–6 only, clean hook, beat-7 callback, micro-story reveal shape, honest third act;
+fixed four spoiler leaks (incl. "23 unweighed"). Lost correctly: bespoke labels → ONE
+template; hand-authored pipeline copy/`beat` field are unverifiable (a check's blast radius
+is every beat citing its asset). Birth registry/coda (1f3cf9e+): clean sweep — coda,
+quoted testimony, motif cap, subject-only descriptions; registry is a dashboard card, spine
+untouched. Token hygiene (a30a5bc): won across the board — whisper clause was the guard's
+architecture; `.prov-check` 11.5 held 4–2 on adjacent-voices math; "merge the prose, exempt
+the geometry"; registry-is-the-test 5–1. Lessons (now skill rules 7–10): bring the drafted
+pin TABLE not the idea; when two roles collide on a mechanism, check whether MY shape
+dissolves the objection first; draft FINAL copy at prep; reach for quote-and-audit before
+exclusion; a sweep means check harder for anchoring next round.
 
-## Banked: birth registry, coda, hue enforcement (2026-07-19, log 2026-07-19-birth-registry-and-polish.md; 1f3cf9e, 4d92cb7, f170379; compacted)
+## Banked: akabab second source + site surfacing (2026-07-20, two rounds; logs 2026-07-20-akabab-*.md)
 
-Clean sweep; all outcomes promoted to Settled above (coda + digits-pin; quoted
-testimony; motif cap; subject-only descriptions; spine untouched — registry is a
-dashboard card). Lessons: draft the FINAL copy at prep time; reach for quote-and-audit
-before exclusion; a sweep means check harder for anchoring next debate. Watch:
-unconditionalizing the Yoda line's data-gated render is a law violation; the coda is
-the ONLY post-grid narrative element — the frame closes once.
+Both rounds clean on my turf; every outcome promoted to Settled above (two-register report
+copy; A-second-reading dashboard card, no 9th beat; 82/82 leads; no ranked faction chart;
+pre-veto/quoted-testimony; WORDS-overflow pin). Drafted-copy discipline won its 2nd and 3rd
+consecutive tiebreaks — bring FINISHED copy, it decides; in a naming dispute the source's
+as-filed vocabulary ("Affiliations") is a tiebreak only a finished draft can invoke. My
+one-archive/second-reading frame became the placement's stated rationale (spine 100%
+untouched). Lessons kept: file-read pass predicted every fault line again; audit memory for
+STALE numbers before debate (the 81→82 matched slip — defer to known_facts, never my note);
+baselines are computed from the frozen fixture, never transcribed (the data twin of "never
+hand-write pipeline arithmetic").
 
-## Banked: token hygiene + type consolidation (2026-07-19, decision log 2026-07-19-token-hygiene.md; a30a5bc; compacted)
+## Banked: 8-bit faces / "The Resolving Mark" (2026-07-21, log 2026-07-21-8bit-character-faces.md)
 
-Won across the board: the whisper clause was the guard's architecture; `.prov-check`
-11.5 held 4–2 on the concrete adjacent-voices math (precedent survives best re-argued
-from the surface, not the statute); "merge the prose, exempt the geometry" adopted
-whole, my voice-safe merges verbatim (register markers carried every merged voice);
-exact pins answered allow-lists-rot (a drifted pin is a red test); registry-is-the-test
-5–1. Lost nothing outright. Lessons kept in skill rules 7–9: bring the drafted pin
-TABLE, not the pin idea; when two roles collide on a mechanism, check whether MY shape
-dissolves the objection before picking a side.
+My proposal WON and shipped, unanimous. Owner's maximal ask (all 82 → faces, every beat)
+was vetoed on four independent grounds (honesty, legibility, color law, narrative); the
+shipped design is my #8 closest-surviving form — a mark RESOLVES into an 8-bit silhouette
+exactly on the beat where copy names it, base marks stay uniform dots. Six characters ever
+resolve (Yoda/Poof blue on heights; Jabba gold on mass; C-3PO/R2-D2/Obi-Wan gold on the
+witnesses; Obi-Wan again gold on pilots). Beat 5 became the payoff I argued for: three
+anonymous dots snap into gold faces at the reveal (verified by render). Census conceit and
+the 82-dots hook intact; my spoiler must-have shipped as a guard (min-beat == the reveal).
+All promoted to Settled above.
 
-## Banked: akabab second source (2026-07-20, log 2026-07-20-akabab-second-source.md; prep folded in)
+- **Two sub-fights fell my way for the reason my skill predicts:** vs. UX/GD's all-82
+  shared silhouette — a generic face identical for 82 asserts nothing and reads as a dot
+  (rule 2, spent individuation); vs. engineer's procedural glyph f(species) — species ≠
+  face and a field-varying glyph cross-talks with the beat-3 homeworld grouping (rule 1,
+  honesty). The engineer's real value (no rotting unguardable second source) was honored by
+  making the registry tiny and 1:1-guarded, not by making it procedural — his objection
+  dissolved into my shape rather than trading against it (the token-hygiene lesson again:
+  check whether MY form absorbs the objection before picking a side).
+- **My color solve became law:** a hot face IS the gold accent (one display-emphasis seat),
+  so faces inherit the four states with zero amendment to the single-hue data law. This is
+  what let all six roles converge — the face spends no new channel.
+- Lost: nothing. The maximal ask itself was undeliverable in any honest form ("the dot with
+  extra nodes"), so "not delivered as asked" was the only truthful verdict — and the
+  resolve gave the owner more fun than wallpaper faces would have.
 
-Clean round on my turf; drafted-copy discipline won its second tiebreak. Spine, beat
-sheet, and reveals untouched — Option C ratified unanimously; site ripple is the
-totals pin plus WORDS growth through "twenty" with a pytest pin that `len(WORDS)`
-exceeds every DATA-rendered count (my 2026-07-18 overflow lesson, now generalized law).
-
-- **Q5 won whole**: analyst register held (galaxy_report is engineering-adjacent
-  stakeholder voice — emoji headers, "Total characters tracked" — never the census
-  conceit; two-register law), my drafted copy adopted VERBATIM, and the title tiebreak
-  ("Affiliations" over lore/tech-writer's "Allegiances") fell to me precisely because
-  I brought finished copy anchored to the as-filed field name. New technique: in a
-  naming dispute, the source's as-filed vocabulary is a tiebreak I can invoke — and
-  only a finished draft can invoke it.
-- **Q3 won**: all five check descriptions payoff-free at birth. My prep read was
-  exactly right — the report cannot leak (repo Markdown, not a site rail); the real
-  spoiler surface is check descriptions on today-unlisted assets, which the spoiler
-  pin cannot see because the payoff term set doesn't exist yet. Deaths, like births,
-  read as a records fact, not a spine payoff — no veto, same call as the registry.
-- **Pre-veto became law**: my Yoda 896+4=900 tripwire was adopted verbatim as
-  surfacing-panel tripwire (1) AND generalized into the cross-source Settled
-  constraint. The quoted-testimony rule gained its second application before its
-  first violation.
-- Adopted from others, now my voice law for the report: lore's "deaths on file"
-  package ("deceased" would overclaim — sequel-inclusive AND canon-incomplete);
-  analyst's nested denominators as copy discipline, not checks (qa's five-check
-  ceiling held). Lost: nothing outright.
-
-Prep differently: the file-reading pass predicted every fault line (register,
-non-leaking report, descriptions as spoiler surface, future-chain hazard) — keep
-doing it. Add one borrowed lesson: baselines are computed from the frozen fixture,
-never transcribed (three independent surveys disagreed on record counts) — the
-data-side twin of "never hand-write pipeline arithmetic"; cite it against any
-transcribed number in copy. Still cannot verify: whether a future panel makes
-affiliations/lineage a spine beat — that's their call, my tripwires are written.
-
-## Banked: akabab site surfacing (2026-07-20, log 2026-07-20-akabab-site-surfacing.md)
-
-Won clean on my turf. Every position I brought to prep survived, and the coda-referent
-argument became the placement's stated rationale.
-
-- **Placement won unanimously (D1): dashboard card, no 9th beat.** My frame carried it —
-  the census spine is ONE archive (8 steps, "n/8"); a second source is a second *reading*
-  of that archive, a dashboard act after `#card-registry`, never a mid-spine beat. Both my
-  narrative reasons landed: (a) one-archive coherence — injecting a fan-curated source
-  mid-census breaks the single-archive frame beats 0–7 depend on; (b) the coda's "every
-  record is open to a second reading" is now the card's PRE-AUTHORED referent, sitting
-  immediately above the coda. The frame closes stronger. Spine 100% untouched
-  (BUILDERS.length=8, exactly-8 kickers, claims-cover-1..6, drift "1,2,3,4,5,6" all intact).
-- **My "A second reading" card copy shipped** with lore's attribution gloss — drafted-copy
-  discipline won its third consecutive tiebreak. Bring finished copy; it decides.
-- **82/82 leads (D2)** — the headline is the MATCH because it is the only akabab number that
-  is BOTH complete AND pipeline-guarded (`character_biographies_join_coverage`). My old
-  "81 matched" memory line was stale; brief/known_facts EXPECTED_PROFILE_MATCH_COUNT=82 wins.
-  Ladder beneath in "on file" vocabulary; closing "absence is not survival" gloss survives.
-- **Ranked affiliations chart DROPPED unanimously (D5)** — lore proved the canon-scope trap
-  live (computed top-8 is sequel-inclusive: New Republic, CIS). A ranked bar is a ranking
-  *claim* a six-film site can't honestly make. Only saga-safe coverage COUNTS surface. New
-  banked law I now enforce on copy: no ranked faction chart on a saga-scoped site.
-- **My pre-veto held**: the card states single-source akabab figures only — no Yoda 896+4,
-  no signed year (the `bio` object carries a `diedOnFile` boolean, never `died_year_aby`).
-- **The L320/L941 contradiction fix landed unconditionally** — my flagged "never hand-write
-  pipeline arithmetic" bug; L320 now reads "five SWAPI pulls and one akabab pull … five
-  transforms", consistent with the JS-rendered count and totals.
-
-Lost: nothing outright. SQL shipped (one executable `bios` counts query) though I called it
-optional — no fourth act materialized, so no narrative cost; not my veto ground.
-
-Prep differently: the file-reading pass again predicted every fault line — keep it. One
-correction to self: audit memory for STALE numbers before debate (the 81/82 slip) — a
-banked figure can go stale when the fixture recomputes; defer to known_facts, never my note.
-
-## Prep notes: 8-bit faces as the census mark (2026-07-21)
-
-Brief asks: owner wants ALL 82 dots → 8-bit character faces, every beat (maximal).
-My mandate is narrative, not pixels. Verified against site/index.html:
-- Beat 0 dek literally says "told here as a census of **82 dots**" — the mark is named
-  in the hook copy; the dot IS the census idea.
-- Mark states (:89-92): base=blue anon / dim / faint / hot=gold+direct-labeled. `hot`
-  is "look-at-this-one" and every gold mark is ALSO named. Individuation already
-  happens exactly where the story spends it.
-- Stage tooltip is the ONLY surface naming most of the 82 (Settled, census conceit).
-  Anonymity-that-individuates-on-demand is the whole conceit.
-- Payoff = beat 5, three marks (C-3PO/R2-D2/Obi-Wan) saw all six films.
-
-My verdict (for debate): **maximal HURTS the spine, veto it.** Three narrative faults:
-(1) 82 recognizable faces from beat 0 = a character parade / cast poster, NOT a census;
-uniform marks are the census made visible, and faces contradict the records-office/
-archive voice the absences (unweighed, unknown-homeworld, never-measured) depend on.
-(2) The gold `hot` pointing gesture dies — you can't point at one face among 81 faces;
-free individuation is spent payoff. (3) **Recognizability front-runs the beat-5 payoff**:
-the droids and Vader are the most iconic marks; make all marks faces and the reader's eye
-locks onto the witnesses the whole scroll — a leak through the EYE no spoiler-pin catches.
-Plus story-honesty: most of the 82 have no canon face; inventing 82 asserts identity the
-archive lacks (twin of data-honesty).
-
-**#8 closest-surviving form (my ONE proposal):** a mark RESOLVES into an 8-bit face at
-the moment it goes hot / is named — only the featured subset, only at its beat. Base
-marks stay uniform blue dots. This keeps the census, sharpens the pointing gesture (the
-face IS the emphasis), and makes the witnesses reveal STRONGER: three anonymous dots
-turning into three faces at beat 5 is a better reveal than dots-with-gold. Bonus
-convergence: the named subset = exactly the characters WITH canonical faces (honesty
-solved), featured marks are scaled-up and few (mobile ~3px legibility wall never applies,
-bloat trivial). Let this narrative cut shrink the engineering problem before anyone costs
-the maximal one. Colour law (Q1): faces on the hot seat can BE the gold accent (display
-emphasis, one mark) — no need to amend the single-hue data law; base marks stay saber
-blue. If pressed toward more: faces-on-hover is the next fallback (individuation on
-demand = the tooltip's job, same conceit), still no faces at rest.
-
-Skill written: panel-storyteller-mark-identity (mark identity as spent currency).
-Cannot verify: sprite feasibility/palette/bloat numbers and the exact resolve animation
-under reduced-motion — graphic-designer/engineer turf; I rule on sequence, not pixels.
+Prep differently: the file-read pass again predicted every fault line (hook names the dot;
+hot is already named; tooltip is the sole naming surface; witnesses are the iconic leak).
+Keep it. New reusable move, now in skill rule 6: when an owner asks for richness on the
+marks, don't just veto — find the reveal the richness WANTS to be, draft it as the #8
+salvage, and let it shrink the engineering problem so the panel converges on my form
+instead of arbitrating the maximal one. Cannot verify: whether a later panel extends the
+resolve to the scatter/birth-strip (held out of v1 — different legibility regime).
 
 ## Banked: watchlist round (2026-07-19, log 2026-07-19-watchlist-round.md; fdd3178; compacted)
 

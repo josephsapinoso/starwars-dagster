@@ -28,6 +28,20 @@ zoom). Design so that at 6px the sprite = a solid filled blob (i.e. it degrades 
 the dot it replaced) — never a scatter of loose pixels that reads as noise or dirt.
 Test at the FINEST clustered beat, not the sparse hero beat.
 
+## 2b. The winning form is a RESOLVING mark, not a population reskin (shipped 2026-07-21)
+A silhouette identical for the whole population asserts nothing and reads as "the dot
+with extra nodes" — no delight. The shipped answer: **a picture appears ONLY at emphasis
+size on marks the copy already NAMES; the base population stays uniform dots.** Identity
+is earned, not default — the picture is a REVEAL mechanic on the few named/hot marks
+(here six of 82), never wallpaper across all marks. This sidesteps the footprint-density
+legibility wall entirely (named marks render at their larger emphasis size, and the copy
+already carries the identity claim the picture echoes). Ask "which marks does the story
+already name?" BEFORE proposing a mark shape — that number, not the population, is your
+scope. Degrade-to-blob (§2) is the small-size safety net, not the primary form.
+The resolve is a STATIC state class (a `<path>` swapped for the `<circle>`), never an
+animation/morph/tween — reduced-motion then needs no gate. Faces never appear at footprint
+density; only at emphasis size.
+
 ## 3. State must survive without a second hue (single-hue law holds)
 Base/faint/dim are opacity states on the fill; `hot` is gold — allowed ONLY because
 gold is display emphasis on a single mark that is ALSO name-labeled (not a series).
@@ -52,6 +66,13 @@ violation, same family as the akabab likeness gap). A single generic humanoid gl
 for all 82 is honest but is just a fancier dot — it does NOT deliver "character faces."
 The gap between the owner's appetite (recognizable faces, all 82) and what the data
 can truthfully assert is the core tension; surface it, don't paper over it.
+**Resolution (shipped):** a sprite asserts only what the adjacent NAME already asserts —
+so it exists only for marks named in copy on some beat, keyed 1:1 to `known_facts`
+canonical names, guarded in the same commit (a sprite for an anonymous mark = ERROR;
+injective; palette-hygiene: fill only from state tokens, no hex/skin tone; decode is a
+pure deterministic function → one path; drift + spoiler pins extend to the sprite set).
+No per-item hue, no procedural-by-field glyph (species ≠ face and cross-talks with any
+group-by-field beat encoding), no external image.
 
 ## 6. Accessibility / naming-surface law is unchanged by the mark shape
 The stage tooltip stays the only surface naming most of the 82 (census-conceit veto).
