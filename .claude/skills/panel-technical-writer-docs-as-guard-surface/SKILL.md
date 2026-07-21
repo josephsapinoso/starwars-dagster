@@ -107,6 +107,26 @@ ripple:
    the snippet from "here's how you'd add it" to "the pipeline now does this; go further
    by X," in the same commit. Grep the tutorial for the pattern's nouns first.
 
+### What actually shipped: no pattern, a fixed over-claim
+
+The panel stood pat — NO partition/SCD/incremental asset (every form was contrived on a
+static, heterogeneous, 82-row snapshot, and the endpoint-partition form ALSO rippled once
+the code shape showed 5 separate raw SDAs collapsing to 1). So the demonstrated-limit
+conversion above was never triggered. Instead the panel found the ONE non-contrived
+weakness — `schedules.py` claimed an incremental/streaming payoff it never delivered — and
+that copy fix is the whole change. Two durable lessons:
+
+- **A docstring/comment is reader-facing docs and gets the honesty bar.** "Docs must not
+  claim a capability the code lacks" applies to `schedules.py` as much as to the site: a
+  scheduler on a STATIC source is a full refresh, and the copy must say so, not
+  "simulates streaming." When auditing a repo for a portfolio ding, grep code comments/
+  docstrings for capability verbs (streaming, incremental, CDC, backfill, merge) and check
+  each against what the code actually does — the cheapest honest fix often lives here.
+- **A docs-ripple estimate is only as good as the code shape it assumes.** The "endpoint
+  partition reopens only ONE bullet, contained" call was wrong because the raw layer was 5
+  assets, not 1 — collapsing them rewrote a tutorial lesson and rippled site totals.
+  Confirm asset COUNT and SHAPE with code roles before calling a change contained.
+
 ## Companion rule (banked law, lives in checks.py docstring)
 
 Check descriptions state the INVARIANT and its STAKES; run metadata carries

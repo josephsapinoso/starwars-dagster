@@ -31,13 +31,27 @@ Two why-nots look identical in prose but differ in signal strength:
   it, hasn't shown it." Naming the mechanism and its forcing-trigger is honest but is not
   proof of capability.
 For a PROTECTING why-not, the documented-limit almost always beats adopting machinery
-(the #2 result). For an EXCUSING why-not, weigh ONE non-contrived, guarded demonstration
-against the prose: if a real key exists to demonstrate over WITHOUT faking data (e.g. a
-static partition over an existing categorical key, not a faked time key), the
-demonstration + honest "still absent for X because Y" copy can out-signal the excuse.
-Reject the demonstration if it requires faking the data's shape (time partitions on a
-static snapshot, an SCD history table that can never change) — that is the cargo-cult the
-honesty signal exists to guard against; keep the excuse and sharpen the copy instead.
+(the #2 result). For an EXCUSING why-not, DON'T assume a demonstration wins — it usually
+loses. Run these gates before pitching one:
+1. **Price the honesty constraint on the PAYOFF first.** What single number/claim would
+   the demo headline? If the honesty roles have already banked that number as
+   un-displayable (survey noise, un-baselineable drift, a "0 of N changed" on a frozen
+   fixture), the demo has NO headline and the argument is dead on arrival. Check this
+   BEFORE building the signal case — a banned number can't anchor a demo. (Cost me the
+   SCD2 push: its payoff was "we detect the 87→88 drift", already banned.)
+2. **"A real key exists" is necessary, NOT sufficient.** A static partition over an
+   existing categorical key still fails if it (a) ripples the site (collapses clean
+   single-asset-per-endpoint into one partitioned asset, moves pinned totals/DAG counts),
+   or (b) the key is a denominator trap (many-to-many, so it isn't the headline count).
+   Re-check both before leaning on the key.
+3. **Reject anything that fakes the data's shape** (time partitions on a static snapshot,
+   an SCD history table that can never change) — cargo-cult the honesty signal guards against.
+When the data genuinely lacks the pattern's dimension, EVERY demo is contrived, so the
+documented "Limits, by design" why-not is the STRONGER senior signal even for an excusing
+why-not — knowing not to bolt scale machinery onto an 82-row static snapshot out-signals
+doing it. Keep the excuse, sharpen the copy, and fix any doc that OVER-CLAIMS the absent
+capability (e.g. a scheduler docstring implying incremental/streaming on a full-refresh
+static source) — that over-claim, not the absence, is the real defect.
 
 ## Step 1 — Verify the idiom's real capability (PRIMARY, non-negotiable)
 Read the framework source, not the brief or the docs summary. Ask: can the native

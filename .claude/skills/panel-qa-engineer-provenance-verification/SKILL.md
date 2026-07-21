@@ -91,6 +91,26 @@ say so.
 - humans (analyst/owner): the semantic beat→asset attribution. Not mechanically
   provable; keep it reviewed, not asserted.
 
+## 4b. Ripple law: which pins are EQUALITY vs SUBSET (governs asset additions)
+
+Not all provenance pins move the same way when the graph changes — know which before
+ruling a pipeline change "site-free":
+
+- Site provenance TOTALS (test_site_provenance.py ~L261-269) and the DAG-strip CHIP SET
+  (~L242-258) are EQUALITY pins against the introspected real defs. They move on ANY
+  change to the asset-key set.
+- The per-asset check BLOB (~L76-101) is a SUBSET pin — it only checks that LISTED assets
+  carry their cited checks. New checks on UNLISTED assets pass it silently.
+
+Consequence: adding ONE asset key OR ONE `@asset_check` ripples the site's totals + DAG
+strip in the SAME commit, by law. A pipeline change is "site-free" ONLY if it adds zero
+asset keys and zero checks. A new UNLISTED asset carrying checks still trips the two
+equality pins even though it satisfies the subset blob. Before scoping ripple, VERIFY THE
+TARGET ASSET'S GRAPH SHAPE (e.g. the raw layer is FIVE separate SDAs, so an "endpoint
+partition" collapses 5→1 and rewrites totals + the WORKSHOP Layer-1 lesson — a mental
+"single asset" model is not the topology). Introspect real defs, not the mental inventory.
+(Production-pattern panel, 2026-07-21.)
+
 ## 5. Anti-patterns to veto
 
 - Hand-copied edge lists or check names anywhere (site JS, tests, README).

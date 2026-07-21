@@ -40,9 +40,26 @@ capability-on-real-cadence, never as a claim of live churn).
 - Prefer PIPELINE-ONLY v1: an asset no site claim cites stays off the provenance map.
 - Still ripples asset/check COUNTS (README, CLAUDE.md, WORKSHOP, site totals) — same commit.
 - CHECK whether the site DAG-strip pin is equality (chips == all real defs) or subset BEFORE
-  claiming "site-free": if equality, any new asset forces the strip to render it.
+  claiming "site-free": if equality, any new asset key OR `@asset_check` forces the strip to
+  render it. (On this repo: totals + DAG-strip are EQUALITY pins, per-asset blob is SUBSET.)
+- **Trace the asset-GRAPH shape a partition rewrites, not just the count delta, BEFORE calling
+  it "contained."** A partition keyed on a dimension that spans N separate assets (e.g. an
+  "endpoint partition" where the raw layer is 5 clean single-asset ingestions) is an N→1
+  COLLAPSE — it drops the asset count, rewrites the teaching lesson that names those assets, and
+  changes downstream signatures. A collapse is never contained. Containment is upstream of
+  site-ripple: answer it first.
 - Adding the pattern REOPENS any "Limits, by design" copy that documented its absence — the
   forcing-trigger wording must change from hypothetical to the real trigger you hooked.
+
+## When STAND PAT wins (2026-07-21 verdict)
+Both partition and SCD2 lost on this repo. The deciding chain: (1) every form is contrived
+because the data lacks the dimension; (2) both ripple the site despite "pipeline-only" hopes;
+(3) the "real drift across refreshes" hook that would rescue SCD2 had NO honest number — the
+observed cross-survey delta (87→88) is un-baselineable SURVEY NOISE, and survey numbers never
+become displayed/baseline numbers. So the CDC reframe above only rescues SCD2 when the delta is
+a genuine, baselineable, displayable count — NOT mere source-survey disagreement. Absent that,
+the documented limit + an honest schedule docstring (no "streaming"/"incremental" over-claim on
+a full-refresh cron) is the stronger senior signal.
 
 ## Bar to clear (from the dagster-duckdb non-adoption bank)
 A documented, guarded NON-adoption can out-signal bolted-on machinery. Demonstrated pattern

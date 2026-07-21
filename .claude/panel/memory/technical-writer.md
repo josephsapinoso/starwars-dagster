@@ -108,6 +108,22 @@
   a future "modernize" refactor trips both the pin and the marker and must re-read the
   decision. "Silent adoption-of-the-status-quo" (keeping raw code with no note) is the
   worst outcome — worse than either migrating or documenting. (dagster-duckdb, 2026-07-21.)
+- **Code comments/docstrings must not claim a capability the code lacks (MINE, banked
+  law):** a scheduler on a static source is a full refresh and the copy must SAY so —
+  no "simulates streaming" / "returns new records each run" over-claim. Docstrings are
+  reader-facing docs and get the same honesty bar as the site and README. The one
+  non-contrived weakness a whole panel found was this over-claim, not the missing
+  pattern. (production-pattern panel, 2026-07-21.)
+- **"Limits, by design" bullets stay literally true — sharpen, don't delete.** The
+  engineering judgment a limits section signals is naming the ceiling AND its forcing-
+  trigger (what would force the change); a scale technique bolted onto an 82-row static
+  snapshot signals less than knowing not to. A lead-in may make that judgment explicit;
+  no bullet is deleted to look more capable. (production-pattern panel, 2026-07-21.)
+- **No production-pattern-for-show (extends the #2 why-not from framework idioms to
+  ARCHITECTURAL patterns):** a partition/incremental/SCD/backfill asset is not added
+  merely to signal scale on a source that lacks the pattern's dimension; the documented
+  limit out-signals contrived machinery. Revisit only if the source gains a real time
+  axis or grows past re-pull scale. (production-pattern panel, 2026-07-21.)
 
 ## Working knowledge
 
@@ -127,10 +143,11 @@
   two-word beat kickers; lineage-strip heading "The pipeline that made this page".
   galaxy_report house style: topical-noun headings, italic on-page denominators,
   bullet counts, machinery voice with light flavor.
-- Ground truth (2026-07-19 commits, PRE-akabab landing): 11 assets / 4 transforms /
-  15 checks (4 blocking, 11 warn); `birth_year_bby`; six executed SQL strings;
-  WORDS through "fifteen" (index.html:863); README Limits at 117–137; screenshots
-  at 15 green (f170379). Akabab landing will ripple to 13/5/20 — see banked plan.
+- Ground truth (current, post-akabab): 13 assets / 5 transforms / 20 checks (4 blocking,
+  16 warn); `birth_year_bby`; six executed SQL strings; WORDS at index.html:~863; README
+  "Limits, by design" between "How this was built" and "Learn Dagster". schedules.py copy
+  now states full-refresh-on-static (production-pattern panel). Retake screenshots only
+  when a visual shows check/asset counts.
 - Jargon-introduction duty (mine): first mention of "akabab" in README and WORKSHOP
   gets the gloss "akabab/starwars-api, a community-maintained static JSON dataset
   (MIT, GitHub Pages)". Proper-noun jargon earns its place by being introduced.
@@ -192,80 +209,47 @@
 - Dashboard cards state denominatored numbers and rely on the DAG strip for lineage —
   no card-level check badge (a badge needs a claim entry, i.e. the beats-1–6 machinery).
 
-## Banked: dagster-duckdb why-not (2026-07-21; decision
-`2026-07-21-dagster-duckdb-decision.md`; shipped)
+## Banked: dagster-duckdb why-not (2026-07-21; shipped; laws now in Settled + skill)
 
-- **My position won (A: don't migrate, document the why-not).** Center of gravity was
-  mine: 2 firm-A, 1 lean-A, 1 conditional-B. Shipped exactly as argued — Module 10 gains
-  "Why NOT DuckDBResource" beside "Why NOT Great Expectations" (names `read_only=False`,
-  tradeoff both ways); Module 2 gains a forward-pointer resolving the Module 2→3 coherence
-  gap; transforms.py comment POINTS to Module 10 (never restates); the "silent A" I warned
-  against was avoided. Feature + guard + docs in ONE commit; no dep added; 13 assets / 20
-  checks unchanged. Both new laws promoted to Settled above.
-- **The decisive win was the FRAMING: a documented non-adoption is richer teaching than
-  another how-to.** "When NOT to adopt an idiom" beats "used the resource." The external
-  fact (`get_connection()` hardcodes `read_only=False`, no per-connection arg, stable
-  1.7–1.13) that killed migration was code roles' find — but MY job was proving the WORKSHOP
-  cost was low and the coherence gap was real, which is what made (A) shippable rather than
-  a cop-out. Docs cost adjudicated an architecture question a FIFTH time.
-- **My blast-radius grep prep was over-built for the outcome that shipped** — I mapped every
-  edit for a migration that didn't happen. But the SAME grep proved the Module 2→3 gap was
-  real and localized, which sold the forward-pointer. Reusable: even when I argue AGAINST a
-  change, mapping its blast radius surfaces the coherence gap the why-not must name.
-- **qa's "deliberate omission is guardable" married my "silent A is worst":** the rationale
-  marker pin in transforms.py is the mechanism that makes the why-not un-erasable. A doc
-  decision and its guard landed together — docs-as-guard-surface's strongest form yet.
-- Prep differently next time: when a portfolio "ding" arrives, lead prep with "what's the
-  cheapest honest FRAMING" before mapping the expensive fix — the answer here was a 3-edit
-  why-not, and I nearly over-invested in migration-edit choreography.
+- My position won (A: don't migrate, document the why-not). Shipped as argued: Module 10
+  gains "Why NOT DuckDBResource", Module 2 a forward-pointer, transforms.py a rationale
+  pin. The decisive win was FRAMING — a documented non-adoption teaches more than another
+  how-to; my job was proving the WORKSHOP cost was low + the coherence gap real, which made
+  (A) shippable not a cop-out. Docs cost adjudicated architecture a FIFTH time.
+- Reusable: even arguing AGAINST a change, mapping its blast radius surfaces the coherence
+  gap the why-not must name. Prep-differently (carried forward + reused at #production-
+  pattern): when a portfolio "ding" arrives, lead with "cheapest honest FRAMING" before
+  mapping the expensive fix.
 
-## Prep notes: production pattern (partitions/SCD) — 2026-07-21
+## Banked: production pattern (partitions/SCD/incremental) — 2026-07-21
+(decision `2026-07-21-production-pattern.md`; STAND PAT — pure docs/copy honesty shipped)
 
-- **"Limits, by design" is a LADDER, not a single omission.** README:124–144. Five
-  honest ceilings, each shaped limit→why-fine-now→forcing-trigger. TWO bullets are
-  directly reopened: #1 "Full refresh, no history" (:128 — names "no incremental merge,
-  no SCD, no change history") and #3 "No partitions" (:135). Shipping a real
-  partition/SCD makes BOTH read as contradicted-by-code unless rewritten SAME commit.
-- **The honest-form conversion (my proposed copy law):** a deliberate-absence bullet
-  becomes a demonstrated-once bullet ONLY if the new sentence stays literally true about
-  the DATA. "No partitions" → "Partitioned by film to demonstrate backfill/reprocess
-  mechanics; the rest stays full-refresh because the snapshot is static — a growing or
-  date-stamped source forces partitioning across the board." Still a LIMIT (names the
-  remaining ceiling), now with a proof point. If the only truthful sentence would claim
-  production-scale the 82-row snapshot doesn't warrant, the bullet turns dishonest — that
-  is the veto signal, and it aligns exactly with the #2 why-not bar (machinery must
-  out-signal the honest limit, not cargo-cult it).
-- **Does it violate the just-banked why-not?** No, IF framed as ladder-conversion, not
-  erasure. The why-not principle guards "silent status quo" and cargo-cult adoption. A
-  demonstrated pattern that KEEPS its honest ceiling sentence is neither — it's "here's
-  the pattern AND here's where I stopped and why," which is a STRONGER senior signal than
-  either bare absence or contrived scale. But option (b) SCD on a never-changing source
-  needs my "on file"/honesty-vocab discipline: a history table that never changes MUST
-  say so in copy (a guard-simulated delta is not real history) — else it's fake honesty.
-- **WORKSHOP Module 10 collision (docs-as-guard-surface):** Module 10 ALREADY teaches
-  partitions as an ASPIRATIONAL "Going Further" snippet (:674–691, `StaticPartitionsDefinition`
-  over episodes) AND says "This unlocks incremental processing." Shipping a partition
-  pre-solves the reader's own next step — the snippet must move from "here's how you'd add
-  it" to either (i) "the pipeline now does this — see `<asset>`; go further by X" or (ii)
-  a re-pointed extension. Also the sensor snippet (:657) and the "Why NOT" sections stay.
-  A shipped SCD/partition likely wants its OWN new teaching module or a promoted Module 10
-  subsection, NOT left as speculative sample code the repo now contradicts.
-- **Count ripple IF asset/check counts change (my skill's surfaces):** README headline
-  (:48), ASCII diagram (:42–46 — a new group/stage must be DRAWN), group table (:52–54),
-  exact-value-tests list (:79), tree comments (:157/:160), Stack list; WORKSHOP enumerating
-  sentences (:299/:338) + any fully-quoted resources/defs dict + every Exercise (grep for
-  pre-solve); site provenance totals triple (~:413) + WORDS array (~:863, needs the new
-  spelled count or beat-7 renders "undefined") + test_site_provenance totals/per-asset pins;
-  screenshots retaken AFTER ripple lands. Ground truth now: 13 assets / 5 transforms / 20
-  checks (post-akabab). A pipeline-only v1 that does NOT enter the site provenance blob
-  avoids the WORDS/totals/screenshot ripple — recommend v1 stays pipeline-only (README +
-  WORKSHOP + CLAUDE.md counts only), keeping the site blob untouched.
-- **Recommend v1 scope:** pipeline-only, no site/provenance surface — matches the "second
-  source is a card not a beat" precedent (surface deferral until a panel rules). Keeps my
-  blast radius to README Limits (2 bullets) + WORKSHOP Module 10 + counts, not the site.
-- Can't verify: whether a partitioned/merge asset holds under the in_process/single-writer
-  lock (code roles own that — #5); whether checks.py gains blocking vs warn checks (changes
-  the 4/16 split, a count surface); the actual asset/check delta until the code shape is set.
+- **My docs-honesty analysis largely won.** Nothing shipped as a new asset/check/site
+  change; the fix landed entirely in MY lane. (1) SCD2 was rejected partly because it
+  forces the hollow "0 of N changed" sentence and reopens TWO limits bullets — my
+  count-the-reopened-bullets argument. (2) My "WORKSHOP Module 10 pre-solves its own
+  partition exercise" concern went moot once no pattern shipped. (3) The endpoint-partition
+  form I + the data-analyst preferred did NOT ship either: the CODE-SHAPE finding (raw
+  ingestion is 5 separate SDAs; collapsing 5→1 rewrites the WORKSHOP Layer-1 lesson AND
+  ripples the site totals/DAG-strip) falsified my "contained, one-bullet" containment
+  premise. Lesson: a docs-ripple estimate is only as good as the code shape it assumes —
+  confirm the asset COUNT/SHAPE with code roles before calling a change "contained."
+- **What shipped, both mine:** `schedules.py` rewritten — its docstring + daily-schedule
+  description no longer claim an incremental/streaming payoff the code never delivers; it
+  now says full-refresh on a static source and points to "Limits, by design." And a
+  sharpened "Limits, by design" lead-in making explicit that naming the ceiling AND its
+  forcing-trigger is the judgment. Every bullet stayed literally true; nothing deleted;
+  99 tests green.
+- **The decisive reframe was "cheapest honest FRAMING before the expensive fix"** (the
+  prep-differently note I banked from the #2 panel, applied). The whole debate assumed the
+  fix was a new asset; the real defect was a docstring over-claiming a capability — a
+  copy edit, not architecture. When a portfolio "ding" arrives, first ask what sentence is
+  actually dishonest today; often the answer is a comment, not a feature.
+- Three new laws promoted to Settled above: docs/comments must not claim absent
+  capability; Limits bullets sharpen-don't-delete; no production-pattern-for-show.
+- Prep differently: the akabab 87→88 "drift" I eyed as a possible headline is SURVEY
+  NOISE (analyst's frozen-baseline law reaffirmed) — never a displayed/detected number.
+  Don't hunt for a "change to showcase" on a frozen source.
 
 ## Open watch items (mine)
 

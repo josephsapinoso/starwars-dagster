@@ -127,45 +127,52 @@ Durable, reusable lessons:
   in `test_pipeline.py`. A deliberate technology non-adoption is a GUARDABLE artifact
   (marker pinned in source beside the invariant it protects), not just prose. Do not
   "modernize" without a panel.
+- **No production-pattern-for-show (production-pattern panel, 2026-07-21):** a partition /
+  incremental / SCD / backfill asset is NOT added merely to signal scale. On a static,
+  small, heterogeneous source lacking the pattern's dimension, EVERY demonstration is
+  cargo-cult — SCD on a frozen fixture can only say "0 of N changed"; a time partition
+  fakes an absent time key; an endpoint/episode partition collapses 5 clean SDAs, ripples
+  the site totals/DAG-strip, and hits a many-to-many denominator trap. So the documented
+  "Limits, by design" why-not is the stronger senior signal — extends #2 from framework
+  idioms to architectural patterns. Docs must not claim a capability the code lacks: a
+  scheduler on a static source is a full refresh and the copy says so (schedules.py fixed).
+  Revisit only if the source gains a real time axis or grows past re-pull scale.
 
 Cannot verify (standing): off-platform artifact link preview.
 
-## Prep notes: production pattern (partition/SCD) vs "Limits, by design" (2026-07-21)
+## Banked: production pattern (partition/SCD) (2026-07-21)
 
-Knew: "Limits, by design" (README L124-144) is settled honest copy — each bullet is
-limit → why-fine-now → forcing trigger, incl. "Full refresh, no history" and "No
-partitions." The #2 why-not principle (don't trade a rare signal for table stakes).
+Verdict: `.claude/panel/decisions/2026-07-21-production-pattern.md`. Outcome: STAND PAT —
+no partitioned/incremental/SCD asset; fix schedules.py over-claim; sharpen "Limits, by
+design". My SCD2-as-v1 push did NOT win; the documented why-not held. Prep notes folded here.
 
-Learned (crux — the ASYMMETRY that separates this from #2): in the dagster-duckdb case
-the strong signal (the tested `read_only` single-writer contract) was ALREADY REAL in
-the code; the why-not merely declined a DIFFERENT idiom. Here, "no history / no
-partitions" documents patterns that appear NOWHERE in the repo — the why-not EXCUSES an
-absent capability rather than PROTECTING a demonstrated one. That is materially weaker:
-a reviewer probing rec #3's "can you actually build incremental/SCD/partitions?" finds
-prose, not proof. A why-not naming a mechanism you've never shown < a why-not for a
-mechanism the repo proves elsewhere. So the #2 principle does NOT automatically save the
-limit here; the two why-nots are different species.
-- schedules.py: `daily_refresh_schedule` re-pulls ALL endpoints; docstring already says
-  "swap in a live API, schedule logic stays identical" — the cadence is real, the
-  incremental payoff is asserted but never demonstrated. Latent probe: "you run daily but
-  full-refresh a static snapshot — so what does the schedule prove?"
-- Real keys that EXIST: `episode_id` (6 films), the 5 endpoints, homeworld. NO time/date
-  key in source — a time-partitioned incremental would be FAKED (the cargo-cult tell).
-- Contrivance ranking: (a) static partitions over `episode_id`/endpoint = least dishonest
-  (real key, honest backfill/reprocess semantics, no faked change) but tiny; (b) daily-
-  snapshot SCD2/MERGE = stronger senior pattern BUT "hollow if never changes" — needs a
-  simulated delta, the exact tell the honesty signal guards against.
-- Leaning: the honest limit out-signals bolt-on machinery ONLY if we keep excusing an
-  absence; the sharper move is ONE genuinely non-contrived demonstration over a REAL key
-  (lean (a) episode_id partitions) + guard (partition/backfill test) in the same commit,
-  with "Limits" REWRITTEN to "partitioning demonstrated over episode_id; time-partitioned
-  incremental still absent because the source is static." Keep pipeline-only for v1 (no
-  site/provenance touch); asset/check counts ripple (count-ripple law, tech-writer owns).
-  Verdict is NOT a default yes and NOT a default no — it turns on whether the chosen form
-  is non-contrived AND the copy stays honest about what is/ISN'T demonstrated.
+Won:
+- **The schedules.py over-claim fix (my must-have) shipped.** It literally claimed an
+  incremental/streaming payoff ("simulates streaming"; "API would return new records each
+  run") it never delivers — the ONE non-contrived weakness. Now honest: cron-driven
+  orchestration + full refresh on a static source, pointing at "Limits, by design."
+- **PROTECTS-vs-EXCUSES was the influential lens** — the panel adopted my framing that
+  the dagster-duckdb why-not PROTECTED a real capability while "no partitions" EXCUSES an
+  absent one. But the conclusion FLIPPED against me: when the data lacks the pattern's
+  dimension, every demo is cargo-cult, so the honest limit is the strongest senior signal.
+  My own #2 principle applied to me.
 
-Can't verify: whether a per-film/per-endpoint reprocess serves any real analytics
-consumer (if not, (a) is still decoration); the final asset/check count delta (freeze).
+Ceded:
+- **SCD2 as v1 demo** — honesty-blocked. On frozen fixtures it can only render "0 of N
+  changed" (hollow), and a code-shape finding showed BOTH SCD2 and the "endpoint
+  partition" ripple the site (endpoint form collapses 5 SDAs, 13→9 assets); each is
+  contrived on an 82-row static heterogeneous snapshot.
+- **"Anchor on the 87→88 akabab drift" — banned.** That is un-baselineable survey noise;
+  it can never be a displayed number or "detected change" headline. My headline had no
+  legs the instant that number was off-limits.
+
+Prep-differently (the lesson): **price the honesty constraint on the headline BEFORE
+betting a signal argument on it.** I built an SCD2 pitch whose payoff was "we detect the
+87→88 change" — a number already banked as un-displayable. A banned number cannot anchor a
+demo; check the honesty roles' displayed-number law FIRST, then decide if a signal
+argument even has a headline left to stand on. Also: a "real key exists" (episode_id) is
+NOT sufficient to save an EXCUSING demo — re-check site-ripple and denominator traps
+(episode_id is many-to-many, not 82) before leaning on it.
 
 ## Banked: akabab site surfacing (2026-07-20 — compacted)
 
@@ -191,40 +198,17 @@ counts (unverified until freeze).
 ## Banked: dagster-duckdb non-adoption (2026-07-21)
 
 Verdict: `.claude/panel/decisions/2026-07-21-dagster-duckdb-decision.md`. Outcome: do NOT
-migrate (Option A) — my position won and my core argument carried the decision. Prep notes
-folded here (superseded). Idiom-vs-discipline skill updated (Step 3 now covers guarding
-the non-adoption with a rationale marker).
-
-Won (decisive):
-- **My signal argument carried it**: a *tested* single-writer `read_only` reader/writer
-  contract is a RARER, stronger senior signal (shows single-writer-lock/lifecycle
-  awareness few portfolio pipelines demonstrate) than "used the resource" — table stakes,
-  invisible in a 90-second scan. Migrating deletes the strong signal to gain the weak one.
-- **Guard-honesty veto held on (B)**: two same-file `DuckDBResource` instances would move
-  the reader/writer distinction into Definitions wiring — best case idiomatic-but-invisible,
-  worst case enforcement theater (uncertain the hardcoded kwarg even honors config
-  read-only). My "don't trade a proven signal for a common one" frame closed it.
-- **Primary verification was decisive** (data-engineer + qa confirmed): `get_connection()`
-  hardcodes `read_only=False`, no per-connection args, stable 1.7–1.13. The idiom
-  STRUCTURALLY cannot express the invariant — this killed the full migration, the
-  path/config compromise, AND the (C) subclass in one fact. Reading framework source, not
-  the brief, converted opinion to evidence again.
-- **The ding became demonstrated judgment**: documented why-not (WORKSHOP Module 10 beside
-  the Great-Expectations why-not + Module 2→3 forward-pointer + transforms.py comment)
-  answers "why not dagster-duckdb?" — knows the idiom AND has a concrete reason. Same
-  "Limits, by design" / failure-mode-separation shape already banked.
-- **Non-adoption made GUARDABLE** (with qa): rationale-marker pin in test_pipeline.py
-  asserts `"DuckDBResource"` + `"read_only=False"` present in source, so a future
-  "modernize" refactor trips both the safety pin and the marker. Prose alone rots.
-
-Lost/ceded: nothing of mine. IO-manager (5 raw tables ≠ 1 table/key, breaks provenance
-pin + site lineage strip) was unanimous OUT; the writer/tech-writer owned the WORKSHOP
-placement and Module 2 coherence-gap fix (their ground, better than my framing).
-
-Would prep differently: nothing structural — arriving with the framework-source fact
-pre-verified let me pre-empt the compromise positions before they were raised. The one
-reflex to keep: when a panelist proposes a partial adoption, check whether the idiom can
-express the invariant AT ALL before debating placement; a structural "cannot" ends the
-branch faster than any signal argument.
+migrate (Option A) — my position won. Durable constraint folded into Settled (line ~120);
+skill covers guarding non-adoption with a rationale marker. Core wins (compacted):
+- My signal argument carried it: a *tested* single-writer `read_only` contract is a RARER
+  senior signal than "used the resource" (table stakes, scan-invisible); migrating deletes
+  the strong signal to gain the weak one. Guard-honesty veto held on the two-instance (B)
+  path (enforcement theater). Primary verification decisive: `get_connection()` hardcodes
+  `read_only=False` — the idiom STRUCTURALLY cannot express the invariant, killing every
+  adoption branch in one fact. Ding → demonstrated judgment (WORKSHOP Module 10 why-not),
+  and made GUARDABLE (marker pin). Ceded nothing; IO-manager unanimous OUT.
+- Reflex to keep: when a panelist proposes partial adoption, check whether the idiom can
+  express the invariant AT ALL before debating placement — a structural "cannot" ends the
+  branch faster than any signal argument.
 
 Cannot verify (standing): off-platform artifact link preview.

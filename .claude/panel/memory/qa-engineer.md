@@ -148,6 +148,21 @@
   inline duplicate-name pair; shape check fails on a missing-`name` record; coverage
   WARN emits unmatched names both directions. README/WORKSHOP counts stay a human
   same-commit checklist — no prose grep pins. (2026-07-20.)
+- Provenance-pin ripple law (governs ANY asset/check addition): site provenance
+  totals (test_site_provenance.py L261-269) and the DAG-strip chip set (L242-258) are
+  EQUALITY pins against introspected real defs; the per-asset check blob (L76-101) is
+  a SUBSET pin. So ANY new asset KEY or `@asset_check` ripples the site's totals +
+  DAG strip in the SAME commit by law — a pipeline change is NOT "site-free" unless it
+  adds zero asset keys and zero checks. A new UNLISTED asset carrying checks passes the
+  subset blob but STILL trips the two equality pins. (Production-pattern panel,
+  2026-07-21.)
+- No production-pattern-for-show: a partition / incremental / SCD / backfill asset is
+  NOT added merely to signal scale. On a static, small, heterogeneous source lacking
+  the pattern's dimension, the documented "Limits, by design" why-not is the stronger
+  senior signal (extends the dagster-duckdb why-not principle from framework idioms to
+  architectural patterns). Docs must not claim a capability the code lacks (schedules.py
+  is a full refresh on a static source and says so). Revisit only if the source gains a
+  real time axis or grows past re-pull scale. (Production-pattern panel, 2026-07-21.)
 
 ## Working knowledge
 
@@ -155,10 +170,11 @@
   (people count, join coverage, unknown-mass/height, cast sanity, four
   character_stats drift baselines, birth-year baseline + UNGATED-principle
   parse-honesty via `additional_ins`, read_only connect). After akabab lands:
-  13 assets, 5 transforms, 20 checks (6 blocking) — the totals pin at
-  test_site_provenance.py:242 introspects real defs, so the site triple ripples
-  same-commit automatically. Grep trap: docstrings mention `@asset_check` /
-  `blocking=True` — always introspect check_specs, never grep counts.
+  13 assets, 5 transforms, 20 checks (6 blocking) — the equality pins (totals
+  L261-269, DAG-strip L242-258; see provenance-pin ripple law in Settled) introspect
+  real defs, so the site ripples same-commit automatically on any asset/check add.
+  Grep trap: docstrings mention `@asset_check` / `blocking=True` — always introspect
+  check_specs, never grep counts.
 - Provenance pins (test_site_provenance.py:76-101) pin each LISTED asset's check set
   exactly → new checks must attach only to UNLISTED assets (raw_character_profiles,
   character_biographies comply). Spoiler pin scans only claim-chain assets; unlisted
@@ -187,69 +203,34 @@
   tests/fixtures/akabab/SNAPSHOT.json marker; character_biographies joins the
   declared-writers list (THIRD writer) same commit.
 
-## Prep notes: production-pattern asset guard slate (2026-07-21)
+## Banked: production-pattern (STAND PAT) (2026-07-21)
 
-Brief: if partitions / incremental MERGE / SCD2 ships, what guards prove it works AND
-keep it honest; does it disturb pins? Read test_pipeline.py, conftest.py, checks.py,
-snapshot_fixtures.py this pass.
+Log: `.claude/panel/decisions/2026-07-21-production-pattern.md`. Outcome: no
+partitioned/incremental/SCD asset shipped; change was copy-only (fix schedules.py
+over-claim, sharpen "Limits, by design"). My endpoint-partition VOTE did not carry.
 
-Honesty stance (mine): SWAPI is a FROZEN 6-film snapshot; the daily schedule re-pulls
-IDENTICAL data. So an SCD2/history table will have exactly one version per entity
-forever — CDC that never fires. Surfacing it as "change history" would be implied-live-
-status (guard-honesty law, memory L32). SCD2 = STRONGER senior signal but carries
-phantom-CDC honesty debt I must guard; static partitions over `episode_id` (real key,
-EXPECTED_EPISODE_IDS) are HONEST with zero CDC-implication risk. Lower-risk honest form
-= partitions; heavier-guard form = SCD2.
+Won (durable, now Settled): my site-ripple READING was decisive and is banked as the
+provenance-pin ripple law — totals + DAG-strip are EQUALITY pins, per-asset blob is
+SUBSET, so any new asset key OR asset_check ripples the site same-commit. This governs
+ALL future asset additions, not just this one.
 
-GUARD SLATE — PARTITIONED asset (all offline unless noted):
-1. Partition-roster pin (ungated pytest): partition def keys == known_facts roster; a
-   key not in the data can't be defined.
-2. Single-partition materialize: materialize one key, assert only that slice persists.
-3. Backfill PARITY: materialize ALL partitions, union == full-refresh output for same
-   data — the anti-gap/anti-overlap guard at partition seams. THE partition test.
-4. Invalid key handled (raise or empty, never mis-write).
-5. Writer joins declared-writers loop (test_pipeline.py:211); executor stays in_process.
+Moot: my full production-pattern guard slate (partition roster/single-slice/backfill-
+parity; SCD merge-correctness/idempotency/no-phantom-change/static-source-honesty;
+two-guard separation for mechanism-vs-static). No asset shipped → no guard slate needed.
+Kept as a DORMANT playbook only if a real time axis ever arrives — captured in skill
+panel-qa-engineer-production-pattern-guards, not re-inlined here.
 
-GUARD SLATE — SCD2 / incremental MERGE (offline behavior tests, InlineSWAPIResource,
-craft day1/day2 records — never depend on fixture content):
-1. Merge correctness: valid_from/valid_to/is_current set right; prior version closed.
-2. IDEMPOTENCY (the key incremental guard): re-run identical snapshot → zero new history
-   rows. Seen-to-fail: break merge key → duplicates.
-3. Change-detection on SIMULATED delta: craft a changed field → exactly one new version,
-   prior closed. Ungated/synthetic — proves the MECHANISM works.
-4. No-phantom-change: identical field → NO new version (guards a merge that re-versions
-   every run — the false-CDC bug).
-5. Static-source HONESTY guard (snapshot-gated): on the real frozen snapshot, history has
-   one current version per entity, zero superseded rows — pipeline STATES "static source,
-   mechanism demonstrated," never implies churn. Honesty floor as a guard.
-6. Writer registration + read_only pin unchanged; executor in_process.
+Lost correctly: endpoint partition was falsified by CODE SHAPE — the raw layer is FIVE
+separate SDAs, so an "endpoint partition" collapses 5→1 (asset count 13→9, rewrites the
+WORKSHOP Layer-1 lesson, changes star_wars_db's signature) and DOES ripple the site —
+contradicting the "site-free" premise the partition majority (incl. me) rested on. On a
+dimensionless snapshot every pattern is contrived.
 
-Two-guard separation (memory L71) APPLIES here: "mechanism works" (offline, synthetic,
-UNGATED) vs "source is static / zero changes on file" (snapshot-gated). Never let one
-masquerade as the other. Vocabulary like deaths-on-file: "as-of snapshot"/"one version
-on file", never "change history" implying churn that never happens.
-
-COLLISIONS:
-- read_only pin: HOLDS. New MERGE/SCD asset is a WRITER → declared-writers loop, opens
-  read-write; readers untouched.
-- Executor lock: HOLDS and is PROTECTED. Partition backfill / repeated merge writes to
-  the single DuckDB file MUST stay in_process (sequential); multiprocess backfill would
-  race the single-writer lock (the 2026-07-18 bug). access-policy test already pins
-  in_process — do NOT switch executor for parallel backfill without a panel.
-- offline-CI: HOLDS. Mechanism tests use InlineSWAPI (offline); static-source honesty
-  gated on the snapshot marker.
-- COUNT-RIPPLE: DOES ripple. New asset + checks bump 13→14 / 20→N. Site total-count pin
-  (test_site_provenance.py:242 introspects real defs) AND the DAG-strip chip set (pinned
-  to real asset keys, memory L138) move same-commit — so "pipeline-only v1" is NOT site-
-  zero-touch; the DAG strip gains a chip and totals shift. Flag to technical-writer/
-  frontend: adding any asset touches the site's DAG strip + totals by law.
-
-Can't verify this pass (confirm before DEBATE): exact index.html render of total counts
-vs chips; whether a new UNLISTED asset carrying checks trips the per-asset provenance
-pins (memory L162 says new checks must attach to UNLISTED assets — an SCD asset is
-unlisted, so OK, but I didn't re-read test_site_provenance.py:76-101 today). Also whether
-"Limits, by design" README copy must be surgically edited (technical-writer owns) vs
-deleted — a partition demo REMOVES the "no partitions" limit line, a count-ripple.
+Prep differently (the lesson): VERIFY THE TARGET ASSET'S GRAPH SHAPE before ruling any
+change "site-free" or "contained." I reasoned about a hypothetical single partitioned
+asset without confirming the raw layer was 5 assets; the containment premise was false.
+Read the actual asset topology, not the mental model, before scoping ripple. Reinforces
+the standing habit: introspect real defs, never a mental inventory.
 
 ## Banked: dagster-duckdb non-migration (2026-07-21)
 

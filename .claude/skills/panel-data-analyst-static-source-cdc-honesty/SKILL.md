@@ -36,6 +36,20 @@ the QUESTION is what the table makes a reader believe, and whether the data prov
 - The honest static partition is a DISJOINT key (independent endpoints/entities): reprocess
   one is real, no fan-out. Any partitioned count on a public surface must cross-foot to the
   known total or disclose why it can't.
+- **Topology caveat (before calling a partition "contained"):** if each endpoint/entity is
+  ALREADY its own asset, a per-endpoint partition COLLAPSES N assets into 1 partitioned asset
+  — dropping the asset count, rewriting lineage lessons, and rippling any site total/DAG pin.
+  The "honest disjoint partition" can be the LARGER ripple, not the smaller one. Count the
+  assets and site-pins the change touches before endorsing it as the contained version.
+
+## When every demonstration is contrived
+On a static, small, heterogeneous, few-row snapshot the source lacks the DIMENSION every
+candidate pattern needs (no time axis; join keys many-to-many; endpoints heterogeneous; SCD
+detects nothing). When SCD, partition, AND incremental are all contrived, a documented
+"Limits, by design" why-not that names each ceiling with its forcing-trigger is the stronger
+senior signal than bolted-on machinery. Then hunt the ONE non-contrived defect: copy/docs
+that CLAIM a capability the code lacks (a scheduler on a static source is a full refresh —
+say so). Fixing the over-claim, not adding the pattern, is the real work.
 
 ## Scope gate
 Pipeline-only v1 ⇒ no provenance/DATA/drift-detector change. The moment ONE number
